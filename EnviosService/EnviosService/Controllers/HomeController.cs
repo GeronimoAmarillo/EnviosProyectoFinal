@@ -11,7 +11,7 @@ namespace EnviosService.Controllers
     public class HomeController : Controller
     {
         public IActionResult Index()
-        {//alsknfskfnsalkfnslksanflksafnsafnsnanfla
+        {
             return View();
         }
 
