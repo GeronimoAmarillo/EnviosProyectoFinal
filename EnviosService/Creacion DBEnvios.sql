@@ -28,6 +28,7 @@ CREATE TABLE Usuarios
 CREATE TABLE Empleados
 (
 	Sueldo money not null,
+	IdUsuario Integer foreign key references Usuarios(Id),
 	Ci integer primary key
 )
 
@@ -48,6 +49,7 @@ CREATE TABLE Cadetes
 CREATE TABLE Clientes
 (
 	RUT bigint primary key not null,
+	IdUsuario Integer foreign key references Usuarios(Id),
 	Mensualidad money not null
 )
 
