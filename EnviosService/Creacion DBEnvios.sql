@@ -28,35 +28,27 @@ CREATE TABLE Usuarios
 CREATE TABLE Empleados
 (
 	Sueldo money not null,
-	Ci Integer not null,
-	IdUsuario Integer foreign key references Usuarios(Id),
+	Ci integer primary key
 )
 
 CREATE TABLE Administradores
 (
-	CiEmpleado Integer foreign key references Empleados(Ci),
-	IdEmpleado Integer foreign key references Empleados(IdUsuario),
-	Tipo char not null,
-	primary key (CiEmpleado, IdEmpleado)
-
+	CiEmpleado Integer foreign key references Empleados(Ci) primary key,
+	Tipo char not null
 )
 
 CREATE TABLE Cadetes
 (
 	TipoLibreta Varchar(2) not null,
 	IdTelefono BigInt not null,
-	CiEmpleado Integer foreign key references Empleados(Ci),
-	IdEmpleado Integer foreign key references Empleados(IdUsuario),
-	primary key (CiEmpleado, IdEmpleado)
+	CiEmpleado Integer foreign key references Empleados(Ci) primary key,
 
 )
 
 CREATE TABLE Clientes
 (
-	RUT bigint unique not null,
-	Mensualidad money not null,
-	IdUsuario Integer foreign key references Usuarios(Id),
-	primary key (RUT, IdUsuario)
+	RUT bigint primary key not null,
+	Mensualidad money not null
 )
 
 CREATE TABLE Vehiculos
@@ -109,13 +101,13 @@ CREATE TABLE Multas
 	Suma money not null,
 	Fecha date not null,
 	Motivo NVarchar(150) not null,
-	Primary Key (Id, Vehculo)
+	Primary Key (Id, Vehiculo)
 
 )
 
 CREATE TABLE Adelantos
 (
-	Id integer identity(1,1),
+	Id integer unique identity(1,1),
 	Empleado integer foreign key references Empleados(Ci),
 	Suma money not null,
 	CantidadCuotas int not null,
@@ -136,12 +128,11 @@ CREATE TABLE Cuotas
 
 CREATE TABLE Calificaciones
 (
-	Id integer identity(1,1) Primary Key,
+	Id integer identity(1,1),
 	Puntaje int not null,
-	IdCliente Integer foreign key references Clientes(Id),
-	RutCliente Integer foreign key references Clientes(Rut),
+	RutCliente bigint foreign key references Clientes(RUT),
 	Comentario NVarchar(250) not null,
-	Primary Key (Id, IdCliente, RutCliente)
+	Primary Key (Id, RutCliente)
 
 )
 
@@ -154,28 +145,23 @@ CREATE TABLE Galpones
 
 CREATE TABLE Sectores
 (
-	Codigo Integer not null,
+	Codigo Integer primary key,
 	Superficie Decimal not null,
-	Temperatura Integer not null,
-	Galpon Integer foreign key references Galpones(Id),
-	primary key(Codigo, Galpon)
+	Temperatura Integer not null
 )
 
 CREATE TABLE Racks
 (
-	Codigo Integer not null,
+	Codigo Integer primary key,
 	Altura Decimal not null,
 	Superficie Decimal not null,
-	Sector Integer foreign key references Sectores(Codigo),
-	Galpon Integer foreign key references Sectores(Galpon),
-	primary key (Codigo, Sector, Galpon)
+	Sector Integer foreign key references Sectores(Codigo)
 )
 
 CREATE TABLE Casillas
 (
-	Codigo Integer not null,
-	Rack Integer foreign key references Racks(Codigo),
-	primary key(Codigo, Rack)
+	Codigo Integer primary key,
+	Rack Integer foreign key references Racks(Codigo)
 )
 
 CREATE TABLE Palets
@@ -184,7 +170,6 @@ CREATE TABLE Palets
 	Producto NVarchar(100) not null,
 	Cantidad Integer not null,
 	Peso Decimal not null,
-	Cliente Integer foreign key references Clientes(RUT) not null,
 	Casilla Integer foreign key references Casillas(Codigo)
 )
 
@@ -212,25 +197,21 @@ CREATE TABLE Ingresos
 
 CREATE TABLE Balances
 (
-	Id Integer identity (1,1) not null,
+	Id Integer identity (1,1) primary key,
 	Mes Nvarchar (10) not null,
 	Año Integer not null,
-	Abierto bit not null default(0),
-	Primary key(Id, Mes, Año)
+	Abierto bit not null default(0)
 )
 
 CREATE TABLE Registros
 (
-	Id Integer identity (1,1) not null,
+	Id Integer identity (1,1) primary key,
 	Fecha date not null,
 	UtilidadBruta money not null,
 	UtilidadOperacional money not null,
 	UtilidadSinImpuestos money not null,
 	UtilidadEjercicio money not null,
-	BalanceId integer foreign key references Balances(Id),
-	BalanceMes Nvarchar(10) foreign key references Balances(Mes),
-	BalanceAño Integer foreign key references Balances(Año),
-	primary key (Id, Fecha, BalanceId, BalanceMes, BalanceAño)
+	BalanceId integer foreign key references Balances(Id)
 )
 
 CREATE TABLE Locales
@@ -252,8 +233,8 @@ CREATE TABLE Entregas
 	Codigo integer identity(1,1) primary key,
 	Fecha date not null,
 	NombreReceptor Nvarchar(150) not null,
-	ClienteReceptor integer foreign key references Clientes(RUT),
-	ClienteEmisor integer foreign key references Clientes(RUT),
+	ClienteReceptor bigint foreign key references Clientes(RUT),
+	ClienteEmisor bigint foreign key references Clientes(RUT),
 	LocalReceptor integer foreign key references Locales(Id),
 	LocalEmisor integer foreign key references Locales(Id),
 	Turno Nvarchar(7) foreign key references Turnos(Codigo)
@@ -261,13 +242,12 @@ CREATE TABLE Entregas
 
 CREATE TABLE Paquetes
 (
-	NumReferencia Integer not null,
+	NumReferencia Integer Primary Key,
 	FechaSalida date not null,
 	Estado Nvarchar(15) not null,
 	Ubicacion Nvarchar(100) not null,
 	Entrega Integer foreign key references Entregas(Codigo),
-	Cliente Integer foreign key references Clientes(RUT),
-	primary key(NumReferencia, Cliente)
+	Cliente Bigint foreign key references Clientes(RUT)
 )
 
 CREATE TABLE Reclamo
@@ -275,7 +255,5 @@ CREATE TABLE Reclamo
 	Id integer identity(1,1) not null,
 	Comentario Nvarchar(250) not null,
 	Paquete integer foreign key references Paquetes(NumReferencia) not null,
-	Cliente integer foreign key references Paquetes(Cliente) not null,
-	Entrega integer foreign key references Paquetes(Entrega) not null,
 	primary key(Id, Paquete)
 )
