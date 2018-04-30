@@ -1,0 +1,1762 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EnviosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Adelantos">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Empleado" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Empleado" Type="int" Nullable="false" />
+          <Property Name="Suma" Type="money" Nullable="false" />
+          <Property Name="CantidadCuotas" Type="int" Nullable="false" />
+          <Property Name="Saldado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Administradores">
+          <Key>
+            <PropertyRef Name="CiEmpleado" />
+          </Key>
+          <Property Name="CiEmpleado" Type="int" Nullable="false" />
+          <Property Name="Tipo" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Automobiles">
+          <Key>
+            <PropertyRef Name="MatriculaAuto" />
+          </Key>
+          <Property Name="Puertas" Type="int" Nullable="false" />
+          <Property Name="MatriculaAuto" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Balances">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Mes" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Año" Type="int" Nullable="false" />
+          <Property Name="Abierto" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cadetes">
+          <Key>
+            <PropertyRef Name="CiEmpleado" />
+          </Key>
+          <Property Name="TipoLibreta" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="IdTelefono" Type="bigint" Nullable="false" />
+          <Property Name="CiEmpleado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Calificaciones">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="RutCliente" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Puntaje" Type="int" Nullable="false" />
+          <Property Name="RutCliente" Type="bigint" Nullable="false" />
+          <Property Name="Comentario" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Camiones">
+          <Key>
+            <PropertyRef Name="MatriculaCamion" />
+          </Key>
+          <Property Name="Altura" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="MatriculaCamion" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Camionetas">
+          <Key>
+            <PropertyRef Name="MatriculaCamioneta" />
+          </Key>
+          <Property Name="Cabina" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="MatriculaCamioneta" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Casillas">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="int" Nullable="false" />
+          <Property Name="Rack" Type="int" />
+        </EntityType>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="RUT" />
+          </Key>
+          <Property Name="RUT" Type="bigint" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" />
+          <Property Name="Mensualidad" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cuotas">
+          <Key>
+            <PropertyRef Name="Vencimiento" />
+            <PropertyRef Name="IdAdelanto" />
+          </Key>
+          <Property Name="Vencimiento" Type="date" Nullable="false" />
+          <Property Name="IdAdelanto" Type="int" Nullable="false" />
+          <Property Name="Suma" Type="money" Nullable="false" />
+          <Property Name="Pagada" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Empleados">
+          <Key>
+            <PropertyRef Name="Ci" />
+          </Key>
+          <Property Name="Sueldo" Type="money" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" />
+          <Property Name="Ci" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Entregas">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="NombreReceptor" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ClienteReceptor" Type="bigint" />
+          <Property Name="ClienteEmisor" Type="bigint" />
+          <Property Name="LocalReceptor" Type="int" />
+          <Property Name="LocalEmisor" Type="int" />
+          <Property Name="Turno" Type="nvarchar" MaxLength="7" />
+        </EntityType>
+        <EntityType Name="Galpones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Altura" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Superficie" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gastos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Suma" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Impuestos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Porcentaje" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ingresos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Suma" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Locales">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Direccion" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Motos">
+          <Key>
+            <PropertyRef Name="MatriculaMoto" />
+          </Key>
+          <Property Name="Cilindrada" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="MatriculaMoto" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Multas">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Vehiculo" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Vehiculo" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Suma" Type="money" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="Motivo" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Palets">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Producto" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Cantidad" Type="int" Nullable="false" />
+          <Property Name="Peso" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Casilla" Type="int" />
+        </EntityType>
+        <EntityType Name="Paquetes">
+          <Key>
+            <PropertyRef Name="NumReferencia" />
+          </Key>
+          <Property Name="NumReferencia" Type="int" Nullable="false" />
+          <Property Name="FechaSalida" Type="date" Nullable="false" />
+          <Property Name="Estado" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Ubicacion" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Entrega" Type="int" />
+          <Property Name="Cliente" Type="bigint" />
+        </EntityType>
+        <EntityType Name="Racks">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="int" Nullable="false" />
+          <Property Name="Altura" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Superficie" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Sector" Type="int" />
+        </EntityType>
+        <EntityType Name="Reclamo">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Paquete" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Comentario" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Paquete" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Registros">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fecha" Type="date" Nullable="false" />
+          <Property Name="UtilidadBruta" Type="money" Nullable="false" />
+          <Property Name="UtilidadOperacional" Type="money" Nullable="false" />
+          <Property Name="UtilidadSinImpuestos" Type="money" Nullable="false" />
+          <Property Name="UtilidadEjercicio" Type="money" Nullable="false" />
+          <Property Name="BalanceId" Type="int" />
+        </EntityType>
+        <EntityType Name="Reparaciones">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Vehiculo" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Taller" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="Monto" Type="money" Nullable="false" />
+          <Property Name="Vehiculo" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sectores">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="int" Nullable="false" />
+          <Property Name="Superficie" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Temperatura" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Turnos">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="nvarchar" MaxLength="7" Nullable="false" />
+          <Property Name="Dia" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Hora" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="NombreUsuario" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="Contraseña" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="Direccion" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Telefono" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vehiculos">
+          <Key>
+            <PropertyRef Name="Matricula" />
+          </Key>
+          <Property Name="Matricula" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Marca" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="Modelo" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="Capacidad" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Estado" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Adelantos__Emple__3E52440B">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Adelantos" Type="Self.Adelantos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="Ci" />
+            </Principal>
+            <Dependent Role="Adelantos">
+              <PropertyRef Name="Empleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Administr__CiEmp__0CBAE877">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Administradores" Type="Self.Administradores" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="Ci" />
+            </Principal>
+            <Dependent Role="Administradores">
+              <PropertyRef Name="CiEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Automobil__Matri__1ED998B2">
+          <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="1" />
+          <End Role="Automobiles" Type="Self.Automobiles" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Vehiculos">
+              <PropertyRef Name="Matricula" />
+            </Principal>
+            <Dependent Role="Automobiles">
+              <PropertyRef Name="MatriculaAuto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cadetes__CiEmple__117F9D94">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Cadetes" Type="Self.Cadetes" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="Ci" />
+            </Principal>
+            <Dependent Role="Cadetes">
+              <PropertyRef Name="CiEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Calificac__RutCl__49C3F6B7">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Calificaciones" Type="Self.Calificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="RUT" />
+            </Principal>
+            <Dependent Role="Calificaciones">
+              <PropertyRef Name="RutCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Camiones__Matric__286302EC">
+          <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="1" />
+          <End Role="Camiones" Type="Self.Camiones" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Vehiculos">
+              <PropertyRef Name="Matricula" />
+            </Principal>
+            <Dependent Role="Camiones">
+              <PropertyRef Name="MatriculaCamion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Camioneta__Matri__2D27B809">
+          <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="1" />
+          <End Role="Camionetas" Type="Self.Camionetas" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Vehiculos">
+              <PropertyRef Name="Matricula" />
+            </Principal>
+            <Dependent Role="Camionetas">
+              <PropertyRef Name="MatriculaCamioneta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Casillas__Rack__5AEE82B9">
+          <End Role="Racks" Type="Self.Racks" Multiplicity="0..1" />
+          <End Role="Casillas" Type="Self.Casillas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Racks">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Casillas">
+              <PropertyRef Name="Rack" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Clientes__IdUsua__164452B1">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errores durante la generación:
+advertencia 6035: La relación 'FK__Cuotas__IdAdelan__440B1D61' tiene columnas que no forman parte de la clave de la tabla en el lado principal de la relación. Se excluyó la relación.
+        <Association Name="FK__Cuotas__IdAdelan__440B1D61" />-->
+        <Association Name="FK__Empleados__IdUsu__07F6335A">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Empleados">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entregas__Client__06CD04F7">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+          <End Role="Entregas" Type="Self.Entregas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="RUT" />
+            </Principal>
+            <Dependent Role="Entregas">
+              <PropertyRef Name="ClienteReceptor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entregas__Client__07C12930">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+          <End Role="Entregas" Type="Self.Entregas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="RUT" />
+            </Principal>
+            <Dependent Role="Entregas">
+              <PropertyRef Name="ClienteEmisor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entregas__LocalE__09A971A2">
+          <End Role="Locales" Type="Self.Locales" Multiplicity="0..1" />
+          <End Role="Entregas" Type="Self.Entregas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locales">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Entregas">
+              <PropertyRef Name="LocalEmisor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entregas__LocalR__08B54D69">
+          <End Role="Locales" Type="Self.Locales" Multiplicity="0..1" />
+          <End Role="Entregas" Type="Self.Entregas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locales">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Entregas">
+              <PropertyRef Name="LocalReceptor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entregas__Turno__0A9D95DB">
+          <End Role="Turnos" Type="Self.Turnos" Multiplicity="0..1" />
+          <End Role="Entregas" Type="Self.Entregas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turnos">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Entregas">
+              <PropertyRef Name="Turno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Motos__Matricula__239E4DCF">
+          <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="1" />
+          <End Role="Motos" Type="Self.Motos" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Vehiculos">
+              <PropertyRef Name="Matricula" />
+            </Principal>
+            <Dependent Role="Motos">
+              <PropertyRef Name="MatriculaMoto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Multas__Vehiculo__36B12243">
+          <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="1" />
+          <End Role="Multas" Type="Self.Multas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehiculos">
+              <PropertyRef Name="Matricula" />
+            </Principal>
+            <Dependent Role="Multas">
+              <PropertyRef Name="Vehiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Palets__Casilla__5FB337D6">
+          <End Role="Casillas" Type="Self.Casillas" Multiplicity="0..1" />
+          <End Role="Palets" Type="Self.Palets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Casillas">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Palets">
+              <PropertyRef Name="Casilla" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Paquetes__Client__10566F31">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+          <End Role="Paquetes" Type="Self.Paquetes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="RUT" />
+            </Principal>
+            <Dependent Role="Paquetes">
+              <PropertyRef Name="Cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Paquetes__Entreg__0F624AF8">
+          <End Role="Entregas" Type="Self.Entregas" Multiplicity="0..1" />
+          <End Role="Paquetes" Type="Self.Paquetes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entregas">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Paquetes">
+              <PropertyRef Name="Entrega" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Racks__Sector__5629CD9C">
+          <End Role="Sectores" Type="Self.Sectores" Multiplicity="0..1" />
+          <End Role="Racks" Type="Self.Racks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sectores">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Racks">
+              <PropertyRef Name="Sector" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reclamo__Paquete__151B244E">
+          <End Role="Paquetes" Type="Self.Paquetes" Multiplicity="1" />
+          <End Role="Reclamo" Type="Self.Reclamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paquetes">
+              <PropertyRef Name="NumReferencia" />
+            </Principal>
+            <Dependent Role="Reclamo">
+              <PropertyRef Name="Paquete" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Registros__Balan__74AE54BC">
+          <End Role="Balances" Type="Self.Balances" Multiplicity="0..1" />
+          <End Role="Registros" Type="Self.Registros" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Balances">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Registros">
+              <PropertyRef Name="BalanceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reparacio__Vehic__31EC6D26">
+          <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="1" />
+          <End Role="Reparaciones" Type="Self.Reparaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehiculos">
+              <PropertyRef Name="Matricula" />
+            </Principal>
+            <Dependent Role="Reparaciones">
+              <PropertyRef Name="Vehiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EnviosModelStoreContainer">
+          <EntitySet Name="Adelantos" EntityType="Self.Adelantos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Administradores" EntityType="Self.Administradores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Automobiles" EntityType="Self.Automobiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Balances" EntityType="Self.Balances" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cadetes" EntityType="Self.Cadetes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Calificaciones" EntityType="Self.Calificaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Camiones" EntityType="Self.Camiones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Camionetas" EntityType="Self.Camionetas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Casillas" EntityType="Self.Casillas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cuotas" EntityType="Self.Cuotas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empleados" EntityType="Self.Empleados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Entregas" EntityType="Self.Entregas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Galpones" EntityType="Self.Galpones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gastos" EntityType="Self.Gastos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Impuestos" EntityType="Self.Impuestos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ingresos" EntityType="Self.Ingresos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Locales" EntityType="Self.Locales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Motos" EntityType="Self.Motos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Multas" EntityType="Self.Multas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Palets" EntityType="Self.Palets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Paquetes" EntityType="Self.Paquetes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Racks" EntityType="Self.Racks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reclamo" EntityType="Self.Reclamo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Registros" EntityType="Self.Registros" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reparaciones" EntityType="Self.Reparaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sectores" EntityType="Self.Sectores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Turnos" EntityType="Self.Turnos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vehiculos" EntityType="Self.Vehiculos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Adelantos__Emple__3E52440B" Association="Self.FK__Adelantos__Emple__3E52440B">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Adelantos" EntitySet="Adelantos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Administr__CiEmp__0CBAE877" Association="Self.FK__Administr__CiEmp__0CBAE877">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Administradores" EntitySet="Administradores" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Automobil__Matri__1ED998B2" Association="Self.FK__Automobil__Matri__1ED998B2">
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
+            <End Role="Automobiles" EntitySet="Automobiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cadetes__CiEmple__117F9D94" Association="Self.FK__Cadetes__CiEmple__117F9D94">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Cadetes" EntitySet="Cadetes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Calificac__RutCl__49C3F6B7" Association="Self.FK__Calificac__RutCl__49C3F6B7">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Calificaciones" EntitySet="Calificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Camiones__Matric__286302EC" Association="Self.FK__Camiones__Matric__286302EC">
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
+            <End Role="Camiones" EntitySet="Camiones" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Camioneta__Matri__2D27B809" Association="Self.FK__Camioneta__Matri__2D27B809">
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
+            <End Role="Camionetas" EntitySet="Camionetas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Casillas__Rack__5AEE82B9" Association="Self.FK__Casillas__Rack__5AEE82B9">
+            <End Role="Racks" EntitySet="Racks" />
+            <End Role="Casillas" EntitySet="Casillas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Clientes__IdUsua__164452B1" Association="Self.FK__Clientes__IdUsua__164452B1">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Empleados__IdUsu__07F6335A" Association="Self.FK__Empleados__IdUsu__07F6335A">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Empleados" EntitySet="Empleados" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entregas__Client__06CD04F7" Association="Self.FK__Entregas__Client__06CD04F7">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Entregas" EntitySet="Entregas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entregas__Client__07C12930" Association="Self.FK__Entregas__Client__07C12930">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Entregas" EntitySet="Entregas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entregas__LocalE__09A971A2" Association="Self.FK__Entregas__LocalE__09A971A2">
+            <End Role="Locales" EntitySet="Locales" />
+            <End Role="Entregas" EntitySet="Entregas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entregas__LocalR__08B54D69" Association="Self.FK__Entregas__LocalR__08B54D69">
+            <End Role="Locales" EntitySet="Locales" />
+            <End Role="Entregas" EntitySet="Entregas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entregas__Turno__0A9D95DB" Association="Self.FK__Entregas__Turno__0A9D95DB">
+            <End Role="Turnos" EntitySet="Turnos" />
+            <End Role="Entregas" EntitySet="Entregas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Motos__Matricula__239E4DCF" Association="Self.FK__Motos__Matricula__239E4DCF">
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
+            <End Role="Motos" EntitySet="Motos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Multas__Vehiculo__36B12243" Association="Self.FK__Multas__Vehiculo__36B12243">
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
+            <End Role="Multas" EntitySet="Multas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Palets__Casilla__5FB337D6" Association="Self.FK__Palets__Casilla__5FB337D6">
+            <End Role="Casillas" EntitySet="Casillas" />
+            <End Role="Palets" EntitySet="Palets" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Paquetes__Client__10566F31" Association="Self.FK__Paquetes__Client__10566F31">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Paquetes" EntitySet="Paquetes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Paquetes__Entreg__0F624AF8" Association="Self.FK__Paquetes__Entreg__0F624AF8">
+            <End Role="Entregas" EntitySet="Entregas" />
+            <End Role="Paquetes" EntitySet="Paquetes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Racks__Sector__5629CD9C" Association="Self.FK__Racks__Sector__5629CD9C">
+            <End Role="Sectores" EntitySet="Sectores" />
+            <End Role="Racks" EntitySet="Racks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reclamo__Paquete__151B244E" Association="Self.FK__Reclamo__Paquete__151B244E">
+            <End Role="Paquetes" EntitySet="Paquetes" />
+            <End Role="Reclamo" EntitySet="Reclamo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Registros__Balan__74AE54BC" Association="Self.FK__Registros__Balan__74AE54BC">
+            <End Role="Balances" EntitySet="Balances" />
+            <End Role="Registros" EntitySet="Registros" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reparacio__Vehic__31EC6D26" Association="Self.FK__Reparacio__Vehic__31EC6D26">
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
+            <End Role="Reparaciones" EntitySet="Reparaciones" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EnviosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Adelantos">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Empleado" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Empleado" Type="Int32" Nullable="false" />
+          <Property Name="Suma" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="CantidadCuotas" Type="Int32" Nullable="false" />
+          <Property Name="Saldado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Empleados" Relationship="Self.FK__Adelantos__Emple__3E52440B" FromRole="Adelantos" ToRole="Empleados" />
+        </EntityType>
+        <EntityType Name="Administradores">
+          <Key>
+            <PropertyRef Name="CiEmpleado" />
+          </Key>
+          <Property Name="CiEmpleado" Type="Int32" Nullable="false" />
+          <Property Name="Tipo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Empleados" Relationship="Self.FK__Administr__CiEmp__0CBAE877" FromRole="Administradores" ToRole="Empleados" />
+        </EntityType>
+        <EntityType Name="Automobiles">
+          <Key>
+            <PropertyRef Name="MatriculaAuto" />
+          </Key>
+          <Property Name="Puertas" Type="Int32" Nullable="false" />
+          <Property Name="MatriculaAuto" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Vehiculos" Relationship="Self.FK__Automobil__Matri__1ED998B2" FromRole="Automobiles" ToRole="Vehiculos" />
+        </EntityType>
+        <EntityType Name="Balances">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Mes" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Año" Type="Int32" Nullable="false" />
+          <Property Name="Abierto" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Registros" Relationship="Self.FK__Registros__Balan__74AE54BC" FromRole="Balances" ToRole="Registros" />
+        </EntityType>
+        <EntityType Name="Cadetes">
+          <Key>
+            <PropertyRef Name="CiEmpleado" />
+          </Key>
+          <Property Name="TipoLibreta" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdTelefono" Type="Int64" Nullable="false" />
+          <Property Name="CiEmpleado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Empleados" Relationship="Self.FK__Cadetes__CiEmple__117F9D94" FromRole="Cadetes" ToRole="Empleados" />
+        </EntityType>
+        <EntityType Name="Calificaciones">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="RutCliente" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Puntaje" Type="Int32" Nullable="false" />
+          <Property Name="RutCliente" Type="Int64" Nullable="false" />
+          <Property Name="Comentario" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK__Calificac__RutCl__49C3F6B7" FromRole="Calificaciones" ToRole="Clientes" />
+        </EntityType>
+        <EntityType Name="Camiones">
+          <Key>
+            <PropertyRef Name="MatriculaCamion" />
+          </Key>
+          <Property Name="Altura" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="MatriculaCamion" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Vehiculos" Relationship="Self.FK__Camiones__Matric__286302EC" FromRole="Camiones" ToRole="Vehiculos" />
+        </EntityType>
+        <EntityType Name="Camionetas">
+          <Key>
+            <PropertyRef Name="MatriculaCamioneta" />
+          </Key>
+          <Property Name="Cabina" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MatriculaCamioneta" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Vehiculos" Relationship="Self.FK__Camioneta__Matri__2D27B809" FromRole="Camionetas" ToRole="Vehiculos" />
+        </EntityType>
+        <EntityType Name="Casillas">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="Int32" Nullable="false" />
+          <Property Name="Rack" Type="Int32" />
+          <NavigationProperty Name="Racks" Relationship="Self.FK__Casillas__Rack__5AEE82B9" FromRole="Casillas" ToRole="Racks" />
+          <NavigationProperty Name="Palets" Relationship="Self.FK__Palets__Casilla__5FB337D6" FromRole="Casillas" ToRole="Palets" />
+        </EntityType>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="RUT" />
+          </Key>
+          <Property Name="RUT" Type="Int64" Nullable="false" />
+          <Property Name="IdUsuario" Type="Int32" />
+          <Property Name="Mensualidad" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Calificaciones" Relationship="Self.FK__Calificac__RutCl__49C3F6B7" FromRole="Clientes" ToRole="Calificaciones" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK__Clientes__IdUsua__164452B1" FromRole="Clientes" ToRole="Usuarios" />
+          <NavigationProperty Name="Entregas" Relationship="Self.FK__Entregas__Client__06CD04F7" FromRole="Clientes" ToRole="Entregas" />
+          <NavigationProperty Name="Entregas1" Relationship="Self.FK__Entregas__Client__07C12930" FromRole="Clientes" ToRole="Entregas" />
+          <NavigationProperty Name="Paquetes" Relationship="Self.FK__Paquetes__Client__10566F31" FromRole="Clientes" ToRole="Paquetes" />
+        </EntityType>
+        <EntityType Name="Cuotas">
+          <Key>
+            <PropertyRef Name="Vencimiento" />
+            <PropertyRef Name="IdAdelanto" />
+          </Key>
+          <Property Name="Vencimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IdAdelanto" Type="Int32" Nullable="false" />
+          <Property Name="Suma" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Pagada" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Empleados">
+          <Key>
+            <PropertyRef Name="Ci" />
+          </Key>
+          <Property Name="Sueldo" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="IdUsuario" Type="Int32" />
+          <Property Name="Ci" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Adelantos" Relationship="Self.FK__Adelantos__Emple__3E52440B" FromRole="Empleados" ToRole="Adelantos" />
+          <NavigationProperty Name="Administradores" Relationship="Self.FK__Administr__CiEmp__0CBAE877" FromRole="Empleados" ToRole="Administradores" />
+          <NavigationProperty Name="Cadetes" Relationship="Self.FK__Cadetes__CiEmple__117F9D94" FromRole="Empleados" ToRole="Cadetes" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK__Empleados__IdUsu__07F6335A" FromRole="Empleados" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Entregas">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="NombreReceptor" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClienteReceptor" Type="Int64" />
+          <Property Name="ClienteEmisor" Type="Int64" />
+          <Property Name="LocalReceptor" Type="Int32" />
+          <Property Name="LocalEmisor" Type="Int32" />
+          <Property Name="Turno" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK__Entregas__Client__06CD04F7" FromRole="Entregas" ToRole="Clientes" />
+          <NavigationProperty Name="Clientes1" Relationship="Self.FK__Entregas__Client__07C12930" FromRole="Entregas" ToRole="Clientes" />
+          <NavigationProperty Name="Locales" Relationship="Self.FK__Entregas__LocalE__09A971A2" FromRole="Entregas" ToRole="Locales" />
+          <NavigationProperty Name="Locales1" Relationship="Self.FK__Entregas__LocalR__08B54D69" FromRole="Entregas" ToRole="Locales" />
+          <NavigationProperty Name="Turnos" Relationship="Self.FK__Entregas__Turno__0A9D95DB" FromRole="Entregas" ToRole="Turnos" />
+          <NavigationProperty Name="Paquetes" Relationship="Self.FK__Paquetes__Entreg__0F624AF8" FromRole="Entregas" ToRole="Paquetes" />
+        </EntityType>
+        <EntityType Name="Galpones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Altura" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Superficie" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gastos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Suma" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Impuestos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Porcentaje" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ingresos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Suma" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Locales">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Entregas" Relationship="Self.FK__Entregas__LocalE__09A971A2" FromRole="Locales" ToRole="Entregas" />
+          <NavigationProperty Name="Entregas1" Relationship="Self.FK__Entregas__LocalR__08B54D69" FromRole="Locales" ToRole="Entregas" />
+        </EntityType>
+        <EntityType Name="Motos">
+          <Key>
+            <PropertyRef Name="MatriculaMoto" />
+          </Key>
+          <Property Name="Cilindrada" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="MatriculaMoto" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Vehiculos" Relationship="Self.FK__Motos__Matricula__239E4DCF" FromRole="Motos" ToRole="Vehiculos" />
+        </EntityType>
+        <EntityType Name="Multas">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Vehiculo" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Vehiculo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Suma" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Motivo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Vehiculos" Relationship="Self.FK__Multas__Vehiculo__36B12243" FromRole="Multas" ToRole="Vehiculos" />
+        </EntityType>
+        <EntityType Name="Palets">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Producto" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <Property Name="Peso" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Casilla" Type="Int32" />
+          <NavigationProperty Name="Casillas" Relationship="Self.FK__Palets__Casilla__5FB337D6" FromRole="Palets" ToRole="Casillas" />
+        </EntityType>
+        <EntityType Name="Paquetes">
+          <Key>
+            <PropertyRef Name="NumReferencia" />
+          </Key>
+          <Property Name="NumReferencia" Type="Int32" Nullable="false" />
+          <Property Name="FechaSalida" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Estado" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ubicacion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Entrega" Type="Int32" />
+          <Property Name="Cliente" Type="Int64" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK__Paquetes__Client__10566F31" FromRole="Paquetes" ToRole="Clientes" />
+          <NavigationProperty Name="Entregas" Relationship="Self.FK__Paquetes__Entreg__0F624AF8" FromRole="Paquetes" ToRole="Entregas" />
+          <NavigationProperty Name="Reclamo" Relationship="Self.FK__Reclamo__Paquete__151B244E" FromRole="Paquetes" ToRole="Reclamo" />
+        </EntityType>
+        <EntityType Name="Racks">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="Int32" Nullable="false" />
+          <Property Name="Altura" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Superficie" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Sector" Type="Int32" />
+          <NavigationProperty Name="Casillas" Relationship="Self.FK__Casillas__Rack__5AEE82B9" FromRole="Racks" ToRole="Casillas" />
+          <NavigationProperty Name="Sectores" Relationship="Self.FK__Racks__Sector__5629CD9C" FromRole="Racks" ToRole="Sectores" />
+        </EntityType>
+        <EntityType Name="Reclamo">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Paquete" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Comentario" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Paquete" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Paquetes" Relationship="Self.FK__Reclamo__Paquete__151B244E" FromRole="Reclamo" ToRole="Paquetes" />
+        </EntityType>
+        <EntityType Name="Registros">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UtilidadBruta" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="UtilidadOperacional" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="UtilidadSinImpuestos" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="UtilidadEjercicio" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="BalanceId" Type="Int32" />
+          <NavigationProperty Name="Balances" Relationship="Self.FK__Registros__Balan__74AE54BC" FromRole="Registros" ToRole="Balances" />
+        </EntityType>
+        <EntityType Name="Reparaciones">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Vehiculo" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Taller" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Monto" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Vehiculo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Vehiculos" Relationship="Self.FK__Reparacio__Vehic__31EC6D26" FromRole="Reparaciones" ToRole="Vehiculos" />
+        </EntityType>
+        <EntityType Name="Sectores">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="Int32" Nullable="false" />
+          <Property Name="Superficie" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Temperatura" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Racks" Relationship="Self.FK__Racks__Sector__5629CD9C" FromRole="Sectores" ToRole="Racks" />
+        </EntityType>
+        <EntityType Name="Turnos">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Dia" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Hora" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Entregas" Relationship="Self.FK__Entregas__Turno__0A9D95DB" FromRole="Turnos" ToRole="Entregas" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="NombreUsuario" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Contraseña" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Direccion" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Telefono" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK__Clientes__IdUsua__164452B1" FromRole="Usuarios" ToRole="Clientes" />
+          <NavigationProperty Name="Empleados" Relationship="Self.FK__Empleados__IdUsu__07F6335A" FromRole="Usuarios" ToRole="Empleados" />
+        </EntityType>
+        <EntityType Name="Vehiculos">
+          <Key>
+            <PropertyRef Name="Matricula" />
+          </Key>
+          <Property Name="Matricula" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Marca" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Modelo" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Capacidad" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Estado" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Automobiles" Relationship="Self.FK__Automobil__Matri__1ED998B2" FromRole="Vehiculos" ToRole="Automobiles" />
+          <NavigationProperty Name="Camiones" Relationship="Self.FK__Camiones__Matric__286302EC" FromRole="Vehiculos" ToRole="Camiones" />
+          <NavigationProperty Name="Camionetas" Relationship="Self.FK__Camioneta__Matri__2D27B809" FromRole="Vehiculos" ToRole="Camionetas" />
+          <NavigationProperty Name="Motos" Relationship="Self.FK__Motos__Matricula__239E4DCF" FromRole="Vehiculos" ToRole="Motos" />
+          <NavigationProperty Name="Multas" Relationship="Self.FK__Multas__Vehiculo__36B12243" FromRole="Vehiculos" ToRole="Multas" />
+          <NavigationProperty Name="Reparaciones" Relationship="Self.FK__Reparacio__Vehic__31EC6D26" FromRole="Vehiculos" ToRole="Reparaciones" />
+        </EntityType>
+        <Association Name="FK__Adelantos__Emple__3E52440B">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Adelantos" Type="Self.Adelantos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="Ci" />
+            </Principal>
+            <Dependent Role="Adelantos">
+              <PropertyRef Name="Empleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Administr__CiEmp__0CBAE877">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Administradores" Type="Self.Administradores" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="Ci" />
+            </Principal>
+            <Dependent Role="Administradores">
+              <PropertyRef Name="CiEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Automobil__Matri__1ED998B2">
+          <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="1" />
+          <End Role="Automobiles" Type="Self.Automobiles" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Vehiculos">
+              <PropertyRef Name="Matricula" />
+            </Principal>
+            <Dependent Role="Automobiles">
+              <PropertyRef Name="MatriculaAuto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Registros__Balan__74AE54BC">
+          <End Role="Balances" Type="Self.Balances" Multiplicity="0..1" />
+          <End Role="Registros" Type="Self.Registros" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Balances">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Registros">
+              <PropertyRef Name="BalanceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cadetes__CiEmple__117F9D94">
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
+          <End Role="Cadetes" Type="Self.Cadetes" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Empleados">
+              <PropertyRef Name="Ci" />
+            </Principal>
+            <Dependent Role="Cadetes">
+              <PropertyRef Name="CiEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Calificac__RutCl__49C3F6B7">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Calificaciones" Type="Self.Calificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="RUT" />
+            </Principal>
+            <Dependent Role="Calificaciones">
+              <PropertyRef Name="RutCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Camiones__Matric__286302EC">
+          <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="1" />
+          <End Role="Camiones" Type="Self.Camiones" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Vehiculos">
+              <PropertyRef Name="Matricula" />
+            </Principal>
+            <Dependent Role="Camiones">
+              <PropertyRef Name="MatriculaCamion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Camioneta__Matri__2D27B809">
+          <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="1" />
+          <End Role="Camionetas" Type="Self.Camionetas" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Vehiculos">
+              <PropertyRef Name="Matricula" />
+            </Principal>
+            <Dependent Role="Camionetas">
+              <PropertyRef Name="MatriculaCamioneta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Casillas__Rack__5AEE82B9">
+          <End Role="Racks" Type="Self.Racks" Multiplicity="0..1" />
+          <End Role="Casillas" Type="Self.Casillas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Racks">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Casillas">
+              <PropertyRef Name="Rack" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Palets__Casilla__5FB337D6">
+          <End Role="Casillas" Type="Self.Casillas" Multiplicity="0..1" />
+          <End Role="Palets" Type="Self.Palets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Casillas">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Palets">
+              <PropertyRef Name="Casilla" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Clientes__IdUsua__164452B1">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entregas__Client__06CD04F7">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+          <End Role="Entregas" Type="Self.Entregas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="RUT" />
+            </Principal>
+            <Dependent Role="Entregas">
+              <PropertyRef Name="ClienteReceptor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entregas__Client__07C12930">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+          <End Role="Entregas" Type="Self.Entregas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="RUT" />
+            </Principal>
+            <Dependent Role="Entregas">
+              <PropertyRef Name="ClienteEmisor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Paquetes__Client__10566F31">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+          <End Role="Paquetes" Type="Self.Paquetes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="RUT" />
+            </Principal>
+            <Dependent Role="Paquetes">
+              <PropertyRef Name="Cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Empleados__IdUsu__07F6335A">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Empleados" Type="Self.Empleados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Empleados">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entregas__LocalE__09A971A2">
+          <End Role="Locales" Type="Self.Locales" Multiplicity="0..1" />
+          <End Role="Entregas" Type="Self.Entregas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locales">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Entregas">
+              <PropertyRef Name="LocalEmisor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entregas__LocalR__08B54D69">
+          <End Role="Locales" Type="Self.Locales" Multiplicity="0..1" />
+          <End Role="Entregas" Type="Self.Entregas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locales">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Entregas">
+              <PropertyRef Name="LocalReceptor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Entregas__Turno__0A9D95DB">
+          <End Role="Turnos" Type="Self.Turnos" Multiplicity="0..1" />
+          <End Role="Entregas" Type="Self.Entregas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turnos">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Entregas">
+              <PropertyRef Name="Turno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Paquetes__Entreg__0F624AF8">
+          <End Role="Entregas" Type="Self.Entregas" Multiplicity="0..1" />
+          <End Role="Paquetes" Type="Self.Paquetes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Entregas">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Paquetes">
+              <PropertyRef Name="Entrega" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Motos__Matricula__239E4DCF">
+          <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="1" />
+          <End Role="Motos" Type="Self.Motos" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Vehiculos">
+              <PropertyRef Name="Matricula" />
+            </Principal>
+            <Dependent Role="Motos">
+              <PropertyRef Name="MatriculaMoto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Multas__Vehiculo__36B12243">
+          <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="1" />
+          <End Role="Multas" Type="Self.Multas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehiculos">
+              <PropertyRef Name="Matricula" />
+            </Principal>
+            <Dependent Role="Multas">
+              <PropertyRef Name="Vehiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reclamo__Paquete__151B244E">
+          <End Role="Paquetes" Type="Self.Paquetes" Multiplicity="1" />
+          <End Role="Reclamo" Type="Self.Reclamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paquetes">
+              <PropertyRef Name="NumReferencia" />
+            </Principal>
+            <Dependent Role="Reclamo">
+              <PropertyRef Name="Paquete" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Racks__Sector__5629CD9C">
+          <End Role="Sectores" Type="Self.Sectores" Multiplicity="0..1" />
+          <End Role="Racks" Type="Self.Racks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sectores">
+              <PropertyRef Name="Codigo" />
+            </Principal>
+            <Dependent Role="Racks">
+              <PropertyRef Name="Sector" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reparacio__Vehic__31EC6D26">
+          <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="1" />
+          <End Role="Reparaciones" Type="Self.Reparaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehiculos">
+              <PropertyRef Name="Matricula" />
+            </Principal>
+            <Dependent Role="Reparaciones">
+              <PropertyRef Name="Vehiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EnviosEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Adelantos" EntityType="Self.Adelantos" />
+          <EntitySet Name="Administradores" EntityType="Self.Administradores" />
+          <EntitySet Name="Automobiles" EntityType="Self.Automobiles" />
+          <EntitySet Name="Balances" EntityType="Self.Balances" />
+          <EntitySet Name="Cadetes" EntityType="Self.Cadetes" />
+          <EntitySet Name="Calificaciones" EntityType="Self.Calificaciones" />
+          <EntitySet Name="Camiones" EntityType="Self.Camiones" />
+          <EntitySet Name="Camionetas" EntityType="Self.Camionetas" />
+          <EntitySet Name="Casillas" EntityType="Self.Casillas" />
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+          <EntitySet Name="Cuotas" EntityType="Self.Cuotas" />
+          <EntitySet Name="Empleados" EntityType="Self.Empleados" />
+          <EntitySet Name="Entregas" EntityType="Self.Entregas" />
+          <EntitySet Name="Galpones" EntityType="Self.Galpones" />
+          <EntitySet Name="Gastos" EntityType="Self.Gastos" />
+          <EntitySet Name="Impuestos" EntityType="Self.Impuestos" />
+          <EntitySet Name="Ingresos" EntityType="Self.Ingresos" />
+          <EntitySet Name="Locales" EntityType="Self.Locales" />
+          <EntitySet Name="Motos" EntityType="Self.Motos" />
+          <EntitySet Name="Multas" EntityType="Self.Multas" />
+          <EntitySet Name="Palets" EntityType="Self.Palets" />
+          <EntitySet Name="Paquetes" EntityType="Self.Paquetes" />
+          <EntitySet Name="Racks" EntityType="Self.Racks" />
+          <EntitySet Name="Reclamo" EntityType="Self.Reclamo" />
+          <EntitySet Name="Registros" EntityType="Self.Registros" />
+          <EntitySet Name="Reparaciones" EntityType="Self.Reparaciones" />
+          <EntitySet Name="Sectores" EntityType="Self.Sectores" />
+          <EntitySet Name="Turnos" EntityType="Self.Turnos" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+          <EntitySet Name="Vehiculos" EntityType="Self.Vehiculos" />
+          <AssociationSet Name="FK__Adelantos__Emple__3E52440B" Association="Self.FK__Adelantos__Emple__3E52440B">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Adelantos" EntitySet="Adelantos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Administr__CiEmp__0CBAE877" Association="Self.FK__Administr__CiEmp__0CBAE877">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Administradores" EntitySet="Administradores" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Automobil__Matri__1ED998B2" Association="Self.FK__Automobil__Matri__1ED998B2">
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
+            <End Role="Automobiles" EntitySet="Automobiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Registros__Balan__74AE54BC" Association="Self.FK__Registros__Balan__74AE54BC">
+            <End Role="Balances" EntitySet="Balances" />
+            <End Role="Registros" EntitySet="Registros" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cadetes__CiEmple__117F9D94" Association="Self.FK__Cadetes__CiEmple__117F9D94">
+            <End Role="Empleados" EntitySet="Empleados" />
+            <End Role="Cadetes" EntitySet="Cadetes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Calificac__RutCl__49C3F6B7" Association="Self.FK__Calificac__RutCl__49C3F6B7">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Calificaciones" EntitySet="Calificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Camiones__Matric__286302EC" Association="Self.FK__Camiones__Matric__286302EC">
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
+            <End Role="Camiones" EntitySet="Camiones" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Camioneta__Matri__2D27B809" Association="Self.FK__Camioneta__Matri__2D27B809">
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
+            <End Role="Camionetas" EntitySet="Camionetas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Casillas__Rack__5AEE82B9" Association="Self.FK__Casillas__Rack__5AEE82B9">
+            <End Role="Racks" EntitySet="Racks" />
+            <End Role="Casillas" EntitySet="Casillas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Palets__Casilla__5FB337D6" Association="Self.FK__Palets__Casilla__5FB337D6">
+            <End Role="Casillas" EntitySet="Casillas" />
+            <End Role="Palets" EntitySet="Palets" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Clientes__IdUsua__164452B1" Association="Self.FK__Clientes__IdUsua__164452B1">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entregas__Client__06CD04F7" Association="Self.FK__Entregas__Client__06CD04F7">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Entregas" EntitySet="Entregas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entregas__Client__07C12930" Association="Self.FK__Entregas__Client__07C12930">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Entregas" EntitySet="Entregas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Paquetes__Client__10566F31" Association="Self.FK__Paquetes__Client__10566F31">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Paquetes" EntitySet="Paquetes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Empleados__IdUsu__07F6335A" Association="Self.FK__Empleados__IdUsu__07F6335A">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Empleados" EntitySet="Empleados" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entregas__LocalE__09A971A2" Association="Self.FK__Entregas__LocalE__09A971A2">
+            <End Role="Locales" EntitySet="Locales" />
+            <End Role="Entregas" EntitySet="Entregas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entregas__LocalR__08B54D69" Association="Self.FK__Entregas__LocalR__08B54D69">
+            <End Role="Locales" EntitySet="Locales" />
+            <End Role="Entregas" EntitySet="Entregas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entregas__Turno__0A9D95DB" Association="Self.FK__Entregas__Turno__0A9D95DB">
+            <End Role="Turnos" EntitySet="Turnos" />
+            <End Role="Entregas" EntitySet="Entregas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Paquetes__Entreg__0F624AF8" Association="Self.FK__Paquetes__Entreg__0F624AF8">
+            <End Role="Entregas" EntitySet="Entregas" />
+            <End Role="Paquetes" EntitySet="Paquetes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Motos__Matricula__239E4DCF" Association="Self.FK__Motos__Matricula__239E4DCF">
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
+            <End Role="Motos" EntitySet="Motos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Multas__Vehiculo__36B12243" Association="Self.FK__Multas__Vehiculo__36B12243">
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
+            <End Role="Multas" EntitySet="Multas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reclamo__Paquete__151B244E" Association="Self.FK__Reclamo__Paquete__151B244E">
+            <End Role="Paquetes" EntitySet="Paquetes" />
+            <End Role="Reclamo" EntitySet="Reclamo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Racks__Sector__5629CD9C" Association="Self.FK__Racks__Sector__5629CD9C">
+            <End Role="Sectores" EntitySet="Sectores" />
+            <End Role="Racks" EntitySet="Racks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reparacio__Vehic__31EC6D26" Association="Self.FK__Reparacio__Vehic__31EC6D26">
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
+            <End Role="Reparaciones" EntitySet="Reparaciones" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EnviosModelStoreContainer" CdmEntityContainer="EnviosEntities">
+          <EntitySetMapping Name="Adelantos">
+            <EntityTypeMapping TypeName="EnviosModel.Adelantos">
+              <MappingFragment StoreEntitySet="Adelantos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Empleado" ColumnName="Empleado" />
+                <ScalarProperty Name="Suma" ColumnName="Suma" />
+                <ScalarProperty Name="CantidadCuotas" ColumnName="CantidadCuotas" />
+                <ScalarProperty Name="Saldado" ColumnName="Saldado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Administradores">
+            <EntityTypeMapping TypeName="EnviosModel.Administradores">
+              <MappingFragment StoreEntitySet="Administradores">
+                <ScalarProperty Name="CiEmpleado" ColumnName="CiEmpleado" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Automobiles">
+            <EntityTypeMapping TypeName="EnviosModel.Automobiles">
+              <MappingFragment StoreEntitySet="Automobiles">
+                <ScalarProperty Name="Puertas" ColumnName="Puertas" />
+                <ScalarProperty Name="MatriculaAuto" ColumnName="MatriculaAuto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Balances">
+            <EntityTypeMapping TypeName="EnviosModel.Balances">
+              <MappingFragment StoreEntitySet="Balances">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Mes" ColumnName="Mes" />
+                <ScalarProperty Name="Año" ColumnName="Año" />
+                <ScalarProperty Name="Abierto" ColumnName="Abierto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cadetes">
+            <EntityTypeMapping TypeName="EnviosModel.Cadetes">
+              <MappingFragment StoreEntitySet="Cadetes">
+                <ScalarProperty Name="TipoLibreta" ColumnName="TipoLibreta" />
+                <ScalarProperty Name="IdTelefono" ColumnName="IdTelefono" />
+                <ScalarProperty Name="CiEmpleado" ColumnName="CiEmpleado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Calificaciones">
+            <EntityTypeMapping TypeName="EnviosModel.Calificaciones">
+              <MappingFragment StoreEntitySet="Calificaciones">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Puntaje" ColumnName="Puntaje" />
+                <ScalarProperty Name="RutCliente" ColumnName="RutCliente" />
+                <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Camiones">
+            <EntityTypeMapping TypeName="EnviosModel.Camiones">
+              <MappingFragment StoreEntitySet="Camiones">
+                <ScalarProperty Name="Altura" ColumnName="Altura" />
+                <ScalarProperty Name="MatriculaCamion" ColumnName="MatriculaCamion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Camionetas">
+            <EntityTypeMapping TypeName="EnviosModel.Camionetas">
+              <MappingFragment StoreEntitySet="Camionetas">
+                <ScalarProperty Name="Cabina" ColumnName="Cabina" />
+                <ScalarProperty Name="MatriculaCamioneta" ColumnName="MatriculaCamioneta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Casillas">
+            <EntityTypeMapping TypeName="EnviosModel.Casillas">
+              <MappingFragment StoreEntitySet="Casillas">
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Rack" ColumnName="Rack" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="EnviosModel.Clientes">
+              <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="RUT" ColumnName="RUT" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Mensualidad" ColumnName="Mensualidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cuotas">
+            <EntityTypeMapping TypeName="EnviosModel.Cuotas">
+              <MappingFragment StoreEntitySet="Cuotas">
+                <ScalarProperty Name="Vencimiento" ColumnName="Vencimiento" />
+                <ScalarProperty Name="IdAdelanto" ColumnName="IdAdelanto" />
+                <ScalarProperty Name="Suma" ColumnName="Suma" />
+                <ScalarProperty Name="Pagada" ColumnName="Pagada" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empleados">
+            <EntityTypeMapping TypeName="EnviosModel.Empleados">
+              <MappingFragment StoreEntitySet="Empleados">
+                <ScalarProperty Name="Sueldo" ColumnName="Sueldo" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Ci" ColumnName="Ci" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Entregas">
+            <EntityTypeMapping TypeName="EnviosModel.Entregas">
+              <MappingFragment StoreEntitySet="Entregas">
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="NombreReceptor" ColumnName="NombreReceptor" />
+                <ScalarProperty Name="ClienteReceptor" ColumnName="ClienteReceptor" />
+                <ScalarProperty Name="ClienteEmisor" ColumnName="ClienteEmisor" />
+                <ScalarProperty Name="LocalReceptor" ColumnName="LocalReceptor" />
+                <ScalarProperty Name="LocalEmisor" ColumnName="LocalEmisor" />
+                <ScalarProperty Name="Turno" ColumnName="Turno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Galpones">
+            <EntityTypeMapping TypeName="EnviosModel.Galpones">
+              <MappingFragment StoreEntitySet="Galpones">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Altura" ColumnName="Altura" />
+                <ScalarProperty Name="Superficie" ColumnName="Superficie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gastos">
+            <EntityTypeMapping TypeName="EnviosModel.Gastos">
+              <MappingFragment StoreEntitySet="Gastos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Suma" ColumnName="Suma" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Impuestos">
+            <EntityTypeMapping TypeName="EnviosModel.Impuestos">
+              <MappingFragment StoreEntitySet="Impuestos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Porcentaje" ColumnName="Porcentaje" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ingresos">
+            <EntityTypeMapping TypeName="EnviosModel.Ingresos">
+              <MappingFragment StoreEntitySet="Ingresos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Suma" ColumnName="Suma" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locales">
+            <EntityTypeMapping TypeName="EnviosModel.Locales">
+              <MappingFragment StoreEntitySet="Locales">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Motos">
+            <EntityTypeMapping TypeName="EnviosModel.Motos">
+              <MappingFragment StoreEntitySet="Motos">
+                <ScalarProperty Name="Cilindrada" ColumnName="Cilindrada" />
+                <ScalarProperty Name="MatriculaMoto" ColumnName="MatriculaMoto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Multas">
+            <EntityTypeMapping TypeName="EnviosModel.Multas">
+              <MappingFragment StoreEntitySet="Multas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Vehiculo" ColumnName="Vehiculo" />
+                <ScalarProperty Name="Suma" ColumnName="Suma" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Motivo" ColumnName="Motivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Palets">
+            <EntityTypeMapping TypeName="EnviosModel.Palets">
+              <MappingFragment StoreEntitySet="Palets">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Producto" ColumnName="Producto" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Peso" ColumnName="Peso" />
+                <ScalarProperty Name="Casilla" ColumnName="Casilla" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Paquetes">
+            <EntityTypeMapping TypeName="EnviosModel.Paquetes">
+              <MappingFragment StoreEntitySet="Paquetes">
+                <ScalarProperty Name="NumReferencia" ColumnName="NumReferencia" />
+                <ScalarProperty Name="FechaSalida" ColumnName="FechaSalida" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Ubicacion" ColumnName="Ubicacion" />
+                <ScalarProperty Name="Entrega" ColumnName="Entrega" />
+                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Racks">
+            <EntityTypeMapping TypeName="EnviosModel.Racks">
+              <MappingFragment StoreEntitySet="Racks">
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Altura" ColumnName="Altura" />
+                <ScalarProperty Name="Superficie" ColumnName="Superficie" />
+                <ScalarProperty Name="Sector" ColumnName="Sector" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reclamo">
+            <EntityTypeMapping TypeName="EnviosModel.Reclamo">
+              <MappingFragment StoreEntitySet="Reclamo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+                <ScalarProperty Name="Paquete" ColumnName="Paquete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Registros">
+            <EntityTypeMapping TypeName="EnviosModel.Registros">
+              <MappingFragment StoreEntitySet="Registros">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="UtilidadBruta" ColumnName="UtilidadBruta" />
+                <ScalarProperty Name="UtilidadOperacional" ColumnName="UtilidadOperacional" />
+                <ScalarProperty Name="UtilidadSinImpuestos" ColumnName="UtilidadSinImpuestos" />
+                <ScalarProperty Name="UtilidadEjercicio" ColumnName="UtilidadEjercicio" />
+                <ScalarProperty Name="BalanceId" ColumnName="BalanceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reparaciones">
+            <EntityTypeMapping TypeName="EnviosModel.Reparaciones">
+              <MappingFragment StoreEntitySet="Reparaciones">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Taller" ColumnName="Taller" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="Vehiculo" ColumnName="Vehiculo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sectores">
+            <EntityTypeMapping TypeName="EnviosModel.Sectores">
+              <MappingFragment StoreEntitySet="Sectores">
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Superficie" ColumnName="Superficie" />
+                <ScalarProperty Name="Temperatura" ColumnName="Temperatura" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Turnos">
+            <EntityTypeMapping TypeName="EnviosModel.Turnos">
+              <MappingFragment StoreEntitySet="Turnos">
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Dia" ColumnName="Dia" />
+                <ScalarProperty Name="Hora" ColumnName="Hora" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="EnviosModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vehiculos">
+            <EntityTypeMapping TypeName="EnviosModel.Vehiculos">
+              <MappingFragment StoreEntitySet="Vehiculos">
+                <ScalarProperty Name="Matricula" ColumnName="Matricula" />
+                <ScalarProperty Name="Marca" ColumnName="Marca" />
+                <ScalarProperty Name="Modelo" ColumnName="Modelo" />
+                <ScalarProperty Name="Capacidad" ColumnName="Capacidad" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
