@@ -13,7 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\EntidadesCompartidas\EntidadesCompartidas.csproj" />
+    <ProjectReference Include="..\LogicaApps\LogicaApps.csproj" />
   </ItemGroup>
 
 </Project>
