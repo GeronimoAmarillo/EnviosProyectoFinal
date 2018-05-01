@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Logica.Interfaces
+namespace Logica.GRASPControllers.Trabajo
 {
-    public interface ILogicaPalet
+    class ControladorConsultasPaquete
     {
     }
 }
