@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Logica
+namespace Logica.GRASPControllers.Interfaces
 {
-    class FabricaLogica
+    class IControladorReparacion
     {
     }
 }

@@ -5,19 +5,21 @@ VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnviosService", "EnviosService\EnviosService.csproj", "{08566E05-2CC5-46F4-9CE7-F3D27D26047A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logica", "Logica\Logica.csproj", "{6FDA97AE-5ACD-46AE-8948-5693A4D75E92}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicaServicio", "Logica\LogicaServicio.csproj", "{6FDA97AE-5ACD-46AE-8948-5693A4D75E92}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistencia", "Persistencia\Persistencia.csproj", "{A6CF4DA4-039A-42B9-AB12-A8D0A0D842DE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntidadesCompartidas", "EntidadesCompartidas\EntidadesCompartidas.csproj", "{5A521AB3-6090-4DE8-8C1B-7393409CF71F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientesApp", "ClientesApp\ClientesApp.csproj", "{6B952D25-2A1A-464B-B9A3-D11732F3A6D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientesApp", "ClientesApp\ClientesApp.csproj", "{6B952D25-2A1A-464B-B9A3-D11732F3A6D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdministradoresApp", "AdministradoresApp\AdministradoresApp.csproj", "{F6CFB778-1AD8-45AD-9538-FDE4004BC6A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdministradoresApp", "AdministradoresApp\AdministradoresApp.csproj", "{F6CFB778-1AD8-45AD-9538-FDE4004BC6A7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CadetesApp", "CadetesApp\CadetesApp.csproj", "{82ABC3E2-1BAE-4635-877A-5AAC91E1AE8E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogisticosApp", "LogisticosApp\LogisticosApp.csproj", "{DF6A5068-0085-45F4-BDD9-4C6C60EA2770}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicaApps", "LogicaApps\LogicaApps.csproj", "{DC21266D-B557-4109-ABBE-51D6FD71414E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,10 @@ Global
 		{DF6A5068-0085-45F4-BDD9-4C6C60EA2770}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF6A5068-0085-45F4-BDD9-4C6C60EA2770}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DF6A5068-0085-45F4-BDD9-4C6C60EA2770}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{DC21266D-B557-4109-ABBE-51D6FD71414E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC21266D-B557-4109-ABBE-51D6FD71414E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC21266D-B557-4109-ABBE-51D6FD71414E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC21266D-B557-4109-ABBE-51D6FD71414E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

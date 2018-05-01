@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EntidadesCompartidas\EntidadesCompartidas.csproj" />
-    <ProjectReference Include="..\Logica\Logica.csproj" />
+    <ProjectReference Include="..\Logica\LogicaServicio.csproj" />
   </ItemGroup>
 
 </Project>
