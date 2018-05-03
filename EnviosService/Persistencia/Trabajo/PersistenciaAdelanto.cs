@@ -3,10 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EntidadesCompartidas;
 
 namespace Persistencia.Trabajo
 {
-    class PersistenciaAdelanto
+    public class PersistenciaAdelanto
     {
+        public List<Adelantos> ListarAdelanto()
+        {
+            List<Adelantos> list = new List<Adelantos>();
+            EnviosEntities Db = new EnviosEntities();
+            
+            return list;
+        }
     }
 }

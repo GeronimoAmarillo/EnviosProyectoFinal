@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EntidadesCompartidas;
 
 namespace Logica.GRASPControllers.Interfaces
 {
-    class IControladorAdelanto
+    public interface IControladorAdelanto
     {
+         List<Adelantos> ListarAdelanto();
     }
 }
