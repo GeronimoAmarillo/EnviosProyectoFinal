@@ -6,7 +6,21 @@ using System.Threading.Tasks;
 
 namespace Logica
 {
-    class FabricaServicio
+    public class FabricaApps
     {
+        public static  GetLogicaNoticia()
+        {
+            return (LogicaNoticia.GetInstancia());
+        }
+
+        public static ILogicaPeriodista GetLogicaPeriodista()
+        {
+            return (LogicaPeriodista.GetInstancia());
+        }
+
+        public static ILogicaUsuario GetLogicaUsuario()
+        {
+            return (LogicaUsuario.GetInstancia());
+        }
     }
 }

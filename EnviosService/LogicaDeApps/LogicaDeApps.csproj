@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2F12519C-2107-4294-8682-FC725643E4EB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LogicaDeApps</RootNamespace>
+    <AssemblyName>LogicaDeApps</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataTypes\DTAdelanto.cs" />
+    <Compile Include="DataTypes\DTAdministrador.cs" />
+    <Compile Include="DataTypes\DTAuto.cs" />
+    <Compile Include="DataTypes\DTBalance.cs" />
+    <Compile Include="DataTypes\DTCadete.cs" />
+    <Compile Include="DataTypes\DTCalificacion.cs" />
+    <Compile Include="DataTypes\DTCamion.cs" />
+    <Compile Include="DataTypes\DTCamioneta.cs" />
+    <Compile Include="DataTypes\DTCasilla.cs" />
+    <Compile Include="DataTypes\DTCliente.cs" />
+    <Compile Include="DataTypes\DTCuota.cs" />
+    <Compile Include="DataTypes\DTEmpleado.cs" />
+    <Compile Include="DataTypes\DTEntrega.cs" />
+    <Compile Include="DataTypes\DTGalpon.cs" />
+    <Compile Include="DataTypes\DTGasto.cs" />
+    <Compile Include="DataTypes\DTImpuesto.cs" />
+    <Compile Include="DataTypes\DTIngreso.cs" />
+    <Compile Include="DataTypes\DTLocal.cs" />
+    <Compile Include="DataTypes\DTMoto.cs" />
+    <Compile Include="DataTypes\DTMulta.cs" />
+    <Compile Include="DataTypes\DTPalet.cs" />
+    <Compile Include="DataTypes\DTPaquete.cs" />
+    <Compile Include="DataTypes\DTRack.cs" />
+    <Compile Include="DataTypes\DTReclamo.cs" />
+    <Compile Include="DataTypes\DTRegistro.cs" />
+    <Compile Include="DataTypes\DTReparacion.cs" />
+    <Compile Include="DataTypes\DTSector.cs" />
+    <Compile Include="DataTypes\DTTurno.cs" />
+    <Compile Include="DataTypes\DTUsuario.cs" />
+    <Compile Include="DataTypes\DTVehiculo.cs" />
+    <Compile Include="FabricaApps.cs" />
+    <Compile Include="GRASPControllers\Interfaces\IControladorAdelanto.cs" />
+    <Compile Include="GRASPControllers\Interfaces\IControladorBalance.cs" />
+    <Compile Include="GRASPControllers\Interfaces\IControladorCalificacion.cs" />
+    <Compile Include="GRASPControllers\Interfaces\IControladorCliente.cs" />
+    <Compile Include="GRASPControllers\Interfaces\IControladorConsultasPaquete.cs" />
+    <Compile Include="GRASPControllers\Interfaces\IControladorEmpleado.cs" />
+    <Compile Include="GRASPControllers\Interfaces\IControladorEntrega.cs" />
+    <Compile Include="GRASPControllers\Interfaces\IControladorGasto.cs" />
+    <Compile Include="GRASPControllers\Interfaces\IControladorImpuesto.cs" />
+    <Compile Include="GRASPControllers\Interfaces\IControladorIngreso.cs" />
+    <Compile Include="GRASPControllers\Interfaces\IControladorLocal.cs" />
+    <Compile Include="GRASPControllers\Interfaces\IControladorMulta.cs" />
+    <Compile Include="GRASPControllers\Interfaces\IControladorPalet.cs" />
+    <Compile Include="GRASPControllers\Interfaces\IControladorPaquete.cs" />
+    <Compile Include="GRASPControllers\Interfaces\IControladorRealizarEntregas.cs" />
+    <Compile Include="GRASPControllers\Interfaces\IControladorReparacion.cs" />
+    <Compile Include="GRASPControllers\Interfaces\IControladorTrackeo.cs" />
+    <Compile Include="GRASPControllers\Interfaces\IControladorTurno.cs" />
+    <Compile Include="GRASPControllers\Interfaces\IControladorUsuario.cs" />
+    <Compile Include="GRASPControllers\Interfaces\IControladorVehiculo.cs" />
+    <Compile Include="GRASPControllers\Trabajo\ControladorAdelanto.cs" />
+    <Compile Include="GRASPControllers\Trabajo\ControladorBalance.cs" />
+    <Compile Include="GRASPControllers\Trabajo\ControladorCalificacion.cs" />
+    <Compile Include="GRASPControllers\Trabajo\ControladorCliente.cs" />
+    <Compile Include="GRASPControllers\Trabajo\ControladorConsultasPaquete.cs" />
+    <Compile Include="GRASPControllers\Trabajo\ControladorEmpleado.cs" />
+    <Compile Include="GRASPControllers\Trabajo\ControladorEntrega.cs" />
+    <Compile Include="GRASPControllers\Trabajo\ControladorGasto.cs" />
+    <Compile Include="GRASPControllers\Trabajo\ControladorImpuesto.cs" />
+    <Compile Include="GRASPControllers\Trabajo\ControladorIngreso.cs" />
+    <Compile Include="GRASPControllers\Trabajo\ControladorLocal.cs" />
+    <Compile Include="GRASPControllers\Trabajo\ControladorMulta.cs" />
+    <Compile Include="GRASPControllers\Trabajo\ControladorPalet.cs" />
+    <Compile Include="GRASPControllers\Trabajo\ControladorPaquete.cs" />
+    <Compile Include="GRASPControllers\Trabajo\ControladorRealizarEntregas.cs" />
+    <Compile Include="GRASPControllers\Trabajo\ControladorReparacion.cs" />
+    <Compile Include="GRASPControllers\Trabajo\ControladorTrackeo.cs" />
+    <Compile Include="GRASPControllers\Trabajo\ControladorTurno.cs" />
+    <Compile Include="GRASPControllers\Trabajo\ControladorUsuario.cs" />
+    <Compile Include="GRASPControllers\Trabajo\ControladorVehiculo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EntidadesCompartidas\EntidadesCompartidas.csproj">
+      <Project>{5a521ab3-6090-4de8-8c1b-7393409cf71f}</Project>
+      <Name>EntidadesCompartidas</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

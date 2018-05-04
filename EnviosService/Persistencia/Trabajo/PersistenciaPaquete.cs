@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Persistencia.Trabajo
+namespace Persistencia
 {
-    class PersistenciaPaquete
+    class PersistenciaPaquete:IPersistenciaPaquete
     {
     }
 }

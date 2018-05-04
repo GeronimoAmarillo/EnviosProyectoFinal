@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidas;
 
-namespace Persistencia.Trabajo
+namespace Persistencia
 {
-    public class PersistenciaAdelanto
+    public class PersistenciaAdelanto:IPersistenciaAdelanto
     {
         public List<Adelantos> ListarAdelanto()
         {
