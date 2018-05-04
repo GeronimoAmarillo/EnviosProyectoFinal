@@ -13,7 +13,7 @@ namespace Persistencia.Trabajo
         {
             List<Adelantos> list = new List<Adelantos>();
             EnviosEntities Db = new EnviosEntities();
-            
+            list = Db.Adelantos.ToList().Where( a => a.Saldado == true).ToList();
             return list;
         }
     }

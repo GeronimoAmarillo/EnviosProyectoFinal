@@ -13,6 +13,7 @@ namespace Logica.GRASPControllers.Trabajo
         public List<Adelantos> ListarAdelanto()
         {
             List<Adelantos> list = new List<Adelantos>();
+            list = Persistencia.FabricaPersistencia.
             return list;
         }
     }

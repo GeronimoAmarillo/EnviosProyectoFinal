@@ -40,6 +40,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataTypes\DTAdelanto.cs" />
+    <Compile Include="DataTypes\DTAdministrador.cs" />
+    <Compile Include="DataTypes\DTAuto.cs" />
+    <Compile Include="DataTypes\DTBalance.cs" />
+    <Compile Include="DataTypes\DTCadete.cs" />
+    <Compile Include="DataTypes\DTCalificacion.cs" />
+    <Compile Include="DataTypes\DTCamion.cs" />
+    <Compile Include="DataTypes\DTCamioneta.cs" />
+    <Compile Include="DataTypes\DTCasilla.cs" />
+    <Compile Include="DataTypes\DTCliente.cs" />
+    <Compile Include="DataTypes\DTCuota.cs" />
+    <Compile Include="DataTypes\DTEmpleado.cs" />
+    <Compile Include="DataTypes\DTEntrega.cs" />
+    <Compile Include="DataTypes\DTGalpon.cs" />
+    <Compile Include="DataTypes\DTGasto.cs" />
+    <Compile Include="DataTypes\DTImpuesto.cs" />
+    <Compile Include="DataTypes\DTIngreso.cs" />
+    <Compile Include="DataTypes\DTLocal.cs" />
+    <Compile Include="DataTypes\DTMoto.cs" />
+    <Compile Include="DataTypes\DTMulta.cs" />
+    <Compile Include="DataTypes\DTPalet.cs" />
+    <Compile Include="DataTypes\DTPaquete.cs" />
+    <Compile Include="DataTypes\DTRack.cs" />
+    <Compile Include="DataTypes\DTReclamo.cs" />
+    <Compile Include="DataTypes\DTRegistro.cs" />
+    <Compile Include="DataTypes\DTReparacion.cs" />
+    <Compile Include="DataTypes\DTSector.cs" />
+    <Compile Include="DataTypes\DTTurno.cs" />
+    <Compile Include="DataTypes\DTUsuario.cs" />
+    <Compile Include="DataTypes\DTVehiculo.cs" />
     <Compile Include="FabricaApps.cs" />
     <Compile Include="GRASPControllers\Interfaces\IControladorAdelanto.cs" />
     <Compile Include="GRASPControllers\Interfaces\IControladorBalance.cs" />
