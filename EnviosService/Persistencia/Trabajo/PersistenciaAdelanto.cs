@@ -9,12 +9,9 @@ namespace Persistencia
 {
     public class PersistenciaAdelanto:IPersistenciaAdelanto
     {
-        public List<Adelantos> ListarAdelanto()
+        public bool RealizarAdelanto(Adelantos adelanto)
         {
-            List<Adelantos> list = new List<Adelantos>();
-            EnviosEntities Db = new EnviosEntities();
-            list = Db.Adelantos.ToList().Where( a => a.Saldado == true).ToList();
-            return list;
+            return true;
         }
     }
 }
