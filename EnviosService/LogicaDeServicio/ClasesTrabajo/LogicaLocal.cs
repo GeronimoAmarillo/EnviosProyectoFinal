@@ -9,31 +9,31 @@ namespace LogicaDeServicio
 {
     public class LogicaLocal
     {
-        public bool altaLocal(Locales unLocal)
+        public bool AltaLocal(Locales unLocal)
         {
             bool exito = false;
             return exito;
         }
 
-        public bool existeLocal(string direccion, string nombre)
+        public bool ExisteLocal(string direccion, string nombre)
         {
             bool existe = false;
             return existe;
         }
 
-        public Locales buscarLocal(string nombreLocal)
+        public Locales BuscarLocal(string nombreLocal)
         {
             Locales local = new Locales();
             return local;
         }
 
-        public Locales modificarLocal(Locales unLocal)
+        public Locales ModificarLocal(Locales unLocal)
         {
             Locales local = new Locales();
             return local;
         }
 
-        public List<Locales> listarLocales()
+        public List<Locales> ListarLocales()
         {
             List<Locales> lista = new List<Locales>();
             return lista;

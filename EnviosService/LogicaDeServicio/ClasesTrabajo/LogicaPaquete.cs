@@ -9,37 +9,37 @@ namespace LogicaDeServicio
 {
     public class LogicaPaquete
     {
-        public bool altaPaquete(Paquetes unPaquete)
+        public bool AltaPaquete(Paquetes unPaquete)
         {
             bool exito = false;
             return exito;
         }
 
-        public Paquetes buscarPaqueteXreferencia(int numeroReferencia)
+        public Paquetes BuscarPaqueteXreferencia(int numeroReferencia)
         {
             Paquetes paquete = new Paquetes();
             return paquete;
         }
 
-        public Paquetes buscarPaqueteXcodigo(int codigo)
+        public Paquetes BuscarPaqueteXcodigo(int codigo)
         {
             Paquetes paquete = new Paquetes();
             return paquete;
         }
 
-        public List<Paquetes> listarPaquetesEnviadosXcliente(int cedula)
+        public List<Paquetes> ListarPaquetesEnviadosXcliente(int cedula)
         {
             List<Paquetes> lista = new List<Paquetes>();
             return lista;
         }
 
-        public List<Paquetes> listarPaquetesRecibidosXcliente(int cedula)
+        public List<Paquetes> ListarPaquetesRecibidosXcliente(int cedula)
         {
             List<Paquetes> lista = new List<Paquetes>();
             return lista;
         }
 
-        public bool realizarReclamo(string descripcion)
+        public bool RealizarReclamo(string descripcion)
         {
             bool exito = false;
             return exito;

@@ -9,31 +9,31 @@ namespace LogicaDeServicio
 {
     public class LogicaValor
     {
-        public List<Gastos> listarGastos()
+        public List<Gastos> ListarGastos()
         {
             List<Gastos> gastos = new List<Gastos>();
             return gastos;
         }
 
-        public List<Ingresos> listarIngresos()
+        public List<Ingresos> ListarIngresos()
         {
             List<Ingresos> ingresos = new List<Ingresos>();
             return ingresos;
         }
 
-        public bool registrarIngreso(Ingresos unIngreso)
+        public bool RegistrarIngreso(Ingresos unIngreso)
         {
             bool exito = false;
             return exito;
         }
 
-        public bool registrarImpuesto(Impuestos unImpuesto)
+        public bool RegistrarImpuesto(Impuestos unImpuesto)
         {
             bool exito = false;
             return exito;
         }
 
-        public bool registrarGasto(Gastos unGasto)
+        public bool RegistrarGasto(Gastos unGasto)
         {
             bool exito = false;
             return exito;

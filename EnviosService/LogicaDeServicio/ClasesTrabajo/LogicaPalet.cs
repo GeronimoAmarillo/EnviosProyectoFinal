@@ -9,19 +9,19 @@ namespace LogicaDeServicio
 {
     public class LogicaPalet
     {
-        public bool altaPalet(Palets unPalet)
+        public bool AltaPalet(Palets unPalet)
         {
             bool exito = false;
             return exito;
         }
 
-        public bool bajaPalet(int id)
+        public bool BajaPalet(int id)
         {
             bool exito = false;
             return exito;
         }
 
-        public Galpones buscarGalpon(int id)
+        public Galpones BuscarGalpon(int id)
         {
             Galpones galpon = new Galpones();
             return galpon;

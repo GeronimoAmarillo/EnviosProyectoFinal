@@ -9,25 +9,25 @@ namespace LogicaDeServicio
 {
     public class LogicaTurno
     {
-        public bool existeTurno(DateTime fechayHora)
+        public bool ExisteTurno(DateTime fechayHora)
         {
             bool exito = false;
             return exito;
         }
 
-        public Boolean modificarTurno(Turnos unTurno)
+        public Boolean ModificarTurno(Turnos unTurno)
         {
             bool exito = false;
             return exito;
         }
 
-        public bool altaTurno(Turnos unTurno)
+        public bool AltaTurno(Turnos unTurno)
         {
             bool exito = false;
             return exito;
         }
 
-        public List<Turnos> listarTurnos()
+        public List<Turnos> ListarTurnos()
         {
             List<Turnos> turnos = new List<Turnos>();
             return turnos;

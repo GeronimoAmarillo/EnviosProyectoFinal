@@ -9,73 +9,73 @@ namespace LogicaDeServicio
 {
     public class LogicaUsuario
     {
-        public bool altaUsuario(Usuarios unUsuario)
+        public bool AltaUsuario(Usuarios unUsuario)
         {
             bool exito = false;
             return exito;
         }
 
-        public bool existeCliente(long rut)
+        public bool ExisteCliente(long rut)
         {
             bool existe = false;
             return existe;
         }
 
-        public bool existeEmpleado(int cedula)
+        public bool ExisteEmpleado(int cedula)
         {
             bool existe = false;
             return existe;
         }
 
-        public Cadetes seleccionarCadete(int cedula)
+        public Cadetes SeleccionarCadete(int cedula)
         {
             Cadetes cadete = new Cadetes();
             return cadete;
         }
 
-        public bool modoficarUsuario(Usuarios unUsuario)
+        public bool ModoficarUsuario(Usuarios unUsuario)
         {
             bool exito = false;
             return exito;
         }
 
-        public List<Empleados> listarEmpleados()
+        public List<Empleados> ListarEmpleados()
         {
             List<Empleados> lista = new List<Empleados>();
             return lista;
         }
 
-        public List<Cadetes> listarCadetesDisponibles()
+        public List<Cadetes> ListarCadetesDisponibles()
         {
             List<Cadetes> lista = new List<Cadetes>();
             return lista;
         }
 
-        public List<Clientes> listarClientes()
+        public List<Clientes> ListarClientes()
         {
             List<Clientes> clientes = new List<Clientes>();
             return clientes;
         }
 
-        public bool bajaUsuario(int cedula)
+        public bool BajaUsuario(int cedula)
         {
             bool exito = false;
             return exito;
         }
 
-        public Usuarios login(string usuario, string password)
+        public Usuarios Login(string usuario, string password)
         {
             Usuarios usuarioLogeado = new Usuarios();
             return usuarioLogeado;
         }
 
-        public bool comprobarUser(string user)
+        public bool ComprobarUser(string user)
         {
             bool exito = false;
             return exito;
         }
 
-        public Empleados buscarEmpleado(int cedula)
+        public Empleados BuscarEmpleado(int cedula)
         {
             Empleados empleado = new Empleados();
             return empleado;
