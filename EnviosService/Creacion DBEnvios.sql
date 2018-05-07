@@ -59,7 +59,8 @@ CREATE TABLE Vehiculos
 	Marca NVarchar(25) not null,
 	Modelo NVarchar(25) not null,
 	Capacidad decimal not null,
-	Estado NVarchar(150) not null
+	Estado NVarchar(150) not null,
+	Cadete Integer foreign key references Cadetes(CiEmpleado)
 )
 
 CREATE TABLE Automobiles

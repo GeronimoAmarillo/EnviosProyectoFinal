@@ -59,6 +59,7 @@
         <AssociationConnector Association="EnviosModel.FK__Reclamo__Paquete__151B244E" ManuallyRouted="false" />
         <AssociationConnector Association="EnviosModel.FK__Racks__Sector__5629CD9C" ManuallyRouted="false" />
         <AssociationConnector Association="EnviosModel.FK__Reparacio__Vehic__31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="EnviosModel.FK__Vehiculos__Cadet__1B0907CE" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

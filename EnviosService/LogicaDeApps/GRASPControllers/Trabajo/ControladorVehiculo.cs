@@ -11,6 +11,8 @@ namespace LogicaDeApps
     class ControladorVehiculo: IControladorVehiculo
     {
         private Vehiculos vehiculo;
+        private string matricula;
+        private List<Cadetes> cadetesDisponibles;
 
         public Vehiculos GetVehiculo()
         {
@@ -29,7 +31,62 @@ namespace LogicaDeApps
 
         public Cadetes GetCadete()
         {
-            return new Cadetes();
+            return vehiculo.Cadete1;
+        }
+
+        public string GetMatricula()
+        {
+            return matricula;
+        }
+
+        public bool ModificarVehiculo(DTVehiculo pVehiculo)
+        {
+            return true;
+        }
+
+        public DTCadete SeleccionarCadete(int ci)
+        {
+            return new DTCadete();
+        }
+
+        public List<Cadetes> GetCadetes()
+        {
+            return new List<Cadetes>();
+        }
+
+        public void SetCadetes(List<Cadetes> pCadetesDisponibles)
+        {
+            cadetesDisponibles = pCadetesDisponibles;
+        }
+
+        public void SetVehiculo(Vehiculos pVehiculo)
+        {
+            vehiculo = pVehiculo;
+        }
+
+        public bool EliminarVehiculo(Vehiculos vehiculo)
+        {
+            return true;
+        }
+
+        public DTVehiculo BuscarVehiculo(string matricula)
+        {
+            return new DTVehiculo();
+        }
+
+        public DTVehiculo ContemplarTipo()
+        {
+            return new DTVehiculo();
+        }
+
+        public bool AltaVehiculo(DTVehiculo pVehiculo)
+        {
+            return true;
+        }
+
+        public bool ExisteVehiculo(string matricula)
+        {
+            return true;
         }
     }
 }

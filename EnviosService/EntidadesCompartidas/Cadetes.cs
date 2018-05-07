@@ -14,10 +14,18 @@ namespace EntidadesCompartidas
     
     public partial class Cadetes
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Cadetes()
+        {
+            this.Vehiculos = new HashSet<Vehiculos>();
+        }
+    
         public string TipoLibreta { get; set; }
         public long IdTelefono { get; set; }
         public int CiEmpleado { get; set; }
     
         public virtual Empleados Empleados { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Vehiculos> Vehiculos { get; set; }
     }
 }

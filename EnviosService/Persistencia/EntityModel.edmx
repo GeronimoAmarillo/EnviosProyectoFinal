@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="EnviosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="EnviosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Adelantos">
           <Key>
             <PropertyRef Name="Id" />
@@ -275,8 +275,9 @@
           <Property Name="Modelo" Type="nvarchar" MaxLength="25" Nullable="false" />
           <Property Name="Capacidad" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Estado" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Cadete" Type="int" />
         </EntityType>
-        <Association Name="FK__Adelantos__Emple__3E52440B">
+        <Association Name="FK__Adelantos__Emple__3F466844">
           <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
           <End Role="Adelantos" Type="Self.Adelantos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -300,7 +301,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Automobil__Matri__1ED998B2">
+        <Association Name="FK__Automobil__Matri__1FCDBCEB">
           <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="1" />
           <End Role="Automobiles" Type="Self.Automobiles" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -324,7 +325,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Calificac__RutCl__49C3F6B7">
+        <Association Name="FK__Calificac__RutCl__4AB81AF0">
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
           <End Role="Calificaciones" Type="Self.Calificaciones" Multiplicity="*" />
           <ReferentialConstraint>
@@ -336,7 +337,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Camiones__Matric__286302EC">
+        <Association Name="FK__Camiones__Matric__29572725">
           <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="1" />
           <End Role="Camiones" Type="Self.Camiones" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -348,7 +349,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Camioneta__Matri__2D27B809">
+        <Association Name="FK__Camioneta__Matri__2E1BDC42">
           <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="1" />
           <End Role="Camionetas" Type="Self.Camionetas" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -360,7 +361,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Casillas__Rack__5AEE82B9">
+        <Association Name="FK__Casillas__Rack__5BE2A6F2">
           <End Role="Racks" Type="Self.Racks" Multiplicity="0..1" />
           <End Role="Casillas" Type="Self.Casillas" Multiplicity="*" />
           <ReferentialConstraint>
@@ -385,8 +386,8 @@
           </ReferentialConstraint>
         </Association>
         <!--Errores durante la generación:
-advertencia 6035: La relación 'FK__Cuotas__IdAdelan__440B1D61' tiene columnas que no forman parte de la clave de la tabla en el lado principal de la relación. Se excluyó la relación.
-        <Association Name="FK__Cuotas__IdAdelan__440B1D61" />-->
+advertencia 6035: La relación 'FK__Cuotas__IdAdelan__44FF419A' tiene columnas que no forman parte de la clave de la tabla en el lado principal de la relación. Se excluyó la relación.
+        <Association Name="FK__Cuotas__IdAdelan__44FF419A" />-->
         <Association Name="FK__Empleados__IdUsu__07F6335A">
           <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
           <End Role="Empleados" Type="Self.Empleados" Multiplicity="*" />
@@ -399,7 +400,7 @@ advertencia 6035: La relación 'FK__Cuotas__IdAdelan__440B1D61' tiene columnas q
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Entregas__Client__06CD04F7">
+        <Association Name="FK__Entregas__Client__07C12930">
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
           <End Role="Entregas" Type="Self.Entregas" Multiplicity="*" />
           <ReferentialConstraint>
@@ -411,7 +412,7 @@ advertencia 6035: La relación 'FK__Cuotas__IdAdelan__440B1D61' tiene columnas q
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Entregas__Client__07C12930">
+        <Association Name="FK__Entregas__Client__08B54D69">
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
           <End Role="Entregas" Type="Self.Entregas" Multiplicity="*" />
           <ReferentialConstraint>
@@ -423,7 +424,7 @@ advertencia 6035: La relación 'FK__Cuotas__IdAdelan__440B1D61' tiene columnas q
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Entregas__LocalE__09A971A2">
+        <Association Name="FK__Entregas__LocalE__0A9D95DB">
           <End Role="Locales" Type="Self.Locales" Multiplicity="0..1" />
           <End Role="Entregas" Type="Self.Entregas" Multiplicity="*" />
           <ReferentialConstraint>
@@ -435,7 +436,7 @@ advertencia 6035: La relación 'FK__Cuotas__IdAdelan__440B1D61' tiene columnas q
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Entregas__LocalR__08B54D69">
+        <Association Name="FK__Entregas__LocalR__09A971A2">
           <End Role="Locales" Type="Self.Locales" Multiplicity="0..1" />
           <End Role="Entregas" Type="Self.Entregas" Multiplicity="*" />
           <ReferentialConstraint>
@@ -447,7 +448,7 @@ advertencia 6035: La relación 'FK__Cuotas__IdAdelan__440B1D61' tiene columnas q
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Entregas__Turno__0A9D95DB">
+        <Association Name="FK__Entregas__Turno__0B91BA14">
           <End Role="Turnos" Type="Self.Turnos" Multiplicity="0..1" />
           <End Role="Entregas" Type="Self.Entregas" Multiplicity="*" />
           <ReferentialConstraint>
@@ -459,7 +460,7 @@ advertencia 6035: La relación 'FK__Cuotas__IdAdelan__440B1D61' tiene columnas q
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Motos__Matricula__239E4DCF">
+        <Association Name="FK__Motos__Matricula__24927208">
           <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="1" />
           <End Role="Motos" Type="Self.Motos" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -471,7 +472,7 @@ advertencia 6035: La relación 'FK__Cuotas__IdAdelan__440B1D61' tiene columnas q
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Multas__Vehiculo__36B12243">
+        <Association Name="FK__Multas__Vehiculo__37A5467C">
           <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="1" />
           <End Role="Multas" Type="Self.Multas" Multiplicity="*" />
           <ReferentialConstraint>
@@ -483,7 +484,7 @@ advertencia 6035: La relación 'FK__Cuotas__IdAdelan__440B1D61' tiene columnas q
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Palets__Casilla__5FB337D6">
+        <Association Name="FK__Palets__Casilla__60A75C0F">
           <End Role="Casillas" Type="Self.Casillas" Multiplicity="0..1" />
           <End Role="Palets" Type="Self.Palets" Multiplicity="*" />
           <ReferentialConstraint>
@@ -495,7 +496,7 @@ advertencia 6035: La relación 'FK__Cuotas__IdAdelan__440B1D61' tiene columnas q
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Paquetes__Client__10566F31">
+        <Association Name="FK__Paquetes__Client__114A936A">
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
           <End Role="Paquetes" Type="Self.Paquetes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -507,7 +508,7 @@ advertencia 6035: La relación 'FK__Cuotas__IdAdelan__440B1D61' tiene columnas q
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Paquetes__Entreg__0F624AF8">
+        <Association Name="FK__Paquetes__Entreg__10566F31">
           <End Role="Entregas" Type="Self.Entregas" Multiplicity="0..1" />
           <End Role="Paquetes" Type="Self.Paquetes" Multiplicity="*" />
           <ReferentialConstraint>
@@ -519,7 +520,7 @@ advertencia 6035: La relación 'FK__Cuotas__IdAdelan__440B1D61' tiene columnas q
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Racks__Sector__5629CD9C">
+        <Association Name="FK__Racks__Sector__571DF1D5">
           <End Role="Sectores" Type="Self.Sectores" Multiplicity="0..1" />
           <End Role="Racks" Type="Self.Racks" Multiplicity="*" />
           <ReferentialConstraint>
@@ -531,7 +532,7 @@ advertencia 6035: La relación 'FK__Cuotas__IdAdelan__440B1D61' tiene columnas q
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reclamo__Paquete__151B244E">
+        <Association Name="FK__Reclamo__Paquete__160F4887">
           <End Role="Paquetes" Type="Self.Paquetes" Multiplicity="1" />
           <End Role="Reclamo" Type="Self.Reclamo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -543,7 +544,7 @@ advertencia 6035: La relación 'FK__Cuotas__IdAdelan__440B1D61' tiene columnas q
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Registros__Balan__74AE54BC">
+        <Association Name="FK__Registros__Balan__75A278F5">
           <End Role="Balances" Type="Self.Balances" Multiplicity="0..1" />
           <End Role="Registros" Type="Self.Registros" Multiplicity="*" />
           <ReferentialConstraint>
@@ -555,7 +556,7 @@ advertencia 6035: La relación 'FK__Cuotas__IdAdelan__440B1D61' tiene columnas q
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Reparacio__Vehic__31EC6D26">
+        <Association Name="FK__Reparacio__Vehic__32E0915F">
           <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="1" />
           <End Role="Reparaciones" Type="Self.Reparaciones" Multiplicity="*" />
           <ReferentialConstraint>
@@ -564,6 +565,18 @@ advertencia 6035: La relación 'FK__Cuotas__IdAdelan__440B1D61' tiene columnas q
             </Principal>
             <Dependent Role="Reparaciones">
               <PropertyRef Name="Vehiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vehiculos__Cadet__1B0907CE">
+          <End Role="Cadetes" Type="Self.Cadetes" Multiplicity="0..1" />
+          <End Role="Vehiculos" Type="Self.Vehiculos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cadetes">
+              <PropertyRef Name="CiEmpleado" />
+            </Principal>
+            <Dependent Role="Vehiculos">
+              <PropertyRef Name="Cadete" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -598,7 +611,7 @@ advertencia 6035: La relación 'FK__Cuotas__IdAdelan__440B1D61' tiene columnas q
           <EntitySet Name="Turnos" EntityType="Self.Turnos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vehiculos" EntityType="Self.Vehiculos" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Adelantos__Emple__3E52440B" Association="Self.FK__Adelantos__Emple__3E52440B">
+          <AssociationSet Name="FK__Adelantos__Emple__3F466844" Association="Self.FK__Adelantos__Emple__3F466844">
             <End Role="Empleados" EntitySet="Empleados" />
             <End Role="Adelantos" EntitySet="Adelantos" />
           </AssociationSet>
@@ -606,7 +619,7 @@ advertencia 6035: La relación 'FK__Cuotas__IdAdelan__440B1D61' tiene columnas q
             <End Role="Empleados" EntitySet="Empleados" />
             <End Role="Administradores" EntitySet="Administradores" />
           </AssociationSet>
-          <AssociationSet Name="FK__Automobil__Matri__1ED998B2" Association="Self.FK__Automobil__Matri__1ED998B2">
+          <AssociationSet Name="FK__Automobil__Matri__1FCDBCEB" Association="Self.FK__Automobil__Matri__1FCDBCEB">
             <End Role="Vehiculos" EntitySet="Vehiculos" />
             <End Role="Automobiles" EntitySet="Automobiles" />
           </AssociationSet>
@@ -614,19 +627,19 @@ advertencia 6035: La relación 'FK__Cuotas__IdAdelan__440B1D61' tiene columnas q
             <End Role="Empleados" EntitySet="Empleados" />
             <End Role="Cadetes" EntitySet="Cadetes" />
           </AssociationSet>
-          <AssociationSet Name="FK__Calificac__RutCl__49C3F6B7" Association="Self.FK__Calificac__RutCl__49C3F6B7">
+          <AssociationSet Name="FK__Calificac__RutCl__4AB81AF0" Association="Self.FK__Calificac__RutCl__4AB81AF0">
             <End Role="Clientes" EntitySet="Clientes" />
             <End Role="Calificaciones" EntitySet="Calificaciones" />
           </AssociationSet>
-          <AssociationSet Name="FK__Camiones__Matric__286302EC" Association="Self.FK__Camiones__Matric__286302EC">
+          <AssociationSet Name="FK__Camiones__Matric__29572725" Association="Self.FK__Camiones__Matric__29572725">
             <End Role="Vehiculos" EntitySet="Vehiculos" />
             <End Role="Camiones" EntitySet="Camiones" />
           </AssociationSet>
-          <AssociationSet Name="FK__Camioneta__Matri__2D27B809" Association="Self.FK__Camioneta__Matri__2D27B809">
+          <AssociationSet Name="FK__Camioneta__Matri__2E1BDC42" Association="Self.FK__Camioneta__Matri__2E1BDC42">
             <End Role="Vehiculos" EntitySet="Vehiculos" />
             <End Role="Camionetas" EntitySet="Camionetas" />
           </AssociationSet>
-          <AssociationSet Name="FK__Casillas__Rack__5AEE82B9" Association="Self.FK__Casillas__Rack__5AEE82B9">
+          <AssociationSet Name="FK__Casillas__Rack__5BE2A6F2" Association="Self.FK__Casillas__Rack__5BE2A6F2">
             <End Role="Racks" EntitySet="Racks" />
             <End Role="Casillas" EntitySet="Casillas" />
           </AssociationSet>
@@ -638,65 +651,68 @@ advertencia 6035: La relación 'FK__Cuotas__IdAdelan__440B1D61' tiene columnas q
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Empleados" EntitySet="Empleados" />
           </AssociationSet>
-          <AssociationSet Name="FK__Entregas__Client__06CD04F7" Association="Self.FK__Entregas__Client__06CD04F7">
-            <End Role="Clientes" EntitySet="Clientes" />
-            <End Role="Entregas" EntitySet="Entregas" />
-          </AssociationSet>
           <AssociationSet Name="FK__Entregas__Client__07C12930" Association="Self.FK__Entregas__Client__07C12930">
             <End Role="Clientes" EntitySet="Clientes" />
             <End Role="Entregas" EntitySet="Entregas" />
           </AssociationSet>
-          <AssociationSet Name="FK__Entregas__LocalE__09A971A2" Association="Self.FK__Entregas__LocalE__09A971A2">
+          <AssociationSet Name="FK__Entregas__Client__08B54D69" Association="Self.FK__Entregas__Client__08B54D69">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Entregas" EntitySet="Entregas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Entregas__LocalE__0A9D95DB" Association="Self.FK__Entregas__LocalE__0A9D95DB">
             <End Role="Locales" EntitySet="Locales" />
             <End Role="Entregas" EntitySet="Entregas" />
           </AssociationSet>
-          <AssociationSet Name="FK__Entregas__LocalR__08B54D69" Association="Self.FK__Entregas__LocalR__08B54D69">
+          <AssociationSet Name="FK__Entregas__LocalR__09A971A2" Association="Self.FK__Entregas__LocalR__09A971A2">
             <End Role="Locales" EntitySet="Locales" />
             <End Role="Entregas" EntitySet="Entregas" />
           </AssociationSet>
-          <AssociationSet Name="FK__Entregas__Turno__0A9D95DB" Association="Self.FK__Entregas__Turno__0A9D95DB">
+          <AssociationSet Name="FK__Entregas__Turno__0B91BA14" Association="Self.FK__Entregas__Turno__0B91BA14">
             <End Role="Turnos" EntitySet="Turnos" />
             <End Role="Entregas" EntitySet="Entregas" />
           </AssociationSet>
-          <AssociationSet Name="FK__Motos__Matricula__239E4DCF" Association="Self.FK__Motos__Matricula__239E4DCF">
+          <AssociationSet Name="FK__Motos__Matricula__24927208" Association="Self.FK__Motos__Matricula__24927208">
             <End Role="Vehiculos" EntitySet="Vehiculos" />
             <End Role="Motos" EntitySet="Motos" />
           </AssociationSet>
-          <AssociationSet Name="FK__Multas__Vehiculo__36B12243" Association="Self.FK__Multas__Vehiculo__36B12243">
+          <AssociationSet Name="FK__Multas__Vehiculo__37A5467C" Association="Self.FK__Multas__Vehiculo__37A5467C">
             <End Role="Vehiculos" EntitySet="Vehiculos" />
             <End Role="Multas" EntitySet="Multas" />
           </AssociationSet>
-          <AssociationSet Name="FK__Palets__Casilla__5FB337D6" Association="Self.FK__Palets__Casilla__5FB337D6">
+          <AssociationSet Name="FK__Palets__Casilla__60A75C0F" Association="Self.FK__Palets__Casilla__60A75C0F">
             <End Role="Casillas" EntitySet="Casillas" />
             <End Role="Palets" EntitySet="Palets" />
           </AssociationSet>
-          <AssociationSet Name="FK__Paquetes__Client__10566F31" Association="Self.FK__Paquetes__Client__10566F31">
+          <AssociationSet Name="FK__Paquetes__Client__114A936A" Association="Self.FK__Paquetes__Client__114A936A">
             <End Role="Clientes" EntitySet="Clientes" />
             <End Role="Paquetes" EntitySet="Paquetes" />
           </AssociationSet>
-          <AssociationSet Name="FK__Paquetes__Entreg__0F624AF8" Association="Self.FK__Paquetes__Entreg__0F624AF8">
+          <AssociationSet Name="FK__Paquetes__Entreg__10566F31" Association="Self.FK__Paquetes__Entreg__10566F31">
             <End Role="Entregas" EntitySet="Entregas" />
             <End Role="Paquetes" EntitySet="Paquetes" />
           </AssociationSet>
-          <AssociationSet Name="FK__Racks__Sector__5629CD9C" Association="Self.FK__Racks__Sector__5629CD9C">
+          <AssociationSet Name="FK__Racks__Sector__571DF1D5" Association="Self.FK__Racks__Sector__571DF1D5">
             <End Role="Sectores" EntitySet="Sectores" />
             <End Role="Racks" EntitySet="Racks" />
           </AssociationSet>
-          <AssociationSet Name="FK__Reclamo__Paquete__151B244E" Association="Self.FK__Reclamo__Paquete__151B244E">
+          <AssociationSet Name="FK__Reclamo__Paquete__160F4887" Association="Self.FK__Reclamo__Paquete__160F4887">
             <End Role="Paquetes" EntitySet="Paquetes" />
             <End Role="Reclamo" EntitySet="Reclamo" />
           </AssociationSet>
-          <AssociationSet Name="FK__Registros__Balan__74AE54BC" Association="Self.FK__Registros__Balan__74AE54BC">
+          <AssociationSet Name="FK__Registros__Balan__75A278F5" Association="Self.FK__Registros__Balan__75A278F5">
             <End Role="Balances" EntitySet="Balances" />
             <End Role="Registros" EntitySet="Registros" />
           </AssociationSet>
-          <AssociationSet Name="FK__Reparacio__Vehic__31EC6D26" Association="Self.FK__Reparacio__Vehic__31EC6D26">
+          <AssociationSet Name="FK__Reparacio__Vehic__32E0915F" Association="Self.FK__Reparacio__Vehic__32E0915F">
             <End Role="Vehiculos" EntitySet="Vehiculos" />
             <End Role="Reparaciones" EntitySet="Reparaciones" />
           </AssociationSet>
+          <AssociationSet Name="FK__Vehiculos__Cadet__1B0907CE" Association="Self.FK__Vehiculos__Cadet__1B0907CE">
+            <End Role="Cadetes" EntitySet="Cadetes" />
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EnviosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -746,6 +762,7 @@ advertencia 6035: La relación 'FK__Cuotas__IdAdelan__440B1D61' tiene columnas q
           <Property Name="IdTelefono" Type="Int64" Nullable="false" />
           <Property Name="CiEmpleado" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Empleados" Relationship="Self.FK__Cadetes__CiEmple__117F9D94" FromRole="Cadetes" ToRole="Empleados" />
+          <NavigationProperty Name="Vehiculos" Relationship="EnviosModel.FK__Vehiculos__Cadet__1B0907CE" FromRole="Cadetes" ToRole="Vehiculos" />
         </EntityType>
         <EntityType Name="Calificaciones">
           <Key>
@@ -1018,6 +1035,8 @@ advertencia 6035: La relación 'FK__Cuotas__IdAdelan__440B1D61' tiene columnas q
           <NavigationProperty Name="Motos" Relationship="Self.FK__Motos__Matricula__239E4DCF" FromRole="Vehiculos" ToRole="Motos" />
           <NavigationProperty Name="Multas" Relationship="Self.FK__Multas__Vehiculo__36B12243" FromRole="Vehiculos" ToRole="Multas" />
           <NavigationProperty Name="Reparaciones" Relationship="Self.FK__Reparacio__Vehic__31EC6D26" FromRole="Vehiculos" ToRole="Reparaciones" />
+          <Property Name="Cadete" Type="Int32" />
+          <NavigationProperty Name="Cadete1" Relationship="EnviosModel.FK__Vehiculos__Cadet__1B0907CE" FromRole="Vehiculos" ToRole="Cadetes" />
         </EntityType>
         <Association Name="FK__Adelantos__Emple__3E52440B">
           <End Role="Empleados" Type="Self.Empleados" Multiplicity="1" />
@@ -1434,7 +1453,23 @@ advertencia 6035: La relación 'FK__Cuotas__IdAdelan__440B1D61' tiene columnas q
             <End Role="Vehiculos" EntitySet="Vehiculos" />
             <End Role="Reparaciones" EntitySet="Reparaciones" />
           </AssociationSet>
+          <AssociationSet Name="FK__Vehiculos__Cadet__1B0907CE" Association="EnviosModel.FK__Vehiculos__Cadet__1B0907CE">
+            <End Role="Cadetes" EntitySet="Cadetes" />
+            <End Role="Vehiculos" EntitySet="Vehiculos" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK__Vehiculos__Cadet__1B0907CE">
+          <End Type="EnviosModel.Cadetes" Role="Cadetes" Multiplicity="0..1" />
+          <End Type="EnviosModel.Vehiculos" Role="Vehiculos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cadetes">
+              <PropertyRef Name="CiEmpleado" />
+            </Principal>
+            <Dependent Role="Vehiculos">
+              <PropertyRef Name="Cadete" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1728,6 +1763,7 @@ advertencia 6035: La relación 'FK__Cuotas__IdAdelan__440B1D61' tiene columnas q
           <EntitySetMapping Name="Vehiculos">
             <EntityTypeMapping TypeName="EnviosModel.Vehiculos">
               <MappingFragment StoreEntitySet="Vehiculos">
+                <ScalarProperty Name="Cadete" ColumnName="Cadete" />
                 <ScalarProperty Name="Matricula" ColumnName="Matricula" />
                 <ScalarProperty Name="Marca" ColumnName="Marca" />
                 <ScalarProperty Name="Modelo" ColumnName="Modelo" />
@@ -1750,7 +1786,7 @@ advertencia 6035: La relación 'FK__Cuotas__IdAdelan__440B1D61' tiene columnas q
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
