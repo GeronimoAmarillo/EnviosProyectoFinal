@@ -51,6 +51,7 @@
     <Compile Include="ClasesTrabajo\LogicaUsuario.cs" />
     <Compile Include="ClasesTrabajo\LogicaValor.cs" />
     <Compile Include="ClasesTrabajo\LogicaVehiculo.cs" />
+    <Compile Include="ControladorValores.cs" />
     <Compile Include="FabricaServicio.cs" />
     <Compile Include="GRASPControllers\Interfaces\IControladorAdelanto.cs" />
     <Compile Include="GRASPControllers\Interfaces\IControladorBalance.cs" />
@@ -58,15 +59,11 @@
     <Compile Include="GRASPControllers\Interfaces\IControladorCliente.cs" />
     <Compile Include="GRASPControllers\Interfaces\IControladorEmpleado.cs" />
     <Compile Include="GRASPControllers\Interfaces\IControladorEntrega.cs" />
-    <Compile Include="GRASPControllers\Interfaces\IControladorGasto.cs" />
-    <Compile Include="GRASPControllers\Interfaces\IControladorImpuesto.cs" />
-    <Compile Include="GRASPControllers\Interfaces\IControladorIngreso.cs" />
     <Compile Include="GRASPControllers\Interfaces\IControladorLocal.cs" />
     <Compile Include="GRASPControllers\Interfaces\IControladorMulta.cs" />
     <Compile Include="GRASPControllers\Interfaces\IControladorPalet.cs" />
     <Compile Include="GRASPControllers\Interfaces\IControladorPaquete.cs" />
     <Compile Include="GRASPControllers\Interfaces\IControladorReparacion.cs" />
-    <Compile Include="GRASPControllers\Interfaces\IControladorTrackeo.cs" />
     <Compile Include="GRASPControllers\Interfaces\IControladorTurno.cs" />
     <Compile Include="GRASPControllers\Interfaces\IControladorUsuario.cs" />
     <Compile Include="GRASPControllers\Interfaces\IControladorVehiculo.cs" />
@@ -76,18 +73,15 @@
     <Compile Include="GRASPControllers\Trabajo\ControladorCliente.cs" />
     <Compile Include="GRASPControllers\Trabajo\ControladorEmpleado.cs" />
     <Compile Include="GRASPControllers\Trabajo\ControladorEntrega.cs" />
-    <Compile Include="GRASPControllers\Trabajo\ControladorGasto.cs" />
-    <Compile Include="GRASPControllers\Trabajo\ControladorImpuesto.cs" />
-    <Compile Include="GRASPControllers\Trabajo\ControladorIngreso.cs" />
     <Compile Include="GRASPControllers\Trabajo\ControladorLocal.cs" />
     <Compile Include="GRASPControllers\Trabajo\ControladorMulta.cs" />
     <Compile Include="GRASPControllers\Trabajo\ControladorPalet.cs" />
     <Compile Include="GRASPControllers\Trabajo\ControladorPaquete.cs" />
     <Compile Include="GRASPControllers\Trabajo\ControladorReparacion.cs" />
-    <Compile Include="GRASPControllers\Trabajo\ControladorTrackeo.cs" />
     <Compile Include="GRASPControllers\Trabajo\ControladorTurno.cs" />
     <Compile Include="GRASPControllers\Trabajo\ControladorUsuario.cs" />
     <Compile Include="GRASPControllers\Trabajo\ControladorVehiculo.cs" />
+    <Compile Include="IControladorValores.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
