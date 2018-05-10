@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogicaDeServicio
 {
-    class FabricaServicio
+    public class FabricaServicio
     {
 
         public static IControladorAdelanto GetControladorAdelanto()

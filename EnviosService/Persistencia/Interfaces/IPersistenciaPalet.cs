@@ -13,6 +13,6 @@ namespace Persistencia
 
         Galpones BuscarGalpon(int id);
 
-        bool BajaPalet(int id);
+        bool BajaPalet(Palets palet);
     }
 }

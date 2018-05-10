@@ -31,7 +31,7 @@ namespace LogicaDeServicio
             return new Palets();
         }
 
-        public bool BajaPalet(int id)
+        public bool BajaPalet(Palets palet)
         {
             return true;
         }

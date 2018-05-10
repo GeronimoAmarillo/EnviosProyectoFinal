@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using EntidadesCompartidas;
+using LogicaDeServicio;
 
 namespace EnviosService.Controllers
 {
@@ -11,5 +13,17 @@ namespace EnviosService.Controllers
     [Route("api/Calificaciones")]
     public class CalificacionesController : Controller
     {
+        private IControladorCalificacion controladorCalificacion;
+
+        public CalificacionesController()
+        {
+            controladorCalificacion = FabricaServicio.GetControladorCalificacion();
+        }
+
+        [HttpPost]
+        public JsonResult Calificacion([FromBody] int puntaje , [FromBody] string comentario)
+        {
+            return Json(controladorCalificacion.Calificar(puntaje, comentario));
+        }
     }
 }

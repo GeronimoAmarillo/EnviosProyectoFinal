@@ -18,7 +18,7 @@ namespace Persistencia
             return new Galpones();
         }
 
-        public bool BajaPalet(int id)
+        public bool BajaPalet(Palets palet)
         {
             return true;
         }
