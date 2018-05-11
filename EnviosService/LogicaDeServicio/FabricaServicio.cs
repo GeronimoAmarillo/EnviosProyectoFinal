@@ -39,21 +39,6 @@ namespace LogicaDeServicio
             return new ControladorEntrega();
         }
 
-        public static IControladorGasto GetControladorGasto()
-        {
-            return new ControladorGasto();
-        }
-
-        public static IControladorImpuesto GetControladorImpuesto()
-        {
-            return new ControladorImpuesto();
-        }
-
-        public static IControladorIngreso GetControladorIngreso()
-        {
-            return new ControladorIngreso();
-        }
-
         public static IControladorLocal GetControladorLocal()
         {
             return new ControladorLocal();
@@ -79,11 +64,6 @@ namespace LogicaDeServicio
             return new ControladorReparacion();
         }
 
-        public static IControladorTrackeo GetControladorTrackeo()
-        {
-            return new ControladorTrackeo();
-        }
-
         public static IControladorTurno GetControladorTurno()
         {
             return new ControladorTurno();
@@ -97,6 +77,10 @@ namespace LogicaDeServicio
         public static IControladorVehiculo GetControladorVehiculo()
         {
             return new ControladorVehiculo();
+        }
+        public static IControladorValores GetControladorValores()
+        {
+            return new ControladorValores();
         }
     }
 }

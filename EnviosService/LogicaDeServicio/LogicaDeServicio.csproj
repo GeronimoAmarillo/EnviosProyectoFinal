@@ -51,7 +51,7 @@
     <Compile Include="ClasesTrabajo\LogicaUsuario.cs" />
     <Compile Include="ClasesTrabajo\LogicaValor.cs" />
     <Compile Include="ClasesTrabajo\LogicaVehiculo.cs" />
-    <Compile Include="ControladorValores.cs" />
+    <Compile Include="GRASPControllers\Trabajo\ControladorValores.cs" />
     <Compile Include="FabricaServicio.cs" />
     <Compile Include="GRASPControllers\Interfaces\IControladorAdelanto.cs" />
     <Compile Include="GRASPControllers\Interfaces\IControladorBalance.cs" />
@@ -81,7 +81,7 @@
     <Compile Include="GRASPControllers\Trabajo\ControladorTurno.cs" />
     <Compile Include="GRASPControllers\Trabajo\ControladorUsuario.cs" />
     <Compile Include="GRASPControllers\Trabajo\ControladorVehiculo.cs" />
-    <Compile Include="IControladorValores.cs" />
+    <Compile Include="GRASPControllers\Interfaces\IControladorValores.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
