@@ -4,78 +4,100 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidas;
+using Persistencia;
 
 namespace LogicaDeServicio
 {
     public class LogicaUsuario
     {
-        public bool AltaUsuario(Usuarios unUsuario)
+        public static bool AltaUsuario(Usuarios unUsuario)
         {
             bool exito = false;
             return exito;
         }
 
-        public bool ExisteCliente(long rut)
+        public static bool ExisteCliente(long rut)
         {
             bool existe = false;
             return existe;
         }
 
-        public bool ExisteEmpleado(int cedula)
+        public static bool ExisteEmpleado(int cedula)
         {
             bool existe = false;
             return existe;
         }
 
-        public Cadetes SeleccionarCadete(int cedula)
+        public static Cadetes SeleccionarCadete(int cedula)
         {
             Cadetes cadete = new Cadetes();
             return cadete;
         }
 
-        public bool ModoficarUsuario(Usuarios unUsuario)
+        public static bool ModoficarUsuario(Usuarios unUsuario)
         {
             bool exito = false;
             return exito;
         }
 
-        public List<Empleados> ListarEmpleados()
+        public static List<Empleados> ListarEmpleados()
         {
             List<Empleados> lista = new List<Empleados>();
             return lista;
         }
 
-        public List<Cadetes> ListarCadetesDisponibles()
+        public static List<Cadetes> ListarCadetesDisponibles()
         {
             List<Cadetes> lista = new List<Cadetes>();
             return lista;
         }
 
-        public List<Clientes> ListarClientes()
+        public static List<Clientes> ListarClientes()
         {
             List<Clientes> clientes = new List<Clientes>();
             return clientes;
         }
 
-        public bool BajaUsuario(int cedula)
+        public static bool BajaUsuario(int cedula)
         {
             bool exito = false;
             return exito;
         }
 
-        public Usuarios Login(string usuario, string password)
+        public static Usuarios Login(string usuario, string password)
         {
-            Usuarios usuarioLogeado = new Usuarios();
-            return usuarioLogeado;
+            Usuarios usuarioLogueado;
+
+            try
+            {
+                usuarioLogueado = FabricaPersistencia.GetPersistenciaAdministrador().Login(usuario, password);
+
+                if (usuarioLogueado == null)
+                {
+                    usuarioLogueado = FabricaPersistencia.GetPersistenciaCadete().Login(usuario, password);
+                }
+
+                if (usuarioLogueado == null)
+                {
+                    usuarioLogueado = FabricaPersistencia.GetPersistenciaCliente().Login(usuario, password);
+                }
+
+                return usuarioLogueado;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Error al loguear el Usuario" + ex.Message);
+            }
+
         }
 
-        public bool ComprobarUser(string user)
+        public static bool ComprobarUser(string user)
         {
             bool exito = false;
             return exito;
         }
 
-        public Empleados BuscarEmpleado(int cedula)
+        public static Empleados BuscarEmpleado(int cedula)
         {
             Empleados empleado = new Empleados();
             return empleado;

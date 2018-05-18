@@ -26,7 +26,27 @@ namespace Persistencia
 
         public Cadetes Login(string user, string contraseña)
         {
-            return new Cadetes();
+            Cadetes cadeteLogueado = new Cadetes();
+            EnviosEntities dbConexion = new EnviosEntities();
+            try
+            {
+
+                var cadeteEncontrado = from cadete in dbConexion.Cadetes
+                                 where cadete.Empleados.Usuarios.NombreUsuario == user && cadete.Empleados.Usuarios.Contraseña == contraseña
+                                 select cadete;
+
+                foreach (Cadetes c in cadeteEncontrado)
+                {
+                    cadeteLogueado = c;
+                }
+                   
+                return cadeteLogueado;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Error al intentar loguear el Cadete" + ex.Message);
+            }
+           
         }
 
         public bool ModificarCadete(Cadetes cadete)

@@ -13,7 +13,7 @@ namespace LogicaDeServicio
 
         Usuarios BuscarUsuario(string mail);
 
-        bool Login(string user, string pass);
+        Usuarios Login(string user, string pass);
 
         bool ModificarNombreUsuario(string user);
 

@@ -12,7 +12,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
     
-    public partial class Clientes
+    public partial class Clientes:Usuarios
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Clientes()

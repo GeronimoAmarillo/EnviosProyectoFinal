@@ -12,7 +12,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
     
-    public partial class Camiones
+    public partial class Camiones:Vehiculos
     {
         public decimal Altura { get; set; }
         public string MatriculaCamion { get; set; }

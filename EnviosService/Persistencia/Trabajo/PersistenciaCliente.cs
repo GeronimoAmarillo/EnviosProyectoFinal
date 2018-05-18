@@ -36,7 +36,26 @@ namespace Persistencia
 
         public Clientes Login(string user, string contraseña)
         {
-            return new Clientes();
+            Clientes clienteLogueado = new Clientes();
+            EnviosEntities dbConexion = new EnviosEntities();
+            try
+            {
+
+                var clienteEncontrado = from cliente in dbConexion.Clientes
+                                       where cliente.Usuarios.NombreUsuario == user && cliente.Usuarios.Contraseña == contraseña
+                                       select cliente;
+
+                foreach (Clientes c in clienteEncontrado)
+                {
+                    clienteLogueado = c;
+                }
+
+                return clienteLogueado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar loguear el Cliente" + ex.Message);
+            }
         }
 
         public bool BajaCliente(int ci)

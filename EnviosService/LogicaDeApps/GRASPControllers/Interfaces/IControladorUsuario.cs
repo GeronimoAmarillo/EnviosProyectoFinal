@@ -18,7 +18,7 @@ namespace LogicaDeApps
 
         void SetContraseña(string pContraseña);
 
-        bool Login(string user, string pass);
+        Task<DTUsuario> Login(string user, string pass);
 
         bool ModificarNombreUsuario(string user);
 

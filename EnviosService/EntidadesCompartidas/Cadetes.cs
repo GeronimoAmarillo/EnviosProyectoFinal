@@ -12,7 +12,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
     
-    public partial class Cadetes
+    public partial class Cadetes:Empleados
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Cadetes()

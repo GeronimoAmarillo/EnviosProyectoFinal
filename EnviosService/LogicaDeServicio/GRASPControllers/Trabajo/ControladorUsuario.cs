@@ -19,9 +19,19 @@ namespace LogicaDeServicio
             return new Usuarios();
         }
         
-        public bool Login(string user, string pass)
+        public Usuarios Login(string user, string pass)
         {
-            return true;
+            Usuarios usuarioLogueado = new Usuarios();
+            try
+            {
+                usuarioLogueado = LogicaUsuario.Login(user, pass);
+
+                return usuarioLogueado;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Error al loguear el Usuario" + ex.Message);
+            }
         }
 
         public bool ModificarNombreUsuario(string user)

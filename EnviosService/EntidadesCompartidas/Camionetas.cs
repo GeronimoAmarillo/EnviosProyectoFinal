@@ -12,7 +12,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
     
-    public partial class Camionetas
+    public partial class Camionetas:Vehiculos
     {
         public string Cabina { get; set; }
         public string MatriculaCamioneta { get; set; }

@@ -12,7 +12,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
     
-    public partial class Administradores
+    public partial class Administradores:Empleados
     {
         public int CiEmpleado { get; set; }
         public string Tipo { get; set; }

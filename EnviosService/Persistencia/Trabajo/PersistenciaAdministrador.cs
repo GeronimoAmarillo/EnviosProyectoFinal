@@ -36,7 +36,26 @@ namespace Persistencia
 
         public Administradores Login(string user, string contraseña)
         {
-            return new Administradores();
+            Administradores administradorLogueado = new Administradores();
+            EnviosEntities dbConexion = new EnviosEntities();
+            try
+            {
+
+                var adminEncontrado = from admin in dbConexion.Administradores
+                                       where admin.Empleados.Usuarios.NombreUsuario == user && admin.Empleados.Usuarios.Contraseña == contraseña
+                                       select admin;
+
+                foreach (Administradores a in adminEncontrado)
+                {
+                    administradorLogueado = a;
+                }
+
+                return administradorLogueado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar loguear el Cadete" + ex.Message);
+            }
         }
 
         public bool BajaAdministrador(int ci)
