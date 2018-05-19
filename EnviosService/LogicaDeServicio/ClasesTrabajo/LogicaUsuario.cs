@@ -67,7 +67,6 @@ namespace LogicaDeServicio
         public static Usuarios Login(string usuario, string password)
         {
             Usuarios usuarioLogueado;
-
             try
             {
                 usuarioLogueado = FabricaPersistencia.GetPersistenciaAdministrador().Login(usuario, password);
