@@ -47,8 +47,6 @@ namespace LogicaDeApps
 
         public async Task<DTUsuario> Login(string user, string pass)
         {
-
-            /*
             //http://localhost/EnviosService/Api
 
             var httpClient = new HttpClient();
@@ -56,42 +54,40 @@ namespace LogicaDeApps
 
             var data = JsonConvert.DeserializeObject<Root>(json).Data;
 
-            Usuarios usuarioLogueado = new Usuarios();
+            DTUsuario usuarioLogueado = new DTUsuario();
 
             foreach (var d in data)
             {
-                EmpleadoHelper empleado = new EmpleadoHelper();
-
-                foreach (var e in d)
+                foreach (var u in d)
                 {
-                    switch (e.Key.ToString())
+                    switch (u.Key.ToString())
                     {
-                        case "Ci":
-                            empleado.Ci = Convert.ToInt32(e.Value);
+                        case "Id":
+                            usuarioLogueado.Id = Convert.ToInt32(u.Value);
                             break;
                         case "Nombre":
-                            empleado.Nombre = e.Value.ToString();
+                            usuarioLogueado.Nombre = u.Value.ToString();
                             break;
-                        case "Apellido":
-                            empleado.Apellido = e.Value.ToString();
+                        case "NombreUsuario":
+                            usuarioLogueado.NombreUsuario = u.Value.ToString();
                             break;
-                        case "Edad":
-                            empleado.Edad = Convert.ToInt32(e.Value);
+                        case "Email":
+                            usuarioLogueado.Email = u.Value.ToString();
                             break;
-                        case "Puesto":
-                            empleado.Puesto = e.Value.ToString();
+                        case "Contraseña":
+                            usuarioLogueado.Contraseña = u.Value.ToString();
                             break;
-                        case "Sueldo":
-                            empleado.Sueldo = Convert.ToDecimal(e.Value);
+                        case "Direccion":
+                            usuarioLogueado.Direccion = u.Value.ToString();
+                            break;
+                        case "Telefono":
+                            usuarioLogueado.Telefono = u.Value.ToString();
                             break;
                     }
                 }
-                empleados.Add(empleado);
             }
 
-    */
-
-            return new DTUsuario();
+            return usuarioLogueado;
         }
 
         public bool ModificarNombreUsuario(string user)
