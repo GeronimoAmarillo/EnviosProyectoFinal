@@ -13,7 +13,26 @@ namespace LogicaDeServicio
         public static bool AltaUsuario(Usuarios unUsuario)
         {
             bool exito = false;
-            return exito;
+            try
+            {
+                if (unUsuario is Clientes)
+                {
+                    if (!ExisteCliente(((Clientes)unUsuario).RUT))
+                    {
+                        unUsuario.NombreUsuario = unUsuario.Email;
+                        unUsuario.Contraseña = CrearContrasenia();
+                        exito = FabricaPersistencia.GetPersistenciaCliente().AltaCliente((Clientes)unUsuario);
+                        return exito;
+                    }
+
+                }
+                return exito;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
         }
 
         public static bool ExisteCliente(long rut)
@@ -100,6 +119,20 @@ namespace LogicaDeServicio
         {
             Empleados empleado = new Empleados();
             return empleado;
+        }
+
+        public static string CrearContrasenia()
+        {
+            const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_@*#.";
+            StringBuilder res = new StringBuilder();
+            Random rnd = new Random();
+            int charNum = 1;
+            while (charNum < 25)
+            {
+                res.Append(valid[rnd.Next(valid.Length)]);
+                charNum++;
+            }
+            return res.ToString();
         }
     }
 }

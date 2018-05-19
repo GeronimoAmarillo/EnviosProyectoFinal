@@ -9,9 +9,29 @@ namespace Persistencia
 {
     class PersistenciaCliente:IPersistenciaCliente
     {
+        EnviosEntities dbConnection;
+
         public bool AltaCliente(Clientes cliente)
         {
-            return true;
+            try
+            {
+                if (dbConnection.Clientes.Any(x => x.RUT.ToString() == cliente.RUT.ToString()))
+                {
+                    return false;
+                }
+                else
+                {
+                    dbConnection.Clientes.Add(cliente);
+                    dbConnection.SaveChanges();
+                    return true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar agregar el Cliente o el RUT ya se encuentra registrado" + ex.Message);
+            }
+
         }
 
         public bool ExisteCliente(int rut)

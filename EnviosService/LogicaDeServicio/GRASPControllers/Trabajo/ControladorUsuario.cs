@@ -14,6 +14,18 @@ namespace LogicaDeServicio
             return true;
         }
 
+        public bool AltaUsuario(Usuarios unUsuario)
+        {
+            try
+            {
+                return LogicaUsuario.AltaUsuario(unUsuario);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public Usuarios BuscarUsuario(string mail)
         {
             return new Usuarios();

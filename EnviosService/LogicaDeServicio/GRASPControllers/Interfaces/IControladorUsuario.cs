@@ -9,6 +9,8 @@ namespace LogicaDeServicio
 {
     public interface IControladorUsuario
     {
+        bool AltaUsuario(Usuarios unUsuario);
+
         bool EnviarMail(Usuarios usuario);
 
         Usuarios BuscarUsuario(string mail);

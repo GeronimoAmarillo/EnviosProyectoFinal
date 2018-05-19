@@ -34,5 +34,25 @@ namespace LogicaDeServicioTests
             Assert.IsNull(result);
             
         }
+
+        [TestMethod]
+        public void altaClienteOkTest()
+        {
+            Clientes unCliente = new Clientes
+            {
+                Nombre = "empleado1",
+                Direccion = "Elm street 124",
+                Telefono = "098574632",
+                Email = "empleado1@undominio.com",
+                RUT = 2547854125,
+                Mensualidad = 55000
+            };
+
+            var result = LogicaUsuario.AltaUsuario(unCliente);
+
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result);
+        }
     }
 }
