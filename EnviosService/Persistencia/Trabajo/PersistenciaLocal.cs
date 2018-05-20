@@ -11,7 +11,21 @@ namespace Persistencia
     {
         public bool AltaLocal(Locales local)
         {
-            return true;
+            try
+            {
+                using (EnviosEntities dbConnection = new EnviosEntities())
+                {
+                    dbConnection.Locales.Add(local);
+
+                    dbConnection.SaveChanges();
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al dar de alta el Local.");
+            }
         }
 
         public bool ExisteLocal(string nombre, string direccion)
