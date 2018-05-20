@@ -258,7 +258,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NombreUsuario" Type="nvarchar" MaxLength="25" Nullable="false" />
           <Property Name="Contraseña" Type="nvarchar" MaxLength="25" Nullable="false" />
           <Property Name="Nombre" Type="nvarchar" MaxLength="40" Nullable="false" />

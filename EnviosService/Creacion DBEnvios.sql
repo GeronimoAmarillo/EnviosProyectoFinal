@@ -15,7 +15,7 @@ go
 
 CREATE TABLE Usuarios
 (
-	Id Integer Primary Key,
+	Id Integer Identity (1,1) Primary Key,
 	NombreUsuario NVarchar(25) Unique not null,
 	Contraseña NVarchar(25) not null,
 	Nombre NVarchar(40) not null,
