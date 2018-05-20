@@ -30,7 +30,7 @@ namespace EnviosService.Controllers
             });
         }
 
-        public ActionResult CrearUsuarios()
+        public ActionResult Crear()
         {
             return View();
         }

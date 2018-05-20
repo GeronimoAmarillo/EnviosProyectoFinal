@@ -8,28 +8,30 @@ using EntidadesCompartidas;
 namespace Persistencia
 {
     class PersistenciaCliente:IPersistenciaCliente
-    {
-        EnviosEntities dbConnection;
-
+    {        
         public bool AltaCliente(Clientes cliente)
         {
             try
             {
-                if (dbConnection.Clientes.Any(x => x.RUT.ToString() == cliente.RUT.ToString()))
+                using (EnviosEntities dbConnection = new EnviosEntities())
                 {
-                    return false;
-                }
-                else
-                {
-                    dbConnection.Clientes.Add(cliente);
-                    dbConnection.SaveChanges();
-                    return true;
-                }
+                    if (dbConnection.Clientes.Any(x => x.RUT.ToString() == cliente.RUT.ToString()))
+                    {
+                        throw new Exception("Ya existe el rut");
+                        //return false;
+                    }
+                    else
+                    {
+                        dbConnection.Clientes.Add(cliente);
+                        dbConnection.SaveChanges();
+                        return true;
+                    }
+                }   
 
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al intentar agregar el Cliente o el RUT ya se encuentra registrado" + ex.Message);
+                throw new Exception("Error al intentar agregar el Cliente: " + ex.Message);
             }
 
         }
