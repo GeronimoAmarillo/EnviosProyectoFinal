@@ -26,7 +26,14 @@ namespace LogicaDeServicio
 
         public bool AltaLocal(Locales local)
         {
-            return true;
+            try
+            {
+                return FabricaServicio.GetControladorLocal().AltaLocal(local);
+            }
+            catch
+            {
+                throw new Exception("Error al intentar dar de alta el Local.");
+            }
         }
     }
 }

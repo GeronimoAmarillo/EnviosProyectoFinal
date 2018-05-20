@@ -4,15 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidas;
+using Persistencia;
 
 namespace LogicaDeServicio
 {
     public class LogicaLocal
     {
+
         public bool AltaLocal(Locales unLocal)
         {
-            bool exito = false;
-            return exito;
+            try
+            {
+                return FabricaPersistencia.GetPersistenciaLocal().AltaLocal(unLocal);
+            }
+            catch
+            {
+                throw new Exception("Error al intentar dar de alta el Local.");
+            }
         }
 
         public bool ExisteLocal(string direccion, string nombre)

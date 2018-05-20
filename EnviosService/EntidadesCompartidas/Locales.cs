@@ -11,7 +11,8 @@ namespace EntidadesCompartidas
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Locales
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,9 +21,13 @@ namespace EntidadesCompartidas
             this.Entregas = new HashSet<Entregas>();
             this.Entregas1 = new HashSet<Entregas>();
         }
-    
+
         public int Id { get; set; }
+        [Required]
+        [MaxLength(150)]
         public string Nombre { get; set; }
+        [Required]
+        [MaxLength(200)]
         public string Direccion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
