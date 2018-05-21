@@ -55,6 +55,17 @@ namespace LogicaDeApps
         {
             try
             {
+
+                //------------------------------------------------------------------------------------------------------
+                //Otra posible forma de hacerlo
+                /*HttpClient client = new HttpClient();
+                 List<MyClass> newList = getList();
+
+                 string url = "http://localhost:57750/api/ControllerName/InsertSomething";
+                 var content = new StringContent(JsonConvert.SerializeObject(newList),Encoding.UTF8,"application/json");
+                 var result = client.PostAsync(url, content);*/
+                //------------------------------------------------------------------------------------------------------
+
                 //http://localhost/EnviosService/Api
 
                 var httpClient = new HttpClient();
