@@ -15,8 +15,8 @@ namespace LogicaDeServicioTests
             Locales local = new Locales
             {
                 Id = 0,
-                Direccion = "Calle 25 Santa Ana",
-                Nombre = "Optica Oculio",
+                Direccion = "DireccionOptica5",
+                Nombre = "Optica5",
                 Entregas = null,
                 Entregas1 = null
             };
@@ -33,15 +33,15 @@ namespace LogicaDeServicioTests
             Locales local = new Locales
             {
                 Id = 0,
-                Direccion = "Calle 25 Santa Anaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                Nombre = "Optica Oculiasfassdasdsaaasasfsssssssssasasasao",
+                Direccion = "DireccionOptica5",
+                Nombre = "Optica5",
                 Entregas = null,
                 Entregas1 = null
             };
 
             var resultado = FabricaServicio.GetControladorLocal().AltaLocal(local);
 
-            Assert.IsTrue(resultado);
+            Assert.IsFalse(resultado);
 
         }
     }
