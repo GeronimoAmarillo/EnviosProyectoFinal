@@ -11,7 +11,8 @@ namespace EntidadesCompartidas
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Reclamo
     {
         public int Id { get; set; }

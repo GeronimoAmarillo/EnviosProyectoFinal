@@ -11,7 +11,8 @@ namespace EntidadesCompartidas
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Camionetas:Vehiculos
     {
         public string Cabina { get; set; }

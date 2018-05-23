@@ -11,12 +11,15 @@ namespace EntidadesCompartidas
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class Motos:Vehiculos
     {
         public decimal Cilindrada { get; set; }
         public string MatriculaMoto { get; set; }
-    
+
+        [ForeignKey("Matricula")]
         public virtual Vehiculos Vehiculos { get; set; }
     }
 }
