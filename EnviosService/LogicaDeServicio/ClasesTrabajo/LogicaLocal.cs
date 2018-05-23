@@ -11,7 +11,7 @@ namespace LogicaDeServicio
     public class LogicaLocal
     {
 
-        public bool AltaLocal(Locales unLocal)
+        public static bool AltaLocal(Locales unLocal)
         {
             try
             {
@@ -23,25 +23,25 @@ namespace LogicaDeServicio
             }
         }
 
-        public bool ExisteLocal(string direccion, string nombre)
+        public static bool ExisteLocal(string direccion, string nombre)
         {
             bool existe = false;
             return existe;
         }
 
-        public Locales BuscarLocal(string nombreLocal)
+        public static Locales BuscarLocal(string nombreLocal)
         {
             Locales local = new Locales();
             return local;
         }
 
-        public Locales ModificarLocal(Locales unLocal)
+        public static Locales ModificarLocal(Locales unLocal)
         {
             Locales local = new Locales();
             return local;
         }
 
-        public List<Locales> ListarLocales()
+        public static List<Locales> ListarLocales()
         {
             List<Locales> lista = new List<Locales>();
             return lista;

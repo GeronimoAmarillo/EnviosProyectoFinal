@@ -35,6 +35,7 @@
       <HintPath>..\..\..\..\..\..\..\program files\dotnet\sdk\NuGetFallbackFolder\newtonsoft.json\10.0.1\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />

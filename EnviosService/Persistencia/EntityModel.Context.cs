@@ -16,13 +16,13 @@ namespace EntidadesCompartidas
     public partial class EnviosEntities : DbContext
     {
         public EnviosEntities()
-            : base("name=EnviosEntities")
+            : base("EnviosEntities")
         {
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            throw new UnintentionalCodeFirstException();
+            //throw new UnintentionalCodeFirstException();
         }
     
         public virtual DbSet<Adelantos> Adelantos { get; set; }

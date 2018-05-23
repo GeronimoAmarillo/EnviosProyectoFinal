@@ -28,7 +28,7 @@ namespace LogicaDeServicio
         {
             try
             {
-                return FabricaServicio.GetControladorLocal().AltaLocal(local);
+                return LogicaLocal.AltaLocal(local);
             }
             catch
             {
