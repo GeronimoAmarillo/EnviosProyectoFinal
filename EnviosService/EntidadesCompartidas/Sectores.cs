@@ -11,6 +11,7 @@ namespace EntidadesCompartidas
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Collections.Generic;
     
     public partial class Sectores
@@ -21,6 +22,7 @@ namespace EntidadesCompartidas
             this.Racks = new HashSet<Racks>();
         }
     
+        [Key]
         public int Codigo { get; set; }
         public decimal Superficie { get; set; }
         public int Temperatura { get; set; }

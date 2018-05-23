@@ -12,6 +12,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class Paquetes
     {
@@ -21,6 +22,7 @@ namespace EntidadesCompartidas
             this.Reclamo = new HashSet<Reclamo>();
         }
     
+        [Key]
         public int NumReferencia { get; set; }
         public System.DateTime FechaSalida { get; set; }
         public string Estado { get; set; }

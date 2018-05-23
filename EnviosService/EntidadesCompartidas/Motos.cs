@@ -17,8 +17,10 @@ namespace EntidadesCompartidas
     public partial class Motos:Vehiculos
     {
         public decimal Cilindrada { get; set; }
+        [Key]
         public string MatriculaMoto { get; set; }
 
+        [Required]
         [ForeignKey("Matricula")]
         public virtual Vehiculos Vehiculos { get; set; }
     }

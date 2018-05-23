@@ -12,6 +12,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class Empleados:Usuarios
     {
@@ -22,13 +23,16 @@ namespace EntidadesCompartidas
         }
     
         public decimal Sueldo { get; set; }
+        
         public Nullable<int> IdUsuario { get; set; }
+        [Key]
         public int Ci { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Adelantos> Adelantos { get; set; }
         public virtual Administradores Administradores { get; set; }
         public virtual Cadetes Cadetes { get; set; }
+        [ForeignKey("Id")]
         public virtual Usuarios Usuarios { get; set; }
     }
 }

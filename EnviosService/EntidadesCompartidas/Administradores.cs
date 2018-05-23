@@ -16,10 +16,11 @@ namespace EntidadesCompartidas
 
     public partial class Administradores:Empleados
     {
-
+        [Key]
         public int CiEmpleado { get; set; }
         public string Tipo { get; set; }
-    
+
+        [ForeignKey("Ci")]
         public virtual Empleados Empleados { get; set; }
     }
 }

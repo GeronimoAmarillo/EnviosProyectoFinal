@@ -14,11 +14,15 @@ namespace EntidadesCompartidas
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public partial class Automobiles
+    public partial class Automobiles:Vehiculos
     {
         public int Puertas { get; set; }
+
+        [Key]
         public string MatriculaAuto { get; set; }
-    
+
+        [Required]
+        [ForeignKey("Matricula")]
         public virtual Vehiculos Vehiculos { get; set; }
     }
 }

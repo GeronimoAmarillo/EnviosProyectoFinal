@@ -12,6 +12,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class Racks
     {
@@ -21,6 +22,7 @@ namespace EntidadesCompartidas
             this.Casillas = new HashSet<Casillas>();
         }
     
+        [Key]
         public int Codigo { get; set; }
         public decimal Altura { get; set; }
         public decimal Superficie { get; set; }

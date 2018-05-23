@@ -12,6 +12,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class Vehiculos
     {
@@ -22,16 +23,21 @@ namespace EntidadesCompartidas
             this.Reparaciones = new HashSet<Reparaciones>();
         }
     
+        [Key]
         public string Matricula { get; set; }
         public string Marca { get; set; }
         public string Modelo { get; set; }
         public decimal Capacidad { get; set; }
         public string Estado { get; set; }
         public Nullable<int> Cadete { get; set; }
-    
+
+        [InverseProperty("Vehiculos")]
         public virtual Automobiles Automobiles { get; set; }
+        [InverseProperty("Vehiculos")]
         public virtual Camiones Camiones { get; set; }
+        [InverseProperty("Vehiculos")]
         public virtual Camionetas Camionetas { get; set; }
+        [InverseProperty("Vehiculos")]
         public virtual Motos Motos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Multas> Multas { get; set; }

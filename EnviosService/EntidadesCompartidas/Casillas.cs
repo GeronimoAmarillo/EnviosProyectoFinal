@@ -12,6 +12,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class Casillas
     {
@@ -21,6 +22,7 @@ namespace EntidadesCompartidas
             this.Palets = new HashSet<Palets>();
         }
     
+        [Key]
         public int Codigo { get; set; }
         public Nullable<int> Rack { get; set; }
     

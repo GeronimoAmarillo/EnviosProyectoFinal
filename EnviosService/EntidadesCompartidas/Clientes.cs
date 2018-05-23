@@ -12,6 +12,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class Clientes:Usuarios
     {
@@ -24,12 +25,14 @@ namespace EntidadesCompartidas
             this.Paquetes = new HashSet<Paquetes>();
         }
     
+        [Key]
         public long RUT { get; set; }
         public Nullable<int> IdUsuario { get; set; }
         public decimal Mensualidad { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Calificaciones> Calificaciones { get; set; }
+        [ForeignKey("Id")]
         public virtual Usuarios Usuarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Entregas> Entregas { get; set; }
