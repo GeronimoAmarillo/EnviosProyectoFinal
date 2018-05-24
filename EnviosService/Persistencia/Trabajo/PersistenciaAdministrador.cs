@@ -36,8 +36,9 @@ namespace Persistencia
 
         public EntidadesCompartidas.Administrador Login(string user, string contraseña)
         {
-            /*EntidadesCompartidas.Administradores administradorLogueado = new EntidadesCompartidas.Administradores();
-            EnviosEntities dbConexion = new EnviosEntities();
+            Administrador administradorResultado = new Administrador();
+
+            EnviosContext dbConexion = new EnviosContext();
             try
             {
 
@@ -47,17 +48,24 @@ namespace Persistencia
 
                 foreach (Administradores a in adminEncontrado)
                 {
-                    administradorLogueado = a;
+                    administradorResultado.Contraseña = a.Empleados.Usuarios.Contraseña;
+                    administradorResultado.Direccion = a.Empleados.Usuarios.Direccion;
+                    administradorResultado.Email = a.Empleados.Usuarios.Email;
+                    administradorResultado.Id = a.Empleados.Usuarios.Id;
+                    administradorResultado.Ci = a.CiEmpleado;
+                    administradorResultado.Nombre = a.Empleados.Usuarios.Nombre;
+                    administradorResultado.NombreUsuario = a.Empleados.Usuarios.NombreUsuario;
+                    administradorResultado.Sueldo = a.Empleados.Sueldo;
+                    administradorResultado.Telefono = a.Empleados.Usuarios.Telefono;
+                    administradorResultado.Tipo = a.Tipo;
                 }
 
-                return administradorLogueado;
+                return administradorResultado;
             }
             catch (Exception ex)
             {
                 throw new Exception("Error al intentar loguear el Cadete" + ex.Message);
-            }*/
-
-            return new EntidadesCompartidas.Administrador();
+            }
         }
 
         public bool BajaAdministrador(int ci)

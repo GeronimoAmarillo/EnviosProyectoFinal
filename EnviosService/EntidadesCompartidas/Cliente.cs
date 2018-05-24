@@ -3,7 +3,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
 
-    public partial class Cliente:Empleado
+    public partial class Cliente:Usuario
     {
         public long RUT { get; set; }
 

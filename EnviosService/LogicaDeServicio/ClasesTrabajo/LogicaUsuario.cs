@@ -66,7 +66,7 @@ namespace LogicaDeServicio
 
         public static EntidadesCompartidas.Usuario Login(string usuario, string password)
         {
-            /*EntidadesCompartidas.Usuarios usuarioLogueado;
+            Usuario usuarioLogueado;
             try
             {
                 usuarioLogueado = FabricaPersistencia.GetPersistenciaAdministrador().Login(usuario, password);
@@ -86,7 +86,7 @@ namespace LogicaDeServicio
             catch(Exception ex)
             {
                 throw new Exception("Error al loguear el Usuario" + ex.Message);
-            }*/
+            }
 
             return new EntidadesCompartidas.Usuario();
 

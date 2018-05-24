@@ -26,9 +26,10 @@ namespace Persistencia
 
         public EntidadesCompartidas.Cadete Login(string user, string contraseña)
         {
-            /*EntidadesCompartidas.Cadetes cadeteLogueado = new EntidadesCompartidas.Cadetes();
+            Cadete cadeteResultado = new Cadete();
 
-            EnviosEntities dbConexion = new EnviosEntities();
+            EnviosContext dbConexion = new EnviosContext();
+
             try
             {
 
@@ -38,17 +39,27 @@ namespace Persistencia
 
                 foreach (Cadetes c in cadeteEncontrado)
                 {
-                    cadeteLogueado = c;
+                    cadeteResultado.Contraseña = c.Empleados.Usuarios.Contraseña;
+                    cadeteResultado.Direccion = c.Empleados.Usuarios.Direccion;
+                    cadeteResultado.Email = c.Empleados.Usuarios.Email;
+                    cadeteResultado.Id = c.Empleados.Usuarios.Id;
+                    cadeteResultado.Ci = c.CiEmpleado;
+                    cadeteResultado.Nombre = c.Empleados.Usuarios.Nombre;
+                    cadeteResultado.NombreUsuario = c.Empleados.Usuarios.NombreUsuario;
+                    cadeteResultado.Sueldo = c.Empleados.Sueldo;
+                    cadeteResultado.Telefono = c.Empleados.Usuarios.Telefono;
+                    cadeteResultado.TipoLibreta = c.TipoLibreta;
+                    
+                    //Tal vez corresponde tambien asignarle el vehiculo, esto va a necesitar de un cambio en el script de la base de datos, debido a que el 
+                    //cadete de momento puede tener varios vehiculos, y me parece que eso no representa la realidad, no lo recuerdo.
                 }
-                   
-                return cadeteLogueado;
+
+                return cadeteResultado;
             }
             catch(Exception ex)
             {
                 throw new Exception("Error al intentar loguear el Cadete" + ex.Message);
-            }*/
-
-            return new EntidadesCompartidas.Cadete();
+            }
 
 
         }

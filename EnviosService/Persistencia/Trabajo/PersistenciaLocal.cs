@@ -13,7 +13,6 @@ namespace Persistencia
         {
             try
             {
-
                 Persistencia.Locales localAgregar = new Persistencia.Locales();
 
                 localAgregar.Direccion = local.Direccion;
