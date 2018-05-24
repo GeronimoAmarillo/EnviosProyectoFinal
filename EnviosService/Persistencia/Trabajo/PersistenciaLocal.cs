@@ -11,11 +11,17 @@ namespace Persistencia
     {
         public bool AltaLocal(EntidadesCompartidas.Locales local)
         {
-            /*try
+            try
             {
-                using (EnviosEntities dbConnection = new EnviosEntities())
+
+                Persistencia.Locales localAgregar = new Persistencia.Locales();
+
+                localAgregar.Direccion = local.Direccion;
+                localAgregar.Nombre = local.Nombre;
+
+                using (EnviosContext dbConnection = new EnviosContext())
                 {
-                    dbConnection.Locales.Add(local);
+                    dbConnection.Locales.Add(localAgregar);
 
                     dbConnection.SaveChanges();
 
@@ -25,9 +31,8 @@ namespace Persistencia
             catch (Exception ex)
             {
                 throw new Exception("Error al dar de alta el Local.");
-            }*/
-
-            return true;
+            }
+            
         }
 
         public bool ExisteLocal(string nombre, string direccion)

@@ -14,7 +14,7 @@ namespace Persistencia
             Entregas = new HashSet<Entregas>();
             Entregas1 = new HashSet<Entregas>();
         }
-
+        
         public int Id { get; set; }
 
         [Required]

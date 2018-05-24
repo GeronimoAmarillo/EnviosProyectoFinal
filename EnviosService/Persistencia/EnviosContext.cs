@@ -8,7 +8,7 @@ namespace Persistencia
     public partial class EnviosContext : DbContext
     {
         public EnviosContext()
-            : base("name=EnviosContext")
+            : base("EnviosContext")
         {
         }
 
