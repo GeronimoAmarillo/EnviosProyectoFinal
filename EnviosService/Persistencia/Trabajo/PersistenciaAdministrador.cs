@@ -36,7 +36,7 @@ namespace Persistencia
 
         public EntidadesCompartidas.Administrador Login(string user, string contraseña)
         {
-            Administrador administradorResultado = new Administrador();
+            Administrador administradorResultado = null;
 
             EnviosContext dbConexion = new EnviosContext();
             try
@@ -45,9 +45,11 @@ namespace Persistencia
                 var adminEncontrado = from admin in dbConexion.Administradores
                                        where admin.Empleados.Usuarios.NombreUsuario == user && admin.Empleados.Usuarios.Contraseña == contraseña
                                        select admin;
+                
 
                 foreach (Administradores a in adminEncontrado)
                 {
+                    administradorResultado = new Administrador();
                     administradorResultado.Contraseña = a.Empleados.Usuarios.Contraseña;
                     administradorResultado.Direccion = a.Empleados.Usuarios.Direccion;
                     administradorResultado.Email = a.Empleados.Usuarios.Email;

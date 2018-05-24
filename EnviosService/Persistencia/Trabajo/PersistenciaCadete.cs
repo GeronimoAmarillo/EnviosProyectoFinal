@@ -26,7 +26,7 @@ namespace Persistencia
 
         public EntidadesCompartidas.Cadete Login(string user, string contraseña)
         {
-            Cadete cadeteResultado = new Cadete();
+            Cadete cadeteResultado = null;
 
             EnviosContext dbConexion = new EnviosContext();
 
@@ -39,6 +39,8 @@ namespace Persistencia
 
                 foreach (Cadetes c in cadeteEncontrado)
                 {
+
+                    cadeteResultado = new Cadete();
                     cadeteResultado.Contraseña = c.Empleados.Usuarios.Contraseña;
                     cadeteResultado.Direccion = c.Empleados.Usuarios.Direccion;
                     cadeteResultado.Email = c.Empleados.Usuarios.Email;

@@ -36,7 +36,7 @@ namespace Persistencia
 
         public Cliente Login(string user, string contraseña)
         {
-            Cliente clienteResultado = new Cliente();
+            Cliente clienteResultado = null;
 
             EnviosContext dbConexion = new EnviosContext();
             try
@@ -48,6 +48,7 @@ namespace Persistencia
 
                 foreach (Clientes c in clienteEncontrado)
                 {
+                    clienteResultado = new Cliente();
                     clienteResultado.Contraseña = c.Usuarios.Contraseña;
                     clienteResultado.Direccion = c.Usuarios.Direccion;
                     clienteResultado.Email = c.Usuarios.Email;

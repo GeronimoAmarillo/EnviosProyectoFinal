@@ -24,6 +24,8 @@ namespace LogicaDeServicioTests
             
         }
 
+
+        [TestMethod]
         public void loginERRORTest()
         {
             string user = "User8";
