@@ -10,14 +10,14 @@ namespace LogicaDeServicio
     public interface IControladorPalet
     {
 
-        bool AltaPalet(Palets palet);
+        bool AltaPalet(Palet palet);
 
-        List<Clientes> ListarClientes();
+        List<Cliente> ListarClientes();
 
-        Galpones BuscarGalpon(int id);
+        Galpon BuscarGalpon(int id);
 
-        Palets BuscarPalet(int id);
+        Palet BuscarPalet(int id);
 
-        bool BajaPalet(Palets palet);
+        bool BajaPalet(Palet palet);
     }
 }

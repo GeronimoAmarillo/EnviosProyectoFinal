@@ -34,7 +34,7 @@ namespace EnviosService.Controllers
 
         [HttpPost]
         [HttpPut]
-        public JsonResult Turno([FromBody] Turnos turno)
+        public JsonResult Turno([FromBody] Turno turno)
         {
             switch (Request.Method.ToString())
             {

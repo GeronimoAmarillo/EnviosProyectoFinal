@@ -3,7 +3,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
 
-    public partial class Multas
+    public partial class Multa
     {
         public int Id { get; set; }
         
@@ -15,6 +15,6 @@ namespace EntidadesCompartidas
         
         public string Motivo { get; set; }
 
-        public Vehiculos Vehiculos { get; set; }
+        public Vehiculo Vehiculos { get; set; }
     }
 }

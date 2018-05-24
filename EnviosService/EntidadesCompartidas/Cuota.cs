@@ -3,7 +3,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
 
-    public partial class Cuotas
+    public partial class Cuota
     {
         public DateTime Vencimiento { get; set; }
         

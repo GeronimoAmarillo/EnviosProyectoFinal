@@ -3,7 +3,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
 
-    public partial class Balances
+    public partial class Balance
     {
         public int Id { get; set; }
         
@@ -13,6 +13,6 @@ namespace EntidadesCompartidas
 
         public bool Abierto { get; set; }
         
-        public List<Registros> Registros { get; set; }
+        public List<Registro> Registros { get; set; }
     }
 }

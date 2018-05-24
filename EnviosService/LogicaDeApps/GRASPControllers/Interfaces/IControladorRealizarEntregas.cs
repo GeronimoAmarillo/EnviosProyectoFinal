@@ -14,47 +14,47 @@ namespace LogicaDeApps
 
         List<DTCadete> ListarCadetesDisponibles();
 
-        List<Clientes> GetClientes();
+        List<Cliente> GetClientes();
 
-        void SetCadetes(List<Cadetes> cadetesDisponibles);
+        void SetCadetes(List<Cadete> cadetesDisponibles);
 
-        void SetClientes(List<Clientes> pClientes);
+        void SetClientes(List<Cliente> pClientes);
 
-        List<Cadetes> GetCadetes();
+        List<Cadete> GetCadetes();
 
-        Clientes GetCliente();
+        Cliente GetCliente();
 
-        void SetCliente(Clientes pCliente);
+        void SetCliente(Cliente pCliente);
 
         void SeleccionarCliente(int rut);
 
-        List<Turnos> GetTurnos();
+        List<Turno> GetTurnos();
 
-        void SetTurnos(List<Turnos> pTurnos);
+        void SetTurnos(List<Turno> pTurnos);
 
         List<DTTurno> ListarTurnos();
 
         List<DTLocal> ListarLocales();
 
-        List<Locales> GetLocales();
+        List<Local> GetLocales();
 
-        void SetLocales(List<Locales> pLocales);
+        void SetLocales(List<Local> pLocales);
 
-        Entregas GetEntrega();
+        Entrega GetEntrega();
 
-        void SetEntrega(Entregas pEntrega);
+        void SetEntrega(Entrega pEntrega);
 
         void SeleccionarLocal(int idLocal);
 
-        Locales GetLocal();
+        Local GetLocal();
 
         void SeleccionarCadete(int ci);
 
-        Cadetes GetCadete();
+        Cadete GetCadete();
 
         void SeleccionarTurno(string codigo);
 
-        Turnos GetTurno();
+        Turno GetTurno();
 
         bool AsignarPaquete(DTPaquete paquete);
 

@@ -35,7 +35,7 @@ namespace EnviosService.Controllers
 
         [HttpPut]
         [HttpPost]
-        public JsonResult Local([FromBody] Locales item)
+        public JsonResult Local([FromBody] Local item)
         {
             switch (Request.Method.ToString())
             {

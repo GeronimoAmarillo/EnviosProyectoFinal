@@ -9,8 +9,8 @@ namespace Persistencia
 {
     public interface IPersistenciaIngreso
     {
-        List<EntidadesCompartidas.Ingresos> ListarIngresos();
+        List<EntidadesCompartidas.Ingreso> ListarIngresos();
 
-        bool RegistrarIngreso(EntidadesCompartidas.Ingresos ingreso);
+        bool RegistrarIngreso(EntidadesCompartidas.Ingreso ingreso);
     }
 }

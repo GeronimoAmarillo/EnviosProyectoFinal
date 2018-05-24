@@ -9,7 +9,7 @@ namespace Persistencia
 {
     class PersistenciaCadete:IPersistenciaCadete
     {
-        public bool AltaCadete(EntidadesCompartidas.Cadetes cadete)
+        public bool AltaCadete(EntidadesCompartidas.Cadete cadete)
         {
             return true;
         }
@@ -19,12 +19,12 @@ namespace Persistencia
             return true;
         }
 
-        public List<EntidadesCompartidas.Cadetes> ListarCadetes()
+        public List<EntidadesCompartidas.Cadete> ListarCadetes()
         {
-            return new List<EntidadesCompartidas.Cadetes>();
+            return new List<EntidadesCompartidas.Cadete>();
         }
 
-        public EntidadesCompartidas.Cadetes Login(string user, string contraseña)
+        public EntidadesCompartidas.Cadete Login(string user, string contraseña)
         {
             /*EntidadesCompartidas.Cadetes cadeteLogueado = new EntidadesCompartidas.Cadetes();
 
@@ -48,19 +48,19 @@ namespace Persistencia
                 throw new Exception("Error al intentar loguear el Cadete" + ex.Message);
             }*/
 
-            return new EntidadesCompartidas.Cadetes();
+            return new EntidadesCompartidas.Cadete();
 
 
         }
 
-        public bool ModificarCadete(EntidadesCompartidas.Cadetes cadete)
+        public bool ModificarCadete(EntidadesCompartidas.Cadete cadete)
         {
             return true;
         }
 
-        public List<EntidadesCompartidas.Cadetes> ListarCadetesDisponibles()
+        public List<EntidadesCompartidas.Cadete> ListarCadetesDisponibles()
         {
-            return new List<EntidadesCompartidas.Cadetes>();
+            return new List<EntidadesCompartidas.Cadete>();
         }
 
         public bool BajaCadete(int ci)
@@ -73,9 +73,9 @@ namespace Persistencia
             return true;
         }
 
-        public EntidadesCompartidas.Cadetes BuscarCadete(int ci)
+        public EntidadesCompartidas.Cadete BuscarCadete(int ci)
         {
-            return new EntidadesCompartidas.Cadetes();
+            return new EntidadesCompartidas.Cadete();
         }
     }
 }

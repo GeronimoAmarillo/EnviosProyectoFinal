@@ -3,7 +3,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
 
-    public partial class Vehiculos
+    public partial class Vehiculo
     {
         public string Matricula { get; set; }
         
@@ -17,18 +17,18 @@ namespace EntidadesCompartidas
 
         public int Cadete { get; set; }
 
-        public Automobiles Automobiles { get; set; }
+        public Automobil Automobiles { get; set; }
 
-        public Cadetes Cadetes { get; set; }
+        public Cadete Cadetes { get; set; }
 
-        public Camiones Camiones { get; set; }
+        public Camion Camiones { get; set; }
 
-        public Camionetas Camionetas { get; set; }
+        public Camioneta Camionetas { get; set; }
 
-        public Motos Motos { get; set; }
+        public Moto Motos { get; set; }
         
-        public List<Multas> Multas { get; set; }
+        public List<Multa> Multas { get; set; }
         
-        public List<Reparaciones> Reparaciones { get; set; }
+        public List<Reparacion> Reparaciones { get; set; }
     }
 }

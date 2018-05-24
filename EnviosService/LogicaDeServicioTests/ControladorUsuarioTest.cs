@@ -20,7 +20,7 @@ namespace LogicaDeServicioTests
             var result = LogicaUsuario.Login(user, pass);
 
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof (EntidadesCompartidas.Usuarios));
+            Assert.IsInstanceOfType(result, typeof (EntidadesCompartidas.Usuario));
             
         }
 

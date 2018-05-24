@@ -3,7 +3,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
 
-    public partial class Sectores
+    public partial class Sector
     {
         public int Codigo { get; set; }
 
@@ -13,8 +13,8 @@ namespace EntidadesCompartidas
 
         public int Galpon { get; set; }
 
-        public Galpones Galpones { get; set; }
+        public Galpon Galpones { get; set; }
         
-        public  List<Racks> Racks { get; set; }
+        public  List<Rack> Racks { get; set; }
     }
 }

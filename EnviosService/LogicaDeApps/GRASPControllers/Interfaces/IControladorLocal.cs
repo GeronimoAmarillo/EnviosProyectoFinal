@@ -18,7 +18,7 @@ namespace LogicaDeApps
 
         bool ModificarLocal(DTLocal local);
 
-        void SetLocal(Locales pLocal);
+        void SetLocal(Local pLocal);
 
         bool AltaLocal();
     }

@@ -10,20 +10,20 @@ namespace LogicaDeApps
 {
     class ControladorConsultasPaquete:IControladorConsultasPaquete
     {
-        private Locales local;
-        private List<Paquetes> paquetes;
+        private Local local;
+        private List<Paquete> paquetes;
 
         public void SeleccionarLocal()
         {
 
         }
 
-        public void SetLocal(Locales pLocal)
+        public void SetLocal(Local pLocal)
         {
             local = pLocal;
         }
 
-        public Locales GetLocal()
+        public Local GetLocal()
         {
             return local;
         }
@@ -38,7 +38,7 @@ namespace LogicaDeApps
             return new List<DTPaquete>();
         }
 
-        public void SetPaquetes(List<Paquetes> pPaquetes)
+        public void SetPaquetes(List<Paquete> pPaquetes)
         {
             paquetes = pPaquetes;
         }
@@ -53,7 +53,7 @@ namespace LogicaDeApps
             return new List<DTPaquete>();
         }
 
-        public List<Paquetes> GetPaquetes()
+        public List<Paquete> GetPaquetes()
         {
             return paquetes;
         }

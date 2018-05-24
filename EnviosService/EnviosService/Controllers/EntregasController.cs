@@ -29,13 +29,13 @@ namespace EnviosService.Controllers
         }
 
         [HttpPost]
-        public JsonResult Entrega([FromBody] Entregas item)
+        public JsonResult Entrega([FromBody] Entrega item)
         {
             return Json(controladorEntrega.AltaEntrega(item));
         }
 
         [HttpPost]
-        public JsonResult Entregas([FromBody] List<Entregas> item)
+        public JsonResult Entregas([FromBody] List<Entrega> item)
         {
             return Json(controladorEntrega.Entregar(item));
         }

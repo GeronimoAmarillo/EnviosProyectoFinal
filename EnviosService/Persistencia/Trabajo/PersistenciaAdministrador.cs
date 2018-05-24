@@ -14,7 +14,7 @@ namespace Persistencia
             return true;
         }
 
-        public bool AltaAdministrador(EntidadesCompartidas.Administradores administrador)
+        public bool AltaAdministrador(EntidadesCompartidas.Administrador administrador)
         {
             return true;
         }
@@ -24,17 +24,17 @@ namespace Persistencia
             return true;
         }
 
-        public List<EntidadesCompartidas.Administradores> ListarAdministradores()
+        public List<EntidadesCompartidas.Administrador> ListarAdministradores()
         {
-            return new List<EntidadesCompartidas.Administradores>();
+            return new List<EntidadesCompartidas.Administrador>();
         }
 
-        public bool ModificarAdmin(EntidadesCompartidas.Administradores admin)
+        public bool ModificarAdmin(EntidadesCompartidas.Administrador admin)
         {
             return true;
         }
 
-        public EntidadesCompartidas.Administradores Login(string user, string contraseña)
+        public EntidadesCompartidas.Administrador Login(string user, string contraseña)
         {
             /*EntidadesCompartidas.Administradores administradorLogueado = new EntidadesCompartidas.Administradores();
             EnviosEntities dbConexion = new EnviosEntities();
@@ -57,7 +57,7 @@ namespace Persistencia
                 throw new Exception("Error al intentar loguear el Cadete" + ex.Message);
             }*/
 
-            return new EntidadesCompartidas.Administradores();
+            return new EntidadesCompartidas.Administrador();
         }
 
         public bool BajaAdministrador(int ci)
@@ -65,9 +65,9 @@ namespace Persistencia
             return true;
         }
 
-        public EntidadesCompartidas.Administradores BusxarAdministrador(int ci)
+        public EntidadesCompartidas.Administrador BusxarAdministrador(int ci)
         {
-            return new EntidadesCompartidas.Administradores();
+            return new EntidadesCompartidas.Administrador();
         }
     }
 }

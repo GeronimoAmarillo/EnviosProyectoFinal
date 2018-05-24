@@ -9,8 +9,8 @@ namespace Persistencia
 {
     public interface IPersistenciaGasto
     {
-        bool RegistrarGasto(EntidadesCompartidas.Gastos gasto);
+        bool RegistrarGasto(EntidadesCompartidas.Gasto gasto);
 
-        List<EntidadesCompartidas.Gastos> ListarGastos();
+        List<EntidadesCompartidas.Gasto> ListarGastos();
     }
 }

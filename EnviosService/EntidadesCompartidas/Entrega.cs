@@ -3,7 +3,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
 
-    public partial class Entregas
+    public partial class Entrega
     {
         public int Codigo { get; set; }
         
@@ -21,18 +21,18 @@ namespace EntidadesCompartidas
         
         public string Turno { get; set; }
 
-        public Clientes Clientes { get; set; }
+        public Cliente Clientes { get; set; }
 
-        public Clientes Clientes1 { get; set; }
+        public Cliente Clientes1 { get; set; }
         
-        public List<Paquetes> Paquetes { get; set; }
+        public List<Paquete> Paquetes { get; set; }
 
-        public Locales Locales { get; set; }
+        public Local Locales { get; set; }
 
-        public Locales Locales1 { get; set; }
+        public Local Locales1 { get; set; }
 
-        public Turnos Turnos { get; set; }
+        public Turno Turnos { get; set; }
         
-        public List<Paquetes> Paquetes1 { get; set; }
+        public List<Paquete> Paquetes1 { get; set; }
     }
 }

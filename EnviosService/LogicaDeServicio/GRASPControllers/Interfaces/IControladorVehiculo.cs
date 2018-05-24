@@ -10,19 +10,19 @@ namespace LogicaDeServicio
     public interface IControladorVehiculo
     {
 
-        List<Cadetes> ListarCadetesDisponibles();
+        List<Cadete> ListarCadetesDisponibles();
 
-        bool ModificarVehiculo(Vehiculos pVehiculo);
+        bool ModificarVehiculo(Vehiculo pVehiculo);
 
-        Cadetes SeleccionarCadete(int ci);
+        Cadete SeleccionarCadete(int ci);
 
-        Cadetes BuscarEmpleado(int ci);
+        Cadete BuscarEmpleado(int ci);
 
-        bool BajaVehiculo(Vehiculos vehiculo);
+        bool BajaVehiculo(Vehiculo vehiculo);
 
-        Vehiculos BuscarVehiculo(string matricula);
+        Vehiculo BuscarVehiculo(string matricula);
 
-        bool AltaVehiculo(Vehiculos pVehiculo);
+        bool AltaVehiculo(Vehiculo pVehiculo);
 
         bool ExisteVehiculo(string matricula);
     }

@@ -9,6 +9,6 @@ namespace Persistencia
 {
     public interface IPersistenciaReparacion
     {
-        bool RegistrarMulta(EntidadesCompartidas.Multas multa);
+        bool RegistrarMulta(EntidadesCompartidas.Multa multa);
     }
 }

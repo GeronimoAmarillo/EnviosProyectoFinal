@@ -10,8 +10,8 @@ namespace LogicaDeApps
 {
     class ControladorMulta:IControladorMulta
     {
-        private List<Vehiculos> vehiculos;
-        private Multas multa;
+        private List<Vehiculo> vehiculos;
+        private Multa multa;
 
         public void IniciarRegistroMulta()
         {
@@ -28,22 +28,22 @@ namespace LogicaDeApps
             return new DTVehiculo();
         }
 
-        public Multas GetMulta()
+        public Multa GetMulta()
         {
             return multa;
         }
 
-        public void SetMulta(Multas pMulta)
+        public void SetMulta(Multa pMulta)
         {
             multa = pMulta;
         }
 
-        public void SetVehiculo(Vehiculos pVehiculo)
+        public void SetVehiculo(Vehiculo pVehiculo)
         {
             multa.Vehiculos = pVehiculo;
         }
 
-        public List<Vehiculos> GetVehiculos()
+        public List<Vehiculo> GetVehiculos()
         {
             return vehiculos;
         }

@@ -3,7 +3,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
 
-    public partial class Reparaciones
+    public partial class Reparacion
     {
         public int Id { get; set; }
         
@@ -15,6 +15,6 @@ namespace EntidadesCompartidas
         
         public string Vehiculo { get; set; }
 
-        public Vehiculos Vehiculos { get; set; }
+        public Vehiculo Vehiculos { get; set; }
     }
 }

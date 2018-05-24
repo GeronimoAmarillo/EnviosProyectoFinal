@@ -9,14 +9,14 @@ namespace Persistencia
 {
     class PersistenciaGasto:IPersistenciaGasto
     {
-        public bool RegistrarGasto(EntidadesCompartidas.Gastos gasto)
+        public bool RegistrarGasto(EntidadesCompartidas.Gasto gasto)
         {
             return true;
         }
 
-        public List<EntidadesCompartidas.Gastos> ListarGastos()
+        public List<EntidadesCompartidas.Gasto> ListarGastos()
         {
-            return new List<EntidadesCompartidas.Gastos>();
+            return new List<EntidadesCompartidas.Gasto>();
         }
     }
 }

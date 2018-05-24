@@ -10,7 +10,7 @@ namespace LogicaDeApps
 {
     class ControladorCliente: IControladorCliente
     {
-        private Clientes cliente;
+        private Cliente cliente;
 
         public bool ExisteCliente(int rut)
         {
@@ -22,7 +22,7 @@ namespace LogicaDeApps
 
         }
 
-        public Clientes GetCliente()
+        public Cliente GetCliente()
         {
             return cliente;
         }
@@ -37,7 +37,7 @@ namespace LogicaDeApps
             return true;
         }
 
-        public void SetCliente(Clientes pCliente)
+        public void SetCliente(Cliente pCliente)
         {
             cliente = pCliente;
         }

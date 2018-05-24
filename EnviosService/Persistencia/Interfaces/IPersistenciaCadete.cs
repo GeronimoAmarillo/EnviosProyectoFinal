@@ -8,22 +8,22 @@ namespace Persistencia
 {
     public interface IPersistenciaCadete
     {
-        bool AltaCadete(EntidadesCompartidas.Cadetes cadete);
+        bool AltaCadete(EntidadesCompartidas.Cadete cadete);
 
         bool ExisteCadete(int ci);
 
-        List<EntidadesCompartidas.Cadetes> ListarCadetes();
+        List<EntidadesCompartidas.Cadete> ListarCadetes();
 
-        EntidadesCompartidas.Cadetes Login(string user, string contraseña);
+        EntidadesCompartidas.Cadete Login(string user, string contraseña);
 
-        bool ModificarCadete(EntidadesCompartidas.Cadetes cadete);
+        bool ModificarCadete(EntidadesCompartidas.Cadete cadete);
 
-        List<EntidadesCompartidas.Cadetes> ListarCadetesDisponibles();
+        List<EntidadesCompartidas.Cadete> ListarCadetesDisponibles();
 
         bool BajaCadete(int ci);
 
         bool ComprobarUser(string user);
 
-        EntidadesCompartidas.Cadetes BuscarCadete(int ci);
+        EntidadesCompartidas.Cadete BuscarCadete(int ci);
     }
 }

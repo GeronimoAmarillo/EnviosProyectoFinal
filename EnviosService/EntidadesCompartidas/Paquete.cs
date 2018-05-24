@@ -3,7 +3,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
 
-    public partial class Paquetes
+    public partial class Paquete
     {
         public int NumReferencia { get; set; }
         
@@ -17,13 +17,13 @@ namespace EntidadesCompartidas
 
         public long? Cliente { get; set; }
 
-        public  Clientes Clientes { get; set; }
+        public  Cliente Clientes { get; set; }
 
-        public  Clientes Clientes1 { get; set; }
+        public  Cliente Clientes1 { get; set; }
 
-        public  Entregas Entregas { get; set; }
+        public  Entrega Entregas { get; set; }
 
-        public  Entregas Entregas1 { get; set; }
+        public  Entrega Entregas1 { get; set; }
         
         public  List<Reclamo> Reclamo { get; set; }
         

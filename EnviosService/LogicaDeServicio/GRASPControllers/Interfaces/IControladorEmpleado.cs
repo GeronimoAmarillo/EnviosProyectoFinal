@@ -11,12 +11,12 @@ namespace LogicaDeServicio
     {
         bool ExisteEmpleado(int ci);
 
-        Empleados BuscarEmpleado(int ci);
+        Empleado BuscarEmpleado(int ci);
 
-        bool ModificarEmpleado(Empleados pEmpleado);
+        bool ModificarEmpleado(Empleado pEmpleado);
 
-        bool BajaEmpleado(Empleados pEmpleado);
+        bool BajaEmpleado(Empleado pEmpleado);
 
-        bool AltaEmpleado(Empleados pEmpleado);
+        bool AltaEmpleado(Empleado pEmpleado);
     }
 }

@@ -3,7 +3,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
 
-    public partial class Calificaciones
+    public partial class Calificacion
     {
         public int Id { get; set; }
 
@@ -13,6 +13,6 @@ namespace EntidadesCompartidas
         
         public string Comentario { get; set; }
 
-        public Clientes Clientes { get; set; }
+        public Cliente Clientes { get; set; }
     }
 }

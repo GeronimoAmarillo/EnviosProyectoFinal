@@ -10,17 +10,17 @@ namespace LogicaDeServicio
 {
     class ControladorAdelanto:IControladorAdelanto
     {
-        public List<EntidadesCompartidas.Empleados> ListarEmpleados()
+        public List<EntidadesCompartidas.Empleado> ListarEmpleados()
         {
-            return new List<EntidadesCompartidas.Empleados>();
+            return new List<EntidadesCompartidas.Empleado>();
         }
 
-        public EntidadesCompartidas.Empleados BuscarEmpleado(int cedula)
+        public EntidadesCompartidas.Empleado BuscarEmpleado(int cedula)
         {
-            return new EntidadesCompartidas.Empleados();
+            return new EntidadesCompartidas.Empleado();
         }
 
-        public bool RealizarAdelanto(EntidadesCompartidas.Adelantos pAdelanto)
+        public bool RealizarAdelanto(EntidadesCompartidas.Adelanto pAdelanto)
         {
             return true;
         }

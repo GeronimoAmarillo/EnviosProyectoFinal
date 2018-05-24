@@ -9,15 +9,15 @@ namespace LogicaDeServicio
 {
     public class LogicaBalance
     {
-        public List<Balances> ObtenerBalancesAnuales(int anio)
+        public List<Balance> ObtenerBalancesAnuales(int anio)
         {
-            List<Balances> balancesdelAnio = new List<Balances>();
+            List<Balance> balancesdelAnio = new List<Balance>();
             return balancesdelAnio;
         }
 
-        public EntidadesCompartidas.Balances BuscarBalance(int mes, int anio)
+        public EntidadesCompartidas.Balance BuscarBalance(int mes, int anio)
         {
-            Balances balance = new Balances();
+            Balance balance = new Balance();
             return balance;
         }
     }

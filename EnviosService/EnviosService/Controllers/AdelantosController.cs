@@ -35,7 +35,7 @@ namespace EnviosService.Controllers
         }
 
         [HttpPost]
-        public JsonResult Adelantos([FromBody] Adelantos item)
+        public JsonResult Adelantos([FromBody] Adelanto item)
         {
             switch (Request.Method.ToString())
             {

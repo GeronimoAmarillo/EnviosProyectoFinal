@@ -3,7 +3,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
 
-    public partial class Locales
+    public partial class Local
     {
 
         public int Id { get; set; }
@@ -12,8 +12,8 @@ namespace EntidadesCompartidas
         
         public string Direccion { get; set; }
         
-        public  List<Entregas> Entregas { get; set; }
+        public  List<Entrega> Entregas { get; set; }
         
-        public  List<Entregas> Entregas1 { get; set; }
+        public  List<Entrega> Entregas1 { get; set; }
     }
 }

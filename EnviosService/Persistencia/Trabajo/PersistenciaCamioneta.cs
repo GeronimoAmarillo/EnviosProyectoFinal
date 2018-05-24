@@ -9,14 +9,14 @@ namespace Persistencia
 {
     class PersistenciaCamioneta : IPersistenciaCamioneta
     {
-        public bool AltaCamioneta(EntidadesCompartidas.Camionetas camioneta)
+        public bool AltaCamioneta(EntidadesCompartidas.Camioneta camioneta)
         {
             return true;
         }
 
-        public List<EntidadesCompartidas.Camionetas> ListarCamionetas()
+        public List<EntidadesCompartidas.Camioneta> ListarCamionetas()
         {
-            return new List<EntidadesCompartidas.Camionetas>();
+            return new List<EntidadesCompartidas.Camioneta>();
         }
 
         public bool BajaCamioneta(string matricula)
@@ -24,14 +24,14 @@ namespace Persistencia
             return true;
         }
 
-        public bool ModificarCamioneta(EntidadesCompartidas.Camionetas camioneta)
+        public bool ModificarCamioneta(EntidadesCompartidas.Camioneta camioneta)
         {
             return true;
         }
 
-        public EntidadesCompartidas.Camionetas BuscarCamioneta(string matricula)
+        public EntidadesCompartidas.Camioneta BuscarCamioneta(string matricula)
         {
-            return new EntidadesCompartidas.Camionetas();
+            return new EntidadesCompartidas.Camioneta();
         }
 
         public bool ExisteCamioneta(string matricula)

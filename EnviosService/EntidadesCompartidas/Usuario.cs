@@ -3,7 +3,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
 
-    public partial class Usuarios
+    public partial class Usuario
     {
 
         public int Id { get; set; }
@@ -20,8 +20,8 @@ namespace EntidadesCompartidas
         
         public string Email { get; set; }
         
-        public List<Clientes> Clientes { get; set; }
+        public List<Cliente> Clientes { get; set; }
         
-        public List<Empleados> Empleados { get; set; }
+        public List<Empleado> Empleados { get; set; }
     }
 }

@@ -14,17 +14,17 @@ namespace LogicaDeServicio
             return true;
         }
 
-        public EntidadesCompartidas.Locales BuscarLocal(string nombre)
+        public EntidadesCompartidas.Local BuscarLocal(string nombre)
         {
-            return new EntidadesCompartidas.Locales();
+            return new EntidadesCompartidas.Local();
         }
 
-        public bool ModificarLocal(EntidadesCompartidas.Locales local)
+        public bool ModificarLocal(EntidadesCompartidas.Local local)
         {
             return true;
         }
 
-        public bool AltaLocal(EntidadesCompartidas.Locales local)
+        public bool AltaLocal(EntidadesCompartidas.Local local)
         {
             try
             {

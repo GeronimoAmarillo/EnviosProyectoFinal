@@ -11,18 +11,18 @@ namespace Persistencia
     {
         bool ExisteAdmin(int ci);
 
-        bool AltaAdministrador(EntidadesCompartidas.Administradores administrador);
+        bool AltaAdministrador(EntidadesCompartidas.Administrador administrador);
 
         bool ComprobarUser(string user);
 
-        List<EntidadesCompartidas.Administradores> ListarAdministradores();
+        List<EntidadesCompartidas.Administrador> ListarAdministradores();
 
-        bool ModificarAdmin(EntidadesCompartidas.Administradores admin);
+        bool ModificarAdmin(EntidadesCompartidas.Administrador admin);
 
-        EntidadesCompartidas.Administradores Login(string user, string contraseña);
+        EntidadesCompartidas.Administrador Login(string user, string contraseña);
 
         bool BajaAdministrador(int ci);
 
-        EntidadesCompartidas.Administradores BusxarAdministrador(int ci);
+        EntidadesCompartidas.Administrador BusxarAdministrador(int ci);
     }
 }

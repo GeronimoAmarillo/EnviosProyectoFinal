@@ -9,14 +9,14 @@ namespace Persistencia
 {
     public interface IPersistenciaPaquete
     {
-        bool AltaPaquete(EntidadesCompartidas.Paquetes paquete);
+        bool AltaPaquete(EntidadesCompartidas.Paquete paquete);
 
-        EntidadesCompartidas.Paquetes BuscarPaquete(int numReferencia);
+        EntidadesCompartidas.Paquete BuscarPaquete(int numReferencia);
 
-        List<EntidadesCompartidas.Paquetes> ListarPaquetesEnviadosXCliente(int rut);
+        List<EntidadesCompartidas.Paquete> ListarPaquetesEnviadosXCliente(int rut);
 
         bool RealizarReclamo(string descripcion);
 
-        List<EntidadesCompartidas.Paquetes> ListarPaquetesRecibidosXCliente(int rut);
+        List<EntidadesCompartidas.Paquete> ListarPaquetesRecibidosXCliente(int rut);
     }
 }

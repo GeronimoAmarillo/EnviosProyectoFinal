@@ -9,7 +9,7 @@ namespace LogicaDeServicio
 {
     public class LogicaPalet
     {
-        public bool AltaPalet(Palets unPalet)
+        public bool AltaPalet(Palet unPalet)
         {
             bool exito = false;
             return exito;
@@ -21,9 +21,9 @@ namespace LogicaDeServicio
             return exito;
         }
 
-        public Galpones BuscarGalpon(int id)
+        public Galpon BuscarGalpon(int id)
         {
-            Galpones galpon = new Galpones();
+            Galpon galpon = new Galpon();
             return galpon;
         }
     }

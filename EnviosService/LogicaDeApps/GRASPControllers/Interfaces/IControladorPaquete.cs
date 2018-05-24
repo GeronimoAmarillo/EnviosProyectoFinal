@@ -12,11 +12,11 @@ namespace LogicaDeApps
     {
         bool RealizarReclamo(string descripcion);
 
-        Paquetes GetPaquete();
+        Paquete GetPaquete();
 
         DTPaquete BuscarPaquete(int codigo);
 
-        void SetPaquete(Paquetes pPaquete);
+        void SetPaquete(Paquete pPaquete);
 
     }
 }

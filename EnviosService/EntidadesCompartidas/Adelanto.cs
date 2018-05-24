@@ -3,7 +3,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
 
-    public partial class Adelantos
+    public partial class Adelanto
     {
         public int Id { get; set; }
         
@@ -15,6 +15,6 @@ namespace EntidadesCompartidas
 
         public bool Saldado { get; set; }
 
-        public  Empleados Empleados { get; set; }
+        public  Empleado Empleados { get; set; }
     }
 }

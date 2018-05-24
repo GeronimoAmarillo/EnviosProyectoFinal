@@ -3,7 +3,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
 
-    public partial class Racks
+    public partial class Rack
     {
         public int Codigo { get; set; }
 
@@ -13,8 +13,8 @@ namespace EntidadesCompartidas
 
         public int Sector { get; set; }
         
-        public  List<Casillas> Casillas { get; set; }
+        public  List<Casilla> Casillas { get; set; }
 
-        public  Sectores Sectores { get; set; }
+        public  Sector Sectores { get; set; }
     }
 }

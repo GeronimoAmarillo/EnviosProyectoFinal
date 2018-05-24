@@ -14,7 +14,7 @@ namespace LogicaDeApps
 {
     class ControladorLocal:IControladorLocal
     {
-        private Locales local;
+        private Local local;
 
         public class Root
         {
@@ -46,7 +46,7 @@ namespace LogicaDeApps
             return true;
         }
 
-        public void SetLocal(Locales pLocal)
+        public void SetLocal(Local pLocal)
         {
             local = pLocal;
         }

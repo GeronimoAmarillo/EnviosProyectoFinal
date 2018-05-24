@@ -14,22 +14,22 @@ namespace LogicaDeServicio
             return true;
         }
 
-        public EntidadesCompartidas.Empleados BuscarEmpleado(int ci)
+        public EntidadesCompartidas.Empleado BuscarEmpleado(int ci)
         {
-            return new EntidadesCompartidas.Empleados();
+            return new EntidadesCompartidas.Empleado();
         }
 
-        public bool ModificarEmpleado(EntidadesCompartidas.Empleados pEmpleado)
-        {
-            return true;
-        }
-
-        public bool BajaEmpleado(EntidadesCompartidas.Empleados pEmpleado)
+        public bool ModificarEmpleado(EntidadesCompartidas.Empleado pEmpleado)
         {
             return true;
         }
 
-        public bool AltaEmpleado(EntidadesCompartidas.Empleados pEmpleado)
+        public bool BajaEmpleado(EntidadesCompartidas.Empleado pEmpleado)
+        {
+            return true;
+        }
+
+        public bool AltaEmpleado(EntidadesCompartidas.Empleado pEmpleado)
         {
             return true;
         }

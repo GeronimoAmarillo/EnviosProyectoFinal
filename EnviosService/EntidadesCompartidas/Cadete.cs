@@ -3,7 +3,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
 
-    public partial class Cadetes
+    public partial class Cadete:Empleado
     {
         public string TipoLibreta { get; set; }
 
@@ -11,8 +11,8 @@ namespace EntidadesCompartidas
         
         public int CiEmpleado { get; set; }
 
-        public  Empleados Empleados { get; set; }
+        public  Empleado Empleados { get; set; }
         
-        public  List<Vehiculos> Vehiculos { get; set; }
+        public  List<Vehiculo> Vehiculos { get; set; }
     }
 }

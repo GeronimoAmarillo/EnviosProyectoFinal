@@ -11,8 +11,8 @@ namespace EntidadesCompartidas
         
         public int Paquete { get; set; }
 
-        public Paquetes Paquetes { get; set; }
+        public Paquete Paquetes { get; set; }
 
-        public Paquetes Paquetes1 { get; set; }
+        public Paquete Paquetes1 { get; set; }
     }
 }

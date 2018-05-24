@@ -3,7 +3,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
 
-    public partial class Galpones
+    public partial class Galpon
     {
         public int Id { get; set; }
 
@@ -11,6 +11,6 @@ namespace EntidadesCompartidas
 
         public decimal Superficie { get; set; }
         
-        public  List<Sectores> Sectores { get; set; }
+        public  List<Sector> Sectores { get; set; }
     }
 }

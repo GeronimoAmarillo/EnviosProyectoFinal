@@ -10,18 +10,18 @@ namespace LogicaDeServicio
     public interface IControladorEntrega
     {
 
-        List<Entregas> ListarEntregas();
+        List<Entrega> ListarEntregas();
 
-        bool Entregar(List<Entregas> entregasSelecciondas);
+        bool Entregar(List<Entrega> entregasSelecciondas);
 
-        List<Clientes> ListarClientes();
+        List<Cliente> ListarClientes();
 
-        List<Cadetes> ListarCadetesDisponibles();
+        List<Cadete> ListarCadetesDisponibles();
 
-        List<Turnos> ListarTurnos();
+        List<Turno> ListarTurnos();
 
-        List<Locales> ListarLocales();
+        List<Local> ListarLocales();
 
-        bool AltaEntrega(Entregas pEntrega);
+        bool AltaEntrega(Entrega pEntrega);
     }
 }

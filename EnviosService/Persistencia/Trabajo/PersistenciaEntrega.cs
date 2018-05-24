@@ -9,17 +9,17 @@ namespace Persistencia
 {
     class PersistenciaEntrega:IPersistenciaEntrega
     {
-        public bool Entregar(List<EntidadesCompartidas.Entregas> entregas)
+        public bool Entregar(List<EntidadesCompartidas.Entrega> entregas)
         {
             return true;
         }
 
-        public List<EntidadesCompartidas.Entregas> ListarEntregas()
+        public List<EntidadesCompartidas.Entrega> ListarEntregas()
         {
-            return new List<EntidadesCompartidas.Entregas>();
+            return new List<EntidadesCompartidas.Entrega>();
         }
 
-        public bool AltaEntrega(EntidadesCompartidas.Entregas entrega)
+        public bool AltaEntrega(EntidadesCompartidas.Entrega entrega)
         {
             return true;
         }

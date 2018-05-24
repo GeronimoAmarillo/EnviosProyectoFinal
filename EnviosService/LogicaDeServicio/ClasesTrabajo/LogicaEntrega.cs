@@ -9,19 +9,19 @@ namespace LogicaDeServicio
 {
     public class LogicaEntrega
     {
-        public bool Entregar(List<Entregas> entregasSeleccionadas)
+        public bool Entregar(List<Entrega> entregasSeleccionadas)
         {
             bool exito = false;
             return exito;
         }
 
-        public List<Entregas> ListarEntregas()
+        public List<Entrega> ListarEntregas()
         {
-            List<Entregas> entregas = new List<Entregas>();
+            List<Entrega> entregas = new List<Entrega>();
             return entregas;
         }
 
-        public bool AltaEntega(Entregas unaEntrega)
+        public bool AltaEntega(Entrega unaEntrega)
         {
             bool exito = false;
             return exito;

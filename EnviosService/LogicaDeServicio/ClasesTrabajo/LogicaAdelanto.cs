@@ -9,7 +9,7 @@ namespace LogicaDeServicio
 {
     public class LogicaAdelanto
     {
-        public bool RealizarAdelanto(Adelantos unAdelanto)
+        public bool RealizarAdelanto(Adelanto unAdelanto)
         {
             bool exito = false;
             return exito;

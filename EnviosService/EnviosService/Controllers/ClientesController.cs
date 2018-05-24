@@ -34,7 +34,7 @@ namespace EnviosService.Controllers
 
         [HttpPut]
         [HttpPost]
-        public JsonResult Cliente([FromBody] Clientes cliente)
+        public JsonResult Cliente([FromBody] Cliente cliente)
         {
             switch (Request.Method.ToString())
             {

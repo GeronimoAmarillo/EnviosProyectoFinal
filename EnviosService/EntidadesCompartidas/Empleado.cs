@@ -3,7 +3,7 @@ namespace EntidadesCompartidas
     using System;
     using System.Collections.Generic;
 
-    public partial class Empleados
+    public partial class Empleado:Usuario
     {
         
         public decimal Sueldo { get; set; }
@@ -12,12 +12,12 @@ namespace EntidadesCompartidas
         
         public int Ci { get; set; }
         
-        public  List<Adelantos> Adelantos { get; set; }
+        public  List<Adelanto> Adelantos { get; set; }
 
-        public Cadetes Cadetes { get; set; }
+        public Cadete Cadetes { get; set; }
         
-        public List<Administradores> Administradores { get; set; }
+        public List<Administrador> Administradores { get; set; }
 
-        public Usuarios Usuarios { get; set; }
+        public Usuario Usuarios { get; set; }
     }
 }

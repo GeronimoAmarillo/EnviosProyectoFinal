@@ -10,15 +10,15 @@ namespace LogicaDeApps
 {
     public interface IControladorGasto
     {
-        Gastos GetGasto();
+        Gasto GetGasto();
 
         List<DTGasto> ListarGastos();
 
-        List<Gastos> GetGastos();
+        List<Gasto> GetGastos();
 
         void IniciarRegistroGasto();
 
-        void SetGasto(Gastos pGasto);
+        void SetGasto(Gasto pGasto);
 
         bool RegistrarGasto(DTGasto gasto);
 

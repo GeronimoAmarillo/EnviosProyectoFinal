@@ -2,7 +2,7 @@ namespace EntidadesCompartidas
 {
     using System;
     using System.Collections.Generic;
-    public partial class Turnos
+    public partial class Turno
     {
         public string Codigo { get; set; }
         
@@ -10,6 +10,6 @@ namespace EntidadesCompartidas
 
         public int Hora { get; set; }
         
-        public List<Entregas> Entregas { get; set; }
+        public List<Entrega> Entregas { get; set; }
     }
 }

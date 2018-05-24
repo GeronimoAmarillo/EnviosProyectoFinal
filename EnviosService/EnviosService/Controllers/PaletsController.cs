@@ -41,7 +41,7 @@ namespace EnviosService.Controllers
 
         [HttpPost]
         [HttpDelete]
-        public JsonResult Palet([FromBody] Palets item)
+        public JsonResult Palet([FromBody] Palet item)
         {
             switch (Request.Method.ToString())
             {

@@ -36,7 +36,7 @@ namespace EnviosService.Controllers
         [HttpPut]
         [HttpPost]
         [HttpDelete]
-        public JsonResult Empleado([FromBody] Empleados item)
+        public JsonResult Empleado([FromBody] Empleado item)
         {
             switch (Request.Method.ToString())
             {
