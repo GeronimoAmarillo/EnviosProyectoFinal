@@ -41,108 +41,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adelantos.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Administradores.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Automobiles.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Balances.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Cadetes.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Calificaciones.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Camiones.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Camionetas.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Casillas.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Clientes.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Cuotas.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Empleados.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EntityModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entregas.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Galpones.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Gastos.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Impuestos.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Ingresos.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Locales.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Motos.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Multas.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Palets.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Paquetes.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Adelantos.cs" />
+    <Compile Include="Administradores.cs" />
+    <Compile Include="Automobiles.cs" />
+    <Compile Include="Balances.cs" />
+    <Compile Include="Cadetes.cs" />
+    <Compile Include="Calificaciones.cs" />
+    <Compile Include="Camiones.cs" />
+    <Compile Include="Camionetas.cs" />
+    <Compile Include="Casillas.cs" />
+    <Compile Include="Clientes.cs" />
+    <Compile Include="Cuotas.cs" />
+    <Compile Include="Empleados.cs" />
+    <Compile Include="Entregas.cs" />
+    <Compile Include="Galpones.cs" />
+    <Compile Include="Gastos.cs" />
+    <Compile Include="Impuestos.cs" />
+    <Compile Include="Ingresos.cs" />
+    <Compile Include="Locales.cs" />
+    <Compile Include="Motos.cs" />
+    <Compile Include="Multas.cs" />
+    <Compile Include="Palets.cs" />
+    <Compile Include="Paquetes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Racks.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Reclamo.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Registros.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Reparaciones.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Sectores.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Turnos.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Usuarios.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Vehiculos.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="EntityModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EntityModel.cs</LastGenOutput>
-    </Content>
+    <Compile Include="Racks.cs" />
+    <Compile Include="Reclamo.cs" />
+    <Compile Include="Registros.cs" />
+    <Compile Include="Reparaciones.cs" />
+    <Compile Include="Sectores.cs" />
+    <Compile Include="Turnos.cs" />
+    <Compile Include="Usuarios.cs" />
+    <Compile Include="Vehiculos.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

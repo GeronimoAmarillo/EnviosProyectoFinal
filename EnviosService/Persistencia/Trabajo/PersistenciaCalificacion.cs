@@ -9,7 +9,7 @@ namespace Persistencia
 {
     class PersistenciaCalificacion:IPersistenciaCalificacion
     {
-        public bool Calificar(int puntaje, string comentario, Clientes cliente)
+        public bool Calificar(int puntaje, string comentario, EntidadesCompartidas.Clientes cliente)
         {
             return true;
         }

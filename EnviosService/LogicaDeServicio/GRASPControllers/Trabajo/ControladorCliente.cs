@@ -15,17 +15,17 @@ namespace LogicaDeServicio
         }
 
         
-        public Clientes BuscarCliente(int rut)
+        public EntidadesCompartidas.Clientes BuscarCliente(int rut)
         {
             return new Clientes();
         }
 
-        public bool ModificarCliente(Clientes pCliente)
+        public bool ModificarCliente(EntidadesCompartidas.Clientes pCliente)
         {
             return true;
         }
 
-        public bool AltaCliente(Clientes pCliente)
+        public bool AltaCliente(EntidadesCompartidas.Clientes pCliente)
         {
             return true;
         }

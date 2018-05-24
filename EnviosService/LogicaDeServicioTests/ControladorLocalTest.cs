@@ -12,7 +12,7 @@ namespace LogicaDeServicioTests
         [TestMethod]
         public void AltaLocalOKTest()
         {
-            Locales local = new Locales
+            EntidadesCompartidas.Locales local = new EntidadesCompartidas.Locales
             {
                 Id = 0,
                 Direccion = "DireccionOptica5",
@@ -30,7 +30,7 @@ namespace LogicaDeServicioTests
         [TestMethod]
         public void AltaLocalERRORTest()
         {
-            Locales local = new Locales
+            EntidadesCompartidas.Locales local = new EntidadesCompartidas.Locales
             {
                 Id = 0,
                 Direccion = "DireccionOptica5",

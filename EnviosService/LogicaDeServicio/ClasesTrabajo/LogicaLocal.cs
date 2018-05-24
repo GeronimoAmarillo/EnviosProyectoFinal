@@ -11,7 +11,7 @@ namespace LogicaDeServicio
     public class LogicaLocal
     {
 
-        public static bool AltaLocal(Locales unLocal)
+        public static bool AltaLocal(EntidadesCompartidas.Locales unLocal)
         {
             try
             {
@@ -29,21 +29,21 @@ namespace LogicaDeServicio
             return existe;
         }
 
-        public static Locales BuscarLocal(string nombreLocal)
+        public static EntidadesCompartidas.Locales BuscarLocal(string nombreLocal)
         {
-            Locales local = new Locales();
+            EntidadesCompartidas.Locales local = new EntidadesCompartidas.Locales();
             return local;
         }
 
-        public static Locales ModificarLocal(Locales unLocal)
+        public static EntidadesCompartidas.Locales ModificarLocal(EntidadesCompartidas.Locales unLocal)
         {
-            Locales local = new Locales();
+            EntidadesCompartidas.Locales local = new EntidadesCompartidas.Locales();
             return local;
         }
 
-        public static List<Locales> ListarLocales()
+        public static List<EntidadesCompartidas.Locales> ListarLocales()
         {
-            List<Locales> lista = new List<Locales>();
+            List<EntidadesCompartidas.Locales> lista = new List<EntidadesCompartidas.Locales>();
             return lista;
         }
     }

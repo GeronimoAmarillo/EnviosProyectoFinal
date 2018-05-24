@@ -8,16 +8,16 @@ namespace Persistencia
 {
     public interface IPersistenciaMoto
     {
-        bool AltaMoto(Motos moto);
+        bool AltaMoto(EntidadesCompartidas.Motos moto);
 
         bool ExisteMoto(string matricula);
 
-        Motos BuscarMoto(string matricula);
+        EntidadesCompartidas.Motos BuscarMoto(string matricula);
 
-        List<Motos> ListarMotos();
+        List<EntidadesCompartidas.Motos> ListarMotos();
 
         bool BajaMoto(string matricula);
 
-        bool ModificarMoto(Motos moto);
+        bool ModificarMoto(EntidadesCompartidas.Motos moto);
     }
 }

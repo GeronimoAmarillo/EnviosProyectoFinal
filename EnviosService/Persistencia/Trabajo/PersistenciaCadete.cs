@@ -9,7 +9,7 @@ namespace Persistencia
 {
     class PersistenciaCadete:IPersistenciaCadete
     {
-        public bool AltaCadete(Cadetes cadete)
+        public bool AltaCadete(EntidadesCompartidas.Cadetes cadete)
         {
             return true;
         }
@@ -19,14 +19,15 @@ namespace Persistencia
             return true;
         }
 
-        public List<Cadetes> ListarCadetes()
+        public List<EntidadesCompartidas.Cadetes> ListarCadetes()
         {
-            return new List<Cadetes>();
+            return new List<EntidadesCompartidas.Cadetes>();
         }
 
-        public Cadetes Login(string user, string contraseña)
+        public EntidadesCompartidas.Cadetes Login(string user, string contraseña)
         {
-            Cadetes cadeteLogueado = new Cadetes();
+            /*EntidadesCompartidas.Cadetes cadeteLogueado = new EntidadesCompartidas.Cadetes();
+
             EnviosEntities dbConexion = new EnviosEntities();
             try
             {
@@ -45,18 +46,21 @@ namespace Persistencia
             catch(Exception ex)
             {
                 throw new Exception("Error al intentar loguear el Cadete" + ex.Message);
-            }
-           
+            }*/
+
+            return new EntidadesCompartidas.Cadetes();
+
+
         }
 
-        public bool ModificarCadete(Cadetes cadete)
+        public bool ModificarCadete(EntidadesCompartidas.Cadetes cadete)
         {
             return true;
         }
 
-        public List<Cadetes> ListarCadetesDisponibles()
+        public List<EntidadesCompartidas.Cadetes> ListarCadetesDisponibles()
         {
-            return new List<Cadetes>();
+            return new List<EntidadesCompartidas.Cadetes>();
         }
 
         public bool BajaCadete(int ci)
@@ -69,9 +73,9 @@ namespace Persistencia
             return true;
         }
 
-        public Cadetes BuscarCadete(int ci)
+        public EntidadesCompartidas.Cadetes BuscarCadete(int ci)
         {
-            return new Cadetes();
+            return new EntidadesCompartidas.Cadetes();
         }
     }
 }

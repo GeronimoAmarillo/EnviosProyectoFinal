@@ -8,7 +8,7 @@ namespace Persistencia
 {
     class PersistenciaMoto:IPersistenciaMoto
     {
-        public bool AltaMoto(Motos moto)
+        public bool AltaMoto(EntidadesCompartidas.Motos moto)
         {
             return true;
         }
@@ -18,14 +18,14 @@ namespace Persistencia
             return true;
         }
 
-        public Motos BuscarMoto(string matricula)
+        public EntidadesCompartidas.Motos BuscarMoto(string matricula)
         {
-            return new Motos();
+            return new EntidadesCompartidas.Motos();
         }
 
-        public List<Motos> ListarMotos()
+        public List<EntidadesCompartidas.Motos> ListarMotos()
         {
-            return new List<Motos>();
+            return new List<EntidadesCompartidas.Motos>();
         }
 
         public bool BajaMoto(string matricula)
@@ -33,7 +33,7 @@ namespace Persistencia
             return true;
         }
 
-        public bool ModificarMoto(Motos moto)
+        public bool ModificarMoto(EntidadesCompartidas.Motos moto)
         {
             return true;
         }

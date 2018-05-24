@@ -9,7 +9,7 @@ namespace Persistencia
 {
     class PersistenciaCliente:IPersistenciaCliente
     {
-        public bool AltaCliente(Clientes cliente)
+        public bool AltaCliente(EntidadesCompartidas.Clientes cliente)
         {
             return true;
         }
@@ -19,7 +19,7 @@ namespace Persistencia
             return true;
         }
 
-        public bool ModificarCliente(Usuarios usuario)
+        public bool ModificarCliente(EntidadesCompartidas.Usuarios usuario)
         {
             return true;
         }
@@ -29,14 +29,14 @@ namespace Persistencia
             return true;
         }
 
-        public List<Clientes> ListarClientes()
+        public List<EntidadesCompartidas.Clientes> ListarClientes()
         {
-            return new List<Clientes>();
+            return new List<EntidadesCompartidas.Clientes>();
         }
 
-        public Clientes Login(string user, string contraseña)
+        public EntidadesCompartidas.Clientes Login(string user, string contraseña)
         {
-            Clientes clienteLogueado = new Clientes();
+            /*Clientes clienteLogueado = new Clientes();
             EnviosEntities dbConexion = new EnviosEntities();
             try
             {
@@ -55,7 +55,9 @@ namespace Persistencia
             catch (Exception ex)
             {
                 throw new Exception("Error al intentar loguear el Cliente" + ex.Message);
-            }
+            }*/
+
+            return new EntidadesCompartidas.Clientes();
         }
 
         public bool BajaCliente(int ci)

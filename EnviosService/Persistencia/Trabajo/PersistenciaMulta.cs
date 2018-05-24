@@ -9,7 +9,7 @@ namespace Persistencia
 {
     class PersistenciaMulta:IPersistenciaMulta
     {
-        public bool RegistrarMulta(Multas multa)
+        public bool RegistrarMulta(EntidadesCompartidas.Multas multa)
         {
             return true;
         }

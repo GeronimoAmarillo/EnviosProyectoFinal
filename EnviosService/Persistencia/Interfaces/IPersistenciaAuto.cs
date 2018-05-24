@@ -8,15 +8,15 @@ namespace Persistencia
 {
     public interface IPersistenciaAuto
     {
-        bool AltaAuto(Automobiles automobiles);
+        bool AltaAuto(EntidadesCompartidas.Automobiles automobiles);
 
-        List<Automobiles> ListarAutos();
+        List<EntidadesCompartidas.Automobiles> ListarAutos();
 
         bool BajaAuto(string matricula);
 
-        bool ModificarAuto(Automobiles auto);
+        bool ModificarAuto(EntidadesCompartidas.Automobiles auto);
 
-        Automobiles BuscarAuto(string matricula);
+        EntidadesCompartidas.Automobiles BuscarAuto(string matricula);
 
         bool ExisteAuto(string matricula);
     }

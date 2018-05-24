@@ -15,7 +15,7 @@ namespace LogicaDeServicio
             return balancesdelAnio;
         }
 
-        public Balances BuscarBalance(int mes, int anio)
+        public EntidadesCompartidas.Balances BuscarBalance(int mes, int anio)
         {
             Balances balance = new Balances();
             return balance;

@@ -31,7 +31,7 @@ namespace LogicaDeApps
 
         public Cadetes GetCadete()
         {
-            return vehiculo.Cadete1;
+            return vehiculo.Cadetes;
         }
 
         public string GetMatricula()

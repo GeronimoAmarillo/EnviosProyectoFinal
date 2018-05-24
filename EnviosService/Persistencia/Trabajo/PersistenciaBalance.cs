@@ -9,13 +9,13 @@ namespace Persistencia
 {
     class PersistenciaBalance:IPersistenciaBalance
     {
-        public List<Balances> ObtenerBalancesAnuales(int año)
+        public List<EntidadesCompartidas.Balances> ObtenerBalancesAnuales(int año)
         {
-            return new List<Balances>();
+            return new List<EntidadesCompartidas.Balances>();
         }
-        public Balances ObtenerBalance(string mes, int año)
+        public EntidadesCompartidas.Balances ObtenerBalance(string mes, int año)
         {
-            return new Balances();
+            return new EntidadesCompartidas.Balances();
         }
 
     }

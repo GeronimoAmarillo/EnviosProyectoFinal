@@ -9,17 +9,17 @@ namespace Persistencia
 {
     public interface IPersistenciaCliente
     {
-        bool AltaCliente(Clientes cliente);
+        bool AltaCliente(EntidadesCompartidas.Clientes cliente);
 
         bool ExisteCliente(int rut);
 
-        bool ModificarCliente(Usuarios usuario);
+        bool ModificarCliente(EntidadesCompartidas.Usuarios usuario);
 
         bool ComprobarUser(string user);
 
-        List<Clientes> ListarClientes();
+        List<EntidadesCompartidas.Clientes> ListarClientes();
 
-        Clientes Login(string user, string contraseña);
+        EntidadesCompartidas.Clientes Login(string user, string contraseña);
 
         bool BajaCliente(int ci);
     }

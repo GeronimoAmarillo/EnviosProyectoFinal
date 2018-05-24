@@ -9,8 +9,8 @@ namespace Persistencia
 {
     public interface IPersistenciaBalance
     {
-        List<Balances> ObtenerBalancesAnuales(int año);
+        List<EntidadesCompartidas.Balances> ObtenerBalancesAnuales(int año);
 
-        Balances ObtenerBalance(string mes, int año);
+        EntidadesCompartidas.Balances ObtenerBalance(string mes, int año);
     }
 }

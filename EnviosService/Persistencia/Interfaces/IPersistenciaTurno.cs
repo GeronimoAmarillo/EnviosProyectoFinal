@@ -11,10 +11,10 @@ namespace Persistencia
     {
         bool ExisteTurno(string dia, DateTime hora);
 
-        List<Turnos> ListarTurnos();
+        List<EntidadesCompartidas.Turnos> ListarTurnos();
 
-        bool ModificarTurno(Turnos turno);
+        bool ModificarTurno(EntidadesCompartidas.Turnos turno);
 
-        bool AltaTurno(Turnos turno);
+        bool AltaTurno(EntidadesCompartidas.Turnos turno);
     }
 }
