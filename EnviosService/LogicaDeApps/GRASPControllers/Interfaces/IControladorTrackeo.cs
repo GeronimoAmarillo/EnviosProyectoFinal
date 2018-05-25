@@ -12,7 +12,7 @@ namespace LogicaDeApps
     {
         DTPaquete ObtenerPaquete(int numReferencia);
 
-        void SetPaquete(Paquetes pPaquete);
+        void SetPaquete(Paquete pPaquete);
 
         //Mapa ObtenerUbicacion();
 
@@ -20,7 +20,7 @@ namespace LogicaDeApps
 
         string GetCooDefault();
 
-        Paquetes GetPaquete();
+        Paquete GetPaquete();
 
     }
 }

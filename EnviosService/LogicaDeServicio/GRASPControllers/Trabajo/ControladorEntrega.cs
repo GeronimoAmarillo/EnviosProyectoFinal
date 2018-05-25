@@ -10,38 +10,38 @@ namespace LogicaDeServicio
     class ControladorEntrega:IControladorEntrega
     {
         
-        public List<Entregas> ListarEntregas()
+        public List<EntidadesCompartidas.Entrega> ListarEntregas()
         {
-            return new List<Entregas>();
+            return new List<EntidadesCompartidas.Entrega>();
         }
 
 
-        public bool Entregar(List<Entregas> entregasSeleccionadas)
+        public bool Entregar(List<EntidadesCompartidas.Entrega> entregasSeleccionadas)
         {
             return true;
         }
 
-        public List<Clientes> ListarClientes()
+        public List<EntidadesCompartidas.Cliente> ListarClientes()
         {
-            return new List<Clientes>();
+            return new List<EntidadesCompartidas.Cliente>();
         }
 
-        public List<Cadetes> ListarCadetesDisponibles()
+        public List<EntidadesCompartidas.Cadete> ListarCadetesDisponibles()
         {
-            return new List<Cadetes>();
+            return new List<EntidadesCompartidas.Cadete>();
         }
         
-        public List<Turnos> ListarTurnos()
+        public List<EntidadesCompartidas.Turno> ListarTurnos()
         {
-            return new List<Turnos>();
+            return new List<EntidadesCompartidas.Turno>();
         }
 
-        public List<Locales> ListarLocales()
+        public List<EntidadesCompartidas.Local> ListarLocales()
         {
-            return new List<Locales>();
+            return new List<EntidadesCompartidas.Local>();
         }
 
-        public bool AltaEntrega(Entregas pEntrega)
+        public bool AltaEntrega(EntidadesCompartidas.Entrega pEntrega)
         {
             return true;
         }

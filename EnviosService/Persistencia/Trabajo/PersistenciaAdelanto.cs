@@ -9,7 +9,7 @@ namespace Persistencia
 {
     public class PersistenciaAdelanto:IPersistenciaAdelanto
     {
-        public bool RealizarAdelanto(Adelantos adelanto)
+        public bool RealizarAdelanto(EntidadesCompartidas.Adelanto adelanto)
         {
             return true;
         }

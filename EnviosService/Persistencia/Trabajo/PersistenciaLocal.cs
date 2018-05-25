@@ -9,9 +9,29 @@ namespace Persistencia
 {
     class PersistenciaLocal:IPersistenciaLocal
     {
-        public bool AltaLocal(Locales local)
+        public bool AltaLocal(EntidadesCompartidas.Local local)
         {
-            return true;
+            try
+            {
+                Persistencia.Locales localAgregar = new Persistencia.Locales();
+
+                localAgregar.Direccion = local.Direccion;
+                localAgregar.Nombre = local.Nombre;
+
+                using (EnviosContext dbConnection = new EnviosContext())
+                {
+                    dbConnection.Locales.Add(localAgregar);
+
+                    dbConnection.SaveChanges();
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al dar de alta el Local.");
+            }
+            
         }
 
         public bool ExisteLocal(string nombre, string direccion)
@@ -19,19 +39,19 @@ namespace Persistencia
             return true;
         }
 
-        public Locales BuscarLocal(string nombre)
+        public EntidadesCompartidas.Local BuscarLocal(string nombre)
         {
-            return new Locales();
+            return new EntidadesCompartidas.Local();
         }
 
-        public bool ModificarLocal(Locales local)
+        public bool ModificarLocal(EntidadesCompartidas.Local local)
         {
             return true;
         }
 
-        public List<Locales> ListarLocales()
+        public List<EntidadesCompartidas.Local> ListarLocales()
         {
-            return new List<Locales>();
+            return new List<EntidadesCompartidas.Local>();
         }
     }
 }

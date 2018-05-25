@@ -28,7 +28,7 @@ namespace EnviosService.Controllers
         }
         
         [HttpPost]
-        public JsonResult Empleado([FromBody] Multas item)
+        public JsonResult Empleado([FromBody] Multa item)
         {
             return Json(controladorMulta.RegistrarMulta(item), new Newtonsoft.Json.JsonSerializerSettings());
         }

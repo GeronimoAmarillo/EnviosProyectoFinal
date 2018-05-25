@@ -45,7 +45,7 @@ namespace EnviosService.Controllers
         }
 
         [HttpPut]
-        public JsonResult Usuario([FromBody] Usuarios usuario)
+        public JsonResult Usuario([FromBody] Usuario usuario)
         {
             return Json(controladorUsuario.ModificarUsuario(usuario), new Newtonsoft.Json.JsonSerializerSettings());
         }

@@ -10,15 +10,15 @@ namespace LogicaDeApps
 {
     class ControladorIngreso:IControladorIngreso
     {
-        private Ingresos ingreso;
-        private List<Ingresos> ingresos;
+        private Ingreso ingreso;
+        private List<Ingreso> ingresos;
 
-        public Ingresos GetIngreso()
+        public Ingreso GetIngreso()
         {
             return ingreso;
         }
 
-        public void SetIngreso(Ingresos pIngreso)
+        public void SetIngreso(Ingreso pIngreso)
         {
             ingreso = pIngreso;
         }
@@ -28,12 +28,12 @@ namespace LogicaDeApps
             return true;
         }
 
-        public void SetIngresos(List<Ingresos> pIngresos)
+        public void SetIngresos(List<Ingreso> pIngresos)
         {
             ingresos = pIngresos;
         }
 
-        public List<Ingresos> GetIngresos()
+        public List<Ingreso> GetIngresos()
         {
             return ingresos;
         }

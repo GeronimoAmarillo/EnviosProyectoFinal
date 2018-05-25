@@ -1,0 +1,7 @@
+language: csharp
+solution: "./EnviosService.sln"
+install:
+- travis_retry nuget restore -source "https://www.nuget.org/api/v2" ./EnviosService.sln
+script:
+- xbuild ./EnviosService.sln
+- mono ./EnviosService/packages/xunit.runner.console*/tools/xunit.console.exe ./EnviosService/LogicaDeServicioTests/bin/Debug/LogicaDeServicioTests.dll

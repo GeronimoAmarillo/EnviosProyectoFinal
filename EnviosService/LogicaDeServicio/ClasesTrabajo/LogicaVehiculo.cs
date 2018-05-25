@@ -9,7 +9,7 @@ namespace LogicaDeServicio
 {
     public class LogicaVehiculo
     {
-        public bool AltaVehiculo(Vehiculos unVehiculo)
+        public bool AltaVehiculo(Vehiculo unVehiculo)
         {
             bool exito = false;
             return exito;
@@ -21,25 +21,25 @@ namespace LogicaDeServicio
             return existe;
         }
 
-        public Vehiculos BuscarVehiculo(string matricula)
+        public Vehiculo BuscarVehiculo(string matricula)
         {
-            Vehiculos vehiculo = new Vehiculos();
+            Vehiculo vehiculo = new Vehiculo();
             return vehiculo;
         }
 
-        public bool ModificarVehiculo(Vehiculos unVehiculo)
+        public bool ModificarVehiculo(Vehiculo unVehiculo)
         {
             bool exito = false;
             return exito;
         }
 
-        public bool RegistrarReparacion(Reparaciones unaReparacion)
+        public bool RegistrarReparacion(Reparacion unaReparacion)
         {
             bool exito = false;
             return exito;
         }
 
-        public bool RegistrarMulta(Multas unaMulta)
+        public bool RegistrarMulta(Multa unaMulta)
         {
             bool exito = false;
             return exito;
@@ -51,9 +51,9 @@ namespace LogicaDeServicio
             return exito;
         }
 
-        public List<Vehiculos> ListarVehiculos()
+        public List<Vehiculo> ListarVehiculos()
         {
-            List<Vehiculos> vehiculos = new List<Vehiculos>();
+            List<Vehiculo> vehiculos = new List<Vehiculo>();
             return vehiculos;
         }
     }

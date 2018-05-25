@@ -4,38 +4,46 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidas;
+using Persistencia;
 
 namespace LogicaDeServicio
 {
     public class LogicaLocal
     {
-        public bool AltaLocal(Locales unLocal)
+
+        public static bool AltaLocal(EntidadesCompartidas.Local unLocal)
         {
-            bool exito = false;
-            return exito;
+            try
+            {
+                return FabricaPersistencia.GetPersistenciaLocal().AltaLocal(unLocal);
+            }
+            catch
+            {
+                throw new Exception("Error al intentar dar de alta el Local.");
+            }
         }
 
-        public bool ExisteLocal(string direccion, string nombre)
+        public static bool ExisteLocal(string direccion, string nombre)
         {
             bool existe = false;
             return existe;
         }
 
-        public Locales BuscarLocal(string nombreLocal)
+        public static EntidadesCompartidas.Local BuscarLocal(string nombreLocal)
         {
-            Locales local = new Locales();
+            EntidadesCompartidas.Local local = new EntidadesCompartidas.Local();
             return local;
         }
 
-        public Locales ModificarLocal(Locales unLocal)
+        public static EntidadesCompartidas.Local ModificarLocal(EntidadesCompartidas.Local unLocal)
         {
-            Locales local = new Locales();
+            EntidadesCompartidas.Local local = new EntidadesCompartidas.Local();
             return local;
         }
 
-        public List<Locales> ListarLocales()
+        public static List<EntidadesCompartidas.Local> ListarLocales()
         {
-            List<Locales> lista = new List<Locales>();
+            List<EntidadesCompartidas.Local> lista = new List<EntidadesCompartidas.Local>();
             return lista;
         }
     }

@@ -11,27 +11,27 @@ namespace LogicaDeServicio
     {
         
 
-        public bool AltaPalet(Palets palet)
+        public bool AltaPalet(Palet palet)
         {
             return true;
         }
 
-        public List<Clientes> ListarClientes()
+        public List<Cliente> ListarClientes()
         {
-            return new List<Clientes>();
+            return new List<Cliente>();
         }
 
-        public Galpones BuscarGalpon(int id)
+        public Galpon BuscarGalpon(int id)
         {
-            return new Galpones();
+            return new Galpon();
         }
 
-        public Palets BuscarPalet(int id)
+        public Palet BuscarPalet(int id)
         {
-            return new Palets();
+            return new Palet();
         }
 
-        public bool BajaPalet(Palets palet)
+        public bool BajaPalet(Palet palet)
         {
             return true;
         }

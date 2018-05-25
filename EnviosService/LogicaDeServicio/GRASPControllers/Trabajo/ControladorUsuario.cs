@@ -9,12 +9,12 @@ namespace LogicaDeServicio
 {
     class ControladorUsuario:IControladorUsuario
     {
-        public bool EnviarMail(Usuarios usuario)
+        public bool EnviarMail(Usuario usuario)
         {
             return true;
         }
 
-        public bool AltaUsuario(Usuarios unUsuario)
+        public bool AltaUsuario(Usuario unUsuario)
         {
             try
             {
@@ -28,12 +28,12 @@ namespace LogicaDeServicio
 
         public Usuarios BuscarUsuario(string mail)
         {
-            return new Usuarios();
+            return new Usuario();
         }
         
-        public Usuarios Login(string user, string pass)
+        public Usuario Login(string user, string pass)
         {
-            Usuarios usuarioLogueado = new Usuarios();
+            Usuario usuarioLogueado = new Usuario();
             try
             {
                 usuarioLogueado = LogicaUsuario.Login(user, pass);
@@ -60,7 +60,7 @@ namespace LogicaDeServicio
             return true;
         }
         
-        public bool ModificarUsuario(Usuarios pUsuario)
+        public bool ModificarUsuario(Usuario pUsuario)
         {
             return true;
         }

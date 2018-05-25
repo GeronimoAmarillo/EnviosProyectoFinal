@@ -9,10 +9,10 @@ namespace LogicaDeServicio
 {
     public interface IControladorAdelanto
     {
-        List<Empleados> ListarEmpleados();
+        List<Empleado> ListarEmpleados();
 
-        Empleados BuscarEmpleado(int cedula);
+        Empleado BuscarEmpleado(int cedula);
 
-        bool RealizarAdelanto(Adelantos pAdelanto);
+        bool RealizarAdelanto(Adelanto pAdelanto);
     }
 }

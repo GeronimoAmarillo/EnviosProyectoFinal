@@ -11,14 +11,14 @@ namespace LogicaDeServicio
     {
         bool RealizarReclamo(string descripcion);
 
-        Paquetes BuscarPaquete(int codigo);
+        Paquete BuscarPaquete(int codigo);
 
-        List<Locales> ListarLocales();
+        List<Local> ListarLocales();
 
-        List<Paquetes> ListarPaquetesEnviadosXCliente(int cedula);
+        List<Paquete> ListarPaquetesEnviadosXCliente(int cedula);
 
-        List<Paquetes> ListarPaquetesRecibidosXCliente(int cedula);
+        List<Paquete> ListarPaquetesRecibidosXCliente(int cedula);
 
-        Locales BuscarLocal(string nombre);
+        Local BuscarLocal(string nombre);
     }
 }

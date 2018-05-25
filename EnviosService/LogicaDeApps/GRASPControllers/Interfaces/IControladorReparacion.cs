@@ -10,9 +10,9 @@ namespace LogicaDeApps
 {
     public interface IControladorReparacion
     {
-        Reparaciones GetReparacion();
+        Reparacion GetReparacion();
 
-        void SetReparacion(Reparaciones pReparacion);
+        void SetReparacion(Reparacion pReparacion);
 
         bool RegistrarReparacion(DTReparacion reparacion);
 

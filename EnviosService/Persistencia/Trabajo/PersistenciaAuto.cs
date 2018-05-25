@@ -8,14 +8,14 @@ namespace Persistencia
 {
     class PersistenciaAuto:IPersistenciaAuto
     {
-        public bool AltaAuto(Automobiles automobiles)
+        public bool AltaAuto(EntidadesCompartidas.Automobil automobiles)
         {
             return true;
         }
 
-        public List<Automobiles> ListarAutos()
+        public List<EntidadesCompartidas.Automobil> ListarAutos()
         {
-            return new List<Automobiles>();
+            return new List<EntidadesCompartidas.Automobil>();
         }
 
         public bool BajaAuto(string matricula)
@@ -23,14 +23,14 @@ namespace Persistencia
             return true;
         }
 
-        public bool ModificarAuto(Automobiles auto)
+        public bool ModificarAuto(EntidadesCompartidas.Automobil auto)
         {
             return true;
         }
 
-        public Automobiles BuscarAuto(string matricula)
+        public EntidadesCompartidas.Automobil BuscarAuto(string matricula)
         {
-            return new Automobiles();
+            return new EntidadesCompartidas.Automobil();
         }
 
         public bool ExisteAuto(string matricula)

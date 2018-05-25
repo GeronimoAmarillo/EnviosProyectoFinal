@@ -22,20 +22,20 @@ namespace EnviosService.Controllers
 
 
         [HttpGet("{nombre}")]
-        public JsonResult Empleado(string nombre)
+        public JsonResult Local(string nombre)
         {
             return Json(controladorLocal.BuscarLocal(nombre), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
         [HttpGet("{nombre, direccion}")]
-        public JsonResult ExisteEmpleado(string nombre, string direccion)
+        public JsonResult ExisteLocal(string nombre, string direccion)
         {
             return Json(controladorLocal.ExisteLocal(nombre, direccion), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
         [HttpPut]
         [HttpPost]
-        public JsonResult Empleado([FromBody] Locales item)
+        public JsonResult Local([FromBody] Local item)
         {
             switch (Request.Method.ToString())
             {

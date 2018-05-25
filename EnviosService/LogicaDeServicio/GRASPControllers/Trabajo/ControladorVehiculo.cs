@@ -9,37 +9,37 @@ namespace LogicaDeServicio
 {
     class ControladorVehiculo:IControladorVehiculo
     {
-        public List<Cadetes> ListarCadetesDisponibles()
+        public List<Cadete> ListarCadetesDisponibles()
         {
-            return new List<Cadetes>();
+            return new List<Cadete>();
         }
 
-        public bool ModificarVehiculo(Vehiculos pVehiculo)
-        {
-            return true;
-        }
-
-        public Cadetes SeleccionarCadete(int ci)
-        {
-            return new Cadetes();
-        }
-
-        public Cadetes BuscarEmpleado(int ci)
-        {
-            return new Cadetes();
-        }
-
-        public bool BajaVehiculo(Vehiculos vehiculo)
+        public bool ModificarVehiculo(Vehiculo pVehiculo)
         {
             return true;
         }
 
-        public Vehiculos BuscarVehiculo(string matricula)
+        public Cadete SeleccionarCadete(int ci)
         {
-            return new Vehiculos();
+            return new Cadete();
         }
 
-        public bool AltaVehiculo(Vehiculos pVehiculo)
+        public Cadete BuscarEmpleado(int ci)
+        {
+            return new Cadete();
+        }
+
+        public bool BajaVehiculo(Vehiculo vehiculo)
+        {
+            return true;
+        }
+
+        public Vehiculo BuscarVehiculo(string matricula)
+        {
+            return new Vehiculo();
+        }
+
+        public bool AltaVehiculo(Vehiculo pVehiculo)
         {
             return true;
         }

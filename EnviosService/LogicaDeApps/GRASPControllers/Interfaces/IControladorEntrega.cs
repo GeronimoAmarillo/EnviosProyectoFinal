@@ -14,13 +14,13 @@ namespace LogicaDeApps
 
         List<DTEntrega> ListarEntregas();
 
-        List<Entregas> GetEntregasSeleccionadas();
+        List<Entrega> GetEntregasSeleccionadas();
 
-        List<Entregas> GetEntregas();
+        List<Entrega> GetEntregas();
 
-        void SetEntregas(List<Entregas> pEntregas);
+        void SetEntregas(List<Entrega> pEntregas);
 
-        void SetEntregasSeleccionadas(List<Entregas> pEntregas);
+        void SetEntregasSeleccionadas(List<Entrega> pEntregas);
 
         bool EntregarPaquetes(string firma, string nombreReceptor);
 

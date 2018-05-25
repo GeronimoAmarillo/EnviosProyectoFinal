@@ -9,13 +9,14 @@ namespace LogicaDeServicio
 {
     public interface IControladorUsuario
     {
-        bool AltaUsuario(Usuarios unUsuario);
+        bool EnviarMail(Usuario usuario);
+        bool AltaUsuario(Usuario unUsuario);
 
-        bool EnviarMail(Usuarios usuario);
+        bool EnviarMail(Usuario usuario);
 
-        Usuarios BuscarUsuario(string mail);
+        Usuario BuscarUsuario(string mail);
 
-        Usuarios Login(string user, string pass);
+        Usuario Login(string user, string pass);
 
         bool ModificarNombreUsuario(string user);
 
@@ -23,6 +24,6 @@ namespace LogicaDeServicio
 
         bool RecuperarContraseña(string email);
 
-        bool ModificarUsuario(Usuarios pUsuario);
+        bool ModificarUsuario(Usuario pUsuario);
     }
 }

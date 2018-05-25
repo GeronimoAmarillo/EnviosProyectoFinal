@@ -11,7 +11,7 @@ namespace LogicaDeApps
     class ControladorEmpleado : IControladorEmpleado
     {
         private int ci;
-        private Empleados empleado;
+        private Empleado empleado;
 
 
         public bool ExisteEmpleado(int ci)
@@ -19,12 +19,12 @@ namespace LogicaDeApps
             return true;
         }
 
-        public Empleados GetEmpleado()
+        public Empleado GetEmpleado()
         {
-            return new Empleados();
+            return new Empleado();
         }
 
-        public void SetEmpleado(Empleados pEmpleado)
+        public void SetEmpleado(Empleado pEmpleado)
         {
             empleado = pEmpleado;
         }

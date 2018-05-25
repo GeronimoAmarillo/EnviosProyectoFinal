@@ -10,10 +10,10 @@ namespace LogicaDeApps
 {
     class ControladorGasto: IControladorGasto
     {
-        private Gastos gasto;
-        private List<Gastos> gastos;
+        private Gasto gasto;
+        private List<Gasto> gastos;
 
-        public Gastos GetGasto()
+        public Gasto GetGasto()
         {
             return gasto;
         }
@@ -23,7 +23,7 @@ namespace LogicaDeApps
             return new List<DTGasto>();
         }
 
-        public List<Gastos> GetGastos()
+        public List<Gasto> GetGastos()
         {
             return gastos;
         }
@@ -33,7 +33,7 @@ namespace LogicaDeApps
 
         }
 
-        public void SetGasto(Gastos pGasto)
+        public void SetGasto(Gasto pGasto)
         {
             gasto = pGasto;
         }

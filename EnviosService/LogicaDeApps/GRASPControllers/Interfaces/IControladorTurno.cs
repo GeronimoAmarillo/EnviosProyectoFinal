@@ -18,9 +18,9 @@ namespace LogicaDeApps
 
         bool ModificarTurno(DTTurno pTurno);
 
-        Turnos GetTurno();
+        Turno GetTurno();
 
-        void SetTurno(Turnos pTurno);
+        void SetTurno(Turno pTurno);
 
         bool RegistrarTurno();
 

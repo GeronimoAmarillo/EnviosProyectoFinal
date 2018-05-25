@@ -12,9 +12,9 @@ namespace LogicaDeApps
     {
         bool ExisteEmpleado(int ci);
 
-        Empleados GetEmpleado();
+        Empleado GetEmpleado();
 
-        void SetEmpleado(Empleados pEmpleado);
+        void SetEmpleado(Empleado pEmpleado);
 
         DTEmpleado BuscarEmpleado(int ci);
 

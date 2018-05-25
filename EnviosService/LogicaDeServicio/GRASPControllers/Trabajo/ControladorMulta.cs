@@ -9,17 +9,17 @@ namespace LogicaDeServicio
 {
     class ControladorMulta:IControladorMulta
     {
-        public List<Vehiculos> ListarVehiculos()
+        public List<Vehiculo> ListarVehiculos()
         {
-            return new List<Vehiculos>();
+            return new List<Vehiculo>();
         }
 
-        public Vehiculos SeleccionarVehiculo(string matricula)
+        public Vehiculo SeleccionarVehiculo(string matricula)
         {
-            return new Vehiculos();
+            return new Vehiculo();
         }
 
-        public bool RegistrarMulta(Multas pMulta)
+        public bool RegistrarMulta(Multa pMulta)
         {
             return true;
         }

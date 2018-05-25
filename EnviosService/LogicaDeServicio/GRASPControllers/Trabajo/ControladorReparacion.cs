@@ -9,19 +9,19 @@ namespace LogicaDeServicio
 {
     class ControladorReparacion:IControladorReparacion
     {
-        public bool RegistrarReparacion(Reparaciones reparacion)
+        public bool RegistrarReparacion(Reparacion reparacion)
         {
             return true;
         }
 
-        public List<Vehiculos> ListarVehiculos()
+        public List<Vehiculo> ListarVehiculos()
         {
-            return new List<Vehiculos>();
+            return new List<Vehiculo>();
         }
 
-        public Vehiculos SeleccionarVehiculo(string matricula)
+        public Vehiculo SeleccionarVehiculo(string matricula)
         {
-            return new Vehiculos();
+            return new Vehiculo();
         }
     }
 }

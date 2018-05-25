@@ -9,7 +9,7 @@ namespace LogicaDeServicio
 {
     public class LogicaCalificacion
     {
-        public bool Calificar(string puntaje, string comentario, Clientes cliente)
+        public bool Calificar(string puntaje, string comentario, Cliente cliente)
         {
             bool exito = false;
             return exito;

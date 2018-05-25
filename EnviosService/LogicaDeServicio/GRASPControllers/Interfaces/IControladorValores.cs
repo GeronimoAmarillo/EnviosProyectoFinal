@@ -9,14 +9,14 @@ namespace LogicaDeServicio
 {
     public interface IControladorValores
     {
-        List<Gastos> ListarGastos();
+        List<Gasto> ListarGastos();
 
-        bool RegistrarIngreso(Ingresos ingreso);
+        bool RegistrarIngreso(Ingreso ingreso);
 
-        bool RegistrarImpuesto(Impuestos impuesto);
+        bool RegistrarImpuesto(Impuesto impuesto);
 
-        List<Ingresos> ListarIngresos();
+        List<Ingreso> ListarIngresos();
 
-        bool RegistrarGasto(Gastos gasto);
+        bool RegistrarGasto(Gasto gasto);
     }
 }

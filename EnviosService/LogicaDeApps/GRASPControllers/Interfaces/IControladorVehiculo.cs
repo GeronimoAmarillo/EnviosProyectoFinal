@@ -10,13 +10,13 @@ namespace LogicaDeApps
 {
     public interface IControladorVehiculo
     {
-        Vehiculos GetVehiculo();
+        Vehiculo GetVehiculo();
 
         void SetMatricula(string matricula);
 
         List<DTCadete> ListarCadetesDisponibles();
 
-        Cadetes GetCadete();
+        Cadete GetCadete();
 
         string GetMatricula();
 
@@ -24,13 +24,13 @@ namespace LogicaDeApps
 
         DTCadete SeleccionarCadete(int ci);
 
-        List<Cadetes> GetCadetes();
+        List<Cadete> GetCadetes();
 
-        void SetCadetes(List<Cadetes> pCadetesDisponibles);
+        void SetCadetes(List<Cadete> pCadetesDisponibles);
 
-        void SetVehiculo(Vehiculos pVehiculo);
+        void SetVehiculo(Vehiculo pVehiculo);
 
-        bool EliminarVehiculo(Vehiculos vehiculo);
+        bool EliminarVehiculo(Vehiculo vehiculo);
 
         DTVehiculo BuscarVehiculo(string matricula);
 

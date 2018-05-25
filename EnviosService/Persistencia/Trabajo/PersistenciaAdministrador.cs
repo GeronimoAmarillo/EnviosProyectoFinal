@@ -14,7 +14,7 @@ namespace Persistencia
             return true;
         }
 
-        public bool AltaAdministrador(Administradores administrador)
+        public bool AltaAdministrador(EntidadesCompartidas.Administrador administrador)
         {
             return true;
         }
@@ -24,20 +24,21 @@ namespace Persistencia
             return true;
         }
 
-        public List<Administradores> ListarAdministradores()
+        public List<EntidadesCompartidas.Administrador> ListarAdministradores()
         {
-            return new List<Administradores>();
+            return new List<EntidadesCompartidas.Administrador>();
         }
 
-        public bool ModificarAdmin(Administradores admin)
+        public bool ModificarAdmin(EntidadesCompartidas.Administrador admin)
         {
             return true;
         }
 
-        public Administradores Login(string user, string contraseña)
+        public EntidadesCompartidas.Administrador Login(string user, string contraseña)
         {
-            Administradores administradorLogueado = new Administradores();
-            EnviosEntities dbConexion = new EnviosEntities();
+            Administrador administradorResultado = new Administrador();
+
+            EnviosContext dbConexion = new EnviosContext();
             try
             {
 
@@ -47,10 +48,19 @@ namespace Persistencia
 
                 foreach (Administradores a in adminEncontrado)
                 {
-                    administradorLogueado = a;
+                    administradorResultado.Contraseña = a.Empleados.Usuarios.Contraseña;
+                    administradorResultado.Direccion = a.Empleados.Usuarios.Direccion;
+                    administradorResultado.Email = a.Empleados.Usuarios.Email;
+                    administradorResultado.Id = a.Empleados.Usuarios.Id;
+                    administradorResultado.Ci = a.CiEmpleado;
+                    administradorResultado.Nombre = a.Empleados.Usuarios.Nombre;
+                    administradorResultado.NombreUsuario = a.Empleados.Usuarios.NombreUsuario;
+                    administradorResultado.Sueldo = a.Empleados.Sueldo;
+                    administradorResultado.Telefono = a.Empleados.Usuarios.Telefono;
+                    administradorResultado.Tipo = a.Tipo;
                 }
 
-                return administradorLogueado;
+                return administradorResultado;
             }
             catch (Exception ex)
             {
@@ -63,9 +73,9 @@ namespace Persistencia
             return true;
         }
 
-        public Administradores BusxarAdministrador(int ci)
+        public EntidadesCompartidas.Administrador BusxarAdministrador(int ci)
         {
-            return new Administradores();
+            return new EntidadesCompartidas.Administrador();
         }
     }
 }

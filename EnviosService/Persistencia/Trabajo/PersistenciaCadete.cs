@@ -9,7 +9,7 @@ namespace Persistencia
 {
     class PersistenciaCadete:IPersistenciaCadete
     {
-        public bool AltaCadete(Cadetes cadete)
+        public bool AltaCadete(EntidadesCompartidas.Cadete cadete)
         {
             return true;
         }
@@ -19,15 +19,17 @@ namespace Persistencia
             return true;
         }
 
-        public List<Cadetes> ListarCadetes()
+        public List<EntidadesCompartidas.Cadete> ListarCadetes()
         {
-            return new List<Cadetes>();
+            return new List<EntidadesCompartidas.Cadete>();
         }
 
-        public Cadetes Login(string user, string contraseña)
+        public EntidadesCompartidas.Cadete Login(string user, string contraseña)
         {
-            Cadetes cadeteLogueado = new Cadetes();
-            EnviosEntities dbConexion = new EnviosEntities();
+            Cadete cadeteResultado = new Cadete();
+
+            EnviosContext dbConexion = new EnviosContext();
+
             try
             {
 
@@ -37,26 +39,39 @@ namespace Persistencia
 
                 foreach (Cadetes c in cadeteEncontrado)
                 {
-                    cadeteLogueado = c;
+                    cadeteResultado.Contraseña = c.Empleados.Usuarios.Contraseña;
+                    cadeteResultado.Direccion = c.Empleados.Usuarios.Direccion;
+                    cadeteResultado.Email = c.Empleados.Usuarios.Email;
+                    cadeteResultado.Id = c.Empleados.Usuarios.Id;
+                    cadeteResultado.Ci = c.CiEmpleado;
+                    cadeteResultado.Nombre = c.Empleados.Usuarios.Nombre;
+                    cadeteResultado.NombreUsuario = c.Empleados.Usuarios.NombreUsuario;
+                    cadeteResultado.Sueldo = c.Empleados.Sueldo;
+                    cadeteResultado.Telefono = c.Empleados.Usuarios.Telefono;
+                    cadeteResultado.TipoLibreta = c.TipoLibreta;
+                    
+                    //Tal vez corresponde tambien asignarle el vehiculo, esto va a necesitar de un cambio en el script de la base de datos, debido a que el 
+                    //cadete de momento puede tener varios vehiculos, y me parece que eso no representa la realidad, no lo recuerdo.
                 }
-                   
-                return cadeteLogueado;
+
+                return cadeteResultado;
             }
             catch(Exception ex)
             {
                 throw new Exception("Error al intentar loguear el Cadete" + ex.Message);
             }
-           
+
+
         }
 
-        public bool ModificarCadete(Cadetes cadete)
+        public bool ModificarCadete(EntidadesCompartidas.Cadete cadete)
         {
             return true;
         }
 
-        public List<Cadetes> ListarCadetesDisponibles()
+        public List<EntidadesCompartidas.Cadete> ListarCadetesDisponibles()
         {
-            return new List<Cadetes>();
+            return new List<EntidadesCompartidas.Cadete>();
         }
 
         public bool BajaCadete(int ci)
@@ -69,9 +84,9 @@ namespace Persistencia
             return true;
         }
 
-        public Cadetes BuscarCadete(int ci)
+        public EntidadesCompartidas.Cadete BuscarCadete(int ci)
         {
-            return new Cadetes();
+            return new EntidadesCompartidas.Cadete();
         }
     }
 }
