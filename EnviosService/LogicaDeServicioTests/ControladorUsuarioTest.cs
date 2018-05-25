@@ -50,7 +50,7 @@ namespace LogicaDeServicioTests
         [TestMethod]
         public void altaClienteOkTest()
         {
-            Clientes unCliente = new Clientes
+            Cliente unCliente = new Cliente
             {
                 Nombre = "empleado1",
                 Direccion = "Elm street 124",

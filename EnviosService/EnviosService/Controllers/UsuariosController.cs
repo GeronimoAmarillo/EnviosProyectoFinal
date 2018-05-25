@@ -21,7 +21,7 @@ namespace EnviosService.Controllers
         }
 
         [HttpPost]
-        public JsonResult AltaUsuario([FromBody] Usuarios unUsuario)
+        public JsonResult AltaUsuario([FromBody] Usuario unUsuario)
         {
             return Json(controladorUsuario.AltaUsuario(unUsuario), new Newtonsoft.Json.JsonSerializerSettings());
         }

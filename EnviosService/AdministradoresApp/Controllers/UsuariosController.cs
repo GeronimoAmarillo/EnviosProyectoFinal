@@ -18,7 +18,7 @@ namespace EnviosService.Controllers
         {
             Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<Usuarios, DTUsuario>()
+                cfg.CreateMap<Usuario, DTUsuario>()
                     .ForMember(d => d.Id, opt => opt.MapFrom(u => u.Id))
                     .ForMember(d => d.NombreUsuario, opt => opt.MapFrom(u => u.NombreUsuario))
                     .ForMember(d => d.Contraseña, opt => opt.MapFrom(u => u.Contraseña))
@@ -39,7 +39,7 @@ namespace EnviosService.Controllers
         {
             if (ModelState.IsValid)
             {
-                Usuarios usuarioXAgregar = Mapper.Map<Usuarios>(unUsuario);
+                Usuario usuarioXAgregar = Mapper.Map<Usuario>(unUsuario);
                 //llamar a servicio
                 return View("Index");
             }

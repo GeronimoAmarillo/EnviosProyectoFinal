@@ -26,7 +26,7 @@ namespace LogicaDeServicio
             }
         }
 
-        public Usuarios BuscarUsuario(string mail)
+        public Usuario BuscarUsuario(string mail)
         {
             return new Usuario();
         }

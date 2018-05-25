@@ -12,7 +12,7 @@ namespace LogicaDeServicio
         bool EnviarMail(Usuario usuario);
         bool AltaUsuario(Usuario unUsuario);
 
-        bool EnviarMail(Usuario usuario);
+        
 
         Usuario BuscarUsuario(string mail);
 

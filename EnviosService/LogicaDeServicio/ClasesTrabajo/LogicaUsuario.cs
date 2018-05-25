@@ -10,18 +10,18 @@ namespace LogicaDeServicio
 {
     public class LogicaUsuario
     {
-        public static bool AltaUsuario(EntidadesCompartidas.Usuario unUsuario)
+        public static bool AltaUsuario(Usuario unUsuario)
         {
             bool exito = false;
             try
             {
-                if (unUsuario is Clientes)
+                if (unUsuario is Cliente)
                 {
-                    if (!ExisteCliente(((Clientes)unUsuario).RUT))
+                    if (!ExisteCliente(((Cliente)unUsuario).RUT))
                     {
                         unUsuario.NombreUsuario = unUsuario.Email;
                         unUsuario.Contraseña = CrearContrasenia();
-                        exito = FabricaPersistencia.GetPersistenciaCliente().AltaCliente((Clientes)unUsuario);
+                        exito = FabricaPersistencia.GetPersistenciaCliente().AltaCliente((Cliente)unUsuario);
                         return exito;
                     }
 
