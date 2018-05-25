@@ -88,8 +88,6 @@ namespace LogicaDeServicio
                 throw new Exception("Error al loguear el Usuario" + ex.Message);
             }
 
-            return new EntidadesCompartidas.Usuario();
-
         }
 
         public static bool ComprobarUser(string user)
