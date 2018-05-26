@@ -1,16 +1,16 @@
-﻿@model AdministradoresApp.Models.DTLocal
+﻿@model EntidadesCompartidas.Local
 
 @{
-    ViewData["Title"] = "Agregar";
+    ViewData["Title"] = "Alta";
 }
 
-<h2>Agregar</h2>
+<h2>Alta</h2>
 
-<h4>DTLocal</h4>
+<h4>Local</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Agregar">
+        <form asp-action="Alta">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Id" class="control-label"></label>

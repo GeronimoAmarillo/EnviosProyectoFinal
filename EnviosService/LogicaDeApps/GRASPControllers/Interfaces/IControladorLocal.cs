@@ -20,6 +20,8 @@ namespace LogicaDeApps
 
         void SetLocal(Local pLocal);
 
+        Local GetLocal();
+
         bool AltaLocal();
     }
 }

@@ -51,6 +51,11 @@ namespace LogicaDeApps
             local = pLocal;
         }
 
+        public Local GetLocal()
+        {
+            return local;
+        }
+
         public bool AltaLocal()
         {
             try
