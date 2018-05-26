@@ -14,14 +14,17 @@ namespace EnviosService.Controllers
     [Route("api/Locales")]
     public class LocalesController : Controller
     {
-        public ActionResult Agregar()
+        public ActionResult Alta()
         {
+            
             return View();
         }
 
         [HttpPost]
-        public ActionResult Agregar(DTLocal local)
+        public ActionResult Alta(Local local)
         {
+
+
             return View();
         }
     }
