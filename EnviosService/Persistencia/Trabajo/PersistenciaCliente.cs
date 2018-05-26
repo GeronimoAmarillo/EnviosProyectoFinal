@@ -9,7 +9,7 @@ namespace Persistencia
 {
     class PersistenciaCliente:IPersistenciaCliente
     {
-        public bool AltaCliente(Clientes cliente)
+        public bool AltaCliente(Cliente cliente)
         {
             return true;
         }
@@ -19,7 +19,7 @@ namespace Persistencia
             return true;
         }
 
-        public bool ModificarCliente(Usuarios usuario)
+        public bool ModificarCliente(Usuario usuario)
         {
             return true;
         }
@@ -29,15 +29,16 @@ namespace Persistencia
             return true;
         }
 
-        public List<Clientes> ListarClientes()
+        public List<Cliente> ListarClientes()
         {
-            return new List<Clientes>();
+            return new List<Cliente>();
         }
 
-        public Clientes Login(string user, string contraseña)
+        public Cliente Login(string user, string contraseña)
         {
-            Clientes clienteLogueado = new Clientes();
-            EnviosEntities dbConexion = new EnviosEntities();
+            Cliente clienteResultado = new Cliente();
+
+            EnviosContext dbConexion = new EnviosContext();
             try
             {
 
@@ -47,10 +48,18 @@ namespace Persistencia
 
                 foreach (Clientes c in clienteEncontrado)
                 {
-                    clienteLogueado = c;
+                    clienteResultado.Contraseña = c.Usuarios.Contraseña;
+                    clienteResultado.Direccion = c.Usuarios.Direccion;
+                    clienteResultado.Email = c.Usuarios.Email;
+                    clienteResultado.Id = c.Usuarios.Id;
+                    clienteResultado.Mensualidad = c.Mensualidad;
+                    clienteResultado.Nombre = c.Usuarios.Nombre;
+                    clienteResultado.NombreUsuario = c.Usuarios.NombreUsuario;
+                    clienteResultado.RUT = c.RUT;
+                    clienteResultado.Telefono = c.Usuarios.Telefono;
                 }
 
-                return clienteLogueado;
+                return clienteResultado;
             }
             catch (Exception ex)
             {

@@ -10,15 +10,15 @@ namespace LogicaDeApps
 {
     public interface IControladorIngreso
     {
-        Ingresos GetIngreso();
+        Ingreso GetIngreso();
 
-        void SetIngreso(Ingresos pIngreso);
+        void SetIngreso(Ingreso pIngreso);
 
         bool ReigstrarIngreso(DTIngreso ingreso);
 
-        void SetIngresos(List<Ingresos> pIngresos);
+        void SetIngresos(List<Ingreso> pIngresos);
 
-        List<Ingresos> GetIngresos();
+        List<Ingreso> GetIngresos();
 
         List<DTIngreso> ListarIngresos();
     }

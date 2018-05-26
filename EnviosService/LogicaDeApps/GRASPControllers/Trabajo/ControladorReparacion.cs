@@ -10,14 +10,14 @@ namespace LogicaDeApps
 {
     class ControladorReparacion : IControladorReparacion
     {
-        private Reparaciones reparacion;
+        private Reparacion reparacion;
 
-        public Reparaciones GetReparacion()
+        public Reparacion GetReparacion()
         {
             return reparacion;
         }
 
-        public void SetReparacion(Reparaciones pReparacion)
+        public void SetReparacion(Reparacion pReparacion)
         {
             reparacion = pReparacion;
         }

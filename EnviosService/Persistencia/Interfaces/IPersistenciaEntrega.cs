@@ -9,10 +9,10 @@ namespace Persistencia
 {
     public interface IPersistenciaEntrega
     {
-        bool Entregar(List<Entregas> entregas);
+        bool Entregar(List<EntidadesCompartidas.Entrega> entregas);
 
-        List<Entregas> ListarEntregas();
+        List<EntidadesCompartidas.Entrega> ListarEntregas();
 
-        bool AltaEntrega(Entregas entrega);
+        bool AltaEntrega(EntidadesCompartidas.Entrega entrega);
     }
 }

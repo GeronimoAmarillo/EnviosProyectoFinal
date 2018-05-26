@@ -11,10 +11,10 @@ namespace LogicaDeServicio
     {
         bool ExisteLocal(string nombre, string direccion);
 
-        Locales BuscarLocal(string nombre);
+        Local BuscarLocal(string nombre);
 
-        bool ModificarLocal(Locales local);
+        bool ModificarLocal(Local local);
 
-        bool AltaLocal(Locales local);
+        bool AltaLocal(Local local);
     }
 }

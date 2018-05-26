@@ -9,15 +9,15 @@ namespace Persistencia
 {
     public interface IPersistenciaCamioneta
     {
-        bool AltaCamioneta(Camionetas camioneta);
+        bool AltaCamioneta(EntidadesCompartidas.Camioneta camioneta);
 
-        List<Camionetas> ListarCamionetas();
+        List<EntidadesCompartidas.Camioneta> ListarCamionetas();
 
         bool BajaCamioneta(string matricula);
 
-        bool ModificarCamioneta(Camionetas camioneta);
+        bool ModificarCamioneta(EntidadesCompartidas.Camioneta camioneta);
 
-        Camionetas BuscarCamioneta(string matricula);
+        EntidadesCompartidas.Camioneta BuscarCamioneta(string matricula);
 
         bool ExisteCamioneta(string matricula);
     }

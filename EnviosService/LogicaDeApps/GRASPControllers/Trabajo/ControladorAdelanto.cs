@@ -10,7 +10,7 @@ namespace LogicaDeApps
 {
     class ControladorAdelanto : IControladorAdelanto
     {
-        private Adelantos adelanto;
+        private Adelanto adelanto;
         public void IniciarRegistroAdelanto()
         {
 
@@ -21,19 +21,19 @@ namespace LogicaDeApps
             return new List<DTEmpleado>();
         }
 
-        public void SetAdelanto(Adelantos pAdelanto)
+        public void SetAdelanto(Adelanto pAdelanto)
         {
             adelanto = pAdelanto;
         }
 
-        public Adelantos GetAdelanto()
+        public Adelanto GetAdelanto()
         {
             return adelanto;
         }
 
-        public Empleados GetEmpleado()
+        public Empleado GetEmpleado()
         {
-            return new Empleados();
+            return new Empleado();
         }
 
         public DTEmpleado SeleccionarEmpleado(int cedula)

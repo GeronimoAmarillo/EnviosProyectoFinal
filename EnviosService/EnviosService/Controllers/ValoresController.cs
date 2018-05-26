@@ -33,21 +33,21 @@ namespace EnviosService.Controllers
         }
 
         [HttpPost]
-        public JsonResult Gasto([FromBody] Gastos gasto)
+        public JsonResult Gasto([FromBody] Gasto gasto)
         {
             return Json(controladorValores.RegistrarGasto(gasto), new Newtonsoft.Json.JsonSerializerSettings());
 
         }
 
         [HttpPost]
-        public JsonResult Ingreso([FromBody] Ingresos ingreso)
+        public JsonResult Ingreso([FromBody] Ingreso ingreso)
         {
             return Json(controladorValores.RegistrarIngreso(ingreso), new Newtonsoft.Json.JsonSerializerSettings());
 
         }
 
         [HttpPost]
-        public JsonResult Impuesto([FromBody] Impuestos impuesto)
+        public JsonResult Impuesto([FromBody] Impuesto impuesto)
         {
             return Json(controladorValores.RegistrarImpuesto(impuesto), new Newtonsoft.Json.JsonSerializerSettings());
 

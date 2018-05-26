@@ -14,13 +14,13 @@ namespace LogicaDeApps
 
         void IniciarRegistroCliente();
 
-        Clientes GetCliente();
+        Cliente GetCliente();
 
         DTCliente BuscarCliente(int rut);
 
         bool ModificarCliente(DTCliente pCliente);
 
-        void SetCliente(Clientes pCliente);
+        void SetCliente(Cliente pCliente);
 
         bool RegistrarCliente(DTCliente pCliente);
     }

@@ -10,10 +10,10 @@ namespace LogicaDeServicio
     public interface IControladorReparacion
     {
 
-        bool RegistrarReparacion(Reparaciones reparacion);
+        bool RegistrarReparacion(Reparacion reparacion);
 
-        List<Vehiculos> ListarVehiculos();
+        List<Vehiculo> ListarVehiculos();
 
-        Vehiculos SeleccionarVehiculo(string matricula);
+        Vehiculo SeleccionarVehiculo(string matricula);
     }
 }

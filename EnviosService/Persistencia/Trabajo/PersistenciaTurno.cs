@@ -14,17 +14,17 @@ namespace Persistencia
             return true;
         }
 
-        public List<Turnos> ListarTurnos()
+        public List<EntidadesCompartidas.Turno> ListarTurnos()
         {
-            return new List<Turnos>();
+            return new List<EntidadesCompartidas.Turno>();
         }
 
-        public bool ModificarTurno(Turnos turno)
+        public bool ModificarTurno(EntidadesCompartidas.Turno turno)
         {
             return true;
         }
 
-        public bool AltaTurno(Turnos turno)
+        public bool AltaTurno(EntidadesCompartidas.Turno turno)
         {
             return true;
         }

@@ -11,14 +11,14 @@ namespace LogicaDeApps
     class ControladorPaquete:IControladorPaquete
     {
         private Reclamo reclamo;
-        private Paquetes paquete;
+        private Paquete paquete;
 
         public bool RealizarReclamo(string descripcion)
         {
             return true;
         }
 
-        public Paquetes GetPaquete()
+        public Paquete GetPaquete()
         {
             return paquete;
         }
@@ -28,7 +28,7 @@ namespace LogicaDeApps
             return new DTPaquete();
         }
 
-        public void SetPaquete(Paquetes pPaquete)
+        public void SetPaquete(Paquete pPaquete)
         {
             paquete = pPaquete;
         }

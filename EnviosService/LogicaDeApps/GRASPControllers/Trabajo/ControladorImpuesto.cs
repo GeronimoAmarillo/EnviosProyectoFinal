@@ -10,14 +10,14 @@ namespace LogicaDeApps
 {
     class ControladorImpuesto: IControladorImpuesto
     {
-        private Impuestos impuesto;
+        private Impuesto impuesto;
 
-        public Impuestos GetImpuesto()
+        public Impuesto GetImpuesto()
         {
             return impuesto;
         }
 
-        public void SetImpuesto(Impuestos pImpuesto)
+        public void SetImpuesto(Impuesto pImpuesto)
         {
             impuesto = pImpuesto;
         }

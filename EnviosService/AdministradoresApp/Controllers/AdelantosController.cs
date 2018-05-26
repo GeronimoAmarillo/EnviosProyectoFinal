@@ -13,7 +13,7 @@ namespace EnviosService.Controllers
     {
         public IActionResult Index()
         {
-            return View(new List<EntidadesCompartidas.Adelantos>());
+            return View(new List<EntidadesCompartidas.Adelanto>());
         }
     }
 }

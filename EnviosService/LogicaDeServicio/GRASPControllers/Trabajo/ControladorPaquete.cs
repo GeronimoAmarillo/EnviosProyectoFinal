@@ -14,30 +14,30 @@ namespace LogicaDeServicio
             return true;
         }
       
-        public Paquetes BuscarPaquete(int codigo)
+        public Paquete BuscarPaquete(int codigo)
         {
-            return new Paquetes();
+            return new Paquete();
         }
         
-        public List<Locales> ListarLocales()
+        public List<Local> ListarLocales()
         {
-            return new List<Locales>();
+            return new List<Local>();
         }
 
-        public List<Paquetes> ListarPaquetesEnviadosXCliente(int cedula)
+        public List<Paquete> ListarPaquetesEnviadosXCliente(int cedula)
         {
-            return new List<Paquetes>();
+            return new List<Paquete>();
         }
         
 
-        public List<Paquetes> ListarPaquetesRecibidosXCliente(int cedula)
+        public List<Paquete> ListarPaquetesRecibidosXCliente(int cedula)
         {
-            return new List<Paquetes>();
+            return new List<Paquete>();
         }
 
-        public Locales BuscarLocal(string nombre)
+        public Local BuscarLocal(string nombre)
         {
-            return new Locales();
+            return new Local();
         }
     }
 }

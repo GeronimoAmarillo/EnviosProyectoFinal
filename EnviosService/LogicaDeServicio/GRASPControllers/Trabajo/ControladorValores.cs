@@ -9,29 +9,29 @@ namespace LogicaDeServicio
 {
     class ControladorValores:IControladorValores
     {
-        public List<Gastos> ListarGastos()
+        public List<Gasto> ListarGastos()
         {
-            return new List<Gastos>();
+            return new List<Gasto>();
         }
 
-        public bool RegistrarGasto(Gastos gasto)
+        public bool RegistrarGasto(Gasto gasto)
         {
             return true;
         }
 
-        public bool RegistrarImpuesto(Impuestos impuesto)
+        public bool RegistrarImpuesto(Impuesto impuesto)
         {
             return true;
         }
 
-        public bool RegistrarIngreso(Ingresos ingreso)
+        public bool RegistrarIngreso(Ingreso ingreso)
         {
             return true;
         }
 
-        public List<Ingresos> ListarIngresos()
+        public List<Ingreso> ListarIngresos()
         {
-            return new List<Ingresos>();
+            return new List<Ingreso>();
         }
     }
 }

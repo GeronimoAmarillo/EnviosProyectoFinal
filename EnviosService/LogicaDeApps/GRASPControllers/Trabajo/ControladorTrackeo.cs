@@ -10,14 +10,14 @@ namespace LogicaDeApps
 {
     class ControladorTrackeo:IControladorTrackeo
     {
-        private Paquetes paquete;
+        private Paquete paquete;
 
         public DTPaquete ObtenerPaquete(int numReferencia)
         {
             return new DTPaquete();
         }
 
-        public void SetPaquete(Paquetes pPaquete)
+        public void SetPaquete(Paquete pPaquete)
         {
             paquete = pPaquete;
         }
@@ -37,7 +37,7 @@ namespace LogicaDeApps
             return "";
         }
 
-        public Paquetes GetPaquete()
+        public Paquete GetPaquete()
         {
             return paquete;
         }

@@ -31,10 +31,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -49,17 +49,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EntityModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EntityModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EntityModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EntityModel.edmx</DependentUpon>
-    </Compile>
+    <Compile Include="Entidades\Administradores.cs" />
+    <Compile Include="Entidades\Automobiles.cs" />
+    <Compile Include="Entidades\Balances.cs" />
+    <Compile Include="Entidades\Cadetes.cs" />
+    <Compile Include="Entidades\Calificaciones.cs" />
+    <Compile Include="Entidades\Camiones.cs" />
+    <Compile Include="Entidades\Camionetas.cs" />
+    <Compile Include="Entidades\Casillas.cs" />
+    <Compile Include="Entidades\Clientes.cs" />
+    <Compile Include="Entidades\Cuotas.cs" />
+    <Compile Include="Entidades\Empleados.cs" />
+    <Compile Include="Entidades\Adelantos.cs" />
+    <Compile Include="Entidades\Entregas.cs" />
+    <Compile Include="EnviosContext.cs" />
     <Compile Include="FabricaPersistencia.cs" />
+    <Compile Include="Entidades\Galpones.cs" />
+    <Compile Include="Entidades\Gastos.cs" />
+    <Compile Include="Entidades\Impuestos.cs" />
+    <Compile Include="Entidades\Ingresos.cs" />
     <Compile Include="Interfaces\IPersistenciaAdelanto.cs" />
     <Compile Include="Interfaces\IPersistenciaAdministrador.cs" />
     <Compile Include="Interfaces\IPersistenciaAuto.cs" />
@@ -80,7 +88,17 @@
     <Compile Include="Interfaces\IPersistenciaPaquete.cs" />
     <Compile Include="Interfaces\IPersistenciaReparacion.cs" />
     <Compile Include="Interfaces\IPersistenciaTurno.cs" />
+    <Compile Include="Entidades\Locales.cs" />
+    <Compile Include="Entidades\Motos.cs" />
+    <Compile Include="Entidades\Multas.cs" />
+    <Compile Include="Entidades\Palets.cs" />
+    <Compile Include="Entidades\Paquetes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Entidades\Racks.cs" />
+    <Compile Include="Entidades\Reclamo.cs" />
+    <Compile Include="Entidades\Registros.cs" />
+    <Compile Include="Entidades\Reparaciones.cs" />
+    <Compile Include="Entidades\Sectores.cs" />
     <Compile Include="Trabajo\PersistenciaAdelanto.cs" />
     <Compile Include="Trabajo\PersistenciaAdministrador.cs" />
     <Compile Include="Trabajo\PersistenciaAuto.cs" />
@@ -101,27 +119,13 @@
     <Compile Include="Trabajo\PersistenciaPaquete.cs" />
     <Compile Include="Trabajo\PersistenciaReparacion.cs" />
     <Compile Include="Trabajo\PersistenciaTurno.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="EntityModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>EntityModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
+    <Compile Include="Entidades\Turnos.cs" />
+    <Compile Include="Entidades\Usuarios.cs" />
+    <Compile Include="Entidades\Vehiculos.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <None Include="EntityModel.edmx.diagram">
-      <DependentUpon>EntityModel.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="EntityModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EntityModel.Context.cs</LastGenOutput>
-      <DependentUpon>EntityModel.edmx</DependentUpon>
-      <CustomToolNamespace>EntidadesCompartidas</CustomToolNamespace>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -12,7 +12,7 @@ namespace LogicaDeApps
     {
         bool EnviarMail(DTUsuario usuario);
 
-        Usuarios BuscarUsuario(string mail);
+        Usuario BuscarUsuario(string mail);
 
         string GetContraseña();
 
@@ -24,13 +24,13 @@ namespace LogicaDeApps
 
         bool ComprobarNombreUsuario(string user);
 
-        void SetUsuario(Usuarios pUsuario);
+        void SetUsuario(Usuario pUsuario);
 
-        Usuarios ModificarContraseña(string contraseñaNueva);
+        Usuario ModificarContraseña(string contraseñaNueva);
 
-        Usuarios ModificarEmail(DTUsuario pUsuario);
+        Usuario ModificarEmail(DTUsuario pUsuario);
 
-        Usuarios GetUsuario();
+        Usuario GetUsuario();
 
         bool ComprobarContraseña(string contraseña);
 

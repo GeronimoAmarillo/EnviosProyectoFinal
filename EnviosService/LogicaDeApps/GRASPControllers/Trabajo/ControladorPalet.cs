@@ -10,24 +10,24 @@ namespace LogicaDeApps
 {
     class ControladorPalet: IControladorPalet
     {
-        private Palets palet;
-        private List<Clientes> clientes;
-        private Clientes cliente;
-        private Galpones galpon;
-        private Racks rack;
-        private Sectores sector;
+        private Palet palet;
+        private List<Cliente> clientes;
+        private Cliente cliente;
+        private Galpon galpon;
+        private Rack rack;
+        private Sector sector;
 
-        public Racks GetRack()
+        public Rack GetRack()
         {
             return rack;
         }
 
-        public Palets GetPalet()
+        public Palet GetPalet()
         {
             return palet;
         }
 
-        public void SetPalet(Palets pPalet)
+        public void SetPalet(Palet pPalet)
         {
             palet = pPalet;
         }
@@ -42,7 +42,7 @@ namespace LogicaDeApps
             return new List<DTCliente>();
         }
 
-        public List<Clientes> GetClientes()
+        public List<Cliente> GetClientes()
         {
             return clientes;
         }
@@ -52,17 +52,17 @@ namespace LogicaDeApps
             return new DTCliente();
         }
 
-        public void SetClientes(List<Clientes> pClientes)
+        public void SetClientes(List<Cliente> pClientes)
         {
             clientes = pClientes;
         }
 
-        public void SetCliente(Clientes pCliente)
+        public void SetCliente(Cliente pCliente)
         {
             cliente = pCliente;
         }
 
-        public Clientes GetCliente()
+        public Cliente GetCliente()
         {
             return cliente;
         }
@@ -72,12 +72,12 @@ namespace LogicaDeApps
 
         }
 
-        public Galpones GetGalpon()
+        public Galpon GetGalpon()
         {
             return galpon;
         }
 
-        public void SetGalpon(Galpones pGalpon)
+        public void SetGalpon(Galpon pGalpon)
         {
             galpon = pGalpon;
         }

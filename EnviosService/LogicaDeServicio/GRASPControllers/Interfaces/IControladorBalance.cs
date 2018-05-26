@@ -9,8 +9,8 @@ namespace LogicaDeServicio
 {
     public interface IControladorBalance
     {
-        List<Balances> ConsultarBalanceAnual(int año);
+        List<Balance> ConsultarBalanceAnual(int año);
 
-        Balances ConsultarBalanceMensual(string mes, int año);
+        Balance ConsultarBalanceMensual(string mes, int año);
     }
 }

@@ -15,21 +15,21 @@ namespace LogicaDeServicio
             return exito;
         }
 
-        public Boolean ModificarTurno(Turnos unTurno)
+        public Boolean ModificarTurno(Turno unTurno)
         {
             bool exito = false;
             return exito;
         }
 
-        public bool AltaTurno(Turnos unTurno)
+        public bool AltaTurno(Turno unTurno)
         {
             bool exito = false;
             return exito;
         }
 
-        public List<Turnos> ListarTurnos()
+        public List<Turno> ListarTurnos()
         {
-            List<Turnos> turnos = new List<Turnos>();
+            List<Turno> turnos = new List<Turno>();
             return turnos;
         }
     }

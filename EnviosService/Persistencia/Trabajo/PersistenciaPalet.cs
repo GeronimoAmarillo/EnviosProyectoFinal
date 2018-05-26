@@ -8,17 +8,17 @@ namespace Persistencia
 {
     class PersistenciaPalet:IPersistenciaPalet
     {
-        public bool AltaPalet(Palets palet)
+        public bool AltaPalet(EntidadesCompartidas.Palet palet)
         {
             return true;
         }
 
-        public Galpones BuscarGalpon(int id)
+        public EntidadesCompartidas.Galpon BuscarGalpon(int id)
         {
-            return new Galpones();
+            return new EntidadesCompartidas.Galpon();
         }
 
-        public bool BajaPalet(Palets palet)
+        public bool BajaPalet(EntidadesCompartidas.Palet palet)
         {
             return true;
         }
