@@ -19,6 +19,7 @@ namespace Persistencia
 
         [Required]
         [StringLength(25)]
+        [Index(IsUnique = true)]
         public string NombreUsuario { get; set; }
 
         [Required]
