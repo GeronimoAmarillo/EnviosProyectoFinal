@@ -1,17 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
+# Blend for Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnviosService", "EnviosService\EnviosService.csproj", "{08566E05-2CC5-46F4-9CE7-F3D27D26047A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnviosService", "EnviosService\EnviosService.csproj", "{08566E05-2CC5-46F4-9CE7-F3D27D26047A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistencia", "Persistencia\Persistencia.csproj", "{A6CF4DA4-039A-42B9-AB12-A8D0A0D842DE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntidadesCompartidas", "EntidadesCompartidas\EntidadesCompartidas.csproj", "{5A521AB3-6090-4DE8-8C1B-7393409CF71F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientesApp", "ClientesApp\ClientesApp.csproj", "{6B952D25-2A1A-464B-B9A3-D11732F3A6D6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientesApp", "ClientesApp\ClientesApp.csproj", "{6B952D25-2A1A-464B-B9A3-D11732F3A6D6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdministradoresApp", "AdministradoresApp\AdministradoresApp.csproj", "{F6CFB778-1AD8-45AD-9538-FDE4004BC6A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdministradoresApp", "AdministradoresApp\AdministradoresApp.csproj", "{F6CFB778-1AD8-45AD-9538-FDE4004BC6A7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmpleadosApp.Android", "EmpleadosApp\EmpleadosApp.Android\EmpleadosApp.Android.csproj", "{D7F88100-EBF4-44FD-85A0-C18C7B5CE1A7}"
 EndProject
@@ -28,8 +28,6 @@ EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		EmpleadosApp\EmpleadosApp\EmpleadosApp.projitems*{0a9b54c9-288c-433e-b604-973567c88be3}*SharedItemsImports = 13
-		EmpleadosApp\EmpleadosApp\EmpleadosApp.projitems*{d1cfeb22-e791-47f4-be84-bf9a7663edca}*SharedItemsImports = 4
-		EmpleadosApp\EmpleadosApp\EmpleadosApp.projitems*{d7f88100-ebf4-44fd-85a0-c18c7b5ce1a7}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
