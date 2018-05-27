@@ -24,18 +24,6 @@ namespace LogicaDeServicioTests
             
         }
 
-        public void loginERRORTest()
-        {
-            string user = "User8";
-            string pass = "12345";
-
-
-            var result = LogicaUsuario.Login(user, pass);
-
-            Assert.IsNull(result);
-
-        }
-
         [TestMethod]
         public void loginERRORTest()
         {
