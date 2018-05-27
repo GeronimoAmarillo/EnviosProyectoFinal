@@ -9,19 +9,19 @@ namespace Persistencia
 {
     class PersistenciaPaquete:IPersistenciaPaquete
     {
-        public bool AltaPaquete(EntidadesCompartidas.Paquetes paquete)
+        public bool AltaPaquete(EntidadesCompartidas.Paquete paquete)
         {
             return true;
         }
 
-        public EntidadesCompartidas.Paquetes BuscarPaquete(int numReferencia)
+        public EntidadesCompartidas.Paquete BuscarPaquete(int numReferencia)
         {
-            return new EntidadesCompartidas.Paquetes();
+            return new EntidadesCompartidas.Paquete();
         }
 
-        public List<EntidadesCompartidas.Paquetes> ListarPaquetesEnviadosXCliente(int rut)
+        public List<EntidadesCompartidas.Paquete> ListarPaquetesEnviadosXCliente(int rut)
         {
-            return new List<EntidadesCompartidas.Paquetes>();
+            return new List<EntidadesCompartidas.Paquete>();
         }
 
         public bool RealizarReclamo(string descripcion)
@@ -29,9 +29,9 @@ namespace Persistencia
             return true;
         }
 
-        public List<EntidadesCompartidas.Paquetes> ListarPaquetesRecibidosXCliente(int rut)
+        public List<EntidadesCompartidas.Paquete> ListarPaquetesRecibidosXCliente(int rut)
         {
-            return new List<EntidadesCompartidas.Paquetes>();
+            return new List<EntidadesCompartidas.Paquete>();
         }
     }
 }

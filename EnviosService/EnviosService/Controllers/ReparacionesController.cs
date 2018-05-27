@@ -33,7 +33,7 @@ namespace EnviosService.Controllers
         }
 
         [HttpPost]
-        public JsonResult Reparacion([FromBody] Reparaciones item)
+        public JsonResult Reparacion([FromBody] Reparacion item)
         {
             return Json(controladorReparacion.RegistrarReparacion(item), new Newtonsoft.Json.JsonSerializerSettings());
         }

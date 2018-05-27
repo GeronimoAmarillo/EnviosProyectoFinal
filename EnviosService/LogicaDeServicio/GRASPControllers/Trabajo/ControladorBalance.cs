@@ -9,14 +9,14 @@ namespace LogicaDeServicio
 {
     class ControladorBalance:IControladorBalance
     {
-        public List<EntidadesCompartidas.Balances> ConsultarBalanceAnual(int año)
+        public List<EntidadesCompartidas.Balance> ConsultarBalanceAnual(int año)
         {
-            return new List<EntidadesCompartidas.Balances>();
+            return new List<EntidadesCompartidas.Balance>();
         }
 
-        public EntidadesCompartidas.Balances ConsultarBalanceMensual(string mes, int año)
+        public EntidadesCompartidas.Balance ConsultarBalanceMensual(string mes, int año)
         {
-            return new EntidadesCompartidas.Balances();
+            return new EntidadesCompartidas.Balance();
         }
     }
 }

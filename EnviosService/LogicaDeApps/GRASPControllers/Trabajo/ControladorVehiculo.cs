@@ -10,11 +10,11 @@ namespace LogicaDeApps
 {
     class ControladorVehiculo: IControladorVehiculo
     {
-        private Vehiculos vehiculo;
+        private Vehiculo vehiculo;
         private string matricula;
-        private List<Cadetes> cadetesDisponibles;
+        private List<Cadete> cadetesDisponibles;
 
-        public Vehiculos GetVehiculo()
+        public Vehiculo GetVehiculo()
         {
             return vehiculo;
         }
@@ -29,7 +29,7 @@ namespace LogicaDeApps
             return new List<DTCadete>();
         }
 
-        public Cadetes GetCadete()
+        public Cadete GetCadete()
         {
             return vehiculo.Cadetes;
         }
@@ -49,22 +49,22 @@ namespace LogicaDeApps
             return new DTCadete();
         }
 
-        public List<Cadetes> GetCadetes()
+        public List<Cadete> GetCadetes()
         {
-            return new List<Cadetes>();
+            return new List<Cadete>();
         }
 
-        public void SetCadetes(List<Cadetes> pCadetesDisponibles)
+        public void SetCadetes(List<Cadete> pCadetesDisponibles)
         {
             cadetesDisponibles = pCadetesDisponibles;
         }
 
-        public void SetVehiculo(Vehiculos pVehiculo)
+        public void SetVehiculo(Vehiculo pVehiculo)
         {
             vehiculo = pVehiculo;
         }
 
-        public bool EliminarVehiculo(Vehiculos vehiculo)
+        public bool EliminarVehiculo(Vehiculo vehiculo)
         {
             return true;
         }

@@ -10,15 +10,15 @@ namespace LogicaDeApps
 {
     class ControladorRealizarEntregas : IControladorRealizarEntregas
     {
-        private Entregas entrega;
-        private List<Clientes> clientes;
-        private Clientes cliente;
-        private List<Locales> locales;
-        private List<Turnos> turnos;
-        private Locales local;
-        private List<Cadetes> cadetes;
-        private Turnos turno;
-        private Cadetes cadete;
+        private Entrega entrega;
+        private List<Cliente> clientes;
+        private Cliente cliente;
+        private List<Local> locales;
+        private List<Turno> turnos;
+        private Local local;
+        private List<Cadete> cadetes;
+        private Turno turno;
+        private Cadete cadete;
 
         public List<DTCliente> ListarClientes()
         {
@@ -30,32 +30,32 @@ namespace LogicaDeApps
             return new List<DTCadete>();
         }
 
-        public List<Clientes> GetClientes()
+        public List<Cliente> GetClientes()
         {
             return clientes;
         }
 
-        public void SetCadetes(List<Cadetes> cadetesDisponibles)
+        public void SetCadetes(List<Cadete> cadetesDisponibles)
         {
             cadetes = cadetesDisponibles;
         }
 
-        public void SetClientes(List<Clientes> pClientes)
+        public void SetClientes(List<Cliente> pClientes)
         {
             clientes = pClientes;
         }
 
-        public List<Cadetes> GetCadetes()
+        public List<Cadete> GetCadetes()
         {
             return cadetes;
         }
 
-        public Clientes GetCliente()
+        public Cliente GetCliente()
         {
             return cliente;
         }
 
-        public void SetCliente(Clientes pCliente)
+        public void SetCliente(Cliente pCliente)
         {
             cliente = pCliente;
         }
@@ -65,12 +65,12 @@ namespace LogicaDeApps
 
         }
 
-        public List<Turnos> GetTurnos()
+        public List<Turno> GetTurnos()
         {
             return turnos;
         }
 
-        public void SetTurnos(List<Turnos> pTurnos)
+        public void SetTurnos(List<Turno> pTurnos)
         {
             turnos = pTurnos;
         }
@@ -85,22 +85,22 @@ namespace LogicaDeApps
             return new List<DTLocal>();
         }
 
-        public List<Locales> GetLocales()
+        public List<Local> GetLocales()
         {
             return locales;
         }
 
-        public void SetLocales(List<Locales> pLocales)
+        public void SetLocales(List<Local> pLocales)
         {
             locales = pLocales;
         }
 
-        public Entregas GetEntrega()
+        public Entrega GetEntrega()
         {
             return entrega;
         }
 
-        public void SetEntrega(Entregas pEntrega)
+        public void SetEntrega(Entrega pEntrega)
         {
             entrega = pEntrega;
         }
@@ -110,7 +110,7 @@ namespace LogicaDeApps
 
         }
 
-        public Locales GetLocal()
+        public Local GetLocal()
         {
             return local;
         }
@@ -120,7 +120,7 @@ namespace LogicaDeApps
 
         }
 
-        public Cadetes GetCadete()
+        public Cadete GetCadete()
         {
             return cadete;
         }
@@ -130,7 +130,7 @@ namespace LogicaDeApps
 
         }
 
-        public Turnos GetTurno()
+        public Turno GetTurno()
         {
             return turno;
         }

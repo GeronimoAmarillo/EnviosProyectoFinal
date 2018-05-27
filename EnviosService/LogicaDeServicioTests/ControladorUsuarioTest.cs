@@ -11,17 +11,29 @@ namespace LogicaDeServicioTests
     public class ControladorUsuarioTest
     {
         [TestMethod]
-        public void loginTest()
+        public void loginOKTest()
         {
-            string user = "pepito";
-            string pass = "pass123";
+            string user = "User1";
+            string pass = "12345";
 
 
             var result = LogicaUsuario.Login(user, pass);
 
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof (EntidadesCompartidas.Usuarios));
+            Assert.IsInstanceOfType(result, typeof (EntidadesCompartidas.Usuario));
             
+        }
+
+        public void loginERRORTest()
+        {
+            string user = "User8";
+            string pass = "12345";
+
+
+            var result = LogicaUsuario.Login(user, pass);
+
+            Assert.IsNull(result);
+
         }
 
         [TestMethod]

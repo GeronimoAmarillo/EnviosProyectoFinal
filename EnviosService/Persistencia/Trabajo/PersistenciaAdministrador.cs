@@ -14,7 +14,7 @@ namespace Persistencia
             return true;
         }
 
-        public bool AltaAdministrador(EntidadesCompartidas.Administradores administrador)
+        public bool AltaAdministrador(EntidadesCompartidas.Administrador administrador)
         {
             return true;
         }
@@ -24,20 +24,21 @@ namespace Persistencia
             return true;
         }
 
-        public List<EntidadesCompartidas.Administradores> ListarAdministradores()
+        public List<EntidadesCompartidas.Administrador> ListarAdministradores()
         {
-            return new List<EntidadesCompartidas.Administradores>();
+            return new List<EntidadesCompartidas.Administrador>();
         }
 
-        public bool ModificarAdmin(EntidadesCompartidas.Administradores admin)
+        public bool ModificarAdmin(EntidadesCompartidas.Administrador admin)
         {
             return true;
         }
 
-        public EntidadesCompartidas.Administradores Login(string user, string contraseña)
+        public EntidadesCompartidas.Administrador Login(string user, string contraseña)
         {
-            /*EntidadesCompartidas.Administradores administradorLogueado = new EntidadesCompartidas.Administradores();
-            EnviosEntities dbConexion = new EnviosEntities();
+            Administrador administradorResultado = new Administrador();
+
+            EnviosContext dbConexion = new EnviosContext();
             try
             {
 
@@ -47,17 +48,24 @@ namespace Persistencia
 
                 foreach (Administradores a in adminEncontrado)
                 {
-                    administradorLogueado = a;
+                    administradorResultado.Contraseña = a.Empleados.Usuarios.Contraseña;
+                    administradorResultado.Direccion = a.Empleados.Usuarios.Direccion;
+                    administradorResultado.Email = a.Empleados.Usuarios.Email;
+                    administradorResultado.Id = a.Empleados.Usuarios.Id;
+                    administradorResultado.Ci = a.CiEmpleado;
+                    administradorResultado.Nombre = a.Empleados.Usuarios.Nombre;
+                    administradorResultado.NombreUsuario = a.Empleados.Usuarios.NombreUsuario;
+                    administradorResultado.Sueldo = a.Empleados.Sueldo;
+                    administradorResultado.Telefono = a.Empleados.Usuarios.Telefono;
+                    administradorResultado.Tipo = a.Tipo;
                 }
 
-                return administradorLogueado;
+                return administradorResultado;
             }
             catch (Exception ex)
             {
                 throw new Exception("Error al intentar loguear el Cadete" + ex.Message);
-            }*/
-
-            return new EntidadesCompartidas.Administradores();
+            }
         }
 
         public bool BajaAdministrador(int ci)
@@ -65,9 +73,9 @@ namespace Persistencia
             return true;
         }
 
-        public EntidadesCompartidas.Administradores BusxarAdministrador(int ci)
+        public EntidadesCompartidas.Administrador BusxarAdministrador(int ci)
         {
-            return new EntidadesCompartidas.Administradores();
+            return new EntidadesCompartidas.Administrador();
         }
     }
 }

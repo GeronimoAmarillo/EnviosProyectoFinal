@@ -10,38 +10,38 @@ namespace LogicaDeServicio
     class ControladorEntrega:IControladorEntrega
     {
         
-        public List<EntidadesCompartidas.Entregas> ListarEntregas()
+        public List<EntidadesCompartidas.Entrega> ListarEntregas()
         {
-            return new List<EntidadesCompartidas.Entregas>();
+            return new List<EntidadesCompartidas.Entrega>();
         }
 
 
-        public bool Entregar(List<EntidadesCompartidas.Entregas> entregasSeleccionadas)
+        public bool Entregar(List<EntidadesCompartidas.Entrega> entregasSeleccionadas)
         {
             return true;
         }
 
-        public List<EntidadesCompartidas.Clientes> ListarClientes()
+        public List<EntidadesCompartidas.Cliente> ListarClientes()
         {
-            return new List<EntidadesCompartidas.Clientes>();
+            return new List<EntidadesCompartidas.Cliente>();
         }
 
-        public List<EntidadesCompartidas.Cadetes> ListarCadetesDisponibles()
+        public List<EntidadesCompartidas.Cadete> ListarCadetesDisponibles()
         {
-            return new List<EntidadesCompartidas.Cadetes>();
+            return new List<EntidadesCompartidas.Cadete>();
         }
         
-        public List<EntidadesCompartidas.Turnos> ListarTurnos()
+        public List<EntidadesCompartidas.Turno> ListarTurnos()
         {
-            return new List<EntidadesCompartidas.Turnos>();
+            return new List<EntidadesCompartidas.Turno>();
         }
 
-        public List<EntidadesCompartidas.Locales> ListarLocales()
+        public List<EntidadesCompartidas.Local> ListarLocales()
         {
-            return new List<EntidadesCompartidas.Locales>();
+            return new List<EntidadesCompartidas.Local>();
         }
 
-        public bool AltaEntrega(EntidadesCompartidas.Entregas pEntrega)
+        public bool AltaEntrega(EntidadesCompartidas.Entrega pEntrega)
         {
             return true;
         }

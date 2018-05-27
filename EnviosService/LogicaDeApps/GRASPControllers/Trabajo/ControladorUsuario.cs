@@ -23,16 +23,16 @@ namespace LogicaDeApps
         }
 
         private string contraseña;
-        private Usuarios usuario;
+        private Usuario usuario;
 
         public bool EnviarMail(DTUsuario usuario)
         {
             return true;
         }
 
-        public Usuarios BuscarUsuario(string mail)
+        public Usuario BuscarUsuario(string mail)
         {
-            return new Usuarios();
+            return new Usuario();
         }
 
         public string GetContraseña()
@@ -100,23 +100,23 @@ namespace LogicaDeApps
             return true; 
         }
 
-        public void SetUsuario(Usuarios pUsuario)
+        public void SetUsuario(Usuario pUsuario)
         {
             usuario = pUsuario;
         }
 
 
-        public Usuarios ModificarContraseña(string contraseñaNueva)
+        public Usuario ModificarContraseña(string contraseñaNueva)
         {
-            return new Usuarios();
+            return new Usuario();
         }
 
-        public Usuarios ModificarEmail(DTUsuario pUsuario)
+        public Usuario ModificarEmail(DTUsuario pUsuario)
         {
-            return new Usuarios();
+            return new Usuario();
         }
 
-        public Usuarios GetUsuario()
+        public Usuario GetUsuario()
         {
             return usuario;
         }

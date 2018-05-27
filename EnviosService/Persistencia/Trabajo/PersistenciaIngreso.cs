@@ -9,12 +9,12 @@ namespace Persistencia
 {
     class PersistenciaIngreso:IPersistenciaIngreso
     {
-        public List<EntidadesCompartidas.Ingresos> ListarIngresos()
+        public List<EntidadesCompartidas.Ingreso> ListarIngresos()
         {
-            return new List<EntidadesCompartidas.Ingresos>();
+            return new List<EntidadesCompartidas.Ingreso>();
         }
 
-        public bool RegistrarIngreso(EntidadesCompartidas.Ingresos ingreso)
+        public bool RegistrarIngreso(EntidadesCompartidas.Ingreso ingreso)
         {
             return true;
         }

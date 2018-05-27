@@ -9,10 +9,10 @@ namespace LogicaDeServicio
 {
     public interface IControladorMulta
     {
-        List<Vehiculos> ListarVehiculos();
+        List<Vehiculo> ListarVehiculos();
 
-        Vehiculos SeleccionarVehiculo(string matricula);
+        Vehiculo SeleccionarVehiculo(string matricula);
 
-        bool RegistrarMulta(Multas pMulta);
+        bool RegistrarMulta(Multa pMulta);
     }
 }

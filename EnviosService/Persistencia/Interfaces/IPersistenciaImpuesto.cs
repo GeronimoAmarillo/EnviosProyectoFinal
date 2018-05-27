@@ -9,6 +9,6 @@ namespace Persistencia
 {
     public interface IPersistenciaImpuesto
     {
-        bool RegistrarImpuesto(EntidadesCompartidas.Impuestos impuesto);
+        bool RegistrarImpuesto(EntidadesCompartidas.Impuesto impuesto);
     }
 }

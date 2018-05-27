@@ -9,7 +9,7 @@ namespace Persistencia
 {
     class PersistenciaImpuesto:IPersistenciaImpuesto
     {
-        public bool RegistrarImpuesto(EntidadesCompartidas.Impuestos impuesto)
+        public bool RegistrarImpuesto(EntidadesCompartidas.Impuesto impuesto)
         {
             return true;
         }

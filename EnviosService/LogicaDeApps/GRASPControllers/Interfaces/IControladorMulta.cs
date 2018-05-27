@@ -16,13 +16,13 @@ namespace LogicaDeApps
 
         DTVehiculo SeleccionarVehiculo(string matricula);
 
-        Multas GetMulta();
+        Multa GetMulta();
 
-        void SetMulta(Multas pMulta);
+        void SetMulta(Multa pMulta);
 
-        void SetVehiculo(Vehiculos pVehiculo);
+        void SetVehiculo(Vehiculo pVehiculo);
 
-        List<Vehiculos> GetVehiculos();
+        List<Vehiculo> GetVehiculos();
 
         bool RegistrarMulta(DTMulta pMulta);
     }

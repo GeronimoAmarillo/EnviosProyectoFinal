@@ -15,17 +15,17 @@ namespace LogicaDeServicio
             return true;
         }
 
-        public Turnos BuscarTurno(string codigo)
+        public Turno BuscarTurno(string codigo)
         {
-            return new Turnos();
+            return new Turno();
         }
 
-        public bool ModificarTurno(Turnos pTurno)
+        public bool ModificarTurno(Turno pTurno)
         {
             return true;
         }
 
-        public bool AltaTurno(Turnos turno)
+        public bool AltaTurno(Turno turno)
         {
             return true;
         }

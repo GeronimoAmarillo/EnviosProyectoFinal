@@ -9,6 +9,6 @@ namespace Persistencia
 {
     public interface IPersistenciaAdelanto
     {
-        bool RealizarAdelanto(EntidadesCompartidas.Adelantos adelanto);
+        bool RealizarAdelanto(EntidadesCompartidas.Adelanto adelanto);
     }
 }

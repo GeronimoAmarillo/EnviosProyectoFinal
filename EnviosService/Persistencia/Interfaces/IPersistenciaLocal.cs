@@ -9,14 +9,14 @@ namespace Persistencia
 {
     public interface IPersistenciaLocal
     {
-        bool AltaLocal(EntidadesCompartidas.Locales local);
+        bool AltaLocal(EntidadesCompartidas.Local local);
 
         bool ExisteLocal(string nombre, string direccion);
 
-        EntidadesCompartidas.Locales BuscarLocal(string nombre);
+        EntidadesCompartidas.Local BuscarLocal(string nombre);
 
-        bool ModificarLocal(EntidadesCompartidas.Locales local);
+        bool ModificarLocal(EntidadesCompartidas.Local local);
 
-        List<EntidadesCompartidas.Locales> ListarLocales();
+        List<EntidadesCompartidas.Local> ListarLocales();
     }
 }

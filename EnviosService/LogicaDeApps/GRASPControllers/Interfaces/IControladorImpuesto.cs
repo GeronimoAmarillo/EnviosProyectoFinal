@@ -11,9 +11,9 @@ namespace LogicaDeApps
 {
     public interface IControladorImpuesto
     {
-        Impuestos GetImpuesto();
+        Impuesto GetImpuesto();
 
-        void SetImpuesto(Impuestos pImpuesto);
+        void SetImpuesto(Impuesto pImpuesto);
 
         bool RegistrarImpuesto(DTImpuesto impuesto);
 

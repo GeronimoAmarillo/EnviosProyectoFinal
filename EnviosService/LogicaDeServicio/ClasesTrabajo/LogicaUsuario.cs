@@ -10,7 +10,7 @@ namespace LogicaDeServicio
 {
     public class LogicaUsuario
     {
-        public static bool AltaUsuario(EntidadesCompartidas.Usuarios unUsuario)
+        public static bool AltaUsuario(EntidadesCompartidas.Usuario unUsuario)
         {
             bool exito = false;
             return exito;
@@ -28,33 +28,33 @@ namespace LogicaDeServicio
             return existe;
         }
 
-        public static EntidadesCompartidas.Cadetes SeleccionarCadete(int cedula)
+        public static EntidadesCompartidas.Cadete SeleccionarCadete(int cedula)
         {
-            EntidadesCompartidas.Cadetes cadete = new EntidadesCompartidas.Cadetes();
+            EntidadesCompartidas.Cadete cadete = new EntidadesCompartidas.Cadete();
             return cadete;
         }
 
-        public static bool ModoficarUsuario(EntidadesCompartidas.Usuarios unUsuario)
+        public static bool ModoficarUsuario(EntidadesCompartidas.Usuario unUsuario)
         {
             bool exito = false;
             return exito;
         }
 
-        public static List<EntidadesCompartidas.Empleados> ListarEmpleados()
+        public static List<EntidadesCompartidas.Empleado> ListarEmpleados()
         {
-            List<EntidadesCompartidas.Empleados> lista = new List<EntidadesCompartidas.Empleados>();
+            List<EntidadesCompartidas.Empleado> lista = new List<EntidadesCompartidas.Empleado>();
             return lista;
         }
 
-        public static List<EntidadesCompartidas.Cadetes> ListarCadetesDisponibles()
+        public static List<EntidadesCompartidas.Cadete> ListarCadetesDisponibles()
         {
-            List<EntidadesCompartidas.Cadetes> lista = new List<EntidadesCompartidas.Cadetes>();
+            List<EntidadesCompartidas.Cadete> lista = new List<EntidadesCompartidas.Cadete>();
             return lista;
         }
 
-        public static List<EntidadesCompartidas.Clientes> ListarClientes()
+        public static List<EntidadesCompartidas.Cliente> ListarClientes()
         {
-            List<EntidadesCompartidas.Clientes> clientes = new List<EntidadesCompartidas.Clientes>();
+            List<EntidadesCompartidas.Cliente> clientes = new List<EntidadesCompartidas.Cliente>();
             return clientes;
         }
 
@@ -64,9 +64,9 @@ namespace LogicaDeServicio
             return exito;
         }
 
-        public static EntidadesCompartidas.Usuarios Login(string usuario, string password)
+        public static EntidadesCompartidas.Usuario Login(string usuario, string password)
         {
-            /*EntidadesCompartidas.Usuarios usuarioLogueado;
+            Usuario usuarioLogueado;
             try
             {
                 usuarioLogueado = FabricaPersistencia.GetPersistenciaAdministrador().Login(usuario, password);
@@ -86,9 +86,7 @@ namespace LogicaDeServicio
             catch(Exception ex)
             {
                 throw new Exception("Error al loguear el Usuario" + ex.Message);
-            }*/
-
-            return new EntidadesCompartidas.Usuarios();
+            }
 
         }
 
@@ -98,9 +96,9 @@ namespace LogicaDeServicio
             return exito;
         }
 
-        public static EntidadesCompartidas.Empleados BuscarEmpleado(int cedula)
+        public static EntidadesCompartidas.Empleado BuscarEmpleado(int cedula)
         {
-            EntidadesCompartidas.Empleados empleado = new EntidadesCompartidas.Empleados();
+            EntidadesCompartidas.Empleado empleado = new EntidadesCompartidas.Empleado();
             return empleado;
         }
     }

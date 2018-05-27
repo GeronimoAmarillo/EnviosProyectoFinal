@@ -11,10 +11,10 @@ namespace LogicaDeServicio
     {
         bool ExisteTurno(string dia, string hora);
 
-        Turnos BuscarTurno(string codigo);
+        Turno BuscarTurno(string codigo);
 
-        bool ModificarTurno(Turnos pTurno);
+        bool ModificarTurno(Turno pTurno);
 
-        bool AltaTurno(Turnos turno);
+        bool AltaTurno(Turno turno);
     }
 }

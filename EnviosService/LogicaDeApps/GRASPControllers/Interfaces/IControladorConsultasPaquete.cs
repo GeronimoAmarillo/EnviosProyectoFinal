@@ -12,21 +12,21 @@ namespace LogicaDeApps
     {
         void SeleccionarLocal();
 
-        void SetLocal(Locales pLocal);
+        void SetLocal(Local pLocal);
 
-        Locales GetLocal();
+        Local GetLocal();
 
         List<DTLocal> ListarLocales();
 
         List<DTPaquete> ListarPaquetesEnviadosXCliente(int cedula);
 
-        void SetPaquetes(List<Paquetes> pPaquetes);
+        void SetPaquetes(List<Paquete> pPaquetes);
 
         List<DTPaquete> FiltrarPaquetesEnviados(string estado, DateTime fechaEnvio);
 
         List<DTPaquete> FiltrarPaquetesRecibidos(string estado, DateTime fechaEnvio);
 
-        List<Paquetes> GetPaquetes();
+        List<Paquete> GetPaquetes();
 
         List<DTPaquete> ListarPaquetesRecibidosXCliente(int cedula);
 

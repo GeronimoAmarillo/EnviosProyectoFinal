@@ -10,31 +10,31 @@ namespace LogicaDeApps
 {
     public interface IControladorPalet
     {
-        Racks GetRack();
+        Rack GetRack();
 
-        Palets GetPalet();
+        Palet GetPalet();
 
-        void SetPalet(Palets pPalet);
+        void SetPalet(Palet pPalet);
 
         bool AltaPalet(DTPalet palet);
 
         List<DTCliente> ListarClientes();
 
-        List<Clientes> GetClientes();
+        List<Cliente> GetClientes();
 
         DTCliente SeleccionarClientes(int rut);
 
-        void SetClientes(List<Clientes> pClientes);
+        void SetClientes(List<Cliente> pClientes);
 
-        void SetCliente(Clientes pCliente);
+        void SetCliente(Cliente pCliente);
 
-        Clientes GetCliente();
+        Cliente GetCliente();
 
         void IniciarRegistroPalet();
 
-        Galpones GetGalpon();
+        Galpon GetGalpon();
 
-        void SetGalpon(Galpones pGalpon);
+        void SetGalpon(Galpon pGalpon);
 
         DTGalpon ObtenerGalpon(int id);
 

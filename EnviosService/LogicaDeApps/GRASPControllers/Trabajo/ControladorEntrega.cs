@@ -10,8 +10,8 @@ namespace LogicaDeApps
 {
     class ControladorEntrega: IControladorEntrega
     {
-        private List<Entregas> entregas;
-        private List<Entregas> entregasSeleccionadas;
+        private List<Entrega> entregas;
+        private List<Entrega> entregasSeleccionadas;
 
         public List<DTEntrega> SeleccionarEntregas(List<int> pEntregas)
         {
@@ -23,22 +23,22 @@ namespace LogicaDeApps
             return new List<DTEntrega>();
         }
 
-        public List<Entregas> GetEntregasSeleccionadas()
+        public List<Entrega> GetEntregasSeleccionadas()
         {
             return entregasSeleccionadas;
         }
 
-        public List<Entregas> GetEntregas()
+        public List<Entrega> GetEntregas()
         {
             return entregas;
         }
 
-        public void SetEntregas(List<Entregas> pEntregas)
+        public void SetEntregas(List<Entrega> pEntregas)
         {
             entregas = pEntregas;
         }
 
-        public void SetEntregasSeleccionadas(List<Entregas> pEntregas)
+        public void SetEntregasSeleccionadas(List<Entrega> pEntregas)
         {
             entregasSeleccionadas = pEntregas;
         }

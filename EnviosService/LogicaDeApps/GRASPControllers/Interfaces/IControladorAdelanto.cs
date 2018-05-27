@@ -14,11 +14,11 @@ namespace LogicaDeApps
 
         List<DTEmpleado> ListarEmpleados();
 
-        void SetAdelanto(Adelantos pAdelanto);
+        void SetAdelanto(Adelanto pAdelanto);
 
-        Adelantos GetAdelanto();
+        Adelanto GetAdelanto();
 
-        Empleados GetEmpleado();
+        Empleado GetEmpleado();
 
         DTEmpleado SeleccionarEmpleado(int cedula);
 

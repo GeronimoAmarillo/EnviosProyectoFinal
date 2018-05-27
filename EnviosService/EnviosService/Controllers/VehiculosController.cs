@@ -22,7 +22,7 @@ namespace EnviosService.Controllers
 
         [HttpPost]
         [HttpPut]
-        public JsonResult Vehiculo([FromBody] Vehiculos vehiculo)
+        public JsonResult Vehiculo([FromBody] Vehiculo vehiculo)
         {
             switch (Request.Method.ToString())
             {

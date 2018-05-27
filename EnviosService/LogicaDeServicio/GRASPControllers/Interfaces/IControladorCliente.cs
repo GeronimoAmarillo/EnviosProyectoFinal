@@ -11,10 +11,10 @@ namespace LogicaDeServicio
     {
         bool ExisteCliente(int rut);
 
-        Clientes BuscarCliente(int rut);
+        Cliente BuscarCliente(int rut);
 
-        bool ModificarCliente(Clientes pCliente);
+        bool ModificarCliente(Cliente pCliente);
 
-        bool AltaCliente(Clientes pCliente);
+        bool AltaCliente(Cliente pCliente);
     }
 }

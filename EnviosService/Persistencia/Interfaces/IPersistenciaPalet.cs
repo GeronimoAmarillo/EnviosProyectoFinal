@@ -9,10 +9,10 @@ namespace Persistencia
 {
     public interface IPersistenciaPalet
     {
-        bool AltaPalet(EntidadesCompartidas.Palets palet);
+        bool AltaPalet(EntidadesCompartidas.Palet palet);
 
-        EntidadesCompartidas.Galpones BuscarGalpon(int id);
+        EntidadesCompartidas.Galpon BuscarGalpon(int id);
 
-        bool BajaPalet(EntidadesCompartidas.Palets palet);
+        bool BajaPalet(EntidadesCompartidas.Palet palet);
     }
 }

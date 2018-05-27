@@ -10,7 +10,7 @@ namespace LogicaDeApps
 {
     class ControladorTurno:IControladorTurno
     {
-        private Turnos turno;
+        private Turno turno;
 
         public void IniciarRegistroTurno()
         {
@@ -32,12 +32,12 @@ namespace LogicaDeApps
             return true;
         }
 
-        public Turnos GetTurno()
+        public Turno GetTurno()
         {
             return turno;
         }
 
-        public void SetTurno(Turnos pTurno)
+        public void SetTurno(Turno pTurno)
         {
             turno = pTurno;
         }
