@@ -41,10 +41,18 @@ namespace LogicaDeServicio
             return local;
         }
 
-        public static List<EntidadesCompartidas.Local> ListarLocales()
+        public static List<Local> ListarLocales()
         {
-            List<EntidadesCompartidas.Local> lista = new List<EntidadesCompartidas.Local>();
-            return lista;
+            try
+            {
+                List<Local> lista = FabricaPersistencia.GetPersistenciaLocal().ListarLocales();
+
+                return lista;
+            }
+            catch
+            {
+                throw new Exception("Error al intentar dar de alta el Local.");
+            }
         }
     }
 }

@@ -18,6 +18,8 @@ namespace LogicaDeApps
 
         bool ModificarLocal(DTLocal local);
 
+        Task<List<Local>> ListarLocales();
+
         void SetLocal(Local pLocal);
 
         Local GetLocal();

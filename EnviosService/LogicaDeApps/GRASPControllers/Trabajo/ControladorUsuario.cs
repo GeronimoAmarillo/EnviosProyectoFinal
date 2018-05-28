@@ -50,7 +50,7 @@ namespace LogicaDeApps
             //http://localhost/EnviosService/Api
 
             var httpClient = new HttpClient();
-            var json =await httpClient.GetStringAsync("http://localhost/EnviosService/Api/Usuarios");
+            var json =await httpClient.GetStringAsync("http://localhost/EnviosService/Api/Usuarios/Usuario");
 
             var data = JsonConvert.DeserializeObject<Root>(json).Data;
 

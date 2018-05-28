@@ -19,11 +19,11 @@ namespace EnviosService.Controllers
         public static string SESSSION_ALTA = "AltaLocal";
 
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
 
-            //ViewData["Locales"] = controladorLocal.ListarLocales();
+            ViewData["Locales"] = await controladorLocal.ListarLocales();
 
             return View();
         }
@@ -44,19 +44,22 @@ namespace EnviosService.Controllers
         {
             IControladorLocal controladorLocal = HttpContext.Session.Get<IControladorLocal>(SESSSION_ALTA);
 
-            bool exito = controladorLocal.AltaLocal();
-
-            if (exito)
+            if (ModelState.IsValid)
             {
-                controladorLocal.SetLocal(null);
-                ViewData["Mensaje"] = "El local se dio de alta con exito!.";
-            }
-            else
-            {
-                ViewData["Mensaje"] = "Se produjo un error al dar de alta el local!.";
+                bool exito = controladorLocal.AltaLocal();
+
+                if (exito)
+                {
+                    controladorLocal.SetLocal(null);
+                    ViewData["Mensaje"] = "El local se dio de alta con exito!.";
+                }
+                else
+                {
+                    ViewData["Mensaje"] = "Se produjo un error al dar de alta el local!.";
+                }
             }
 
-            return Redirect("Index");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]

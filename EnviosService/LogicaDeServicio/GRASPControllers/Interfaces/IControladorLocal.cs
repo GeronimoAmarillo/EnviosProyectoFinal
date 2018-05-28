@@ -16,5 +16,7 @@ namespace LogicaDeServicio
         bool ModificarLocal(Local local);
 
         bool AltaLocal(Local local);
+
+        List<Local> ListarLocales();
     }
 }

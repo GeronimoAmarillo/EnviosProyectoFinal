@@ -56,6 +56,44 @@ namespace LogicaDeApps
             return local;
         }
 
+        public async Task<List<Local>> ListarLocales()
+        {
+            //http://localhost/EnviosService/Api
+
+            var httpClient = new HttpClient();
+            var json = await httpClient.GetStringAsync("http://localhost/EnviosService/Api/Locales/Locales");
+
+            var data = JsonConvert.DeserializeObject<Root>(json).Data;
+
+            List<Local> locales = new List<Local>();
+
+            foreach (var d in data)
+            {
+                foreach (var l in d)
+                {
+                    Local local = new Local();
+
+
+                    switch (l.Key.ToString())
+                    {
+                        case "Id":
+                            local.Id = Convert.ToInt32(l.Value);
+                            break;
+                        case "Nombre":
+                            local.Nombre = l.Value.ToString();
+                            break;
+                        case "Direccion":
+                            local.Direccion = l.Value.ToString();
+                            break;
+                    }
+
+                    locales.Add(local);
+                }
+            }
+
+            return locales;
+        }
+
         public bool AltaLocal()
         {
             try

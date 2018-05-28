@@ -20,6 +20,11 @@ namespace EnviosService.Controllers
             controladorLocal = FabricaServicio.GetControladorLocal();
         }
 
+        [HttpGet]
+        public JsonResult Locales(string nombre)
+        {
+            return Json(controladorLocal.ListarLocales(), new Newtonsoft.Json.JsonSerializerSettings());
+        }
 
         [HttpGet("{nombre}")]
         public JsonResult Local(string nombre)

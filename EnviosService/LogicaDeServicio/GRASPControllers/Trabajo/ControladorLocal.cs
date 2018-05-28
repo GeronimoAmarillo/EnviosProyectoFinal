@@ -35,5 +35,17 @@ namespace LogicaDeServicio
                 throw new Exception("Error al intentar dar de alta el Local.");
             }
         }
+
+        public List<Local> ListarLocales()
+        {
+            try
+            {
+                return LogicaLocal.ListarLocales();
+            }
+            catch
+            {
+                throw new Exception("Error al Listar los locales.");
+            }
+        }
     }
 }
