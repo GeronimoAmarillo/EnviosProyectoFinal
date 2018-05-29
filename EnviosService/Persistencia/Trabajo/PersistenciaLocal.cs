@@ -51,7 +51,35 @@ namespace Persistencia
 
         public List<EntidadesCompartidas.Local> ListarLocales()
         {
-            return new List<EntidadesCompartidas.Local>();
+            try
+            {
+                List<Locales> locales = new List<Locales>();
+                
+
+                using (EnviosContext dbConnection = new EnviosContext())
+                {
+                    locales = dbConnection.Locales.ToList();
+                }
+
+                List<Local> localesResultado = new List<Local>();
+
+                foreach (Locales l in locales)
+                {
+                    Local localR = new Local();
+
+                    localR.Id = l.Id;
+                    localR.Nombre = l.Nombre;
+                    localR.Direccion = l.Direccion;
+
+                    localesResultado.Add(localR);
+                }
+
+                return localesResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los locales.");
+            }
         }
     }
 }
