@@ -54,7 +54,7 @@ namespace LogicaDeApps
 
             var data = JsonConvert.DeserializeObject<Root>(json).Data;
 
-            DTUsuario usuarioLogueado = new DTUsuario();
+            Usuario usuarioLogueado = new Usuario();
 
             foreach (var d in data)
             {
