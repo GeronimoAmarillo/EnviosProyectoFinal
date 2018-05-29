@@ -36,6 +36,7 @@
                     <li><a asp-area="" asp-controller="Adelantos" asp-action="Index">Adelantos</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <li>@await Component.InvokeAsync("UsuarioLogueado")</li>
                     <li><a asp-area="" asp-controller="Usuarios" asp-action="Login">Login</a></li>
                     <li><a asp-area="" asp-controller="Usuarios" asp-action="Logout">Logout</a></li>
                 </ul>

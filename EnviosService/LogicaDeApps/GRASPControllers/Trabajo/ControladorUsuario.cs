@@ -45,7 +45,7 @@ namespace LogicaDeApps
             contraseña = pContraseña;
         }
 
-        public async Task<DTUsuario> Login(string user, string pass)
+        public async Task<Usuario> Login(string user, string pass)
         {
             //http://localhost/EnviosService/Api
 
