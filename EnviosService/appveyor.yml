@@ -5,4 +5,6 @@ environment:
 before_build:
   - cmd: dotnet restore
 build:
-  project: EnviosService.sln
+  - project: EnviosService.sln
+services:
+  - mssql2013
