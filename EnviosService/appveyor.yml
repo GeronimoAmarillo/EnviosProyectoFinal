@@ -8,3 +8,5 @@ build:
   - project: EnviosService.sln
 services:
   - mssql2013
+artifacts:
+  - path: Build\*.nupkg
