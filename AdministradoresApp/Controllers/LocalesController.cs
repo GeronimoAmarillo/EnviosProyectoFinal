@@ -17,17 +17,19 @@ namespace EnviosService.Controllers
     public class LocalesController : Controller
     {
         public static string SESSSION_ALTA = "AltaLocal";
-
-
+        
+        [Route("/Locales")]
+        [Route("/Locales/Index")]
         public async Task<ActionResult> Index()
         {
-            IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
+            /*IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
 
-            ViewData["Locales"] = await controladorLocal.ListarLocales();
-
-            return View();
+            List<Local> locales = await controladorLocal.ListarLocales();
+            */
+            return View(new List<Local>());
         }
 
+        [Route("/Locales/Alta")]
         public ActionResult Alta()
         {
             IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
