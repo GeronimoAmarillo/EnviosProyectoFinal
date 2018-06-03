@@ -14,13 +14,14 @@ namespace EnviosService.Controllers
     public class UsuariosController : Controller
     {
         public static string LOG_USER = "UsuarioLogueado";
-
-        public ActionResult Login()
+        
+        public IActionResult Login()
         {
             return View();
         }
 
-        public ActionResult Logout()
+        [HttpPost]
+        public IActionResult Logout()
         {
             if (HttpContext.Session.Get<Usuario>(LOG_USER) != null)
             {
@@ -38,7 +39,7 @@ namespace EnviosService.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Login([FromBody] Usuario usuario)
+        public async Task<IActionResult> Login([FromBody] Usuario usuario)
         {
             IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
 
@@ -59,6 +60,8 @@ namespace EnviosService.Controllers
 
             return View();
         }
+
+        
 
     }
 }
