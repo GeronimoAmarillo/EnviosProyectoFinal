@@ -21,11 +21,11 @@ namespace EnviosService.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Login([FromBody] string usuario, [FromBody] string contraseña)
+        public async Task<ActionResult> Login([FromBody] Usuario usuario)
         {
             IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
 
-            Usuario usuarioLogueado = await controladorUsuario.Login(usuario, contraseña);
+            Usuario usuarioLogueado = await controladorUsuario.Login(usuario.NombreUsuario, usuario.Contraseña);
 
             if (usuarioLogueado != null)
             {
@@ -43,7 +43,7 @@ namespace EnviosService.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult Logout()
         {
             if (HttpContext.Session.Get<Usuario>(LOG_USER) != null)
@@ -58,7 +58,7 @@ namespace EnviosService.Controllers
 
             }
 
-            return View();
+            return Redirect("Home");
         }
 
     }
