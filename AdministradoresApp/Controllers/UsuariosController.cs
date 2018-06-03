@@ -20,6 +20,23 @@ namespace EnviosService.Controllers
             return View();
         }
 
+        public ActionResult Logout()
+        {
+            if (HttpContext.Session.Get<Usuario>(LOG_USER) != null)
+            {
+                HttpContext.Session.Set<Usuario>(LOG_USER, null);
+
+                ViewData["Mensaje"] = "Usuario deslogueado exitosamente!.";
+            }
+            else
+            {
+                ViewData["Mensaje"] = "Accion Incorrecta: No existe un usuario previamente logueado!.";
+
+            }
+
+            return RedirectToAction("Login", "Usuarios");
+        }
+
         [HttpPost]
         public async Task<ActionResult> Login([FromBody] Usuario usuario)
         {
@@ -41,24 +58,6 @@ namespace EnviosService.Controllers
             }
 
             return View();
-        }
-
-        [HttpGet]
-        public ActionResult Logout()
-        {
-            if (HttpContext.Session.Get<Usuario>(LOG_USER) != null)
-            {
-                HttpContext.Session.Set<Usuario>(LOG_USER, null);
-
-                ViewData["Mensaje"] = "Usuario deslogueado exitosamente!.";
-            }
-            else
-            {
-                ViewData["Mensaje"] = "Accion Incorrecta: No existe un usuario previamente logueado!.";
-
-            }
-
-            return Redirect("Home");
         }
 
     }

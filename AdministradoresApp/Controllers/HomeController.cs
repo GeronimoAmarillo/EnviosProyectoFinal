@@ -8,8 +8,6 @@ using AdministradoresApp.Models;
 
 namespace EnviosService.Controllers
 {
-    [Produces("application/json")]
-    [Route("api/Home")]
     public class HomeController : Controller
     {
         public IActionResult Index()
