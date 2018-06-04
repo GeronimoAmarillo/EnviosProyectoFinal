@@ -17,7 +17,7 @@ using Android.Content;
 namespace EmpleadosApp.Droid
 {
     [Activity(Label = "EmpleadosApp", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity :Activity
+    public class MainActivity : Activity
     {
         protected override void OnCreate(Bundle bundle)
         {
@@ -27,43 +27,48 @@ namespace EmpleadosApp.Droid
 
             Button btnLogin = FindViewById<Button>(Resource.Id.btnLogin);
 
-            btnLogin.Click += Login_ClickAsync;
-        }
-
-        private async Task Login_ClickAsync(object sender, EventArgs e)
-        {
-            var etUser = FindViewById<EditText>(Resource.Id.etUser);
-            var etPass = FindViewById<EditText>(Resource.Id.etPass);
-
-            var user = etUser.Text;
-            var pass = etPass.Text;
-
-            var logica = FabricaApps.GetControladorUsuario();
-            Usuario usuarioLogueado = null;
-
-            try
+            btnLogin.Click += async (sender, e) =>
             {
-                usuarioLogueado = await logica.Login(user, pass);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al loguearse, " + ex.Message);
-            }
 
+                var etUser = FindViewById<EditText>(Resource.Id.etUser);
+                var etPass = FindViewById<EditText>(Resource.Id.etPass);
 
-            if (usuarioLogueado != null)
-            {
-                if (usuarioLogueado.NombreUsuario == user && usuarioLogueado.Contraseña == pass)
+                var user = etUser.Text;
+                var pass = etPass.Text;
+
+                var logica = FabricaApps.GetControladorUsuario();
+                Usuario usuarioLogueado = null;
+
+                try
                 {
-                    Intent intent = new Intent(this, typeof(InicioActivity));
-                    intent.PutExtra("usuarioLogueado", Newtonsoft.Json.JsonConvert.SerializeObject(usuarioLogueado));
-
-                    StartActivity(intent);
+                    usuarioLogueado = await logica.Login(user, pass);
                 }
-            }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error al loguearse, " + ex.Message);
+                }
+
+
+                if (usuarioLogueado != null)
+                {
+                    if (usuarioLogueado.NombreUsuario == user && usuarioLogueado.Contraseña == pass)
+                    {
+                        Intent intent = new Intent(this, typeof(InicioActivity));
+                        intent.PutExtra("usuarioLogueado", Newtonsoft.Json.JsonConvert.SerializeObject(usuarioLogueado));
+
+                        StartActivity(intent);
+                    }
+                }
+            };
         }
 
-        
+        /*private async Task Login_ClickAsync(object sender, EventArgs e)
+        {
+            
+        }*/
+
     }
+
+    
 }
 
