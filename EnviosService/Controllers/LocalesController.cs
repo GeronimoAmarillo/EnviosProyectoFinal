@@ -10,7 +10,6 @@ using LogicaDeServicio;
 namespace EnviosService.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Locales")]
     public class LocalesController : Controller
     {
         private IControladorLocal controladorLocal;
@@ -21,18 +20,23 @@ namespace EnviosService.Controllers
         }
 
         [HttpGet]
-        public JsonResult Locales(string nombre)
+        [Route("api/Locales/Locales")]
+        public JsonResult Locales()
         {
             return Json(controladorLocal.ListarLocales(), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
+        
         [HttpGet("{nombre}")]
+        [Route("api/Locales/Local")]
         public JsonResult Local(string nombre)
         {
             return Json(controladorLocal.BuscarLocal(nombre), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
+        
         [HttpGet("{nombre, direccion}")]
+        [Route("api/Locales/ExisteLocal")]
         public JsonResult ExisteLocal(string nombre, string direccion)
         {
             return Json(controladorLocal.ExisteLocal(nombre, direccion), new Newtonsoft.Json.JsonSerializerSettings());
