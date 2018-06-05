@@ -14,14 +14,32 @@ namespace EnviosService.Controllers
     public class UsuariosController : Controller
     {
         public static string LOG_USER = "UsuarioLogueado";
-
-        public ActionResult Login()
+        
+        public IActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<ActionResult> Login([FromBody] Usuario usuario)
+        public IActionResult Logout()
+        {
+            if (HttpContext.Session.Get<Usuario>(LOG_USER) != null)
+            {
+                HttpContext.Session.Set<Usuario>(LOG_USER, null);
+
+                ViewData["Mensaje"] = "Usuario deslogueado exitosamente!.";
+            }
+            else
+            {
+                ViewData["Mensaje"] = "Accion Incorrecta: No existe un usuario previamente logueado!.";
+
+            }
+
+            return RedirectToAction("Login", "Usuarios");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login([FromBody] Usuario usuario)
         {
             IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
 
@@ -43,23 +61,7 @@ namespace EnviosService.Controllers
             return View();
         }
 
-        [HttpGet]
-        public ActionResult Logout()
-        {
-            if (HttpContext.Session.Get<Usuario>(LOG_USER) != null)
-            {
-                HttpContext.Session.Set<Usuario>(LOG_USER, null);
-
-                ViewData["Mensaje"] = "Usuario deslogueado exitosamente!.";
-            }
-            else
-            {
-                ViewData["Mensaje"] = "Accion Incorrecta: No existe un usuario previamente logueado!.";
-
-            }
-
-            return Redirect("Home");
-        }
+        
 
     }
 }

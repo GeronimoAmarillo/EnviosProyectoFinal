@@ -58,10 +58,10 @@ namespace LogicaDeApps
 
         public async Task<List<Local>> ListarLocales()
         {
-            //http://localhost/EnviosService/Api
+            //http://localhost:8080/
 
             var httpClient = new HttpClient();
-            var json = await httpClient.GetStringAsync("http://localhost/EnviosService/Api/Locales/Locales");
+            var json = await httpClient.GetStringAsync("http://localhost:8080/api/Locales/Locales");
 
             var data = JsonConvert.DeserializeObject<Root>(json).Data;
 

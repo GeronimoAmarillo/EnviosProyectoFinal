@@ -7,6 +7,13 @@
 
 <h2>Login</h2>
 
+@{ 
+    if (ViewData["Mensaje"] != null)
+    {
+        <p>@ViewData["Mensaje"].ToString()</p>
+    }
+}
+
 <hr />
 <div class="form-group">
     <div class="col-md-4">
