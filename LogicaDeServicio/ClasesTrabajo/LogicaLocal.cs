@@ -49,9 +49,9 @@ namespace LogicaDeServicio
 
                 return lista;
             }
-            catch
+            catch(Exception ex)
             {
-                throw new Exception("Error al intentar dar de alta el Local.");
+                throw new Exception("Error al intentar dar de alta el Local." + ex.Message);
             }
         }
     }
