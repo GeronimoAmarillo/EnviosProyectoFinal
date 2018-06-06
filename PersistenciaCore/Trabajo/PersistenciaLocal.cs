@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Data.Sql;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -62,7 +64,18 @@ namespace PersistenciaCore
 
 
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
-                optionsBuilder.UseSqlite("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=EnviosContext;Integrated Security=True;");
+
+                /*var connectionString = new SqlConnectionStringBuilder();
+                
+                connectionString.InitialCatalog = "EnviosDB";
+
+                connectionString.DataSource = "(localdb)\\MSSQLLocalDB";
+
+                connectionString.ConnectTimeout = 30;
+
+                connectionString.IntegratedSecurity = true;*/
+
+                optionsBuilder.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = EnviosContext; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
