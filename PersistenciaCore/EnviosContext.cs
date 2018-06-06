@@ -7,9 +7,6 @@ namespace PersistenciaCore
 
     public partial class EnviosContext : DbContext
     {
-        public EnviosContext()
-        {
-        }
 
         public EnviosContext(DbContextOptions<EnviosContext> options)
             : base(options)
@@ -45,7 +42,12 @@ namespace PersistenciaCore
         public virtual DbSet<Usuarios> Usuarios { get; set; }
         public virtual DbSet<Vehiculos> Vehiculos { get; set; }
         public virtual DbSet<Administradores> Administradores { get; set; }
-        
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Adelantos>()

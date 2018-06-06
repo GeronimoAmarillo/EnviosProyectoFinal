@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidasCore;
+using Microsoft.EntityFrameworkCore;
+using PersistenciaCore;
 
 namespace LogicaDeServicioCore
 {
@@ -17,6 +19,6 @@ namespace LogicaDeServicioCore
 
         bool AltaLocal(Local local);
 
-        List<Local> ListarLocales();
+        List<Local> ListarLocales(DbContextOptions<EnviosContext> dbContextOptions);
     }
 }

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidasCore;
+using Microsoft.EntityFrameworkCore;
+using PersistenciaCore;
 
 namespace LogicaDeServicioCore
 {
@@ -36,11 +38,11 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public List<Local> ListarLocales()
+        public List<Local> ListarLocales(DbContextOptions<EnviosContext> dbContextOptions)
         {
             try
             {
-                return LogicaLocal.ListarLocales();
+                return LogicaLocal.ListarLocales(dbContextOptions);
             }
             catch
             {

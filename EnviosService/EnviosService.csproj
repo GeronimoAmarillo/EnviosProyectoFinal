@@ -25,6 +25,7 @@
     <ProjectReference Include="..\EntidadesCompartidas\EntidadesCompartidas.csproj" />
     <ProjectReference Include="..\LogicaDeServicioCore\LogicaDeServicioCore.csproj" />
     <ProjectReference Include="..\LogicaDeServicio\LogicaDeServicio.csproj" />
+    <ProjectReference Include="..\PersistenciaCore\PersistenciaCore.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidasCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace PersistenciaCore
 {
@@ -17,6 +18,6 @@ namespace PersistenciaCore
 
         bool ModificarLocal(EntidadesCompartidasCore.Local local);
 
-        List<EntidadesCompartidasCore.Local> ListarLocales();
+        List<EntidadesCompartidasCore.Local> ListarLocales(DbContextOptions<EnviosContext> dbContextOptions);
     }
 }

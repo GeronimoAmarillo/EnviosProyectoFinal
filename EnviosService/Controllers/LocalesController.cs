@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using EntidadesCompartidas;
-using LogicaDeServicio;
+using EntidadesCompartidasCore;
+using LogicaDeServicioCore;
+using PersistenciaCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace EnviosService.Controllers
 {
@@ -23,7 +25,10 @@ namespace EnviosService.Controllers
         [Route("api/Locales/Locales")]
         public JsonResult Locales()
         {
-            return Json(controladorLocal.ListarLocales(), new Newtonsoft.Json.JsonSerializerSettings());
+
+            var optionsBuilder = new DbContextOptions<EnviosContext>();
+
+            return Json(controladorLocal.ListarLocales(optionsBuilder), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
         

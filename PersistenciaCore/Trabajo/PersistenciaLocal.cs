@@ -19,7 +19,11 @@ namespace PersistenciaCore
                 localAgregar.Direccion = local.Direccion;
                 localAgregar.Nombre = local.Nombre;
 
-                using (EnviosContext dbConnection = new EnviosContext(new DbContextOptions<EnviosContext>()))
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+                optionsBuilder.UseSqlite("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=EnviosContext;Integrated Security=True;");
+                
+
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
                     dbConnection.Locales.Add(localAgregar);
 
@@ -50,14 +54,17 @@ namespace PersistenciaCore
             return true;
         }
 
-        public List<EntidadesCompartidasCore.Local> ListarLocales()
+        public List<EntidadesCompartidasCore.Local> ListarLocales(DbContextOptions<EnviosContext> dbContextOptions)
         {
             try
             {
                 List<Locales> locales = new List<Locales>();
-                
 
-                using (EnviosContext dbConnection = new EnviosContext())
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+                optionsBuilder.UseSqlite("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=EnviosContext;Integrated Security=True;");
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
                     locales = dbConnection.Locales.ToList();
                 }

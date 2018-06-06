@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidasCore;
+using Microsoft.EntityFrameworkCore;
 using Persistencia;
+using PersistenciaCore;
 
 namespace LogicaDeServicioCore
 {
@@ -41,11 +43,11 @@ namespace LogicaDeServicioCore
             return local;
         }
 
-        public static List<Local> ListarLocales()
+        public static List<Local> ListarLocales(DbContextOptions<EnviosContext> dbContextOptions)
         {
             try
             {
-                List<Local> lista = FabricaPersistencia.GetPersistenciaLocal().ListarLocales();
+                List<Local> lista = FabricaPersistencia.GetPersistenciaLocal().ListarLocales(dbContextOptions);
 
                 return lista;
             }
