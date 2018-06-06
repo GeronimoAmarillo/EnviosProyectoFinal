@@ -19,7 +19,7 @@ namespace PersistenciaCore
         [Required]
         [StringLength(25)]
         public string Taller { get; set; }
-
+        [Required]
         [Column(TypeName = "money")]
         public decimal Monto { get; set; }
 

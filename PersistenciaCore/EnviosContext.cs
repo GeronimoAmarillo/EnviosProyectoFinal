@@ -42,11 +42,7 @@ namespace PersistenciaCore
         public virtual DbSet<Usuarios> Usuarios { get; set; }
         public virtual DbSet<Vehiculos> Vehiculos { get; set; }
         public virtual DbSet<Administradores> Administradores { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-
-        }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -125,16 +121,22 @@ namespace PersistenciaCore
                 .HasMany(e => e.Adelantos)
                 .WithOne(e => e.Empleados).IsRequired()
                 .HasForeignKey(e => e.Empleado);
+           
 
-            modelBuilder.Entity<Empleados>()
-                .HasOne(e => e.Cadetes)
-                .WithOne(e => e.Empleados).IsRequired()
+            modelBuilder.Entity<Cadetes>()
+                .HasOne(e => e.Empleados)
+                .WithOne(e => e.Cadetes).IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Administradores>()
+                .HasOne(e => e.Empleados)
+                .WithOne(e => e.Administradores).IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Empleados>()
-                .HasMany(e => e.Administradores)
+                .HasOne(e => e.Administradores)
                 .WithOne(e => e.Empleados).IsRequired()
-                .HasForeignKey(e => e.CiEmpleado);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Entregas>()
                 .HasMany(e => e.Paquetes)
@@ -313,6 +315,24 @@ namespace PersistenciaCore
                 .Property(e => e.Tipo)
                 .HasColumnType("char(1)")
                 .IsUnicode(false);
+
+            modelBuilder.Entity<Calificaciones>()
+            .HasKey(c => new { c.Id, c.RutCliente});
+
+            modelBuilder.Entity<Cuotas>()
+            .HasKey(c => new { c.IdAdelanto, c.Vencimiento });
+
+            modelBuilder.Entity<Multas>()
+            .HasKey(c => new { c.Id, c.Vehiculo });
+
+            modelBuilder.Entity<Palets>()
+            .HasKey(c => new { c.Id, c.Cliente });
+
+            modelBuilder.Entity<Reclamo>()
+            .HasKey(c => new { c.Id, c.Paquete });
+
+            modelBuilder.Entity<Reparaciones>()
+            .HasKey(c => new { c.Id, c.Vehiculo });
         }
     }
 }

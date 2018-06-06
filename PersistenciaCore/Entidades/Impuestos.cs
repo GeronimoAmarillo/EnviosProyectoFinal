@@ -8,12 +8,13 @@ namespace PersistenciaCore
 
     public partial class Impuestos
     {
+        [Key]
         public int Id { get; set; }
 
         [Required]
         [StringLength(250)]
         public string Descripcion { get; set; }
-
+        [Required]
         public decimal Porcentaje { get; set; }
 
         [Required]

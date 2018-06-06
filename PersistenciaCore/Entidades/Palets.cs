@@ -8,18 +8,20 @@ namespace PersistenciaCore
 
     public partial class Palets
     {
+        [Key]
         public int Id { get; set; }
 
         [Required]
         [StringLength(100)]
         public string Producto { get; set; }
-
+        [Required]
         public int Cantidad { get; set; }
-
+        [Required]
         public decimal Peso { get; set; }
-
+        [Required]
         public int Casilla { get; set; }
-
+        [Key]
+        [Required]
         public long Cliente { get; set; }
 
         public virtual Casillas Casillas { get; set; }

@@ -21,7 +21,7 @@ namespace PersistenciaCore
         [Required]
         [StringLength(10)]
         public string Dia { get; set; }
-
+        [Required]
         public int Hora { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

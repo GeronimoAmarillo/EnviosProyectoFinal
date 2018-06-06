@@ -17,11 +17,11 @@ namespace PersistenciaCore
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Codigo { get; set; }
-
+        [Required]
         public decimal Superficie { get; set; }
-
+        [Required]
         public int Temperatura { get; set; }
-
+        [Required]
         public int Galpon { get; set; }
 
         public virtual Galpones Galpones { get; set; }

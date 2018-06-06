@@ -17,11 +17,11 @@ namespace PersistenciaCore
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Codigo { get; set; }
-
+        [Required]
         public decimal Altura { get; set; }
-
+        [Required]
         public decimal Superficie { get; set; }
-
+        [Required]
         public int Sector { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

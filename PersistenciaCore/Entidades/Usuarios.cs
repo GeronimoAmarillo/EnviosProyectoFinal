@@ -14,7 +14,7 @@ namespace PersistenciaCore
             Clientes = new HashSet<Clientes>();
             Empleados = new HashSet<Empleados>();
         }
-
+        [Key]
         public int Id { get; set; }
 
         [Required]

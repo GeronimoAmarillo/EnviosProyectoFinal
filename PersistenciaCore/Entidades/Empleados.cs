@@ -12,12 +12,12 @@ namespace PersistenciaCore
         public Empleados()
         {
             Adelantos = new HashSet<Adelantos>();
-            Administradores = new HashSet<Administradores>();
         }
 
         [Column(TypeName = "money")]
         public decimal Sueldo { get; set; }
 
+        [Required]
         public int IdUsuario { get; set; }
 
         [Key]
@@ -28,9 +28,8 @@ namespace PersistenciaCore
         public virtual ICollection<Adelantos> Adelantos { get; set; }
 
         public virtual Cadetes Cadetes { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Administradores> Administradores { get; set; }
+        
+        public virtual  Administradores Administradores { get; set; }
 
         public virtual Usuarios Usuarios { get; set; }
     }

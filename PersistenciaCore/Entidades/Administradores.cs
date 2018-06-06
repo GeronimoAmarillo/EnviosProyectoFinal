@@ -13,11 +13,12 @@ namespace PersistenciaCore
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CiEmpleado { get; set; }
 
-        [Key]
+        [Required]
         [Column(Order = 1)]
         [StringLength(1)]
         public string Tipo { get; set; }
 
+        [ForeignKey("Ci")]
         public virtual Empleados Empleados { get; set; }
     }
 }

@@ -26,7 +26,7 @@ namespace PersistenciaCore
         [Required]
         [StringLength(25)]
         public string Modelo { get; set; }
-
+        [Required]
         public decimal Capacidad { get; set; }
 
         [Required]

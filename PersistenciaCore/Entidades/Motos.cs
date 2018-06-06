@@ -8,12 +8,13 @@ namespace PersistenciaCore
 
     public partial class Motos
     {
+        [Required]
         public decimal Cilindrada { get; set; }
 
         [Key]
         [StringLength(10)]
         public string MatriculaMoto { get; set; }
-
+        [ForeignKey("Matricula")]
         public virtual Vehiculos Vehiculos { get; set; }
     }
 }

@@ -15,6 +15,7 @@ namespace PersistenciaCore
             Entregas1 = new HashSet<Entregas>();
         }
         
+        [Key]
         public int Id { get; set; }
 
         [Required]

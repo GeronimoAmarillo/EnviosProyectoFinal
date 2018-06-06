@@ -8,6 +8,7 @@ namespace PersistenciaCore
 
     public partial class Registros
     {
+        [Key]
         public int Id { get; set; }
 
         [Column(TypeName = "date")]

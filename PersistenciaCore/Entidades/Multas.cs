@@ -17,9 +17,11 @@ namespace PersistenciaCore
         [StringLength(10)]
         public string Vehiculo { get; set; }
 
+        [Required]
         [Column(TypeName = "money")]
         public decimal Suma { get; set; }
 
+        [Required]
         [Column(TypeName = "date")]
         public DateTime Fecha { get; set; }
 

@@ -13,7 +13,7 @@ namespace PersistenciaCore
         [Key]
         [StringLength(10)]
         public string MatriculaAuto { get; set; }
-
+        [ForeignKey("Matricula")]
         public virtual Vehiculos Vehiculos { get; set; }
     }
 }

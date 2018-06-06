@@ -14,10 +14,11 @@ namespace PersistenciaCore
             Sectores = new HashSet<Sectores>();
         }
 
+        [Key]
         public int Id { get; set; }
-
+        [Required]
         public decimal Altura { get; set; }
-
+        [Required]
         public decimal Superficie { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
