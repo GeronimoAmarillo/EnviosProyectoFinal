@@ -9,11 +9,11 @@ namespace Persistencia
 {
     class PersistenciaLocal:IPersistenciaLocal
     {
-        public bool AltaLocal(EntidadesCompartidas.Local local)
+        public bool AltaLocal(Local local)
         {
             try
             {
-                Persistencia.Locales localAgregar = new Persistencia.Locales();
+                Locales localAgregar = new Locales();
 
                 localAgregar.Direccion = local.Direccion;
                 localAgregar.Nombre = local.Nombre;
@@ -39,19 +39,19 @@ namespace Persistencia
             return true;
         }
 
-        public EntidadesCompartidas.Local BuscarLocal(string nombre)
+        public Local BuscarLocal(string nombre)
         {
-            return new EntidadesCompartidas.Local();
+            return new Local();
         }
 
-        public bool ModificarLocal(EntidadesCompartidas.Local local)
+        public bool ModificarLocal(Local local)
         {
             return true;
         }
 
         public List<EntidadesCompartidas.Local> ListarLocales()
         {
-            return new List<EntidadesCompartidas.Local>();
+            return new List<Local>();
         }
     }
 }

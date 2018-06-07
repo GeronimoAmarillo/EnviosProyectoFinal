@@ -6,7 +6,7 @@ namespace Persistencia
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Administradores
+    public partial class Administradores:Empleados
     {
         [Key]
         [Column(Order = 0)]

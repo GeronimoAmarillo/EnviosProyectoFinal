@@ -22,7 +22,7 @@ namespace LogicaDeApps
 
         bool EliminarEmpleado(DTEmpleado pEmpleado);
 
-        bool AltaEmpleado(DTEmpleado pEmpleado);
+        bool AltaEmpleado();
 
         void SetCi(int pCi);
 

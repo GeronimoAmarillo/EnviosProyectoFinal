@@ -11,12 +11,58 @@ namespace Persistencia
     {
         public bool ExisteAdmin(int ci)
         {
-            return true;
+            try
+            {
+
+                EnviosContext dbConexion = new EnviosContext();
+
+                var empleadoEncontrado = from Empleados in dbConexion.Cadetes
+                                       where Empleados.CiEmpleado == ci 
+                                       select Empleados;
+
+                if (empleadoEncontrado != null)
+                {
+                    return true;
+                }
+               
+                    return false;
+                             
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el administrador.");
+            }
         }
 
-        public bool AltaAdministrador(EntidadesCompartidas.Administrador administrador)
+        public bool AltaAdministrador(Administrador administrador)
         {
-            return true;
+            try
+            {
+                Administradores adminNuevo = new Administradores();
+                adminNuevo.Id = administrador.Id;
+                adminNuevo.NombreUsuario = administrador.NombreUsuario;
+                adminNuevo.Sueldo = administrador.Sueldo;
+                adminNuevo.Telefono = administrador.Telefono;
+                adminNuevo.CiEmpleado = administrador.CiEmpleado;
+                adminNuevo.Tipo = administrador.Tipo;
+                adminNuevo.Contraseña = administrador.Contraseña;
+                adminNuevo.Email = administrador.Email;
+                adminNuevo.Direccion = administrador.Direccion;
+      
+
+                using (EnviosContext dbConnection = new EnviosContext())
+                {
+                    dbConnection.Administradores.Add(adminNuevo);
+                    dbConnection.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al dar de alta el administrador");
+            }
+
+             
         }
 
         public bool ComprobarUser(string user)
@@ -24,17 +70,17 @@ namespace Persistencia
             return true;
         }
 
-        public List<EntidadesCompartidas.Administrador> ListarAdministradores()
+        public List<Administrador> ListarAdministradores()
         {
-            return new List<EntidadesCompartidas.Administrador>();
+            return new List<Administrador>();
         }
 
-        public bool ModificarAdmin(EntidadesCompartidas.Administrador admin)
+        public bool ModificarAdmin(Administrador admin)
         {
             return true;
         }
 
-        public EntidadesCompartidas.Administrador Login(string user, string contraseña)
+        public Administrador Login(string user, string contraseña)
         {
             Administrador administradorResultado = new Administrador();
 
@@ -73,9 +119,9 @@ namespace Persistencia
             return true;
         }
 
-        public EntidadesCompartidas.Administrador BusxarAdministrador(int ci)
+        public Administrador BusxarAdministrador(int ci)
         {
-            return new EntidadesCompartidas.Administrador();
+            return new Administrador();
         }
     }
 }

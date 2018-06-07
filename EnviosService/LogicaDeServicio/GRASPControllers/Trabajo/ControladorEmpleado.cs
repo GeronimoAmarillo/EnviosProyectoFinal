@@ -11,27 +11,42 @@ namespace LogicaDeServicio
     {
         public bool ExisteEmpleado(int ci)
         {
+            try
+            {
+                return LogicaUsuario.ExisteEmpleado(ci);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el usuario.");
+            }
+            
+        }
+
+        public Empleado BuscarEmpleado(int ci)
+        {
+            return new Empleado();
+        }
+
+        public bool ModificarEmpleado(Empleado pEmpleado)
+        {
             return true;
         }
 
-        public EntidadesCompartidas.Empleado BuscarEmpleado(int ci)
-        {
-            return new EntidadesCompartidas.Empleado();
-        }
-
-        public bool ModificarEmpleado(EntidadesCompartidas.Empleado pEmpleado)
+        public bool BajaEmpleado(Empleado pEmpleado)
         {
             return true;
         }
 
-        public bool BajaEmpleado(EntidadesCompartidas.Empleado pEmpleado)
+        public bool AltaEmpleado(Empleado pEmpleado)
         {
-            return true;
-        }
-
-        public bool AltaEmpleado(EntidadesCompartidas.Empleado pEmpleado)
-        {
-            return true;
+            try
+            {
+                   return LogicaUsuario.AltaUsuario(pEmpleado);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al agregar un empleado.");
+            }
         }
     }
 }

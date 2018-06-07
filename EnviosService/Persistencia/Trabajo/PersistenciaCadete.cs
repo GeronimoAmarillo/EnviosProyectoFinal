@@ -11,12 +11,50 @@ namespace Persistencia
     {
         public bool AltaCadete(EntidadesCompartidas.Cadete cadete)
         {
-            return true;
+            try
+            {
+                Cadetes cadeteNuevo = new Cadetes();
+                cadeteNuevo.Id = cadete.Id;
+                cadeteNuevo.NombreUsuario = cadete.NombreUsuario;
+                cadeteNuevo.Sueldo = cadete.Sueldo;
+                cadeteNuevo.Telefono = cadete.Telefono;
+                cadeteNuevo.Ci = cadete.Ci;
+                cadeteNuevo.TipoLibreta = cadete.TipoLibreta;
+                cadeteNuevo.IdTelefono = cadete.IdTelefono;
+                cadeteNuevo.Contraseña = cadete.Contraseña;
+                cadeteNuevo.Contraseña = cadete.Contraseña;
+
+                using (EnviosContext dbConnection = new EnviosContext())
+                {
+                    dbConnection.Cadetes.Add(cadeteNuevo);
+                    dbConnection.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al dar de alta el administrador");
+            }
         }
 
         public bool ExisteCadete(int ci)
         {
-            return true;
+
+            EnviosContext dbConexion = new EnviosContext();
+
+            var cadeteEncontrado = from cadete in dbConexion.Cadetes
+                                   where cadete.Empleados.Cadetes.Ci==ci
+                                   select cadete;
+
+            if (cadeteEncontrado != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
 
         public List<EntidadesCompartidas.Cadete> ListarCadetes()

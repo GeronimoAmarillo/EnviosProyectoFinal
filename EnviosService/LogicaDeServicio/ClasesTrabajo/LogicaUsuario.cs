@@ -10,10 +10,28 @@ namespace LogicaDeServicio
 {
     public class LogicaUsuario
     {
-        public static bool AltaUsuario(EntidadesCompartidas.Usuario unUsuario)
+        public static bool AltaUsuario(Usuario unUsuario)
         {
-            bool exito = false;
-            return exito;
+
+            try
+            {
+                if (unUsuario is Administrador)
+                {
+                    return FabricaPersistencia.GetPersistenciaAdministrador().AltaAdministrador((Administrador)unUsuario);
+                }
+                else if (unUsuario is Cadete)
+                {
+                    return FabricaPersistencia.GetPersistenciaCadete().AltaCadete((Cadete)unUsuario);
+                }
+                
+                    return FabricaPersistencia.GetPersistenciaCliente().AltaCliente((Cliente)unUsuario);
+                
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("No se pudo dar de alta al usuario.");
+            }
         }
 
         public static bool ExisteCliente(long rut)
@@ -24,37 +42,36 @@ namespace LogicaDeServicio
 
         public static bool ExisteEmpleado(int cedula)
         {
-            bool existe = false;
-            return existe;
+             return FabricaPersistencia.GetPersistenciaAdministrador().ExisteAdmin(cedula); 
         }
 
-        public static EntidadesCompartidas.Cadete SeleccionarCadete(int cedula)
+        public static Cadete SeleccionarCadete(int cedula)
         {
             EntidadesCompartidas.Cadete cadete = new EntidadesCompartidas.Cadete();
             return cadete;
         }
 
-        public static bool ModoficarUsuario(EntidadesCompartidas.Usuario unUsuario)
+        public static bool ModoficarUsuario(Usuario unUsuario)
         {
             bool exito = false;
             return exito;
         }
 
-        public static List<EntidadesCompartidas.Empleado> ListarEmpleados()
+        public static List<Empleado> ListarEmpleados()
         {
-            List<EntidadesCompartidas.Empleado> lista = new List<EntidadesCompartidas.Empleado>();
+            List<Empleado> lista = new List<Empleado>();
             return lista;
         }
 
-        public static List<EntidadesCompartidas.Cadete> ListarCadetesDisponibles()
+        public static List<Cadete> ListarCadetesDisponibles()
         {
-            List<EntidadesCompartidas.Cadete> lista = new List<EntidadesCompartidas.Cadete>();
+            List<Cadete> lista = new List<Cadete>();
             return lista;
         }
 
-        public static List<EntidadesCompartidas.Cliente> ListarClientes()
+        public static List<Cliente> ListarClientes()
         {
-            List<EntidadesCompartidas.Cliente> clientes = new List<EntidadesCompartidas.Cliente>();
+            List<Cliente> clientes = new List<Cliente>();
             return clientes;
         }
 
