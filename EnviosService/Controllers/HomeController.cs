@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using EnviosService.Models;
+using EntidadesCompartidasCore;
+using LogicaDeServicioCore;
 
 namespace EnviosService.Controllers
 {

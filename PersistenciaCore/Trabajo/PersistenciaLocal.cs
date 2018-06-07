@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidasCore;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 
 namespace PersistenciaCore
 {
@@ -65,18 +66,8 @@ namespace PersistenciaCore
 
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
-                /*var connectionString = new SqlConnectionStringBuilder();
-                
-                connectionString.InitialCatalog = "EnviosDB";
-
-                connectionString.DataSource = "(localdb)\\MSSQLLocalDB";
-
-                connectionString.ConnectTimeout = 30;
-
-                connectionString.IntegratedSecurity = true;*/
-
                 optionsBuilder.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = EnviosContext; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
-
+                
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
                     locales = dbConnection.Locales.ToList();
