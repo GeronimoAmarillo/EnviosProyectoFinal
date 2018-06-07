@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using EntidadesCompartidasCore;
 using LogicaDeServicioCore;
-using PersistenciaCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace EnviosService.Controllers
@@ -26,9 +25,7 @@ namespace EnviosService.Controllers
         public JsonResult Locales()
         {
 
-            var optionsBuilder = new DbContextOptions<EnviosContext>();
-
-            return Json(controladorLocal.ListarLocales(optionsBuilder), new Newtonsoft.Json.JsonSerializerSettings());
+            return Json(controladorLocal.ListarLocales(), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
         

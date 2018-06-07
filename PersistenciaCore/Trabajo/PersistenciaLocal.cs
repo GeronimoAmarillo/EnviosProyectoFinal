@@ -57,7 +57,7 @@ namespace PersistenciaCore
             return true;
         }
 
-        public List<EntidadesCompartidasCore.Local> ListarLocales(DbContextOptions<EnviosContext> dbContextOptions)
+        public List<EntidadesCompartidasCore.Local> ListarLocales()
         {
             try
             {
@@ -66,7 +66,7 @@ namespace PersistenciaCore
 
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
-                optionsBuilder.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = EnviosContext; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
                 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
@@ -90,7 +90,7 @@ namespace PersistenciaCore
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al listar los locales.");
+                throw new Exception("Error al listar los locales." +  ex.Message);
             }
         }
     }

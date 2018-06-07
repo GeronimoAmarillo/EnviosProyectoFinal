@@ -6,9 +6,10 @@ namespace PersistenciaCore
 {
     public class Conexion
     {
-        private static string connectionString = "data source=(localdb)\\MSSQLLocalDB;initial catalog=EnviosContext;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework";
+        private static string connectionString = "Data Source=DESKTOP-HT1MEQ7;Integrated Security=false;database=EnviosContext;User ID=EnviosDBManager;Password=EnviosService;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        
 
-        public string  ConnectionString
+        public static string  ConnectionString
         {
             get { return connectionString; }
         }

@@ -38,15 +38,15 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public List<Local> ListarLocales(DbContextOptions<EnviosContext> dbContextOptions)
+        public List<Local> ListarLocales()
         {
             try
             {
-                return LogicaLocal.ListarLocales(dbContextOptions);
+                return LogicaLocal.ListarLocales();
             }
-            catch
+            catch(Exception ex)
             {
-                throw new Exception("Error al Listar los locales.");
+                throw new Exception("Error al Listar los locales." + ex.Message);
             }
         }
     }

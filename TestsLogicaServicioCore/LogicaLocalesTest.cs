@@ -54,7 +54,7 @@ namespace TestsLogicaServicioCore
         [Fact]
         public void ListarLocalesTest()
         {
-            Assert.IsType<List<Local>>(FabricaServicio.GetControladorLocal().ListarLocales(new Microsoft.EntityFrameworkCore.DbContextOptions<EnviosContext>()));
+            Assert.IsType<List<Local>>(FabricaServicio.GetControladorLocal().ListarLocales());
         }
     }
 }

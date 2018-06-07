@@ -43,11 +43,11 @@ namespace LogicaDeServicioCore
             return local;
         }
 
-        public static List<Local> ListarLocales(DbContextOptions<EnviosContext> dbContextOptions)
+        public static List<Local> ListarLocales()
         {
             try
             {
-                List<Local> lista = FabricaPersistencia.GetPersistenciaLocal().ListarLocales(dbContextOptions);
+                List<Local> lista = FabricaPersistencia.GetPersistenciaLocal().ListarLocales();
 
                 return lista;
             }

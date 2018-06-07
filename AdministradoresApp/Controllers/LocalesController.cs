@@ -22,10 +22,10 @@ namespace EnviosService.Controllers
         [Route("/Locales/Index")]
         public async Task<ActionResult> Index()
         {
-            /*IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
+            IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
 
             List<Local> locales = await controladorLocal.ListarLocales();
-            */
+            
             return View(new List<Local>());
         }
 
