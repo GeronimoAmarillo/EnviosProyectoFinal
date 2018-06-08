@@ -10,7 +10,6 @@ using LogicaDeServicioCore;
 namespace EnviosService.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Usuarios")]
     public class UsuariosController : Controller
     {
         private IControladorUsuario controladorUsuario;
@@ -21,8 +20,9 @@ namespace EnviosService.Controllers
             controladorUsuario = FabricaServicio.GetControladorUsuario();
         }
 
-        [HttpGet("{usuario, contraseña}")]
-        public JsonResult Usuario(string usuario, string contrasenia)
+        [HttpGet("{usuario, contrasenia}")]
+        [Route("Api/Usuarios/Login")]
+        public JsonResult Login(string usuario, string contrasenia)
         {
             return Json(controladorUsuario.Login(usuario, contrasenia), new Newtonsoft.Json.JsonSerializerSettings());
         }

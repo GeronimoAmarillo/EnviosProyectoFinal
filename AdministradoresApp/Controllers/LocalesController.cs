@@ -42,7 +42,7 @@ namespace EnviosService.Controllers
         }
 
         [HttpPost]
-        public ActionResult Alta(Local local)
+        public ActionResult Alta([FromBody]Local local)
         {
             IControladorLocal controladorLocal = HttpContext.Session.Get<IControladorLocal>(SESSSION_ALTA);
 
