@@ -46,6 +46,8 @@ namespace EnviosService.Controllers
 
         [HttpPut]
         [HttpPost]
+        [Route("api/Locales/Local")]
+        [Route("api/Locales/Alta")]
         public JsonResult Local([FromBody] Local item)
         {
             switch (Request.Method.ToString())

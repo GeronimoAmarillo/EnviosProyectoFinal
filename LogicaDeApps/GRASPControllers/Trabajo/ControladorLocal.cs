@@ -109,10 +109,10 @@ namespace LogicaDeApps
                  var result = client.PostAsync(url, content);*/
                 //------------------------------------------------------------------------------------------------------
 
-                //http://localhost/EnviosService/Api
+                //http://localhost:8080/
 
                 var httpClient = new HttpClient();
-                string conexion = "http://localhost/EnviosService/Api/Locales/Local";
+                string conexion = "http://localhost:8080/api/Locales/Local";
 
                 //Declara el objeto con el que haremos la llamada al servicio
 

@@ -23,8 +23,9 @@ namespace PersistenciaCore
                 localAgregar.Nombre = local.Nombre;
 
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
-                optionsBuilder.UseSqlite("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=EnviosContext;Integrated Security=True;");
-                
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
 
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
