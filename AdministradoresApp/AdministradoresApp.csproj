@@ -16,7 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EntidadesCompartidasCore\EntidadesCompartidasCore.csproj" />
     <ProjectReference Include="..\EntidadesCompartidas\EntidadesCompartidas.csproj" />
+    <ProjectReference Include="..\LogicaDeAppsCore\LogicaDeAppsCore.csproj" />
     <ProjectReference Include="..\LogicaDeApps\LogicaDeApps.csproj" />
   </ItemGroup>
 
