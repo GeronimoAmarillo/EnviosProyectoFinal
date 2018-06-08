@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidasCore;
-using LogicaDeApps.Models;
 
-namespace LogicaDeApps
+namespace LogicaDeAppsCore
 {
     class ControladorAdelanto : IControladorAdelanto
     {
@@ -16,9 +15,9 @@ namespace LogicaDeApps
 
         }
 
-        public List<DTEmpleado> ListarEmpleados()
+        public List<Empleado> ListarEmpleados()
         {
-            return new List<DTEmpleado>();
+            return new List<Empleado>();
         }
 
         public void SetAdelanto(Adelanto pAdelanto)
@@ -36,12 +35,12 @@ namespace LogicaDeApps
             return new Empleado();
         }
 
-        public DTEmpleado SeleccionarEmpleado(int cedula)
+        public Empleado SeleccionarEmpleado(int cedula)
         {
-            return new DTEmpleado();
+            return new Empleado();
         }
 
-        public bool RealizarAdelanto(DTAdelanto pAdelanto)
+        public bool RealizarAdelanto(Adelanto pAdelanto)
         {
             return true;
         }
