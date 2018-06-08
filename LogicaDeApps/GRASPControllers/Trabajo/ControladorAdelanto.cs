@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EntidadesCompartidasCore;
+using EntidadesCompartidas;
 using LogicaDeApps.Models;
 
 namespace LogicaDeApps

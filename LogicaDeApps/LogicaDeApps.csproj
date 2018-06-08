@@ -122,10 +122,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EntidadesCompartidasCore\EntidadesCompartidasCore.csproj">
-      <Project>{08ff8007-92ed-4a6e-850f-e66b2dc7ad2e}</Project>
-      <Name>EntidadesCompartidasCore</Name>
-    </ProjectReference>
     <ProjectReference Include="..\EntidadesCompartidas\EntidadesCompartidas.csproj">
       <Project>{5a521ab3-6090-4de8-8c1b-7393409cf71f}</Project>
       <Name>EntidadesCompartidas</Name>

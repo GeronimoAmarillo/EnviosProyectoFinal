@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EntidadesCompartidas;
+using EntidadesCompartidasCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using LogicaDeApps;
+using LogicaDeAppsCore;
 
 namespace EnviosService.Controllers
 {
