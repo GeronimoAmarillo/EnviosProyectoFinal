@@ -46,10 +46,10 @@ namespace LogicaDeAppsCore
 
         public async Task<Usuario> Login(string user, string pass)
         {
-            //http://localhost/EnviosService/Api
+            //http://localhost/8080/api
 
             var httpClient = new HttpClient();
-            var json =await httpClient.GetStringAsync("http://localhost/EnviosService/Api/Usuarios/Usuario");
+            var json =await httpClient.GetStringAsync("http://localhost/8080/api/Usuarios/Login");
 
             var data = JsonConvert.DeserializeObject<Root>(json).Data;
 

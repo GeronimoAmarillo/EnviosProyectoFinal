@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EnviosService.Controllers
+namespace ClientesApp.Controllers
 {
     [Produces("application/json")]
     [Route("api/Adelantos")]

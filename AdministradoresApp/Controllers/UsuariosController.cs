@@ -7,10 +7,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using LogicaDeAppsCore;
 
-namespace EnviosService.Controllers
+namespace AdministradoresApp.Controllers
 {
-    [Produces("application/json")]
-    [Route("api/Usuarios")]
     public class UsuariosController : Controller
     {
         public static string LOG_USER = "UsuarioLogueado";

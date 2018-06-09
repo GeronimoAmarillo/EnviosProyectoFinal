@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using LogicaDeApps;
 using EntidadesCompartidas;
 
-namespace EnviosService.Controllers
+namespace ClientesApp.Controllers
 {
     [Produces("application/json")]
     [Route("api/Usuarios")]

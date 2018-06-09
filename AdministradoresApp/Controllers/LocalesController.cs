@@ -10,7 +10,7 @@ using AdministradoresApp.Models;
 using Microsoft.AspNetCore.Session;
 using Newtonsoft.Json;
 
-namespace EnviosService.Controllers
+namespace AdministradoresApp.Controllers
 {
     [Produces("application/json")]
     [Route("api/Locales")]
@@ -19,7 +19,7 @@ namespace EnviosService.Controllers
         public static string SESSSION_ALTA = "AltaLocal";
         
         [Route("/Locales")]
-        [Route("/Locales/Index")]
+        [Route("api/Locales/Index")]
         public async Task<ActionResult> Index()
         {
             IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
