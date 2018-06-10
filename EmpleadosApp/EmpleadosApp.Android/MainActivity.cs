@@ -11,7 +11,6 @@ using LogicaDeApps;
 using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json;
-using Newtonsoft.Json;
 using Android.Content;
 
 namespace EmpleadosApp.Droid

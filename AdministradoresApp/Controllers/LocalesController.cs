@@ -4,67 +4,81 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using EntidadesCompartidas;
-using LogicaDeApps;
+using EntidadesCompartidasCore;
+using LogicaDeAppsCore;
 using AdministradoresApp.Models;
 using Microsoft.AspNetCore.Session;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
-namespace EnviosService.Controllers
+namespace AdministradoresApp.Controllers
 {
-    [Produces("application/json")]
-    [Route("api/Locales")]
     public class LocalesController : Controller
     {
         public static string SESSSION_ALTA = "AltaLocal";
         
-        [Route("/Locales")]
-        [Route("/Locales/Index")]
         public async Task<ActionResult> Index()
         {
-            /*IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
+            IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
 
             List<Local> locales = await controladorLocal.ListarLocales();
-            */
-            return View(new List<Local>());
+            
+            return View(locales);
         }
+        
 
-        [Route("/Locales/Alta")]
         public ActionResult Alta()
         {
             IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
 
-            controladorLocal.SetLocal(new Local());
+            controladorLocal.IniciarRegistroLocal();
 
-            HttpContext.Session.Set<IControladorLocal>(SESSSION_ALTA, controladorLocal);
+            HttpContext.Session.Set<Local>(SESSSION_ALTA, controladorLocal.GetLocal());
 
             return View();
         }
 
         [HttpPost]
-        public ActionResult Alta(Local local)
+        public ActionResult Alta([FromForm]Local local)
         {
-            IControladorLocal controladorLocal = HttpContext.Session.Get<IControladorLocal>(SESSSION_ALTA);
-
-            if (ModelState.IsValid)
+            try
             {
-                bool exito = controladorLocal.AltaLocal();
 
-                if (exito)
+                Local localAlta = HttpContext.Session.Get<Local>(SESSSION_ALTA);
+
+                localAlta.Direccion = local.Direccion;
+                localAlta.Nombre = local.Nombre;
+
+                IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
+
+                controladorLocal.SetLocal(localAlta);
+
+                if (ModelState.IsValid)
                 {
-                    controladorLocal.SetLocal(null);
-                    ViewData["Mensaje"] = "El local se dio de alta con exito!.";
+                    bool exito = controladorLocal.AltaLocal();
+
+                    if (exito)
+                    {
+                        controladorLocal.SetLocal(null);
+                        ViewData["Mensaje"] = "El local se dio de alta con exito!.";
+                    }
+                    else
+                    {
+                        ViewData["Mensaje"] = "Se produjo un error al dar de alta el local!.";
+                    }
                 }
-                else
-                {
-                    ViewData["Mensaje"] = "Se produjo un error al dar de alta el local!.";
-                }
+
+                return RedirectToAction("Index");
+
             }
-
-            return RedirectToAction("Index");
+            catch(Exception ex)
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+            
         }
 
-        [HttpGet]
+        /*[HttpGet]
         public ActionResult Existe(string nombre, string direccion)
         {
             IControladorLocal controladorLocal = HttpContext.Session.Get<IControladorLocal>(SESSSION_ALTA);
@@ -89,6 +103,6 @@ namespace EnviosService.Controllers
             }
 
             return View();
-        }
+        }*/
     }
 }

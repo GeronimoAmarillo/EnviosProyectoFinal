@@ -4,27 +4,10 @@
     if (Model != null)
     {
         <p>Bienvenido @Model.NombreUsuario</p>
-
-        if (Model is Empleado)
-        {
-            if (Model is Cadete)
-            {
-                <p>Tipo de sesion: Cadete</p>
-            }
-            else
-            {
-                <p>Tipo de sesion: Administrador</p>
-            }
-        }
-        else
-        {
-            <p>Tipo de sesion: Cliente</p>
-        }
     }
     else
     {
 
         <p>No hay ningun usuario logueado</p>
-        <p>Ingrese sus credenciales para acceder a las funcionalidades del sistema.</p>
     }
 }

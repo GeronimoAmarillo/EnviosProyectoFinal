@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AdministradoresApp.Models;
 
-namespace EnviosService.Controllers
+namespace AdministradoresApp.Controllers
 {
     public class HomeController : Controller
     {

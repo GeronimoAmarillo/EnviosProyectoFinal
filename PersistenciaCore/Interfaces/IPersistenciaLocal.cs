@@ -18,6 +18,6 @@ namespace PersistenciaCore
 
         bool ModificarLocal(EntidadesCompartidasCore.Local local);
 
-        List<EntidadesCompartidasCore.Local> ListarLocales(DbContextOptions<EnviosContext> dbContextOptions);
+        List<EntidadesCompartidasCore.Local> ListarLocales();
     }
 }

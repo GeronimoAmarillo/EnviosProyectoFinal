@@ -23,9 +23,10 @@ namespace PersistenciaCore
                 localAgregar.Nombre = local.Nombre;
 
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
-                optionsBuilder.UseSqlite("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=EnviosContext;Integrated Security=True;");
-                
 
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
                     dbConnection.Locales.Add(localAgregar);
@@ -44,7 +45,33 @@ namespace PersistenciaCore
 
         public bool ExisteLocal(string nombre, string direccion)
         {
-            return true;
+            try
+            {
+                bool existe = false;
+
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    var local = dbConnection.Locales.Where(l => l.Direccion == direccion && l.Nombre == nombre).Select(c => new {
+                        Local = c
+                    }).FirstOrDefault();
+
+                    if (local != null && local.Local is Locales)
+                    {
+                        existe = true;
+                    }
+                }
+
+                return existe;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los locales." + ex.Message);
+            }
         }
 
         public EntidadesCompartidasCore.Local BuscarLocal(string nombre)
@@ -57,7 +84,7 @@ namespace PersistenciaCore
             return true;
         }
 
-        public List<EntidadesCompartidasCore.Local> ListarLocales(DbContextOptions<EnviosContext> dbContextOptions)
+        public List<EntidadesCompartidasCore.Local> ListarLocales()
         {
             try
             {
@@ -66,7 +93,7 @@ namespace PersistenciaCore
 
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
-                optionsBuilder.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = EnviosContext; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
                 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
@@ -90,7 +117,7 @@ namespace PersistenciaCore
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al listar los locales.");
+                throw new Exception("Error al listar los locales." +  ex.Message);
             }
         }
     }

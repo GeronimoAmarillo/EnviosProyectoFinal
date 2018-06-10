@@ -19,16 +19,24 @@ namespace LogicaDeServicioCore
             {
                 return FabricaPersistencia.GetPersistenciaLocal().AltaLocal(unLocal);
             }
-            catch
+            catch(Exception ex)
             {
-                throw new Exception("Error al intentar dar de alta el Local.");
+                throw new Exception("Error al intentar dar de alta el Local." + ex.Message);
             }
         }
 
         public static bool ExisteLocal(string direccion, string nombre)
         {
-            bool existe = false;
-            return existe;
+            try
+            {
+
+                return FabricaPersistencia.GetPersistenciaLocal().ExisteLocal(nombre, direccion);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar comprobar la existencia del Local con los datos ingresados." + ex.Message);
+            }
         }
 
         public static EntidadesCompartidasCore.Local BuscarLocal(string nombreLocal)
@@ -43,11 +51,11 @@ namespace LogicaDeServicioCore
             return local;
         }
 
-        public static List<Local> ListarLocales(DbContextOptions<EnviosContext> dbContextOptions)
+        public static List<Local> ListarLocales()
         {
             try
             {
-                List<Local> lista = FabricaPersistencia.GetPersistenciaLocal().ListarLocales(dbContextOptions);
+                List<Local> lista = FabricaPersistencia.GetPersistenciaLocal().ListarLocales();
 
                 return lista;
             }

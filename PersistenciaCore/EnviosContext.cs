@@ -92,12 +92,12 @@ namespace PersistenciaCore
             modelBuilder.Entity<Clientes>()
                 .HasMany(e => e.Entregas)
                 .WithOne(e => e.Clientes).IsRequired()
-                .HasForeignKey(e => e.ClienteEmisor).OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(e => e.ClienteEmisor).OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Clientes>()
                 .HasMany(e => e.Entregas1)
                 .WithOne(e => e.Clientes1).IsRequired()
-                .HasForeignKey(e => e.ClienteReceptor);
+                .HasForeignKey(e => e.ClienteReceptor).OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Clientes>()
                 .HasMany(e => e.Palets)
@@ -178,12 +178,13 @@ namespace PersistenciaCore
                 .HasMany(e => e.Entregas)
                 .WithOne(e => e.Locales).IsRequired()
                 .HasForeignKey(e => e.LocalEmisor)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Locales>()
                 .HasMany(e => e.Entregas1)
                 .WithOne(e => e.Locales1).IsRequired()
-                .HasForeignKey(e => e.LocalReceptor);
+                .HasForeignKey(e => e.LocalReceptor).
+                OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Locales>()
                 .HasIndex(u => u.Nombre)
@@ -209,12 +210,13 @@ namespace PersistenciaCore
                 .HasMany(e => e.Reclamo)
                 .WithOne(e => e.Paquetes).IsRequired()
                 .HasForeignKey(e => e.Paquete)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Paquetes>()
                 .HasMany(e => e.Reclamo1)
                 .WithOne(e => e.Paquetes1).IsRequired()
-                .HasForeignKey(e => e.Paquete);
+                .HasForeignKey(e => e.Paquete)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Racks>()
                 .Property(e => e.Altura)
@@ -261,7 +263,7 @@ namespace PersistenciaCore
             modelBuilder.Entity<Turnos>()
                 .HasMany(e => e.Entregas)
                 .WithOne(e => e.Turnos).IsRequired()
-                .HasForeignKey(e => e.Turno);
+                .HasForeignKey(e => e.Turno).OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Usuarios>()
                 .HasMany(e => e.Clientes)

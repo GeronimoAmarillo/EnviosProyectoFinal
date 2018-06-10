@@ -37,31 +37,46 @@ namespace PersistenciaCore
 
         public EntidadesCompartidasCore.Administrador Login(string user, string contraseña)
         {
-            Administrador administradorResultado = new Administrador();
+            Administrador administradorResultado = null;
 
-            EnviosContext dbConexion = new EnviosContext(new DbContextOptions<EnviosContext>());
+            var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+            optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
             try
             {
-
-                var adminEncontrado = from admin in dbConexion.Administradores
-                                       where admin.Empleados.Usuarios.NombreUsuario == user && admin.Empleados.Usuarios.Contraseña == contraseña
-                                       select admin;
-
-                foreach (Administradores a in adminEncontrado)
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    administradorResultado.Contraseña = a.Empleados.Usuarios.Contraseña;
-                    administradorResultado.Direccion = a.Empleados.Usuarios.Direccion;
-                    administradorResultado.Email = a.Empleados.Usuarios.Email;
-                    administradorResultado.Id = a.Empleados.Usuarios.Id;
-                    administradorResultado.Ci = a.CiEmpleado;
-                    administradorResultado.Nombre = a.Empleados.Usuarios.Nombre;
-                    administradorResultado.NombreUsuario = a.Empleados.Usuarios.NombreUsuario;
-                    administradorResultado.Sueldo = a.Empleados.Sueldo;
-                    administradorResultado.Telefono = a.Empleados.Usuarios.Telefono;
-                    administradorResultado.Tipo = a.Tipo;
+                    var adminEncontrado = dbConnection.Administradores.Where(c => c.Empleados.Usuarios.NombreUsuario == user && c.Empleados.Usuarios.Contraseña == contraseña).Select(c => new {
+                        Administrador = c,
+                        Empleado = c.Empleados,
+                        Usuario = c.Empleados.Usuarios
+                    }).FirstOrDefault();
+
+                    if (adminEncontrado !=  null)
+                    {
+                        if (adminEncontrado.Usuario != null && adminEncontrado.Empleado != null && adminEncontrado.Administrador != null)
+                        {
+                            administradorResultado = new Administrador();
+
+                            administradorResultado.Contraseña = adminEncontrado.Usuario.Contraseña;
+                            administradorResultado.Direccion = adminEncontrado.Usuario.Direccion;
+                            administradorResultado.Email = adminEncontrado.Usuario.Email;
+                            administradorResultado.Id = adminEncontrado.Usuario.Id;
+                            administradorResultado.Ci = adminEncontrado.Empleado.Ci;
+                            administradorResultado.Nombre = adminEncontrado.Usuario.Nombre;
+                            administradorResultado.NombreUsuario = adminEncontrado.Usuario.NombreUsuario;
+                            administradorResultado.Sueldo = adminEncontrado.Empleado.Sueldo;
+                            administradorResultado.Telefono = adminEncontrado.Usuario.Telefono;
+                            administradorResultado.Tipo = adminEncontrado.Administrador.Tipo;
+                        }
+                        
+                    }
+
+                    return administradorResultado;
                 }
 
-                return administradorResultado;
+                    
             }
             catch (Exception ex)
             {

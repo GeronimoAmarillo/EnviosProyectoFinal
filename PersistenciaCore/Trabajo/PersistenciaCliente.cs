@@ -37,30 +37,46 @@ namespace PersistenciaCore
 
         public Cliente Login(string user, string contraseña)
         {
-            Cliente clienteResultado = new Cliente();
+            Cliente clienteResultado = null;
 
-            EnviosContext dbConexion = new EnviosContext(new DbContextOptions<EnviosContext>());
+            var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+            optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
             try
             {
-
-                var clienteEncontrado = from cliente in dbConexion.Clientes
-                                       where cliente.Usuarios.NombreUsuario == user && cliente.Usuarios.Contraseña == contraseña
-                                       select cliente;
-
-                foreach (Clientes c in clienteEncontrado)
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    clienteResultado.Contraseña = c.Usuarios.Contraseña;
-                    clienteResultado.Direccion = c.Usuarios.Direccion;
-                    clienteResultado.Email = c.Usuarios.Email;
-                    clienteResultado.Id = c.Usuarios.Id;
-                    clienteResultado.Mensualidad = c.Mensualidad;
-                    clienteResultado.Nombre = c.Usuarios.Nombre;
-                    clienteResultado.NombreUsuario = c.Usuarios.NombreUsuario;
-                    clienteResultado.RUT = c.RUT;
-                    clienteResultado.Telefono = c.Usuarios.Telefono;
+                    var clienteEncontrado = dbConnection.Clientes.Where(c => c.Usuarios.NombreUsuario == user && c.Usuarios.Contraseña == contraseña).Select(c => new {
+                        Cliente = c,
+                        Usuario = c.Usuarios
+                    }).FirstOrDefault();
+
+                    if (clienteEncontrado != null)
+                    {
+
+                        if (clienteEncontrado.Usuario != null && clienteEncontrado.Cliente != null)
+                        {
+                            clienteResultado = new Cliente();
+
+
+                            clienteResultado.Contraseña = clienteEncontrado.Usuario.Contraseña;
+                            clienteResultado.Direccion = clienteEncontrado.Usuario.Direccion;
+                            clienteResultado.Email = clienteEncontrado.Usuario.Email;
+                            clienteResultado.Id = clienteEncontrado.Usuario.Id;
+                            clienteResultado.Mensualidad = clienteEncontrado.Cliente.Mensualidad;
+                            clienteResultado.Nombre = clienteEncontrado.Usuario.Nombre;
+                            clienteResultado.NombreUsuario = clienteEncontrado.Usuario.NombreUsuario;
+                            clienteResultado.RUT = clienteEncontrado.Cliente.RUT;
+                            clienteResultado.Telefono = clienteEncontrado.Usuario.Telefono;
+                        }
+                        
+                    }
+
+                    return clienteResultado;
                 }
 
-                return clienteResultado;
+                    
             }
             catch (Exception ex)
             {

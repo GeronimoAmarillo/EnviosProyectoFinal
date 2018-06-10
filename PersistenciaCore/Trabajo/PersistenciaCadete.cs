@@ -27,35 +27,49 @@ namespace PersistenciaCore
 
         public EntidadesCompartidasCore.Cadete Login(string user, string contraseña)
         {
-            Cadete cadeteResultado = new Cadete();
+            Cadete cadeteResultado = null;
 
-            EnviosContext dbConexion = new EnviosContext(new DbContextOptions<EnviosContext>());
+            var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+            optionsBuilder.UseSqlServer(Conexion.ConnectionString);
 
             try
             {
-
-                var cadeteEncontrado = from cadete in dbConexion.Cadetes
-                                 where cadete.Empleados.Usuarios.NombreUsuario == user && cadete.Empleados.Usuarios.Contraseña == contraseña
-                                 select cadete;
-
-                foreach (Cadetes c in cadeteEncontrado)
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    cadeteResultado.Contraseña = c.Empleados.Usuarios.Contraseña;
-                    cadeteResultado.Direccion = c.Empleados.Usuarios.Direccion;
-                    cadeteResultado.Email = c.Empleados.Usuarios.Email;
-                    cadeteResultado.Id = c.Empleados.Usuarios.Id;
-                    cadeteResultado.Ci = c.CiEmpleado;
-                    cadeteResultado.Nombre = c.Empleados.Usuarios.Nombre;
-                    cadeteResultado.NombreUsuario = c.Empleados.Usuarios.NombreUsuario;
-                    cadeteResultado.Sueldo = c.Empleados.Sueldo;
-                    cadeteResultado.Telefono = c.Empleados.Usuarios.Telefono;
-                    cadeteResultado.TipoLibreta = c.TipoLibreta;
+
+                    var cadeteEncontrado = dbConnection.Cadetes.Where(c => c.Empleados.Usuarios.NombreUsuario == user && c.Empleados.Usuarios.Contraseña == contraseña).Select(c => new {
+                        Cadete = c,
+                        Empleado = c.Empleados,
+                        Usuario = c.Empleados.Usuarios }).FirstOrDefault();
+
+                    if (cadeteEncontrado != null)
+                    {
+                        if (cadeteEncontrado.Usuario != null && cadeteEncontrado.Empleado != null && cadeteEncontrado.Cadete != null)
+                        {
+                            cadeteResultado = new Cadete();
+
+                            cadeteResultado.Contraseña = cadeteEncontrado.Usuario.Contraseña;
+                            cadeteResultado.Direccion = cadeteEncontrado.Usuario.Direccion;
+                            cadeteResultado.Email = cadeteEncontrado.Usuario.Email;
+                            cadeteResultado.Id = cadeteEncontrado.Usuario.Id;
+                            cadeteResultado.Ci = cadeteEncontrado.Cadete.CiEmpleado;
+                            cadeteResultado.Nombre = cadeteEncontrado.Usuario.Nombre;
+                            cadeteResultado.NombreUsuario = cadeteEncontrado.Usuario.NombreUsuario;
+                            cadeteResultado.Sueldo = cadeteEncontrado.Empleado.Sueldo;
+                            cadeteResultado.Telefono = cadeteEncontrado.Usuario.Telefono;
+                            cadeteResultado.TipoLibreta = cadeteEncontrado.Cadete.TipoLibreta;
+                        }
+                        
                     
-                    //Tal vez corresponde tambien asignarle el vehiculo, esto va a necesitar de un cambio en el script de la base de datos, debido a que el 
-                    //cadete de momento puede tener varios vehiculos, y me parece que eso no representa la realidad, no lo recuerdo.
+                        //Tal vez corresponde tambien asignarle el vehiculo, esto va a necesitar de un cambio en el script de la base de datos, debido a que el 
+                        //cadete de momento puede tener varios vehiculos, y me parece que eso no representa la realidad, no lo recuerdo.
+                    }
+
+                    return cadeteResultado;
                 }
 
-                return cadeteResultado;
+                    
             }
             catch(Exception ex)
             {

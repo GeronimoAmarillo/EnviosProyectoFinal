@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EntidadesCompartidas;
+using EntidadesCompartidasCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using LogicaDeApps;
+using LogicaDeAppsCore;
 
-namespace EnviosService.Controllers
+namespace AdministradoresApp.Controllers
 {
-    [Produces("application/json")]
-    [Route("api/Usuarios")]
     public class UsuariosController : Controller
     {
         public static string LOG_USER = "UsuarioLogueado";
@@ -39,7 +37,7 @@ namespace EnviosService.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login([FromBody] Usuario usuario)
+        public async Task<IActionResult> Login([FromForm] Usuario usuario)
         {
             IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
 
@@ -58,7 +56,7 @@ namespace EnviosService.Controllers
                 ViewData["Mensaje"] = "Usuario y/o contraseña invalidos.";
             }
 
-            return View();
+            return RedirectToAction("Login");
         }
 
         

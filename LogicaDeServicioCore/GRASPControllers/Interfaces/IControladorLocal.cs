@@ -19,6 +19,6 @@ namespace LogicaDeServicioCore
 
         bool AltaLocal(Local local);
 
-        List<Local> ListarLocales(DbContextOptions<EnviosContext> dbContextOptions);
+        List<Local> ListarLocales();
     }
 }
