@@ -27,8 +27,16 @@ namespace LogicaDeServicioCore
 
         public static bool ExisteLocal(string direccion, string nombre)
         {
-            bool existe = false;
-            return existe;
+            try
+            {
+
+                return FabricaPersistencia.GetPersistenciaLocal().ExisteLocal(nombre, direccion);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar comprobar la existencia del Local con los datos ingresados." + ex.Message);
+            }
         }
 
         public static EntidadesCompartidasCore.Local BuscarLocal(string nombreLocal)

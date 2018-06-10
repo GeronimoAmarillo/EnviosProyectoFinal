@@ -9,7 +9,7 @@ namespace LogicaDeAppsCore
 {
     public interface IControladorLocal
     {
-        bool ExisteLocal(string nombre, string direccion);
+        Task<bool> ExisteLocal(string nombre, string direccion);
 
         void IniciarRegistroLocal();
 
@@ -23,6 +23,6 @@ namespace LogicaDeAppsCore
 
         Local GetLocal();
 
-        bool AltaLocalAsync();
+        bool AltaLocal();
     }
 }

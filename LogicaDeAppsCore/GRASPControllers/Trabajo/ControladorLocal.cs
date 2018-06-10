@@ -25,16 +25,31 @@ namespace LogicaDeAppsCore
             public Object Data { get; set; }
         }
 
-        public bool ExisteLocal(string nombre, string direccion)
+        public async Task<bool> ExisteLocal(string nombre, string direccion)
         {
 
+            try
+            {
+                //http://localhost:8080/
 
-            return true;
+                var httpClient = new HttpClient();
+                var json = await httpClient.GetStringAsync("http://localhost:8080/api/Locales/ExisteLocal?"+"nombre="+nombre+"&direccion="+direccion);
+
+                bool existe = false;
+
+                existe = JsonConvert.DeserializeObject<bool>(json);
+
+                return existe;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Error al intentar comprobar la existencia del Local con los datos ingresados.");
+            }
         }
 
         public void IniciarRegistroLocal()
         {
-
+            SetLocal(new Local());
         }
 
         public Local BuscarLocal(string nombre)
@@ -87,20 +102,18 @@ namespace LogicaDeAppsCore
                 HttpClient client = new HttpClient();
                 Local local = GetLocal();
 
+                if (ExisteLocal(local.Nombre, local.Direccion).ToString().ToUpper() == "TRUE")
+                {
+                    throw new Exception("El local que desea dar de alta ya existe en el sistema.");
+                }
+
                 string url = "http://localhost:8080/api/Locales/Alta";
 
                 var content = new StringContent(JsonConvert.SerializeObject(local),Encoding.UTF8,"application/json");
 
-                var result = client.PostAsync(url, content);
+                var result = client.PostAsync(url, content).Result;
 
-                if (result.Result.ToString().ToLower() == "true")
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return result.IsSuccessStatusCode;
             }
             catch (Exception ex)
             {

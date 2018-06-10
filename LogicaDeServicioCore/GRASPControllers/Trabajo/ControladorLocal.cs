@@ -13,7 +13,14 @@ namespace LogicaDeServicioCore
     {
         public bool ExisteLocal(string nombre, string direccion)
         {
-            return true;
+            try
+            {
+                return LogicaLocal.ExisteLocal(direccion, nombre);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar comprobar la existencia del Local con los datos ingresados.");
+            }
         }
 
         public EntidadesCompartidasCore.Local BuscarLocal(string nombre)

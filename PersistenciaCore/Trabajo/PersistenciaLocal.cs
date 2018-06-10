@@ -26,7 +26,7 @@ namespace PersistenciaCore
 
                 optionsBuilder.UseSqlServer(Conexion.ConnectionString);
 
-
+                
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
                     dbConnection.Locales.Add(localAgregar);
@@ -45,7 +45,33 @@ namespace PersistenciaCore
 
         public bool ExisteLocal(string nombre, string direccion)
         {
-            return true;
+            try
+            {
+                bool existe = false;
+
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    var local = dbConnection.Locales.Where(l => l.Direccion == direccion && l.Nombre == nombre).Select(c => new {
+                        Local = c
+                    }).FirstOrDefault();
+
+                    if (local != null && local.Local is Locales)
+                    {
+                        existe = true;
+                    }
+                }
+
+                return existe;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los locales." + ex.Message);
+            }
         }
 
         public EntidadesCompartidasCore.Local BuscarLocal(string nombre)

@@ -9,6 +9,7 @@ using LogicaDeAppsCore;
 using AdministradoresApp.Models;
 using Microsoft.AspNetCore.Session;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace AdministradoresApp.Controllers
 {
@@ -22,7 +23,7 @@ namespace AdministradoresApp.Controllers
 
             List<Local> locales = await controladorLocal.ListarLocales();
             
-            return View(new List<Local>());
+            return View(locales);
         }
         
 
@@ -30,37 +31,54 @@ namespace AdministradoresApp.Controllers
         {
             IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
 
-            controladorLocal.SetLocal(new Local());
+            controladorLocal.IniciarRegistroLocal();
 
-            HttpContext.Session.Set<IControladorLocal>(SESSSION_ALTA, controladorLocal);
+            HttpContext.Session.Set<Local>(SESSSION_ALTA, controladorLocal.GetLocal());
 
             return View();
         }
 
         [HttpPost]
-        public ActionResult Alta([FromBody]Local local)
+        public ActionResult Alta([FromForm]Local local)
         {
-            IControladorLocal controladorLocal = HttpContext.Session.Get<IControladorLocal>(SESSSION_ALTA);
-
-            if (ModelState.IsValid)
+            try
             {
-                bool exito = controladorLocal.AltaLocalAsync();
 
-                if (exito)
+                Local localAlta = HttpContext.Session.Get<Local>(SESSSION_ALTA);
+
+                localAlta.Direccion = local.Direccion;
+                localAlta.Nombre = local.Nombre;
+
+                IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
+
+                controladorLocal.SetLocal(localAlta);
+
+                if (ModelState.IsValid)
                 {
-                    controladorLocal.SetLocal(null);
-                    ViewData["Mensaje"] = "El local se dio de alta con exito!.";
+                    bool exito = controladorLocal.AltaLocal();
+
+                    if (exito)
+                    {
+                        controladorLocal.SetLocal(null);
+                        ViewData["Mensaje"] = "El local se dio de alta con exito!.";
+                    }
+                    else
+                    {
+                        ViewData["Mensaje"] = "Se produjo un error al dar de alta el local!.";
+                    }
                 }
-                else
-                {
-                    ViewData["Mensaje"] = "Se produjo un error al dar de alta el local!.";
-                }
+
+                return RedirectToAction("Index");
+
             }
-
-            return RedirectToAction("Index");
+            catch(Exception ex)
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+            
         }
 
-        [HttpGet]
+        /*[HttpGet]
         public ActionResult Existe(string nombre, string direccion)
         {
             IControladorLocal controladorLocal = HttpContext.Session.Get<IControladorLocal>(SESSSION_ALTA);
@@ -85,6 +103,6 @@ namespace AdministradoresApp.Controllers
             }
 
             return View();
-        }
+        }*/
     }
 }
