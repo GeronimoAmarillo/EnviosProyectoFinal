@@ -36,8 +36,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>@await Component.InvokeAsync("UsuarioLogueado")</li>
-                    <li><a asp-area="" asp-controller="Usuarios" asp-action="Login">Login</a></li>
-                    <li><a asp-area="" asp-controller="Usuarios" asp-action="Logout">Logout</a></li>
+                    <li>@await Component.InvokeAsync("BotonesSesion")</li>
                 </ul>
             </div>
         </div>

@@ -46,47 +46,25 @@ namespace LogicaDeAppsCore
 
         public async Task<Usuario> Login(string user, string pass)
         {
-            //http://localhost/8080/api
-
-            var httpClient = new HttpClient();
-            var json =await httpClient.GetStringAsync("http://localhost/8080/api/Usuarios/Login");
-
-            var data = JsonConvert.DeserializeObject<Root>(json).Data;
-
-            Usuario usuarioLogueado = new Usuario();
-
-            foreach (var d in data)
+            try
             {
-                foreach (var u in d)
-                {
-                    switch (u.Key.ToString())
-                    {
-                        case "Id":
-                            usuarioLogueado.Id = Convert.ToInt32(u.Value);
-                            break;
-                        case "Nombre":
-                            usuarioLogueado.Nombre = u.Value.ToString();
-                            break;
-                        case "NombreUsuario":
-                            usuarioLogueado.NombreUsuario = u.Value.ToString();
-                            break;
-                        case "Email":
-                            usuarioLogueado.Email = u.Value.ToString();
-                            break;
-                        case "Contraseña":
-                            usuarioLogueado.Contraseña = u.Value.ToString();
-                            break;
-                        case "Direccion":
-                            usuarioLogueado.Direccion = u.Value.ToString();
-                            break;
-                        case "Telefono":
-                            usuarioLogueado.Telefono = u.Value.ToString();
-                            break;
-                    }
-                }
-            }
+                //http://localhost:8080/api
 
-            return usuarioLogueado;
+                var httpClient = new HttpClient();
+                var json = await httpClient.GetStringAsync("http://localhost:8080/api/Usuarios/Login?" + "usuario=" + user + "&contrasenia=" + pass);
+
+                Usuario usuarioLogueado = null;
+
+                usuarioLogueado = JsonConvert.DeserializeObject<Usuario>(json);
+
+                return usuarioLogueado;
+                
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("No existe un usuario registrado con el usuario y/o contraseña ingresados.");
+            }
+            
         }
 
         public bool ModificarNombreUsuario(string user)

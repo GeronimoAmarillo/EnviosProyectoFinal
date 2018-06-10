@@ -1,0 +1,17 @@
+﻿@model Usuario
+
+@{
+    if (Model != null)
+    {
+        <form asp-controller="Usuarios" asp-action="Logout" method="post">
+            <div class="form-group">
+                <input type="submit" value="Logout" class="btn-link" />
+            </div>
+        </form>
+
+    }
+    else
+    {
+        <li class="btn-link"><a class="btn-link" asp-area="" asp-controller="Usuarios" asp-action="Login">Login</a></li>
+    }
+}

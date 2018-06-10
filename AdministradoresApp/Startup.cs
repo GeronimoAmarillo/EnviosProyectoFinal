@@ -30,7 +30,7 @@ namespace AdministradoresApp
             {
                 options.Cookie.Name = ".Envios.Session";
                 // Set a short timeout for easy testing.
-                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.IdleTimeout = TimeSpan.FromMinutes(15);
                 options.Cookie.HttpOnly = true;
             });
         }

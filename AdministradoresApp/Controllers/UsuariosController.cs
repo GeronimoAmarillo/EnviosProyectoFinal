@@ -37,7 +37,7 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login([FromBody] Usuario usuario)
+        public async Task<IActionResult> Login([FromForm] Usuario usuario)
         {
             IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
 
@@ -56,7 +56,7 @@ namespace AdministradoresApp.Controllers
                 ViewData["Mensaje"] = "Usuario y/o contraseña invalidos.";
             }
 
-            return View();
+            return RedirectToAction("Login");
         }
 
         

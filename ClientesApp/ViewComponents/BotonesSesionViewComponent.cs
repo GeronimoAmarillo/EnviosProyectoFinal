@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using EntidadesCompartidas;
+using Microsoft.AspNetCore.Mvc;
+
+namespace ClientesApp.ViewComponents
+{
+    public class BotonesSesionViewComponent: ViewComponent
+    {
+        public IViewComponentResult Invoke()
+        {
+            var usuarioLogueado = HttpContext.Session.Get<Usuario>("UsuarioLogueado");
+            return View(usuarioLogueado);
+        }
+    }
+}
