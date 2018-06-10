@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using EntidadesCompartidasCore;
+
+namespace PersistenciaCore
+{
+    public interface IPersistenciaCliente
+    {
+        bool AltaCliente(EntidadesCompartidasCore.Cliente cliente);
+
+        bool ExisteCliente(int rut);
+
+        bool ModificarCliente(EntidadesCompartidasCore.Usuario usuario);
+
+        bool ComprobarUser(string user);
+
+        List<EntidadesCompartidasCore.Cliente> ListarClientes();
+
+        EntidadesCompartidasCore.Cliente Login(string user, string contraseña);
+
+        bool BajaCliente(int ci);
+    }
+}
