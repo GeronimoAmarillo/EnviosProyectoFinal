@@ -12,14 +12,10 @@ using Newtonsoft.Json;
 
 namespace AdministradoresApp.Controllers
 {
-    [Produces("application/json")]
-    [Route("api/Locales")]
     public class LocalesController : Controller
     {
         public static string SESSSION_ALTA = "AltaLocal";
         
-        [Route("/Locales")]
-        [Route("api/Locales/Index")]
         public async Task<ActionResult> Index()
         {
             IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
@@ -28,8 +24,8 @@ namespace AdministradoresApp.Controllers
             
             return View(new List<Local>());
         }
+        
 
-        [Route("/Locales/Alta")]
         public ActionResult Alta()
         {
             IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
@@ -48,7 +44,7 @@ namespace AdministradoresApp.Controllers
 
             if (ModelState.IsValid)
             {
-                bool exito = controladorLocal.AltaLocal();
+                bool exito = controladorLocal.AltaLocalAsync();
 
                 if (exito)
                 {

@@ -23,6 +23,6 @@ namespace LogicaDeAppsCore
 
         Local GetLocal();
 
-        bool AltaLocal();
+        bool AltaLocalAsync();
     }
 }

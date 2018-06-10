@@ -27,6 +27,8 @@ namespace LogicaDeAppsCore
 
         public bool ExisteLocal(string nombre, string direccion)
         {
+
+
             return true;
         }
 
@@ -57,40 +59,24 @@ namespace LogicaDeAppsCore
 
         public async Task<List<Local>> ListarLocales()
         {
-            //http://localhost:8080/
-
-            var httpClient = new HttpClient();
-            var json = await httpClient.GetStringAsync("http://localhost:8080/api/Locales/Locales");
-
-            var data = JsonConvert.DeserializeObject<Root>(json).Data;
-
-            List<Local> locales = new List<Local>();
-
-            foreach (var d in data)
+            try
             {
-                foreach (var l in d)
-                {
-                    Local local = new Local();
+                //http://localhost:8080/
 
+                var httpClient = new HttpClient();
+                var json = await httpClient.GetStringAsync("http://localhost:8080/api/Locales/Locales");
 
-                    switch (l.Key.ToString())
-                    {
-                        case "Id":
-                            local.Id = Convert.ToInt32(l.Value);
-                            break;
-                        case "Nombre":
-                            local.Nombre = l.Value.ToString();
-                            break;
-                        case "Direccion":
-                            local.Direccion = l.Value.ToString();
-                            break;
-                    }
+                List<Local> locales = null;
 
-                    locales.Add(local);
-                }
+                locales = JsonConvert.DeserializeObject<List<Local>>(json);
+
+                return locales;
+
             }
-
-            return locales;
+            catch (Exception ex)
+            {
+                throw new Exception("Se produjo un error al intentar listar los locales.");
+            }
         }
 
         public bool AltaLocal()
@@ -98,69 +84,22 @@ namespace LogicaDeAppsCore
             try
             {
 
-                //------------------------------------------------------------------------------------------------------
-                //Otra posible forma de hacerlo
-                /*HttpClient client = new HttpClient();
-                 List<MyClass> newList = getList();
+                HttpClient client = new HttpClient();
+                Local local = GetLocal();
 
-                 string url = "http://localhost:57750/api/ControllerName/InsertSomething";
-                 var content = new StringContent(JsonConvert.SerializeObject(newList),Encoding.UTF8,"application/json");
-                 var result = client.PostAsync(url, content);*/
-                //------------------------------------------------------------------------------------------------------
+                string url = "http://localhost:8080/api/Locales/Alta";
 
-                //http://localhost/EnviosService/Api
+                var content = new StringContent(JsonConvert.SerializeObject(local),Encoding.UTF8,"application/json");
 
-                var httpClient = new HttpClient();
-                string conexion = "http://localhost/EnviosService/Api/Locales/Local";
+                var result = client.PostAsync(url, content);
 
-                //Declara el objeto con el que haremos la llamada al servicio
-
-                HttpWebRequest request = WebRequest.Create(conexion) as HttpWebRequest;
-
-                //Configurar las propiedad del objeto de llamada
-
-                request.Method = "POST";
-                request.ContentType = "application/json";
-
-                //Serializar el objeto a enviar. Para esto uso la libreria Newtonsoft
-
-                string objetoSerializado = JsonConvert.SerializeObject(local);
-
-                //Convertir el objeto serializado a arreglo de byte
-
-                Byte[] bt = Encoding.UTF8.GetBytes(objetoSerializado);
-
-                //Agregar el objeto Byte[] al request
-
-                Stream comunicacion = request.GetRequestStream();
-                comunicacion.Write(bt, 0, bt.Length);
-                comunicacion.Close();
-
-                //Hacer la llamada
-
-                string resultado;
-
-                using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+                if (result.Result.ToString().ToLower() == "true")
                 {
-                    //Leer el resultado de la llamada
-
-                    Stream stream1 = response.GetResponseStream();
-                    StreamReader lectorRespuesta = new StreamReader(stream1);
-                    resultado = lectorRespuesta.ReadToEnd();
-
-                    var resultadoJson = JsonConvert.DeserializeObject<RootRespuestas>(resultado).Data;
-
-                    resultado = resultadoJson.ToString();
-
-                    if (resultado.ToLower() == "true")
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-
+                    return true;
+                }
+                else
+                {
+                    return false;
                 }
             }
             catch (Exception ex)
