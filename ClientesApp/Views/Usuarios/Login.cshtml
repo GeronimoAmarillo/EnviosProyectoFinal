@@ -5,6 +5,22 @@
     ViewData["Title"] = "Login";
 }
 
+<p></p>
+<p></p>
+<p></p>
+
+@{
+    var mensaje = @ViewBag.Message;
+
+    if (mensaje != null && mensaje != "")
+    {
+
+        <h3 class="text-danger">@mensaje</h3>
+
+    }
+
+}
+
 <h2>Login</h2>
 
 <hr />
