@@ -1,4 +1,4 @@
-﻿using EntidadesCompartidas;
+﻿using EntidadesCompartidasCore;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,6 @@ namespace AdministradoresApp.ViewComponents
 {
     public class UsuarioLogueadoViewComponent:ViewComponent
     {
-
         public IViewComponentResult Invoke()
         {
             var usuarioLogueado = HttpContext.Session.Get<Usuario>("UsuarioLogueado");

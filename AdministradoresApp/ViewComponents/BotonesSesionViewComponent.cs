@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EntidadesCompartidas;
+using EntidadesCompartidasCore;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdministradoresApp.ViewComponents
