@@ -15,10 +15,11 @@ namespace TestsLogicaServicioCore
         {
             Cliente unCliente = new Cliente
             {
-                Nombre = "empleado1",
+                
+                Nombre = "cliente1",
                 Direccion = "Elm street 124",
                 Telefono = "098574632",
-                Email = "empleado1@undominio.com",
+                Email = "cliente1@undominio.com",
                 RUT = 2547854125,
                 Mensualidad = 55000
             };
@@ -27,6 +28,25 @@ namespace TestsLogicaServicioCore
 
 
             Assert.True(result);
+        }
+
+        [Fact]
+        public void altaClienteDuplicadoTest()
+        {
+            Cliente unCliente = new Cliente
+            {
+
+                Nombre = "cliente1",
+                Direccion = "Elm street 124",
+                Telefono = "098574632",
+                Email = "cliente1@undominio.com",
+                RUT = 2547854125,
+                Mensualidad = 55000
+            };
+
+            var result = LogicaUsuario.AltaUsuario(unCliente);
+
+            Assert.False(result);
         }
     }
 }
