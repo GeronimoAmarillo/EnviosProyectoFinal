@@ -43,16 +43,19 @@ namespace PersistenciaCore
 
             try
             {
+                Usuarios UsuarioaAgregar = Mapper.Map<Usuarios>(cliente);
                 Clientes ClienteaAgregar = Mapper.Map<Clientes>(cliente);
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
                     if (dbConnection.Clientes.Any(x => x.RUT.ToString() == cliente.RUT.ToString()))
                     {
-                        throw new Exception("Ya existe el rut");
-                        //return false;
+                        //throw new Exception("Ya existe el rut");
+                        return false;
                     }
                     else
                     {
+                        dbConnection.Usuarios.Add(UsuarioaAgregar);
+                        ClienteaAgregar.IdUsuario = UsuarioaAgregar.Id;
                         dbConnection.Clientes.Add(ClienteaAgregar);
                         dbConnection.SaveChanges();
                         return true;
