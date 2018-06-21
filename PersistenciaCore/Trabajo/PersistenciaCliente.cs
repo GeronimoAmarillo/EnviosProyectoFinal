@@ -5,14 +5,68 @@ using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidasCore;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace PersistenciaCore
 {
     class PersistenciaCliente:IPersistenciaCliente
     {
+        public PersistenciaCliente()
+        {
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<Cliente, Clientes>()
+                    .ForMember(d => d.RUT, opt => opt.MapFrom(u => u.RUT))
+                    .ForMember(d => d.Mensualidad, opt => opt.MapFrom(u => u.Mensualidad))
+                    .ForMember(d => d.Palets, opt => opt.MapFrom(u => u.Palets))
+                    .ForMember(d => d.Usuarios, opt => opt.MapFrom(u => u.Usuarios))
+                    .ForMember(d => d.Paquetes, opt => opt.MapFrom(u => u.Paquetes))
+                    .ForMember(d => d.Calificaciones, opt => opt.MapFrom(u => u.Calificaciones))
+                ;
+
+                cfg.CreateMap<Usuario, Usuarios>()
+                    .ForMember(d => d.Nombre, opt => opt.MapFrom(u => u.Nombre))
+                    .ForMember(d => d.NombreUsuario, opt => opt.MapFrom(u => u.NombreUsuario))
+                    .ForMember(d => d.Telefono, opt => opt.MapFrom(u => u.Telefono))
+                    .ForMember(d => d.Contraseña, opt => opt.MapFrom(u => u.Contraseña))
+                    .ForMember(d => d.Direccion, opt => opt.MapFrom(u => u.Direccion))
+                    .ForMember(d => d.Email, opt => opt.MapFrom(u => u.Email))
+                ;
+            });
+        }
+
         public bool AltaCliente(Cliente cliente)
         {
-            return true;
+            var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+            optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+            try
+            {
+                Usuarios UsuarioaAgregar = Mapper.Map<Usuarios>(cliente);
+                Clientes ClienteaAgregar = Mapper.Map<Clientes>(cliente);
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    if (dbConnection.Clientes.Any(x => x.RUT.ToString() == cliente.RUT.ToString()))
+                    {
+                        //throw new Exception("Ya existe el rut");
+                        return false;
+                    }
+                    else
+                    {
+                        dbConnection.Usuarios.Add(UsuarioaAgregar);
+                        ClienteaAgregar.IdUsuario = UsuarioaAgregar.Id;
+                        dbConnection.Clientes.Add(ClienteaAgregar);
+                        dbConnection.SaveChanges();
+                        return true;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar agregar el Cliente: " + ex.Message);
+            }
         }
 
         public bool ExisteCliente(int rut)

@@ -9,6 +9,18 @@ namespace LogicaDeServicioCore
 {
     class ControladorUsuario:IControladorUsuario
     {
+        public bool AltaUsuario(Usuario unUsuario)
+        {
+            try
+            {
+                return LogicaUsuario.AltaUsuario(unUsuario);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public bool EnviarMail(Usuario usuario)
         {
             return true;

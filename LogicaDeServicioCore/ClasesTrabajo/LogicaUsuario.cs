@@ -10,10 +10,29 @@ namespace LogicaDeServicioCore
 {
     public class LogicaUsuario
     {
-        public static bool AltaUsuario(EntidadesCompartidasCore.Usuario unUsuario)
+        public static bool AltaUsuario(Usuario unUsuario)
         {
             bool exito = false;
-            return exito;
+            try
+            {
+                if (unUsuario is Cliente)
+                {
+                    if (!ExisteCliente(((Cliente)unUsuario).RUT))
+                    {
+                        unUsuario.NombreUsuario = unUsuario.Email;
+                        unUsuario.Contraseña = CrearContrasenia();
+                        exito = FabricaPersistencia.GetPersistenciaCliente().AltaCliente((Cliente)unUsuario);
+                        return exito;
+                    }
+
+                }
+                return exito;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
         }
 
         public static bool ExisteCliente(long rut)
@@ -100,6 +119,20 @@ namespace LogicaDeServicioCore
         {
             EntidadesCompartidasCore.Empleado empleado = new EntidadesCompartidasCore.Empleado();
             return empleado;
+        }
+
+        public static string CrearContrasenia()
+        {
+            const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_@*#.";
+            StringBuilder res = new StringBuilder();
+            Random rnd = new Random();
+            int charNum = 1;
+            while (charNum < 25)
+            {
+                res.Append(valid[rnd.Next(valid.Length)]);
+                charNum++;
+            }
+            return res.ToString();
         }
     }
 }

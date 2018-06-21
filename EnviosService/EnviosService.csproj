@@ -5,6 +5,49 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="AdministradoresApp\**" />
+    <Compile Remove="ClientesApp\**" />
+    <Compile Remove="EmpleadosApp\**" />
+    <Compile Remove="EntidadesCompartidas\**" />
+    <Compile Remove="EnviosService\**" />
+    <Compile Remove="LogicaDeApps\**" />
+    <Compile Remove="LogicaDeServicioTests\**" />
+    <Compile Remove="LogicaDeServicio\**" />
+    <Compile Remove="packages\**" />
+    <Compile Remove="Persistencia\**" />
+    <Content Remove="AdministradoresApp\**" />
+    <Content Remove="ClientesApp\**" />
+    <Content Remove="EmpleadosApp\**" />
+    <Content Remove="EntidadesCompartidas\**" />
+    <Content Remove="EnviosService\**" />
+    <Content Remove="LogicaDeApps\**" />
+    <Content Remove="LogicaDeServicioTests\**" />
+    <Content Remove="LogicaDeServicio\**" />
+    <Content Remove="packages\**" />
+    <Content Remove="Persistencia\**" />
+    <EmbeddedResource Remove="AdministradoresApp\**" />
+    <EmbeddedResource Remove="ClientesApp\**" />
+    <EmbeddedResource Remove="EmpleadosApp\**" />
+    <EmbeddedResource Remove="EntidadesCompartidas\**" />
+    <EmbeddedResource Remove="EnviosService\**" />
+    <EmbeddedResource Remove="LogicaDeApps\**" />
+    <EmbeddedResource Remove="LogicaDeServicioTests\**" />
+    <EmbeddedResource Remove="LogicaDeServicio\**" />
+    <EmbeddedResource Remove="packages\**" />
+    <EmbeddedResource Remove="Persistencia\**" />
+    <None Remove="AdministradoresApp\**" />
+    <None Remove="ClientesApp\**" />
+    <None Remove="EmpleadosApp\**" />
+    <None Remove="EntidadesCompartidas\**" />
+    <None Remove="EnviosService\**" />
+    <None Remove="LogicaDeApps\**" />
+    <None Remove="LogicaDeServicioTests\**" />
+    <None Remove="LogicaDeServicio\**" />
+    <None Remove="packages\**" />
+    <None Remove="Persistencia\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Remove="Properties\PublishProfiles\FolderProfile.pubxml" />
   </ItemGroup>
