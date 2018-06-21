@@ -13,7 +13,7 @@ namespace AdministradoresApp.Controllers
     {
         public IActionResult Index()
         {
-            return View(new List<EntidadesCompartidas.Adelanto>());
+            return View(new List<EntidadesCompartidasCore.Adelanto>());
         }
     }
 }
