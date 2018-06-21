@@ -47,7 +47,7 @@ namespace TestsLogicaServicioCore
 
             var resultado = FabricaServicio.GetControladorLocal().AltaLocal(local);
 
-            Assert.True(resultado);
+            Assert.False(resultado);
 
         }
 

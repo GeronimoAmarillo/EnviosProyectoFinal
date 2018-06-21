@@ -11,16 +11,17 @@ namespace TestsLogicaServicioCore
     {
         public void AltaPaletOKTest()
         {
-            Local local = new Local
+            Palet palet = new Palet
             {
+                Cantidad = 10,
+                Casilla = 1,
+                Cliente = 11111111,
                 Id = 0,
-                Direccion = "DireccionOptica5",
-                Nombre = "Optica5",
-                Entregas = null,
-                Entregas1 = null
+                Peso = 80,
+                Producto = "Arroz"
             };
 
-            var resultado = FabricaServicio.GetControladorLocal().AltaLocal(local);
+            var resultado = FabricaServicio.GetControladorPalet().AltaPalet(palet);
 
             Assert.True(resultado);
 
@@ -29,18 +30,19 @@ namespace TestsLogicaServicioCore
         [Fact]
         public void AltaPaletERRORTest()
         {
-            Local local = new Local
+            Palet palet = new Palet
             {
+                Cantidad = 10,
+                Casilla = 1,
+                Cliente = 11111111,
                 Id = 0,
-                Direccion = "DireccionOptica5",
-                Nombre = "Optica5",
-                Entregas = null,
-                Entregas1 = null
+                Peso = 80,
+                Producto = "Arroz"
             };
 
-            var resultado = FabricaServicio.GetControladorLocal().AltaLocal(local);
+            var resultado = FabricaServicio.GetControladorPalet().AltaPalet(palet);
 
-            Assert.True(resultado);
+            Assert.False(resultado);
 
         }
 
