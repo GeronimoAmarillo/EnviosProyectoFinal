@@ -85,6 +85,25 @@ namespace LogicaDeAppsCore
             
         }
 
+        public async Task<bool> AltaUsuario(Usuario unUsuario)
+        {
+            try
+            {
+                bool exito = false;
+                var httpClient = new HttpClient();
+                var EnvioJson = JsonConvert.SerializeObject(unUsuario);
+                
+                var json = await httpClient.PostAsync("http://localhost:8080/api/Usuarios/AltaUsuario?", new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
+
+                
+                return exito;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Error al intentar dar de alta: " + ex.Message);
+            }
+        }
+
         public bool ModificarNombreUsuario(string user)
         {
             return true;

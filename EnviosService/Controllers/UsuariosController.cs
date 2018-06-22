@@ -27,6 +27,8 @@ namespace EnviosService.Controllers
             return Json(controladorUsuario.Login(usuario, contrasenia));
         }
 
+        [HttpPost]
+        [Route("Api/Usuarios/AltaUsuario")]
         public JsonResult AltaUsuario([FromBody] Usuario unUsuario)
         {
             return Json(controladorUsuario.AltaUsuario(unUsuario), new Newtonsoft.Json.JsonSerializerSettings());
