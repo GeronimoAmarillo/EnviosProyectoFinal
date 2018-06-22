@@ -4,27 +4,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidasCore;
+using PersistenciaCore;
 
 namespace LogicaDeServicioCore
 {
     public class LogicaPalet
     {
-        public bool AltaPalet(Palet unPalet)
+        public static bool AltaPalet(Palet unPalet)
+        {
+            try
+            {
+                return FabricaPersistencia.GetPersistenciaPalet().AltaPalet(unPalet);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar dar de alta el Palet." + ex.Message);
+            }
+        }
+
+        public static bool BajaPalet(int id)
         {
             bool exito = false;
             return exito;
         }
 
-        public bool BajaPalet(int id)
+        public static Galpon BuscarGalpon(int id)
         {
-            bool exito = false;
-            return exito;
-        }
+            try
+            {
 
-        public Galpon BuscarGalpon(int id)
-        {
-            Galpon galpon = new Galpon();
-            return galpon;
+                return FabricaPersistencia.GetPersistenciaPalet().BuscarGalpon(id);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el galpon." + ex.Message);
+            }
         }
     }
 }

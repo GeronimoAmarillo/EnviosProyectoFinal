@@ -88,7 +88,39 @@ namespace PersistenciaCore
 
         public EntidadesCompartidasCore.Galpon BuscarGalpon(int id)
         {
-            return new EntidadesCompartidasCore.Galpon();
+            try
+            {
+                Galpon galponR = null;
+
+                Galpones galponEncontrado = null;
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    var galpon = dbConnection.Galpones.Where(g => g.Id == id).Select(c => new {
+                        Galpon = c
+                    }).FirstOrDefault();
+
+                    if (galpon != null && galpon.Galpon is Galpones)
+                    {
+                        galponR = new Galpon();
+
+                        galponR.Id = galpon.Galpon.Id;
+                        galponR.Altura = galpon.Galpon.Altura;
+                        //TODO completar el llenado del galpon (conviene usar el mapping)
+                        galponR.Superficie = galpon.Galpon.Superficie;
+                    }
+                }
+
+                return existe;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los locales." + ex.Message);
+            }
         }
 
         public bool BajaPalet(EntidadesCompartidasCore.Palet palet)

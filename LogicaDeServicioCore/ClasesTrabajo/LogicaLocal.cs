@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidasCore;
 using Microsoft.EntityFrameworkCore;
-using Persistencia;
 using PersistenciaCore;
 
 namespace LogicaDeServicioCore
@@ -61,7 +60,7 @@ namespace LogicaDeServicioCore
             }
             catch(Exception ex)
             {
-                throw new Exception("Error al intentar dar de alta el Local." + ex.Message);
+                throw new Exception("Error al listar los locales." + ex.Message);
             }
         }
     }
