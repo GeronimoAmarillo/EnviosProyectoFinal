@@ -3,7 +3,7 @@ namespace EntidadesCompartidasCore
     using System;
     using System.Collections.Generic;
 
-    public partial class Administrador:Empleado
+    public class Administrador:Empleado
     {
         public int CiEmpleado { get; set; }
         

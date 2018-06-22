@@ -6,8 +6,6 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
-using EntidadesCompartidas;
-using LogicaDeApps;
 using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json;
@@ -22,7 +20,7 @@ namespace EmpleadosApp.Droid
         {
             base.OnCreate(bundle);
 
-            SetContentView(Resource.Layout.MainActivity);
+            /*SetContentView(Resource.Layout.MainActivity);
 
             Button btnLogin = FindViewById<Button>(Resource.Id.btnLogin);
 
@@ -58,7 +56,7 @@ namespace EmpleadosApp.Droid
                         StartActivity(intent);
                     }
                 }
-            };
+            };*/
         }
 
         /*private async Task Login_ClickAsync(object sender, EventArgs e)

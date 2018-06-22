@@ -54,8 +54,26 @@ namespace LogicaDeAppsCore
                 var json = await httpClient.GetStringAsync("http://localhost:8080/api/Usuarios/Login?" + "usuario=" + user + "&contrasenia=" + pass);
 
                 Usuario usuarioLogueado = null;
+                Administrador admin = null;
+                Cadete cadete = null;
+                Cliente cliente = null;
 
-                usuarioLogueado = JsonConvert.DeserializeObject<Usuario>(json);
+
+                usuarioLogueado = JsonConvert.DeserializeObject<Administrador>(json);
+
+                admin = (Administrador)usuarioLogueado;
+
+                if (admin == null || admin.Tipo == null)
+                {
+                    usuarioLogueado = JsonConvert.DeserializeObject<Cadete>(json);
+                    cadete = (Cadete)usuarioLogueado;
+
+                    if (cadete == null || cadete.TipoLibreta == null)
+                    {
+                        usuarioLogueado = JsonConvert.DeserializeObject<Cliente>(json);
+                        cliente = (Cliente)usuarioLogueado;
+                    }
+                }
 
                 return usuarioLogueado;
                 
