@@ -93,7 +93,7 @@ namespace LogicaDeAppsCore
                 var httpClient = new HttpClient();
                 var EnvioJson = JsonConvert.SerializeObject(unUsuario);
                 
-                HttpResponseMessage retorno = await httpClient.PostAsync("http://localhost:8080/api/Usuarios/AltaUsuario?", new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
+                HttpResponseMessage retorno = await httpClient.PostAsync("http://localhost:8080/api/Usuarios/AltaUsuario", new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
                 string resultado = await retorno.Content.ReadAsStringAsync();
                 
                 if (retorno.IsSuccessStatusCode && resultado == "true")

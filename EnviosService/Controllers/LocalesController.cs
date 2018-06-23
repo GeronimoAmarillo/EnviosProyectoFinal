@@ -24,7 +24,6 @@ namespace EnviosService.Controllers
         [Route("api/Locales/Locales")]
         public JsonResult Locales()
         {
-
             return Json(controladorLocal.ListarLocales(), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
