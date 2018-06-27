@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json;
 using Android.Content;
+using EntidadesCompartidasAndroid;
 
 namespace EmpleadosApp.Droid
 {
@@ -32,13 +33,12 @@ namespace EmpleadosApp.Droid
 
                 var user = etUser.Text;
                 var pass = etPass.Text;
-
-                var logica = FabricaApps.GetControladorUsuario();
+                
                 Usuario usuarioLogueado = null;
 
                 try
                 {
-                    usuarioLogueado = await logica.Login(user, pass);
+                    usuarioLogueado = await Login(user, pass);
                 }
                 catch (Exception ex)
                 {
