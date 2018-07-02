@@ -12,12 +12,51 @@ namespace PersistenciaCore
     {
         public bool AltaCadete(EntidadesCompartidasCore.Cadete cadete)
         {
-            return true;
+            PersistenciaCore.Cadetes cadeteNuevo = new PersistenciaCore.Cadetes();
+
+            cadeteNuevo.IdTelefono = cadete.IdTelefono;
+            cadeteNuevo.TipoLibreta = cadete.TipoLibreta;
+            cadeteNuevo.CiEmpleado = cadete.CiEmpleado;
+           
+
+            var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+            optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+
+            using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+            {
+                dbConnection.Cadetes.Add(cadeteNuevo);
+
+                dbConnection.SaveChanges();
+
+                return true;
+            }
         }
 
         public bool ExisteCadete(int ci)
         {
-            return true;
+            bool existe = false;
+
+
+            var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+            optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+            using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+            {
+                var cadete = dbConnection.Cadetes.Where(a => a.CiEmpleado == ci).Select(c => new {
+                    Cadete = c
+                }).FirstOrDefault();
+
+                if (cadete != null && cadete.Cadete is Cadetes)
+                {
+                    existe = true;
+                }
+            }
+
+            return existe;
+
         }
 
         public List<EntidadesCompartidasCore.Cadete> ListarCadetes()

@@ -12,12 +12,68 @@ namespace PersistenciaCore
     {
         public bool ExisteAdmin(int ci)
         {
-            return true;
+            try
+            {
+
+                bool existe = false;
+
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    var admin = dbConnection.Administradores.Where(a => a.CiEmpleado == ci).Select(c => new {
+                        Admin = c
+                    }).FirstOrDefault();
+
+                    if (admin != null && admin.Admin is Administradores)
+                    {
+                        existe = true;
+                    }
+                }
+
+                return existe;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el administrador.");
+            }
         }
 
         public bool AltaAdministrador(EntidadesCompartidasCore.Administrador administrador)
         {
-            return true;
+            try
+            {
+
+                PersistenciaCore.Administradores adminNuevo = new PersistenciaCore.Administradores();
+                
+                adminNuevo.CiEmpleado = administrador.CiEmpleado;
+                adminNuevo.Tipo = administrador.Tipo;
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    dbConnection.Administradores.Add(adminNuevo);
+
+                    dbConnection.SaveChanges();
+
+                    return true;
+                }
+               
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al dar de alta el administrador");
+            }
+
+
         }
 
         public bool ComprobarUser(string user)
