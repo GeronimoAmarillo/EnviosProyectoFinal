@@ -26,6 +26,28 @@ namespace LogicaDeServicioCore
                     }
 
                 }
+                if (unUsuario is Administrador)
+                {
+                    if (!ExisteCliente(((Administrador)unUsuario).CiEmpleado))
+                    {
+                        unUsuario.NombreUsuario = unUsuario.Email;
+                        unUsuario.Contraseña = CrearContrasenia();
+                        exito = FabricaPersistencia.GetPersistenciaAdministrador().AltaAdministrador((Administrador)unUsuario);
+                        return exito;
+                    }
+
+                }
+                if (unUsuario is Cadete)
+                {
+                    if (!ExisteCliente(((Cadete)unUsuario).CiEmpleado))
+                    {
+                        unUsuario.NombreUsuario = unUsuario.Email;
+                        unUsuario.Contraseña = CrearContrasenia();
+                        exito = FabricaPersistencia.GetPersistenciaCadete().AltaCadete((Cadete)unUsuario);
+                        return exito;
+                    }
+
+                }
                 return exito;
             }
             catch (Exception ex)

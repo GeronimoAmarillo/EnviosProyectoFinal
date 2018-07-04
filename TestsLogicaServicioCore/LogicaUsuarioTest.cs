@@ -33,12 +33,16 @@ namespace TestsLogicaServicioCore
         {
             Administrador administrador = new Administrador
             {
-                Nombre = "empleado1",
-                Direccion = "Elm street 124",
-                Telefono = "098574632",
-                Email = "empleado1@undominio.com",
-                CiEmpleado = 4173914,
-                Tipo = "Administrador"
+                Id =0,
+                NombreUsuario="", 
+                Contraseña="",
+                Nombre="Matias", 
+                Direccion="direccion",
+                Telefono="12345",
+                Email ="email@email.com",
+                Sueldo =1234,
+                Ci =41739143,
+                Tipo ="Administrador"
             };
 
             var resultado = FabricaServicio.GetControladorUsuario().AltaUsuario(administrador);
