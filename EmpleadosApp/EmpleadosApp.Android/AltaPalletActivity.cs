@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace EmpleadosApp.Droid
 {
-    [Activity(Label = "AltaPalletActivity")]
+    [Activity(Label = "Alta Pallet")]
     public class AltaPalletActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)

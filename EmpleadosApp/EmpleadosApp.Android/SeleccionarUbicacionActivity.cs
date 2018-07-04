@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace EmpleadosApp.Droid
 {
-    [Activity(Label = "SeleccionarUbicacionActivity")]
+    [Activity(Label = "Seleccion de Ubicacion")]
     public class SeleccionarUbicacionActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)

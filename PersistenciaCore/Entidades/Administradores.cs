@@ -18,7 +18,7 @@ namespace PersistenciaCore
         [StringLength(1)]
         public string Tipo { get; set; }
 
-        [ForeignKey("Ci")]
+        [ForeignKey("CiEmpleado")]
         public virtual Empleados Empleados { get; set; }
     }
 }

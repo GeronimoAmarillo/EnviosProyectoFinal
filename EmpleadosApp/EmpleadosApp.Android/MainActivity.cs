@@ -14,7 +14,7 @@ using EntidadesCompartidasAndroid;
 
 namespace EmpleadosApp.Droid
 {
-    [Activity(Label = "EmpleadosApp", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "Login", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : Activity
     {
         protected override void OnCreate(Bundle bundle)
