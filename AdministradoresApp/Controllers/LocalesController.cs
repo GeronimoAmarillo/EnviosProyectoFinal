@@ -16,26 +16,67 @@ namespace AdministradoresApp.Controllers
     public class LocalesController : Controller
     {
         public static string SESSSION_ALTA = "AltaLocal";
-        
+        public static string SESSION_MENSAJE = "Mensaje";
+        public static string LOG_USER = "UsuarioLogueado";
+
         public async Task<ActionResult> Index()
         {
-            IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
+            try
+            {
+                if (ComprobarLogin() == "G")
+                {
+                    IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
 
-            List<Local> locales = await controladorLocal.ListarLocales();
+                    List<Local> locales = await controladorLocal.ListarLocales();
+
+                    string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
+
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, null);
+
+                    if (mensaje != null && mensaje != "")
+                    {
+                        ViewBag.Message = mensaje;
+                    }
+
+                    return View(locales);
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+                
+            }
+            catch
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Locales registrados");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
             
-            return View(locales);
         }
         
 
         public ActionResult Alta()
         {
-            IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
+            if (ComprobarLogin() == "G")
+            {
+                IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
 
-            controladorLocal.IniciarRegistroLocal();
+                controladorLocal.IniciarRegistroLocal();
 
-            HttpContext.Session.Set<Local>(SESSSION_ALTA, controladorLocal.GetLocal());
+                HttpContext.Session.Set<Local>(SESSSION_ALTA, controladorLocal.GetLocal());
 
-            return View();
+                return View();
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+            
         }
 
         [HttpPost]
@@ -43,32 +84,50 @@ namespace AdministradoresApp.Controllers
         {
             try
             {
-
-                Local localAlta = HttpContext.Session.Get<Local>(SESSSION_ALTA);
-
-                localAlta.Direccion = local.Direccion;
-                localAlta.Nombre = local.Nombre;
-
-                IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
-
-                controladorLocal.SetLocal(localAlta);
-
-                if (ModelState.IsValid)
+                if (ComprobarLogin() == "G")
                 {
-                    bool exito = controladorLocal.AltaLocal();
 
-                    if (exito)
+                    Local localAlta = HttpContext.Session.Get<Local>(SESSSION_ALTA);
+
+                    localAlta.Direccion = local.Direccion;
+                    localAlta.Nombre = local.Nombre;
+
+                    IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
+
+                    controladorLocal.SetLocal(localAlta);
+
+                    string mensaje = "";
+
+                    if (ModelState.IsValid)
                     {
-                        controladorLocal.SetLocal(null);
-                        ViewData["Mensaje"] = "El local se dio de alta con exito!.";
+                        bool exito = controladorLocal.AltaLocal();
+
+                        if (exito)
+                        {
+                            controladorLocal.SetLocal(null);
+                            mensaje = "El local se dio de alta con exito!.";
+                        }
+                        else
+                        {
+                            mensaje = "Se produjo un error al dar de alta el local!.";
+                        }
                     }
-                    else
+
+                    if (mensaje != "")
                     {
-                        ViewData["Mensaje"] = "Se produjo un error al dar de alta el local!.";
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
                     }
+
+                    return RedirectToAction("Index");
+
                 }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+                
 
             }
             catch(Exception ex)
@@ -76,6 +135,43 @@ namespace AdministradoresApp.Controllers
                 return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
             }
             
+        }
+
+        public string ComprobarLogin()
+        {
+            try
+            {
+                Administrador administrador = HttpContext.Session.Get<Administrador>(LOG_USER);
+
+                if (administrador != null)
+                {
+
+                    if (administrador.Tipo.ToUpper() == "G")
+                    {
+                        return "G";
+                    }
+                    else if (administrador.Tipo.ToUpper() == "C")
+                    {
+                        return "C";
+                    }
+                    else if (administrador.Tipo.ToUpper() == "L")
+                    {
+                        return "L";
+                    }
+                    else
+                    {
+                        return "Valor invalido.";
+                    }
+                }
+                else
+                {
+                    return "";
+                }
+            }
+            catch
+            {
+                throw new Exception("Error al comprobar el logueo.");
+            }
         }
 
         /*[HttpGet]

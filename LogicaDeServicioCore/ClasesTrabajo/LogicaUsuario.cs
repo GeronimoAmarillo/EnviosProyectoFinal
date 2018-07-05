@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidasCore;
-using Persistencia;
+using PersistenciaCore;
 
 namespace LogicaDeServicioCore
 {
@@ -95,8 +95,16 @@ namespace LogicaDeServicioCore
 
         public static List<EntidadesCompartidasCore.Cliente> ListarClientes()
         {
-            List<EntidadesCompartidasCore.Cliente> clientes = new List<EntidadesCompartidasCore.Cliente>();
-            return clientes;
+            try
+            {
+                List<Cliente> lista = FabricaPersistencia.GetPersistenciaCliente().ListarClientes();
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los clientes." + ex.Message);
+            }
         }
 
         public static bool BajaUsuario(int cedula)

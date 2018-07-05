@@ -7,11 +7,20 @@
 
 <h2>Login</h2>
 
-@{ 
-    if (ViewData["Mensaje"] != null)
+<p></p>
+<p></p>
+<p></p>
+
+@{
+    var mensaje = @ViewBag.Message;
+
+    if (mensaje != null && mensaje != "")
     {
-        <p>@ViewData["Mensaje"].ToString()</p>
+
+        <h3 class="text-info">@mensaje</h3>
+
     }
+
 }
 
 <hr />

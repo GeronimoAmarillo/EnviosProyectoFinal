@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace EmpleadosApp.Droid
 {
-    [Activity(Label = "InicioActivity")]
+    [Activity(Label = "Inicio")]
     public class InicioActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)

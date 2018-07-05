@@ -13,17 +13,38 @@ namespace LogicaDeServicioCore
 
         public bool AltaPalet(Palet palet)
         {
-            return true;
+            try
+            {
+                return LogicaPalet.AltaPalet(palet);
+            }
+            catch
+            {
+                throw new Exception("Error al intentar dar de alta el Palet.");
+            }
         }
 
         public List<Cliente> ListarClientes()
         {
-            return new List<Cliente>();
+            try
+            {
+                return LogicaUsuario.ListarClientes();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al Listar los clientes." + ex.Message);
+            }
         }
 
         public Galpon BuscarGalpon(int id)
         {
-            return new Galpon();
+            try
+            {
+                return LogicaPalet.BuscarGalpon(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el galpon." + ex.Message);
+            }
         }
 
         public Palet BuscarPalet(int id)

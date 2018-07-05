@@ -43,16 +43,19 @@ namespace PersistenciaCore
 
             try
             {
+                Usuarios UsuarioaAgregar = Mapper.Map<Usuarios>(cliente);
                 Clientes ClienteaAgregar = Mapper.Map<Clientes>(cliente);
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
                     if (dbConnection.Clientes.Any(x => x.RUT.ToString() == cliente.RUT.ToString()))
                     {
-                        throw new Exception("Ya existe el rut");
-                        //return false;
+                        //throw new Exception("Ya existe el rut");
+                        return false;
                     }
                     else
                     {
+                        dbConnection.Usuarios.Add(UsuarioaAgregar);
+                        ClienteaAgregar.IdUsuario = UsuarioaAgregar.Id;
                         dbConnection.Clientes.Add(ClienteaAgregar);
                         dbConnection.SaveChanges();
                         return true;
@@ -83,7 +86,45 @@ namespace PersistenciaCore
 
         public List<Cliente> ListarClientes()
         {
-            return new List<Cliente>();
+            try
+            {
+                List<Clientes> clientes = new List<Clientes>();
+
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    clientes = dbConnection.Clientes.ToList();
+                }
+
+                List<Cliente> clientesResultado = new List<Cliente>();
+
+                foreach (Clientes c in clientes)
+                {
+                    Cliente clienteR = new Cliente();
+
+                    clienteR.Id = c.IdUsuario;
+                    clienteR.Nombre = c.Usuarios.Nombre;
+                    clienteR.Direccion = c.Usuarios.Direccion;
+                    clienteR.Contraseña = c.Usuarios.Contraseña;
+                    clienteR.Email = c.Usuarios.Email;
+                    clienteR.Mensualidad = c.Mensualidad;
+                    clienteR.NombreUsuario = c.Usuarios.NombreUsuario;
+                    clienteR.RUT = c.RUT;
+                    clienteR.Telefono = c.Usuarios.Telefono;
+
+                    clientesResultado.Add(clienteR);
+                }
+
+                return clientesResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los clientes." + ex.Message);
+            }
         }
 
         public Cliente Login(string user, string contraseña)

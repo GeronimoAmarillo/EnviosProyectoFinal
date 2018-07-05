@@ -45,9 +45,6 @@ namespace PersistenciaCore.Migrations
                 {
                     b.Property<int>("CiEmpleado");
 
-                    b.Property<int?>("Ci")
-                        .IsRequired();
-
                     b.Property<string>("Tipo")
                         .IsRequired()
                         .HasColumnType("char(1)")
@@ -56,27 +53,17 @@ namespace PersistenciaCore.Migrations
 
                     b.HasKey("CiEmpleado");
 
-                    b.HasIndex("Ci")
-                        .IsUnique();
-
                     b.ToTable("Administradores");
                 });
 
             modelBuilder.Entity("PersistenciaCore.Automobiles", b =>
                 {
                     b.Property<string>("MatriculaAuto")
-                        .ValueGeneratedOnAdd()
                         .HasMaxLength(10);
-
-                    b.Property<string>("Matricula")
-                        .IsRequired();
 
                     b.Property<int>("Puertas");
 
                     b.HasKey("MatriculaAuto");
-
-                    b.HasIndex("Matricula")
-                        .IsUnique();
 
                     b.ToTable("Automobiles");
                 });
@@ -104,9 +91,6 @@ namespace PersistenciaCore.Migrations
                 {
                     b.Property<int>("CiEmpleado");
 
-                    b.Property<int?>("Ci")
-                        .IsRequired();
-
                     b.Property<long>("IdTelefono");
 
                     b.Property<string>("TipoLibreta")
@@ -115,9 +99,6 @@ namespace PersistenciaCore.Migrations
                         .IsUnicode(false);
 
                     b.HasKey("CiEmpleado");
-
-                    b.HasIndex("Ci")
-                        .IsUnique();
 
                     b.ToTable("Cadetes");
                 });
@@ -144,19 +125,12 @@ namespace PersistenciaCore.Migrations
             modelBuilder.Entity("PersistenciaCore.Camiones", b =>
                 {
                     b.Property<string>("MatriculaCamion")
-                        .ValueGeneratedOnAdd()
                         .HasMaxLength(10);
 
                     b.Property<decimal>("Altura")
                         .HasColumnType("decimal(18, 0)");
 
-                    b.Property<string>("Matricula")
-                        .IsRequired();
-
                     b.HasKey("MatriculaCamion");
-
-                    b.HasIndex("Matricula")
-                        .IsUnique();
 
                     b.ToTable("Camiones");
                 });
@@ -164,20 +138,13 @@ namespace PersistenciaCore.Migrations
             modelBuilder.Entity("PersistenciaCore.Camionetas", b =>
                 {
                     b.Property<string>("MatriculaCamioneta")
-                        .ValueGeneratedOnAdd()
                         .HasMaxLength(10);
 
                     b.Property<string>("Cabina")
                         .IsRequired()
                         .HasMaxLength(25);
 
-                    b.Property<string>("Matricula")
-                        .IsRequired();
-
                     b.HasKey("MatriculaCamioneta");
-
-                    b.HasIndex("Matricula")
-                        .IsUnique();
 
                     b.ToTable("Camionetas");
                 });
@@ -387,19 +354,12 @@ namespace PersistenciaCore.Migrations
             modelBuilder.Entity("PersistenciaCore.Motos", b =>
                 {
                     b.Property<string>("MatriculaMoto")
-                        .ValueGeneratedOnAdd()
                         .HasMaxLength(10);
 
                     b.Property<decimal>("Cilindrada")
                         .HasColumnType("decimal(18, 0)");
 
-                    b.Property<string>("Matricula")
-                        .IsRequired();
-
                     b.HasKey("MatriculaMoto");
-
-                    b.HasIndex("Matricula")
-                        .IsUnique();
 
                     b.ToTable("Motos");
                 });
@@ -696,7 +656,7 @@ namespace PersistenciaCore.Migrations
                 {
                     b.HasOne("PersistenciaCore.Empleados", "Empleados")
                         .WithOne("Administradores")
-                        .HasForeignKey("PersistenciaCore.Administradores", "Ci")
+                        .HasForeignKey("PersistenciaCore.Administradores", "CiEmpleado")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -704,7 +664,7 @@ namespace PersistenciaCore.Migrations
                 {
                     b.HasOne("PersistenciaCore.Vehiculos", "Vehiculos")
                         .WithOne("Automobiles")
-                        .HasForeignKey("PersistenciaCore.Automobiles", "Matricula")
+                        .HasForeignKey("PersistenciaCore.Automobiles", "MatriculaAuto")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -712,7 +672,7 @@ namespace PersistenciaCore.Migrations
                 {
                     b.HasOne("PersistenciaCore.Empleados", "Empleados")
                         .WithOne("Cadetes")
-                        .HasForeignKey("PersistenciaCore.Cadetes", "Ci")
+                        .HasForeignKey("PersistenciaCore.Cadetes", "CiEmpleado")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -728,7 +688,7 @@ namespace PersistenciaCore.Migrations
                 {
                     b.HasOne("PersistenciaCore.Vehiculos", "Vehiculos")
                         .WithOne("Camiones")
-                        .HasForeignKey("PersistenciaCore.Camiones", "Matricula")
+                        .HasForeignKey("PersistenciaCore.Camiones", "MatriculaCamion")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -736,7 +696,7 @@ namespace PersistenciaCore.Migrations
                 {
                     b.HasOne("PersistenciaCore.Vehiculos", "Vehiculos")
                         .WithOne("Camionetas")
-                        .HasForeignKey("PersistenciaCore.Camionetas", "Matricula")
+                        .HasForeignKey("PersistenciaCore.Camionetas", "MatriculaCamioneta")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -796,7 +756,7 @@ namespace PersistenciaCore.Migrations
                 {
                     b.HasOne("PersistenciaCore.Vehiculos", "Vehiculos")
                         .WithOne("Motos")
-                        .HasForeignKey("PersistenciaCore.Motos", "Matricula")
+                        .HasForeignKey("PersistenciaCore.Motos", "MatriculaMoto")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
