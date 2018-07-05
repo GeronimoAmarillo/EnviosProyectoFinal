@@ -2784,12 +2784,6 @@ namespace EmpleadosApp.Droid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f0800c8
-			public const int ListaRacksFragment = 2131230920;
-			
-			// aapt resource value: 0x7f0800c7
-			public const int ListaSectoresFragment = 2131230919;
-			
 			// aapt resource value: 0x7f0800ad
 			public const int action0 = 2131230893;
 			
@@ -3000,6 +2994,12 @@ namespace EmpleadosApp.Droid
 			// aapt resource value: 0x7f08003f
 			public const int @fixed = 2131230783;
 			
+			// aapt resource value: 0x7f0800c9
+			public const int flRacksContainer = 2131230921;
+			
+			// aapt resource value: 0x7f0800c8
+			public const int flSectoresContainer = 2131230920;
+			
 			// aapt resource value: 0x7f080005
 			public const int home = 2131230725;
 			
@@ -3051,8 +3051,8 @@ namespace EmpleadosApp.Droid
 			// aapt resource value: 0x7f08008c
 			public const int lvSectores = 2131230860;
 			
-			// aapt resource value: 0x7f0800cc
-			public const int masked = 2131230924;
+			// aapt resource value: 0x7f0800cd
+			public const int masked = 2131230925;
 			
 			// aapt resource value: 0x7f0800b0
 			public const int media_actions = 2131230896;
@@ -3252,8 +3252,8 @@ namespace EmpleadosApp.Droid
 			// aapt resource value: 0x7f080017
 			public const int showTitle = 2131230743;
 			
-			// aapt resource value: 0x7f0800c9
-			public const int sliding_tabs = 2131230921;
+			// aapt resource value: 0x7f0800ca
+			public const int sliding_tabs = 2131230922;
 			
 			// aapt resource value: 0x7f08007b
 			public const int smallLabel = 2131230843;
@@ -3339,8 +3339,8 @@ namespace EmpleadosApp.Droid
 			// aapt resource value: 0x7f080057
 			public const int title_template = 2131230807;
 			
-			// aapt resource value: 0x7f0800ca
-			public const int toolbar = 2131230922;
+			// aapt resource value: 0x7f0800cb
+			public const int toolbar = 2131230923;
 			
 			// aapt resource value: 0x7f080029
 			public const int top = 2131230761;
@@ -3356,6 +3356,9 @@ namespace EmpleadosApp.Droid
 			
 			// aapt resource value: 0x7f08000b
 			public const int transition_scene_layoutid_cache = 2131230731;
+			
+			// aapt resource value: 0x7f0800c4
+			public const int tvAltura = 2131230916;
 			
 			// aapt resource value: 0x7f0800c2
 			public const int tvCodigo = 2131230914;
@@ -3375,8 +3378,8 @@ namespace EmpleadosApp.Droid
 			// aapt resource value: 0x7f08008b
 			public const int tvSectores = 2131230859;
 			
-			// aapt resource value: 0x7f0800c4
-			public const int tvTemperatura = 2131230916;
+			// aapt resource value: 0x7f0800c7
+			public const int tvTemperatura = 2131230919;
 			
 			// aapt resource value: 0x7f080009
 			public const int up = 2131230729;
@@ -3387,8 +3390,8 @@ namespace EmpleadosApp.Droid
 			// aapt resource value: 0x7f08000e
 			public const int view_offset_helper = 2131230734;
 			
-			// aapt resource value: 0x7f0800cb
-			public const int visible = 2131230923;
+			// aapt resource value: 0x7f0800cc
+			public const int visible = 2131230924;
 			
 			// aapt resource value: 0x7f0800a2
 			public const int volume_item_container = 2131230882;
@@ -3679,28 +3682,31 @@ namespace EmpleadosApp.Droid
 			public const int notification_template_part_time = 2130903105;
 			
 			// aapt resource value: 0x7f030042
-			public const int SectorRow = 2130903106;
+			public const int RackRow = 2130903106;
 			
 			// aapt resource value: 0x7f030043
-			public const int SeleccionarUbicacionActivity = 2130903107;
+			public const int SectorRow = 2130903107;
 			
 			// aapt resource value: 0x7f030044
-			public const int select_dialog_item_material = 2130903108;
+			public const int SeleccionarUbicacionActivity = 2130903108;
 			
 			// aapt resource value: 0x7f030045
-			public const int select_dialog_multichoice_material = 2130903109;
+			public const int select_dialog_item_material = 2130903109;
 			
 			// aapt resource value: 0x7f030046
-			public const int select_dialog_singlechoice_material = 2130903110;
+			public const int select_dialog_multichoice_material = 2130903110;
 			
 			// aapt resource value: 0x7f030047
-			public const int support_simple_spinner_dropdown_item = 2130903111;
+			public const int select_dialog_singlechoice_material = 2130903111;
 			
 			// aapt resource value: 0x7f030048
-			public const int Tabbar = 2130903112;
+			public const int support_simple_spinner_dropdown_item = 2130903112;
 			
 			// aapt resource value: 0x7f030049
-			public const int Toolbar = 2130903113;
+			public const int Tabbar = 2130903113;
+			
+			// aapt resource value: 0x7f03004a
+			public const int Toolbar = 2130903114;
 			
 			static Layout()
 			{

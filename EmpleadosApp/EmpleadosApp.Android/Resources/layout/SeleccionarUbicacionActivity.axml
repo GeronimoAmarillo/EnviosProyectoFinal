@@ -3,16 +3,12 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <fragment
-        android:id="@+id/ListaSectoresFragment"
-        android:name="listaSectores"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1" />
-    <fragment
-        android:id="@+id/ListaRacksFragment"
-        android:name="listaRacks"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="3" />
+    <FrameLayout
+        android:id="@+id/flSectoresContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <FrameLayout
+        android:id="@+id/flRacksContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>

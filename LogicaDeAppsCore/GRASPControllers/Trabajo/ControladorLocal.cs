@@ -113,6 +113,8 @@ namespace LogicaDeAppsCore
 
                 var result = client.PostAsync(url, content).Result;
 
+                //result.Content
+
                 return result.IsSuccessStatusCode;
             }
             catch (Exception ex)

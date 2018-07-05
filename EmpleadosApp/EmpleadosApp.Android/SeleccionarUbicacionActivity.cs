@@ -20,6 +20,13 @@ namespace EmpleadosApp.Droid
             base.OnCreate(savedInstanceState);
 
             // Create your application here
+
+            SetContentView(Resource.Layout.SeleccionarUbicacionActivity);
+
+            var fragmentContainer = FindViewById<FrameLayout>(Resource.Id.flSectoresContainer);
+            var transaction = FragmentManager.BeginTransaction();
+            transaction.Add(Resource.Id.flSectoresContainer, new ListaSectoresFragment());
+            transaction.Commit();
         }
     }
 }

@@ -30,7 +30,6 @@ namespace PersistenciaCore
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
                     dbConnection.Locales.Add(localAgregar);
-
                     dbConnection.SaveChanges();
 
                     return true;
