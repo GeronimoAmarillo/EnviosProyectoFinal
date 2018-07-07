@@ -20,43 +20,50 @@ namespace EmpleadosApp.Droid
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
-            SetContentView(Resource.Layout.MainActivity);
-
-            Button btnLogin = FindViewById<Button>(Resource.Id.btnLogin);
-
-            btnLogin.Click += async (sender, e) =>
+            try
             {
+                SetContentView(Resource.Layout.MainActivity);
 
-                var etUser = FindViewById<EditText>(Resource.Id.etUser);
-                var etPass = FindViewById<EditText>(Resource.Id.etPass);
+                Button btnLogin = FindViewById<Button>(Resource.Id.btnLogin);
 
-                var user = etUser.Text;
-                var pass = etPass.Text;
-                
-                Usuario usuarioLogueado = null;
-
-                try
+                btnLogin.Click += async (sender, e) =>
                 {
-                    usuarioLogueado = await Login(user, pass);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Error al loguearse, " + ex.Message);
-                }
 
+                    var etUser = FindViewById<EditText>(Resource.Id.etUser);
+                    var etPass = FindViewById<EditText>(Resource.Id.etPass);
 
-                if (usuarioLogueado != null)
-                {
-                    if (usuarioLogueado.NombreUsuario == user && usuarioLogueado.Contraseña == pass)
+                    var user = etUser.Text;
+                    var pass = etPass.Text;
+
+                    Usuario usuarioLogueado = null;
+
+                    try
                     {
-                        Intent intent = new Intent(this, typeof(InicioActivity));
-                        intent.PutExtra("usuarioLogueado", Newtonsoft.Json.JsonConvert.SerializeObject(usuarioLogueado));
-
-                        StartActivity(intent);
+                        usuarioLogueado = await Login(user, pass);
                     }
-                }
-            };
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error al loguearse, " + ex.Message);
+                    }
+
+
+                    if (usuarioLogueado != null)
+                    {
+                        if (usuarioLogueado.NombreUsuario == user && usuarioLogueado.Contraseña == pass)
+                        {
+                            Intent intent = new Intent(this, typeof(InicioActivity));
+                            intent.PutExtra("usuarioLogueado", Newtonsoft.Json.JsonConvert.SerializeObject(usuarioLogueado));
+
+                            StartActivity(intent);
+                        }
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                Toast.MakeText(this, "ERROR: " + ex.Message, ToastLength.Long).Show();
+            }
+
         }
 
         public async Task<Usuario> Login(string user, string pass)
@@ -95,13 +102,10 @@ namespace EmpleadosApp.Droid
             }
             catch (Exception ex)
             {
-                throw new Exception("No existe un usuario registrado con el usuario y/o contraseña ingresados.");
+                Toast.MakeText(this, "ERROR: " + ex.Message, ToastLength.Long).Show();
+
+                return null;
             }
-
         }
-
     }
-
-    
 }
-

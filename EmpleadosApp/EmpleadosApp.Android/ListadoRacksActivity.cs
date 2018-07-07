@@ -8,7 +8,6 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
 using EntidadesCompartidasAndroid;
@@ -16,39 +15,46 @@ using Newtonsoft.Json;
 
 namespace EmpleadosApp.Droid
 {
-    public class ListaRacksFragment : Fragment
+    [Activity(Label = "ListadoRacksActivity")]
+    public class ListadoRacksActivity : Activity
     {
         private List<Rack> racks;
         private ListView lvRacks;
         private int idSector;
+        
 
-        public ListaRacksFragment(int pIdSector)
+        protected override void OnCreate(Bundle savedInstanceState)
         {
-            racks = new List<Rack>();
-            idSector = pIdSector;
-        }
+            base.OnCreate(savedInstanceState);
 
-        public override void OnActivityCreated(Bundle savedInstanceState)
-        {
-            base.OnActivityCreated(savedInstanceState);
+            SetContentView(Resource.Layout.ListadoRacksActivity);
 
-            if (!racks.Any())
+            Bundle extras = Intent.Extras;
+            idSector = Convert.ToInt32(extras.Get("SectorSeleccionado"));
+            
+            try
             {
-                try
+                if (!racks.Any())
                 {
-                    ObtenerRacks();
+                    try
+                    {
+                        ObtenerRacks();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Se produjo un error al intentar listar los racks.");
+                    }
                 }
-                catch (Exception ex)
-                {
-                    throw new Exception("Se produjo un error al intentar listar los racks.");
-                }
+
+                SetupViews();
+                SetupEvents();
+
+                lvRacks.Adapter = new Adaptadores.AdaptadorRacks(this, racks);
             }
-
-            SetupViews();
-
-            SetupEvents();
-
-            lvRacks.Adapter = new Adaptadores.AdaptadorRacks(Activity, racks);
+            catch (Exception ex)
+            {
+                Toast.MakeText(this, "ERROR: " + ex.Message, ToastLength.Long).Show();
+            }
         }
 
         private void SetupEvents()
@@ -58,7 +64,7 @@ namespace EmpleadosApp.Droid
 
         private void lvRacks_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            var intent = new Intent(Activity, typeof(SeleccionarUbicacionActivity));
+            var intent = new Intent(this, typeof(AltaPalletActivity));
             var id = (int)e.Id;
             intent.PutExtra("RackSeleccionado", id);
             StartActivity(intent);
@@ -66,20 +72,7 @@ namespace EmpleadosApp.Droid
 
         private void SetupViews()
         {
-            lvRacks = View.FindViewById<ListView>(Resource.Id.lvRacks);
-        }
-
-        public override void OnCreate(Bundle savedInstanceState)
-        {
-            base.OnCreate(savedInstanceState);
-        }
-
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-        {
-            // Use this to return your custom view for this Fragment
-            // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
-
-            return inflater.Inflate(Resource.Layout.ListadoRacksFragment, container, false);
+            lvRacks = FindViewById<ListView>(Resource.Id.lvRacks);
         }
 
         public async System.Threading.Tasks.Task<List<Rack>> ObtenerRacks()

@@ -62,16 +62,16 @@
     <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="25.4.0.2" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adaptadores\AdaptadorClientes.cs" />
     <Compile Include="Adaptadores\AdaptadorRacks.cs" />
     <Compile Include="Adaptadores\AdaptadorSectores.cs" />
     <Compile Include="AltaPalletActivity.cs" />
     <Compile Include="InicioActivity.cs" />
-    <Compile Include="ListaRacksFragment.cs" />
-    <Compile Include="ListaSectoresFragment.cs" />
+    <Compile Include="ListadoRacksActivity.cs" />
+    <Compile Include="ListadoSectoresActivity.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SeleccionarUbicacionActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -82,19 +82,19 @@
     <AndroidResource Include="Resources\layout\AltaPalletActivity.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\ListadoSectoresFragment.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\ListadoRacksFragment.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\SeleccionarUbicacionActivity.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\SectorRow.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\RackRow.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ListadoSectoresActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ListadoRacksActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ClienteRow.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

@@ -8,7 +8,6 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
 using EntidadesCompartidasAndroid;
@@ -16,38 +15,42 @@ using Newtonsoft.Json;
 
 namespace EmpleadosApp.Droid
 {
-    public class ListaSectoresFragment : Fragment
+    [Activity(Label = "ListadoSectoresActivity")]
+    public class ListadoSectoresActivity : Activity
     {
-
         private List<Sector> sectores;
         private ListView lvSectores;
-
-        public ListaSectoresFragment()
+        
+        protected override void OnCreate(Bundle savedInstanceState)
         {
-            sectores = new List<Sector>();
-        }
+            base.OnCreate(savedInstanceState);
 
-        public override void OnActivityCreated(Bundle savedInstanceState)
-        {
-            base.OnActivityCreated(savedInstanceState);
+            SetContentView(Resource.Layout.ListadoSectoresActivity);
 
-            if (!sectores.Any())
+            try
             {
-                try
+                if (!sectores.Any())
                 {
-                    BuscarGalpon();
+                    try
+                    {
+                        BuscarGalpon();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Se produjo un error al intentar listar los Sectores.");
+                    }
                 }
-                catch (Exception ex)
-                {
-                    throw new Exception("Se produjo un error al intentar listar los racks.");
-                }
+
+                SetupViews();
+
+                SetupEvents();
+
+                lvSectores.Adapter = new Adaptadores.AdaptadorSectores(this, sectores);
             }
-
-            SetupViews();
-
-            SetupEvents();
-
-            lvSectores.Adapter = new Adaptadores.AdaptadorSectores(Activity, sectores);
+            catch (Exception ex)
+            {
+                Toast.MakeText(this, "ERROR: " + ex.Message, ToastLength.Long).Show();
+            }
         }
 
         private void SetupEvents()
@@ -57,7 +60,7 @@ namespace EmpleadosApp.Droid
 
         private void lvSectores_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            var intent = new Intent(Activity, typeof(SeleccionarUbicacionActivity));
+            var intent = new Intent(this, typeof(ListadoRacksActivity));
             var id = (int)e.Id;
             intent.PutExtra("SectorSeleccionado", id);
             StartActivity(intent);
@@ -65,20 +68,7 @@ namespace EmpleadosApp.Droid
 
         private void SetupViews()
         {
-            lvSectores = View.FindViewById<ListView>(Resource.Id.lvSectores);
-        }
-
-        public override void OnCreate(Bundle savedInstanceState)
-        {
-            base.OnCreate(savedInstanceState);
-        }
-
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-        {
-            // Use this to return your custom view for this Fragment
-            // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
-
-            return inflater.Inflate(Resource.Layout.ListadoSectoresFragment, container, false);
+            lvSectores = FindViewById<ListView>(Resource.Id.lvSectores);
         }
 
         public async System.Threading.Tasks.Task<List<Sector>> BuscarGalpon()
