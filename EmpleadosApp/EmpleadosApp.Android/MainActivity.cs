@@ -52,7 +52,7 @@ namespace EmpleadosApp.Droid
                         if (usuarioLogueado.NombreUsuario == user && usuarioLogueado.Contraseña == pass)
                         {
                             Intent intent = new Intent(this, typeof(InicioActivity));
-                            intent.PutExtra("usuarioLogueado", Newtonsoft.Json.JsonConvert.SerializeObject(usuarioLogueado));
+                            intent.PutExtra("UsuarioLogueado", Newtonsoft.Json.JsonConvert.SerializeObject(usuarioLogueado));
 
                             StartActivity(intent);
                         }
