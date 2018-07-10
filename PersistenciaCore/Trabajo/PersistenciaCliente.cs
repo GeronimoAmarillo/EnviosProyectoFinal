@@ -88,37 +88,37 @@ namespace PersistenciaCore
         {
             try
             {
-                List<Clientes> clientes = new List<Clientes>();
-
-
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                List<Cliente> clientesResultado = new List<Cliente>();
+
 
                 optionsBuilder.UseSqlServer(Conexion.ConnectionString);
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    clientes = dbConnection.Clientes.ToList();
+                    var clienteEncontrado = dbConnection.Clientes.Select(c => new {
+                        Cliente = c,
+                        Usuario = c.Usuarios
+                    });
+
+                    foreach (var c in clienteEncontrado)
+                    {
+                        Cliente clienteR = new Cliente();
+
+                        clienteR.Id = c.Cliente.IdUsuario;
+                        clienteR.Nombre = c.Usuario.Nombre;
+                        clienteR.Direccion = c.Usuario.Direccion;
+                        clienteR.Contraseña = c.Usuario.Contraseña;
+                        clienteR.Email = c.Usuario.Email;
+                        clienteR.Mensualidad = c.Cliente.Mensualidad;
+                        clienteR.NombreUsuario = c.Usuario.NombreUsuario;
+                        clienteR.RUT = c.Cliente.RUT;
+                        clienteR.Telefono = c.Usuario.Telefono;
+
+                        clientesResultado.Add(clienteR);
+                    }
                 }
-
-                List<Cliente> clientesResultado = new List<Cliente>();
-
-                foreach (Clientes c in clientes)
-                {
-                    Cliente clienteR = new Cliente();
-
-                    clienteR.Id = c.IdUsuario;
-                    clienteR.Nombre = c.Usuarios.Nombre;
-                    clienteR.Direccion = c.Usuarios.Direccion;
-                    clienteR.Contraseña = c.Usuarios.Contraseña;
-                    clienteR.Email = c.Usuarios.Email;
-                    clienteR.Mensualidad = c.Mensualidad;
-                    clienteR.NombreUsuario = c.Usuarios.NombreUsuario;
-                    clienteR.RUT = c.RUT;
-                    clienteR.Telefono = c.Usuarios.Telefono;
-
-                    clientesResultado.Add(clienteR);
-                }
-
                 return clientesResultado;
             }
             catch (Exception ex)

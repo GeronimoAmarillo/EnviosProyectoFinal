@@ -102,9 +102,37 @@ namespace PersistenciaCore
                 {
                     var galpon = dbConnection.Galpones.Where(g => g.Id == id).Select(c => new {
                         Galpon = c,
-                        Sectores = c.Sectores,
-                        Racks = c.Sectores
+                        Sectores = c.Sectores
                     }).FirstOrDefault();
+
+
+                    foreach (var se in galpon.Sectores)
+                    {
+                        var racksSector = dbConnection.Sectores.Where(s => s.Codigo == se.Codigo).Select(r => new
+                        {
+                            ListaRacks = r.Racks
+
+                        }).FirstOrDefault();
+
+                        foreach (var r in racksSector.ListaRacks)
+                        {
+                            se.Racks.Add(r);
+                        }
+
+                        foreach (var ra in se.Racks)
+                        {
+                            var casillasRack = dbConnection.Racks.Where(r => r.Codigo == ra.Codigo).Select(t => new
+                            {
+                                Casillas = t.Casillas
+                            }).FirstOrDefault();
+
+                            foreach (var c in casillasRack.Casillas)
+                            {
+                                ra.Casillas.Add(c);
+                            }
+                        }
+                       
+                    }
 
                     if (galpon != null && galpon.Galpon is Galpones)
                     {
@@ -135,7 +163,7 @@ namespace PersistenciaCore
         {
             try
             {
-                List<Sector> sectoresConvertidos = null;
+                List<Sector> sectoresConvertidos = new List<Sector>();
 
                 foreach (Sectores s in sectores)
                 {

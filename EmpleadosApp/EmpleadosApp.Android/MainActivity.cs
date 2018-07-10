@@ -72,32 +72,34 @@ namespace EmpleadosApp.Droid
             {
                 //http://localhost:8080/api
 
-                var httpClient = new HttpClient();
-                var json = await httpClient.GetStringAsync("http://localhost:8080/api/Usuarios/Login?" + "usuario=" + user + "&contrasenia=" + pass);
-
-                Usuario usuarioLogueado = null;
-                Administrador admin = null;
-                Cadete cadete = null;
-                Cliente cliente = null;
-
-
-                usuarioLogueado = JsonConvert.DeserializeObject<Administrador>(json);
-
-                admin = (Administrador)usuarioLogueado;
-
-                if (admin == null || admin.Tipo == null)
+                using (var httpClient = new HttpClient())
                 {
-                    usuarioLogueado = JsonConvert.DeserializeObject<Cadete>(json);
-                    cadete = (Cadete)usuarioLogueado;
+                    var json = await httpClient.GetStringAsync("http://localhost:50076/api/Usuarios/Login?" + "usuario=" + user + "&contrasenia=" + pass);
 
-                    if (cadete == null || cadete.TipoLibreta == null)
+                    Usuario usuarioLogueado = null;
+                    Administrador admin = null;
+                    Cadete cadete = null;
+                    Cliente cliente = null;
+
+
+                    usuarioLogueado = JsonConvert.DeserializeObject<Administrador>(json);
+
+                    admin = (Administrador)usuarioLogueado;
+
+                    if (admin == null || admin.Tipo == null)
                     {
-                        usuarioLogueado = JsonConvert.DeserializeObject<Cliente>(json);
-                        cliente = (Cliente)usuarioLogueado;
-                    }
-                }
+                        usuarioLogueado = JsonConvert.DeserializeObject<Cadete>(json);
+                        cadete = (Cadete)usuarioLogueado;
 
-                return usuarioLogueado;
+                        if (cadete == null || cadete.TipoLibreta == null)
+                        {
+                            usuarioLogueado = JsonConvert.DeserializeObject<Cliente>(json);
+                            cliente = (Cliente)usuarioLogueado;
+                        }
+                    }
+
+                    return usuarioLogueado;
+                }
 
             }
             catch (Exception ex)
