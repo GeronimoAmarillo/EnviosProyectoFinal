@@ -31,6 +31,8 @@ namespace EmpleadosApp.Droid
 
             Bundle extras = Intent.Extras;
             idSector = Convert.ToInt32(extras.Get("SectorSeleccionado"));
+
+            racks = new List<Rack>();
             
             try
             {
@@ -38,7 +40,7 @@ namespace EmpleadosApp.Droid
                 {
                     try
                     {
-                        ObtenerRacks();
+                        racks = AsyncHelper.RunSync<List<Rack>>(() => ObtenerRacks());
                     }
                     catch (Exception ex)
                     {
@@ -81,20 +83,25 @@ namespace EmpleadosApp.Droid
             {
                 //http://localhost:8080/
 
-                var httpClient = new HttpClient();
-                var json = await httpClient.GetStringAsync("http://localhost:8080/api/Palets/Galpon?id=1");
+                //http://169.254.80.80:8080
 
-                Galpon galpon = null;
+                using (var httpClient = new HttpClient())
+                {
+                    var json = await httpClient.GetStringAsync("http://169.254.80.80:8080/api/Palets/Galpon?id=1");
 
-                galpon = JsonConvert.DeserializeObject<Galpon>(json);
+                    Galpon galpon = null;
 
-                var sector = galpon.Sectores.Where(s => s.Codigo == idSector).Select(c => new {
-                    Sector = c
-                }).FirstOrDefault();
+                    galpon = JsonConvert.DeserializeObject<Galpon>(json);
 
-                racks = sector.Sector.Racks;
+                    var sector = galpon.Sectores.Where(s => s.Codigo == idSector).Select(c => new {
+                        Sector = c
+                    }).FirstOrDefault();
 
-                return racks;
+                    racks = sector.Sector.Racks;
+
+                    return racks;
+                }
+                
             }
             catch (Exception ex)
             {

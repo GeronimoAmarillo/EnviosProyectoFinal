@@ -39,13 +39,15 @@ namespace EmpleadosApp.Droid
             Bundle extras = Intent.Extras;
             idRack = Convert.ToInt32(extras.Get("RackSeleccionado"));
 
+            clientes = new List<Cliente>();
+
             try
             {
                 if (!clientes.Any())
                 {
                     try
                     {
-                        ListarClientes();
+                        clientes = AsyncHelper.RunSync<List<Cliente>>(() => ListarClientes());
                     }
                     catch (Exception ex)
                     {
@@ -69,16 +71,18 @@ namespace EmpleadosApp.Droid
         {
             try
             {
-                //http://localhost:8080/
+                //http://169.254.80.80:8080
 
-                var httpClient = new HttpClient();
-                var json = await httpClient.GetStringAsync("http://localhost:8080/api/Palets/Clientes");
+                using (var httpClient = new HttpClient())
+                {
+                    var json = await httpClient.GetStringAsync("http://169.254.80.80:8080/api/Palets/Clientes");
 
-                List<Cliente> clientes = null;
+                    List<Cliente> clientes = null;
 
-                clientes = JsonConvert.DeserializeObject<List<Cliente>>(json);
+                    clientes = JsonConvert.DeserializeObject<List<Cliente>>(json);
 
-                return clientes;
+                    return clientes;
+                }
             }
             catch (Exception ex)
             {

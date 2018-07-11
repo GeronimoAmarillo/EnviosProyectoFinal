@@ -75,6 +75,7 @@
     <Compile Include="Adaptadores\AdaptadorRacks.cs" />
     <Compile Include="Adaptadores\AdaptadorSectores.cs" />
     <Compile Include="AltaPalletActivity.cs" />
+    <Compile Include="AsyncHelper.cs" />
     <Compile Include="InicioActivity.cs" />
     <Compile Include="ListadoRacksActivity.cs" />
     <Compile Include="ListadoSectoresActivity.cs" />

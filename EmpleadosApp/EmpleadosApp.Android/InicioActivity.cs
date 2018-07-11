@@ -30,9 +30,10 @@ namespace EmpleadosApp.Droid
                 SetupEvents();
 
                 Bundle extras = Intent.Extras;
-                var usuarioL = extras.Get("UsuarioLogueado");
+                string usuarioL = extras.GetString("UsuarioLogueado");
 
-                ConvertirUsuarioBundle(usuarioL);
+                usuarioLogueado = Newtonsoft.Json.JsonConvert.DeserializeObject<Usuario>(usuarioL);
+                
                 
             }
             catch (Exception ex)
@@ -75,7 +76,7 @@ namespace EmpleadosApp.Droid
             {
                 if (usuarioLogueado != null)
                 {
-                    Intent intent = new Intent(this, typeof(AltaPalletActivity));
+                    Intent intent = new Intent(this, typeof(ListadoSectoresActivity));
                     intent.PutExtra("UsuarioLogueado", Newtonsoft.Json.JsonConvert.SerializeObject(usuarioLogueado));
 
                     StartActivity(intent);

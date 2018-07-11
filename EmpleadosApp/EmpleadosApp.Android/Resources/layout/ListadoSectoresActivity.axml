@@ -3,18 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-  <LinearLayout
-      android:orientation="vertical"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/tvSectores"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Seleccione el Sector" />
-    <ListView
-        android:id="@+id/lvSectores"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-  </LinearLayout>
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tvSectores"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Seleccione el Sector" />
+        <ListView
+            android:id="@+id/lvSectores"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 </LinearLayout>

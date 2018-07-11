@@ -27,13 +27,16 @@ namespace EmpleadosApp.Droid
 
             SetContentView(Resource.Layout.ListadoSectoresActivity);
 
+            sectores = new List<Sector>();
+
             try
             {
                 if (!sectores.Any())
                 {
                     try
                     {
-                        BuscarGalpon();
+
+                        sectores = AsyncHelper.RunSync<List<Sector>>(() => BuscarGalpon());
                     }
                     catch (Exception ex)
                     {
@@ -75,18 +78,21 @@ namespace EmpleadosApp.Droid
         {
             try
             {
-                //http://localhost:8080/
+                //http://169.254.80.80:8080
 
-                var httpClient = new HttpClient();
-                var json = await httpClient.GetStringAsync("http://localhost:8080/api/Palets/Galpon?id=1");
+                using (var httpClient = new HttpClient())
+                {
+                    var json = await httpClient.GetStringAsync("http://169.254.80.80:8080/api/Palets/Galpon?id=1");
 
-                Galpon galpon = null;
+                    Galpon galpon = null;
 
-                galpon = JsonConvert.DeserializeObject<Galpon>(json);
+                    galpon = JsonConvert.DeserializeObject<Galpon>(json);
 
-                sectores = galpon.Sectores;
+                    sectores = galpon.Sectores;
 
-                return sectores;
+                    return sectores;
+                }
+                
 
             }
             catch (Exception ex)
