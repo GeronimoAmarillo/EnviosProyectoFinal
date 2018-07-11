@@ -2,6 +2,7 @@ namespace EntidadesCompartidasAndroid
 {
     using System;
     using System.Collections.Generic;
+    using Java.Lang;
 
     public partial class Cliente:Usuario
     {

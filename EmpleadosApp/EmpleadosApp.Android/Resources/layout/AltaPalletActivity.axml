@@ -6,21 +6,6 @@
     android:minWidth="25px"
     android:minHeight="25px">
     <TextView
-        android:text="Seleccione el Cliente"
-        android:id="@+id/tvListaCliente"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="50px" />
-    <ListView
-        android:id="@+id/lvClientes"
-        android:layout_width="match_parent"
-        android:layout_height="200px" />
-    <Button
-        android:id="@+id/btnAgregarCliente"
-        android:text="Agregar Cliente Nuevo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
         android:text="Ingrese los datos del Pallet"
         android:textSize="50px"
         android:layout_width="match_parent"

@@ -11,7 +11,7 @@ namespace PersistenciaCore
 {
     class PersistenciaCliente:IPersistenciaCliente
     {
-        public PersistenciaCliente()
+        /*public PersistenciaCliente()
         {
             Mapper.Initialize(cfg =>
             {
@@ -33,7 +33,7 @@ namespace PersistenciaCore
                     .ForMember(d => d.Email, opt => opt.MapFrom(u => u.Email))
                 ;
             });
-        }
+        }*/
 
         public bool AltaCliente(Cliente cliente)
         {

@@ -66,7 +66,7 @@ namespace EmpleadosApp.Droid
 
         private void lvRacks_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            var intent = new Intent(this, typeof(AltaPalletActivity));
+            var intent = new Intent(this, typeof(ListadoClientesActivity));
             var id = (int)e.Id;
             intent.PutExtra("RackSeleccionado", id);
             StartActivity(intent);
