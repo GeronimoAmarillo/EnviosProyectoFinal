@@ -14,5 +14,10 @@
       android:id="@+id/lvClientes"
       android:layout_width="match_parent"
       android:layout_height="match_parent" />
+  <Button
+        android:id="@+id/btnAgregarCliente"
+        android:text="Agregar Cliente Nuevo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
   
 </LinearLayout>

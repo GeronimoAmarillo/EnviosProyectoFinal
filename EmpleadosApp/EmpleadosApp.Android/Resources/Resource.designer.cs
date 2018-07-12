@@ -2865,8 +2865,8 @@ namespace EmpleadosApp.Droid
 			// aapt resource value: 0x7f080028
 			public const int bottom = 2131230760;
 			
-			// aapt resource value: 0x7f080091
-			public const int btnAgregarCliente = 2131230865;
+			// aapt resource value: 0x7f08008f
+			public const int btnAgregarCliente = 2131230863;
 			
 			// aapt resource value: 0x7f080077
 			public const int btnAltaPallet = 2131230839;
@@ -3042,8 +3042,8 @@ namespace EmpleadosApp.Droid
 			// aapt resource value: 0x7f08008e
 			public const int lvClientes = 2131230862;
 			
-			// aapt resource value: 0x7f080090
-			public const int lvRacks = 2131230864;
+			// aapt resource value: 0x7f080091
+			public const int lvRacks = 2131230865;
 			
 			// aapt resource value: 0x7f080093
 			public const int lvSectores = 2131230867;
@@ -3372,8 +3372,8 @@ namespace EmpleadosApp.Droid
 			// aapt resource value: 0x7f08007b
 			public const int tvNombre = 2131230843;
 			
-			// aapt resource value: 0x7f08008f
-			public const int tvRacks = 2131230863;
+			// aapt resource value: 0x7f080090
+			public const int tvRacks = 2131230864;
 			
 			// aapt resource value: 0x7f080079
 			public const int tvRut = 2131230841;

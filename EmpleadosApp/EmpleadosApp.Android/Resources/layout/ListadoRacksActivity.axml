@@ -16,10 +16,6 @@
             android:id="@+id/lvRacks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-      <Button
-        android:id="@+id/btnAgregarCliente"
-        android:text="Agregar Cliente Nuevo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+      
     </LinearLayout>
 </LinearLayout>
