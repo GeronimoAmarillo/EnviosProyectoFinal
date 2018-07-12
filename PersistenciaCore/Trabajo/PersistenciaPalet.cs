@@ -20,17 +20,87 @@ namespace PersistenciaCore
                 PersistenciaCore.Palets paletAgregar = new PersistenciaCore.Palets();
 
                 paletAgregar.Cantidad = palet.Cantidad;
-                paletAgregar.Casilla = palet.Casilla;
-                paletAgregar.Cliente = palet.Cliente;
-                paletAgregar.Id = palet.Id;
-                paletAgregar.Peso = palet.Peso;
-                paletAgregar.Producto = palet.Producto;
-             
 
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
                 optionsBuilder.UseSqlServer(Conexion.ConnectionString);
 
+                int codigoCasilla = 0;
+
+                try
+                {
+
+                    using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                    {
+                        var casilla = dbConnection.Casillas.Where(g => g.Rack == palet.Casilla).Select(c => new {
+                            Casilla = c,
+                            Palets = c.Palets
+                        });
+
+                        bool disponible = false;
+
+                        foreach (var c in casilla)
+                        {
+
+                            if (c.Palets.Any())
+                            {
+                                disponible = false;
+                            }
+                            else
+                            {
+                                codigoCasilla = c.Casilla.Codigo;
+
+                                disponible = true;
+
+                                break;
+                            }
+                        }
+
+                        if (!disponible)
+                        {
+                            throw new Exception("No hay ninguna casilla disponible en el rack seleccionado");
+                        }
+                    }
+                        
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error" + ex.Message);
+                }
+
+                paletAgregar.Casilla = codigoCasilla;
+                paletAgregar.Cliente = palet.Cliente;
+
+                int idPaletNuevo;
+
+                try
+                {
+                    using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                    {
+                        var idPalet = dbConnection.Palets.OrderByDescending(g => g.Id).Select(c => new {
+                            Id = c.Id
+                        }).FirstOrDefault();
+
+                        if (idPalet == null)
+                        {
+                            idPaletNuevo = 1;
+                        }
+                        else
+                        {
+                            idPaletNuevo = (idPalet.Id + 1);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error al generar el Id del palet");
+                }
+
+                paletAgregar.Id = idPaletNuevo;
+                paletAgregar.Peso = palet.Peso;
+                paletAgregar.Producto = palet.Producto;
+             
+                
 
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
@@ -43,7 +113,7 @@ namespace PersistenciaCore
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al dar de alta el Palet.");
+                throw new Exception("Error al dar de alta el Palet." + ex.Message);
             }
         }
 
@@ -130,8 +200,21 @@ namespace PersistenciaCore
                             {
                                 ra.Casillas.Add(c);
                             }
+
+                            foreach (var ca in ra.Casillas)
+                            {
+                                var paletsCasilla = dbConnection.Casillas.Where(r => r.Codigo == ca.Codigo).Select(t => new
+                                {
+                                    Palets = t.Palets
+                                }).FirstOrDefault();
+
+                                foreach (var p in paletsCasilla.Palets)
+                                {
+                                    ca.Palets.Add(p);
+                                }
+                            }
                         }
-                       
+
                     }
 
                     if (galpon != null && galpon.Galpon is Galpones)

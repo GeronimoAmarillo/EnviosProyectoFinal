@@ -7,6 +7,7 @@ using System.Text;
 using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Preferences;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
@@ -20,10 +21,13 @@ namespace EmpleadosApp.Droid
     {
         private List<Sector> sectores;
         private ListView lvSectores;
-        
+
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            VerificarSesion();
 
             SetContentView(Resource.Layout.ListadoSectoresActivity);
 
@@ -99,6 +103,29 @@ namespace EmpleadosApp.Droid
             {
                 throw new Exception("Se produjo un error al intentar listar los sectores.");
             }
+        }
+
+        public void VerificarSesion()
+        {
+            try
+            {
+                ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+                string user = prefs.GetString("UsuarioLogueado", "");
+
+                if (user == "")
+                {
+                    Toast.MakeText(this, "Acceso Denegado: No hay ningun usuario logueado", ToastLength.Long).Show();
+
+                    var intent = new Intent(this, typeof(MainActivity));
+                    StartActivity(intent);
+                }
+            }
+
+            catch (Exception ex)
+            {
+                Toast.MakeText(this, "ERROR: Al verificar la sesion de usuario.", ToastLength.Long).Show();
+            }
+            
         }
     }
 }

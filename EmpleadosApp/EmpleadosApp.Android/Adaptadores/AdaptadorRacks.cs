@@ -46,7 +46,7 @@ namespace EmpleadosApp.Droid.Adaptadores
 
             foreach (Casilla c in item.Casillas)
             {
-                if (c.Palets == null || c.Palets.Count <= 0)
+                if (!c.Palets.Any())
                 {
                     disponibilidad = true;
                 }

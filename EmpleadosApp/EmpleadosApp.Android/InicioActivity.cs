@@ -6,10 +6,12 @@ using System.Text;
 using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Preferences;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using EntidadesCompartidasAndroid;
+using Newtonsoft.Json;
 
 namespace EmpleadosApp.Droid
 {
@@ -32,8 +34,12 @@ namespace EmpleadosApp.Droid
                 Bundle extras = Intent.Extras;
                 string usuarioL = extras.GetString("UsuarioLogueado");
 
+                ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+                ISharedPreferencesEditor editor = prefs.Edit();
+                editor.PutString("UsuarioLogueado", JsonConvert.SerializeObject(usuarioL));
+                editor.Apply();
+
                 usuarioLogueado = Newtonsoft.Json.JsonConvert.DeserializeObject<Usuario>(usuarioL);
-                
                 
             }
             catch (Exception ex)
@@ -91,6 +97,8 @@ namespace EmpleadosApp.Droid
                 Toast.MakeText(this, "ERROR: " + ex.Message, ToastLength.Long).Show();
             }
         }
+
+
 
         private void SetupViews()
         {

@@ -7,6 +7,7 @@ using System.Text;
 using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Preferences;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
@@ -30,6 +31,8 @@ namespace EmpleadosApp.Droid
         {
             base.OnCreate(savedInstanceState);
 
+            VerificarSesion();
+
             SetContentView(Resource.Layout.AltaPalletActivity);
 
             try
@@ -38,7 +41,6 @@ namespace EmpleadosApp.Droid
                 Bundle extras = Intent.Extras;
                 idRack = Convert.ToInt32(extras.Get("RackSeleccionado"));
                 rutCliente = Convert.ToInt32(extras.Get("ClienteSeleccionado"));
-                
 
                 SetupViews();
                 SetupEvents();
@@ -87,9 +89,15 @@ namespace EmpleadosApp.Droid
 
                         var result = httpClient.PostAsync(url, content).Result;
 
-                        if (result.Content.ToString().ToUpper() == "TRUE")
+                        var contentResult = result.Content.ReadAsStringAsync();
+
+                        if (contentResult.Result.ToUpper() == "TRUE")
                         {
                             Toast.MakeText(this, "Se dio de alta con exito el pallet.", ToastLength.Long).Show();
+
+                            Intent intent = new Intent(this, typeof(InicioActivity));
+
+                            StartActivity(intent);
                         }
                         else
                         {
@@ -118,6 +126,29 @@ namespace EmpleadosApp.Droid
             etPeso = FindViewById<EditText>(Resource.Id.etPeso);
             etProducto = FindViewById<EditText>(Resource.Id.etProducto);
         }
-        
+
+        public void VerificarSesion()
+        {
+            try
+            {
+                ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+                string user = prefs.GetString("UsuarioLogueado", "");
+
+                if (user == "")
+                {
+                    Toast.MakeText(this, "Acceso Denegado: No hay ningun usuario logueado", ToastLength.Long).Show();
+
+                    var intent = new Intent(this, typeof(MainActivity));
+                    StartActivity(intent);
+                }
+            }
+
+            catch (Exception ex)
+            {
+                Toast.MakeText(this, "ERROR: Al verificar la sesion de usuario.", ToastLength.Long).Show();
+            }
+
+        }
+
     }
 }
