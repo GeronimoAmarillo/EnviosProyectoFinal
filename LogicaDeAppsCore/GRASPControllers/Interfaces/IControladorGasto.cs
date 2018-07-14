@@ -11,7 +11,7 @@ namespace LogicaDeAppsCore
     {
         Gasto GetGasto();
 
-        List<Gasto> ListarGastos();
+        Task<List<Gasto>> ListarGastos();
 
         List<Gasto> GetGastos();
 

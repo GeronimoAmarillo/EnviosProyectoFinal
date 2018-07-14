@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidasCore;
+using Newtonsoft.Json;
 
 namespace LogicaDeAppsCore
 {
@@ -17,9 +19,26 @@ namespace LogicaDeAppsCore
             return gasto;
         }
 
-        public List<Gasto> ListarGastos()
+        public async Task<List<Gasto>> ListarGastos()
         {
-            return new List<Gasto>();
+            try
+            {
+                //http://localhost:8080/
+
+                var httpClient = new HttpClient();
+                var json = await httpClient.GetStringAsync("http://localhost:8080/api/Valores/Gastos");
+
+                List<Gasto> gastos = null;
+
+                gastos = JsonConvert.DeserializeObject<List<Gasto>>(json);
+
+                return gastos;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Se produjo un error al intentar listar los locales.");
+            }
         }
 
         public List<Gasto> GetGastos()
@@ -39,7 +58,25 @@ namespace LogicaDeAppsCore
 
         public bool RegistrarGasto(Gasto gasto)
         {
-            return true;
+            try
+            {
+
+                HttpClient client = new HttpClient();
+
+                string url = "http://localhost:8080/api/Valores/Gasto";
+
+                var content = new StringContent(JsonConvert.SerializeObject(gasto), Encoding.UTF8, "application/json");
+
+                var result = client.PostAsync(url, content).Result;
+
+                //result.Content
+
+                return result.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("ERROR!: " + ex.Message);
+            }
         }
     }
 }

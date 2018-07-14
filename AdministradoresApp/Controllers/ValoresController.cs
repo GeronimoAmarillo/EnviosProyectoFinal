@@ -14,7 +14,7 @@ namespace AdministradoresApp.Controllers
 
     public class ValoresController : Controller
     {
-        public static string SESSSION_ALTA = "AltaLocal";
+        public static string SESSSION_ALTA = "AltaGasto";
         public static string SESSION_MENSAJE = "Mensaje";
         public static string LOG_USER = "UsuarioLogueado";
 
@@ -24,9 +24,9 @@ namespace AdministradoresApp.Controllers
             {
                 if (ComprobarLogin() == "G")
                 {
-                    IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
+                    IControladorGasto controladorGasto = FabricaApps.GetControladorGasto();
 
-                    List<Local> locales = await controladorLocal.ListarLocales();
+                    List<Gasto> gastos = await controladorGasto.ListarGastos();
 
                     string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
 
@@ -37,7 +37,7 @@ namespace AdministradoresApp.Controllers
                         ViewBag.Message = mensaje;
                     }
 
-                    return View(locales);
+                    return View(gastos);
                 }
                 else
                 {
@@ -49,7 +49,7 @@ namespace AdministradoresApp.Controllers
             }
             catch
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Locales registrados");
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los gastos registrados");
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
