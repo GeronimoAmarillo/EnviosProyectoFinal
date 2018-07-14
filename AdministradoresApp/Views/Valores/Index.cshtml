@@ -20,14 +20,14 @@
     <tbody>
             <tr>
                 <td>
-                    <button class="btn-default" asp-action="ListarGastos" asp-controller="Valores">Gastos</button>
-                    <button class="btn-default" asp-action="ListarIngresos" asp-controller="Valores">Ingresos</button>
-                    <button class="btn-default" asp-action="ListarImpuestos" asp-controller="Valores">Impuestos</button>
+                    @Html.ActionLink("Gastos", "ListarGastos", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Ingresos", "ListarIngresos", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Impuestos", "ListarImpuestos", new { /* id=item.PrimaryKey */ })
                 </td>
                 <td>
-                    <button class="btn-default" asp-action="RegistrarGasto" asp-controller="Valores">Gastos</button>
-                    <button class="btn-default" asp-action="RegistrarIngreso" asp-controller="Valores">Ingresos</button>
-                    <button class="btn-default" asp-action="RegistrarImpuestos" asp-controller="Valores">Impuestos</button>
+                    @Html.ActionLink("Gastos", "RegistrarGasto", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Ingresos", "RegistrarIngreso", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Impuestos", "RegistrarImpuesto", new { /* id=item.PrimaryKey */ })
                 </td>
             </tr>
     </tbody>

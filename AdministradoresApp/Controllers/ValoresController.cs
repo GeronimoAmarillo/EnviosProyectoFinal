@@ -57,15 +57,15 @@ namespace AdministradoresApp.Controllers
         }
 
 
-        public ActionResult Alta()
+        public ActionResult RegistrarGasto()
         {
             if (ComprobarLogin() == "G")
             {
-                IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
+                IControladorGasto controladorGasto = FabricaApps.GetControladorGasto();
 
-                controladorLocal.IniciarRegistroLocal();
+                controladorGasto.IniciarRegistroGasto();
 
-                HttpContext.Session.Set<Local>(SESSSION_ALTA, controladorLocal.GetLocal());
+                HttpContext.Session.Set<Gasto>(SESSSION_ALTA, controladorGasto.GetGasto());
 
                 return View();
             }
@@ -79,36 +79,37 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult Alta([FromForm]Local local)
+        public ActionResult RegistrarGasto([FromForm]Gasto gasto)
         {
             try
             {
                 if (ComprobarLogin() == "G")
                 {
 
-                    Local localAlta = HttpContext.Session.Get<Local>(SESSSION_ALTA);
+                    Gasto gastoAlta = HttpContext.Session.Get<Gasto>(SESSSION_ALTA);
 
-                    localAlta.Direccion = local.Direccion;
-                    localAlta.Nombre = local.Nombre;
+                    gastoAlta.Suma = gasto.Suma;
+                    gastoAlta.Descripcion = gasto.Descripcion;
+                    gastoAlta.Id = 0;
 
-                    IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
+                    IControladorGasto controladorGasto = FabricaApps.GetControladorGasto();
 
-                    controladorLocal.SetLocal(localAlta);
+                    controladorGasto.SetGasto(gastoAlta);
 
                     string mensaje = "";
 
                     if (ModelState.IsValid)
                     {
-                        bool exito = controladorLocal.AltaLocal();
+                        bool exito = controladorGasto.RegistrarGasto(gastoAlta);
 
                         if (exito)
                         {
-                            controladorLocal.SetLocal(null);
-                            mensaje = "El local se dio de alta con exito!.";
+                            controladorGasto.SetGasto(null);
+                            mensaje = "El gasto se dio de alta con exito!.";
                         }
                         else
                         {
-                            mensaje = "Se produjo un error al dar de alta el local!.";
+                            mensaje = "Se produjo un error al dar de alta el gasto!.";
                         }
                     }
 

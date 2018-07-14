@@ -48,7 +48,7 @@ namespace LogicaDeAppsCore
 
         public void IniciarRegistroGasto()
         {
-
+            SetGasto(new Gasto());
         }
 
         public void SetGasto(Gasto pGasto)
