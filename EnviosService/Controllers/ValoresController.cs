@@ -10,7 +10,7 @@ using LogicaDeServicioCore;
 namespace EnviosService.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Valores")]
+    
     public class ValoresController : Controller
     {
         private IControladorValores controladorValores;
@@ -21,6 +21,7 @@ namespace EnviosService.Controllers
         }
 
         [HttpGet]
+        [Route("api/Valores/Gastos")]
         public JsonResult Gastos()
         {
             return Json(controladorValores.ListarGastos(), new Newtonsoft.Json.JsonSerializerSettings());
@@ -33,6 +34,7 @@ namespace EnviosService.Controllers
         }
 
         [HttpPost]
+        [Route("api/Valores/Gasto")]
         public JsonResult Gasto([FromBody] Gasto gasto)
         {
             return Json(controladorValores.RegistrarGasto(gasto), new Newtonsoft.Json.JsonSerializerSettings());

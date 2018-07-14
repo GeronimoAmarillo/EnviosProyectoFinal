@@ -11,12 +11,26 @@ namespace LogicaDeServicioCore
     {
         public List<Gasto> ListarGastos()
         {
-            return new List<Gasto>();
+            try
+            {
+                return LogicaValor.ListarGastos();
+            }
+            catch
+            {
+                throw new Exception("Error al intentar dar de alta el Local.");
+            }
         }
 
         public bool RegistrarGasto(Gasto gasto)
         {
-            return true;
+            try
+            {
+                return LogicaValor.RegistrarGasto(gasto);
+            }
+            catch
+            {
+                throw new Exception("Error al intentar dar de alta el Local.");
+            }
         }
 
         public bool RegistrarImpuesto(Impuesto impuesto)

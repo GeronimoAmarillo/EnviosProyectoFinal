@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidasCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace PersistenciaCore
 {
@@ -11,12 +12,67 @@ namespace PersistenciaCore
     {
         public bool RegistrarGasto(EntidadesCompartidasCore.Gasto gasto)
         {
-            return true;
+            try
+            {
+                Gastos gastoAgregar = new Gastos();
+
+                gastoAgregar.Suma = gasto.Suma;
+                gastoAgregar.Descripcion = gasto.Descripcion;
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    dbConnection.Gastos.Add(gastoAgregar);
+                    dbConnection.SaveChanges();
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al dar de alta el gasto.");
+            }
         }
 
         public List<EntidadesCompartidasCore.Gasto> ListarGastos()
         {
-            return new List<EntidadesCompartidasCore.Gasto>();
+            try
+            {
+                List<Gastos> gastos = new List<Gastos>();
+
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    gastos = dbConnection.Gastos.ToList();
+                }
+
+                List<Gasto> gastosResultado = new List<Gasto>();
+
+                foreach (Gastos g in gastos)
+                {
+                    Gasto gastoR = new Gasto();
+
+                    gastoR.Id = g.Id;
+                    gastoR.Suma = g.Suma;
+                    gastoR.Descripcion = g.Descripcion;
+
+                    gastosResultado.Add(gastoR);
+                }
+
+                return gastosResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los locales." + ex.Message);
+            }
         }
     }
 }
