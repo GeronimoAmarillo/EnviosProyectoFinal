@@ -71,7 +71,7 @@ namespace PersistenciaCore
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al listar los locales." + ex.Message);
+                throw new Exception("Error al listar los gastos." + ex.Message);
             }
         }
     }

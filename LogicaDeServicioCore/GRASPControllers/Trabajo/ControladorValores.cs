@@ -17,7 +17,7 @@ namespace LogicaDeServicioCore
             }
             catch
             {
-                throw new Exception("Error al intentar dar de alta el Local.");
+                throw new Exception("Error al intentar listar los gastos.");
             }
         }
 
@@ -29,13 +29,32 @@ namespace LogicaDeServicioCore
             }
             catch
             {
-                throw new Exception("Error al intentar dar de alta el Local.");
+                throw new Exception("Error al intentar dar de alta el gasto.");
             }
         }
 
         public bool RegistrarImpuesto(Impuesto impuesto)
         {
-            return true;
+            try
+            {
+                return LogicaValor.RegistrarImpuesto(impuesto);
+            }
+            catch
+            {
+                throw new Exception("Error al intentar dar de alta el impuesto.");
+            }
+        }
+
+        public List<Impuesto> ListarImpuestos()
+        {
+            try
+            {
+                return LogicaValor.ListarImpuestos();
+            }
+            catch
+            {
+                throw new Exception("Error al intentar listar los impuestos.");
+            }
         }
 
         public bool RegistrarIngreso(Ingreso ingreso)

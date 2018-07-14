@@ -36,10 +36,30 @@ namespace LogicaDeServicioCore
             return exito;
         }
 
-        public bool RegistrarImpuesto(Impuesto unImpuesto)
+        public static  bool RegistrarImpuesto(Impuesto unImpuesto)
         {
-            bool exito = false;
-            return exito;
+            try
+            {
+                return FabricaPersistencia.GetPersistenciaImpuesto().RegistrarImpuesto(unImpuesto);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar dar de alta el impuesto." + ex.Message);
+            }
+        }
+
+        public static List<Impuesto> ListarImpuestos()
+        {
+            try
+            {
+                List<Impuesto> lista = FabricaPersistencia.GetPersistenciaImpuesto().ListarImpuestos();
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los impuestos." + ex.Message);
+            }
         }
 
         public static bool RegistrarGasto(Gasto unGasto)

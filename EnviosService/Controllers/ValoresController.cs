@@ -49,9 +49,18 @@ namespace EnviosService.Controllers
         }
 
         [HttpPost]
+        [Route("api/Valores/Impuesto")]
         public JsonResult Impuesto([FromBody] Impuesto impuesto)
         {
             return Json(controladorValores.RegistrarImpuesto(impuesto), new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+        [HttpGet]
+        [Route("api/Valores/Impuestos")]
+        public JsonResult Impuestos()
+        {
+            return Json(controladorValores.ListarImpuestos(), new Newtonsoft.Json.JsonSerializerSettings());
 
         }
 
