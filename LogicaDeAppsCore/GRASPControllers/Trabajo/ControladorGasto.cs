@@ -37,7 +37,7 @@ namespace LogicaDeAppsCore
             }
             catch (Exception ex)
             {
-                throw new Exception("Se produjo un error al intentar listar los locales.");
+                throw new Exception("Se produjo un error al intentar listar los gastos.");
             }
         }
 

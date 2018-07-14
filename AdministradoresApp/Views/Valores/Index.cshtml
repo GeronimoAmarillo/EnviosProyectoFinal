@@ -1,7 +1,25 @@
-﻿@model IEnumerable<EntidadesCompartidasCore.Gasto>
+﻿@model SortedList<string, string>
 
 @{
     ViewData["Title"] = "Index";
+}
+@{
+    List<Gasto> gastos = new List<Gasto>();
+    List<Impuesto> impuestos = new List<Impuesto>();
+
+    if (Model.GetValueOrDefault("Gasto") != null)
+    {
+        List<Gasto> gs = JsonConvert.DeserializeObject<List<Gasto>>(Model.GetValueOrDefault("Gasto"));
+
+        gastos = gs;
+    }
+    else
+    {
+        List<Impuesto> ims = JsonConvert.DeserializeObject<List<Impuesto>>(Model.GetValueOrDefault("Impuesto"));
+
+        impuestos = ims;
+    }
+
 }
 
 <h2>Index</h2>
@@ -18,53 +36,109 @@
         </tr>
     </thead>
     <tbody>
-            <tr>
-                <td>
-                    @Html.ActionLink("Gastos", "ListarGastos", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Ingresos", "ListarIngresos", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Impuestos", "ListarImpuestos", new { /* id=item.PrimaryKey */ })
-                </td>
-                <td>
-                    @Html.ActionLink("Gastos", "RegistrarGasto", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Ingresos", "RegistrarIngreso", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Impuestos", "RegistrarImpuesto", new { /* id=item.PrimaryKey */ })
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.ActionLink("Gastos", "ListarGastos", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Ingresos", "ListarIngresos", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Impuestos", "ListarImpuestos", new { /* id=item.PrimaryKey */ })
+            </td>
+            <td>
+                @Html.ActionLink("Gastos", "RegistrarGasto", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Ingresos", "RegistrarIngreso", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Impuestos", "RegistrarImpuesto", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
     </tbody>
 </table>
-<table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Id)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Descripcion)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Suma)
-                </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Suma)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
+
+@{
+
+    if (gastos.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayName("Id");
+                    </th>
+                    <th>
+                        @Html.DisplayName("Descripcion");
+                    </th>
+                    <th>
+                        @Html.DisplayName("Suma");
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var g in gastos)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayName(g.Id.ToString())
+                        </td>
+                        <td>
+                            @Html.DisplayName(g.Descripcion)
+                        </td>
+                        <td>
+                            @Html.DisplayName(g.Suma.ToString())
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayName("Id");
+                    </th>
+                    <th>
+                        @Html.DisplayName("Nombre");
+                    </th>
+                    <th>
+                        @Html.DisplayName("Descripcion");
+                    </th>
+                    <th>
+                        @Html.DisplayName("Porcentaje");
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var i in impuestos)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayName(i.Id.ToString())
+                    </td>
+                    <td>
+                        @Html.DisplayName(i.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayName(i.Descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayName(i.Porcentaje.ToString())
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    }
+
 }
-    </tbody>
-</table>

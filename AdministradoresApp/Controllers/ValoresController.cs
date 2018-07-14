@@ -8,15 +8,17 @@ using EntidadesCompartidasCore;
 using LogicaDeAppsCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace AdministradoresApp.Controllers
 {
 
     public class ValoresController : Controller
     {
-        public static string SESSSION_ALTA = "AltaGasto";
+        public static string SESSSION_ALTA = "AltaValor";
         public static string SESSION_MENSAJE = "Mensaje";
         public static string LOG_USER = "UsuarioLogueado";
+        public static string SESSION_LISTA_ACTUAL = "ListaView";
 
         public async Task<ActionResult> Index()
         {
@@ -24,20 +26,25 @@ namespace AdministradoresApp.Controllers
             {
                 if (ComprobarLogin() == "G")
                 {
-                    IControladorGasto controladorGasto = FabricaApps.GetControladorGasto();
+                    SortedList<string, string> listaActual = HttpContext.Session.Get<SortedList<string, string>>(SESSION_LISTA_ACTUAL);
+                    HttpContext.Session.Set<SortedList<string, string>>(SESSION_LISTA_ACTUAL, null);
 
-                    List<Gasto> gastos = await controladorGasto.ListarGastos();
-
-                    string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
-
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, null);
-
-                    if (mensaje != null && mensaje != "")
+                    if (listaActual == null)
                     {
-                        ViewBag.Message = mensaje;
-                    }
+                        IControladorGasto controladorGasto = FabricaApps.GetControladorGasto();
 
-                    return View(gastos);
+                        SortedList<string, string> gastosSorted = new SortedList<string, string>();
+
+                        List<Gasto> gastos = await controladorGasto.ListarGastos();
+
+                        gastosSorted.Add("Gasto", JsonConvert.SerializeObject(gastos));
+
+                        return View(gastosSorted);
+                    }
+                    else
+                    {
+                        return View(listaActual);
+                    }
                 }
                 else
                 {
@@ -47,7 +54,7 @@ namespace AdministradoresApp.Controllers
                 }
 
             }
-            catch
+            catch(Exception ex)
             {
                 HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los gastos registrados");
 
@@ -77,6 +84,8 @@ namespace AdministradoresApp.Controllers
             }
 
         }
+
+        
 
         [HttpPost]
         public ActionResult RegistrarGasto([FromForm]Gasto gasto)
@@ -129,6 +138,144 @@ namespace AdministradoresApp.Controllers
                 }
 
 
+            }
+            catch (Exception ex)
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+
+        }
+
+        public ActionResult RegistrarImpuesto()
+        {
+            if (ComprobarLogin() == "G")
+            {
+                IControladorImpuesto controladorImpuesto = FabricaApps.GetControladorImpuesto();
+
+                controladorImpuesto.IniciarReigstroImpuesto();
+
+                HttpContext.Session.Set<Impuesto>(SESSSION_ALTA, controladorImpuesto.GetImpuesto());
+
+                return View();
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult RegistrarImpuesto([FromForm]Impuesto impuesto)
+        {
+            try
+            {
+                if (ComprobarLogin() == "G")
+                {
+
+                    Impuesto impuestoAlta = HttpContext.Session.Get<Impuesto>(SESSSION_ALTA);
+
+                    impuestoAlta.Nombre = impuesto.Nombre;
+                    impuestoAlta.Descripcion = impuesto.Descripcion;
+                    impuestoAlta.Id = 0;
+                    impuestoAlta.Porcentaje = impuesto.Porcentaje;
+
+                    IControladorImpuesto controladorImpuesto = FabricaApps.GetControladorImpuesto();
+
+                    controladorImpuesto.SetImpuesto(impuestoAlta);
+
+                    string mensaje = "";
+
+                    if (ModelState.IsValid)
+                    {
+                        bool exito = controladorImpuesto.RegistrarImpuesto(impuestoAlta);
+
+                        if (exito)
+                        {
+                            controladorImpuesto.SetImpuesto(null);
+                            mensaje = "El impuesto se dio de alta con exito!.";
+                        }
+                        else
+                        {
+                            mensaje = "Se produjo un error al dar de alta el impuesto!.";
+                        }
+                    }
+
+                    if (mensaje != "")
+                    {
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                    }
+
+                    return RedirectToAction("Index");
+
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+
+        }
+
+
+        public async Task<ActionResult> ListarGastos()
+        {
+            if (ComprobarLogin() == "G")
+            {
+                IControladorGasto controladorGasto = FabricaApps.GetControladorGasto();
+
+                SortedList<string, string> gastosSorted = new SortedList<string, string>();
+
+                List<Gasto> gastos = await controladorGasto.ListarGastos();
+
+                gastosSorted.Add("Gasto", JsonConvert.SerializeObject(gastos));
+
+                HttpContext.Session.Set<SortedList<string, string>>(SESSION_LISTA_ACTUAL, gastosSorted);
+
+                return RedirectToAction("Index", "Valores", new { area = "" });
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+        public async Task<ActionResult> ListarImpuestos()
+        {
+            try
+            {
+                if (ComprobarLogin() == "G")
+                {
+                    IControladorImpuesto controladorImpuesto = FabricaApps.GetControladorImpuesto();
+
+                    SortedList<string, string> impuestosSorted = new SortedList<string, string>();
+
+                    List<Impuesto> impuestos = await controladorImpuesto.ListarImpuestos();
+
+                    impuestosSorted.Add("Impuesto", JsonConvert.SerializeObject(impuestos));
+
+                    HttpContext.Session.Set<SortedList<string, string>>(SESSION_LISTA_ACTUAL, impuestosSorted);
+
+                    return RedirectToAction("Index", "Valores", new { area = "" });
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
             }
             catch (Exception ex)
             {
