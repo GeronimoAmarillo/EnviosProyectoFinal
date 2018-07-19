@@ -6,12 +6,19 @@
 @{
     List<Gasto> gastos = new List<Gasto>();
     List<Impuesto> impuestos = new List<Impuesto>();
+    List<Ingreso> ingresos = new List<Ingreso>();
 
     if (Model.GetValueOrDefault("Gasto") != null)
     {
         List<Gasto> gs = JsonConvert.DeserializeObject<List<Gasto>>(Model.GetValueOrDefault("Gasto"));
 
         gastos = gs;
+    }
+    else if (Model.GetValueOrDefault("Ingreso") != null)
+    {
+        List<Ingreso> ins = JsonConvert.DeserializeObject<List<Ingreso>>(Model.GetValueOrDefault("Ingreso"));
+
+        ingresos = ins;
     }
     else
     {
@@ -93,6 +100,46 @@
             </tbody>
         </table>
     }
+    else if (ingresos.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayName("Id");
+                    </th>
+                    <th>
+                        @Html.DisplayName("Descripcion");
+                    </th>
+                    <th>
+                        @Html.DisplayName("Suma");
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var g in ingresos)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayName(g.Id.ToString())
+                        </td>
+                        <td>
+                            @Html.DisplayName(g.Descripcion)
+                        </td>
+                        <td>
+                            @Html.DisplayName(g.Suma.ToString())
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
     else
     {
 
@@ -117,25 +164,25 @@
             <tbody>
                 @foreach (var i in impuestos)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayName(i.Id.ToString())
-                    </td>
-                    <td>
-                        @Html.DisplayName(i.Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayName(i.Descripcion)
-                    </td>
-                    <td>
-                        @Html.DisplayName(i.Porcentaje.ToString())
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayName(i.Id.ToString())
+                        </td>
+                        <td>
+                            @Html.DisplayName(i.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayName(i.Descripcion)
+                        </td>
+                        <td>
+                            @Html.DisplayName(i.Porcentaje.ToString())
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>

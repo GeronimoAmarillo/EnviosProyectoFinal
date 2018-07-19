@@ -28,6 +28,7 @@ namespace EnviosService.Controllers
         }
 
         [HttpGet]
+        [Route("api/Valores/Ingresos")]
         public JsonResult Ingresos()
         {
             return Json(controladorValores.ListarIngresos(), new Newtonsoft.Json.JsonSerializerSettings());
@@ -42,6 +43,7 @@ namespace EnviosService.Controllers
         }
 
         [HttpPost]
+        [Route("api/Valores/Ingreso")]
         public JsonResult Ingreso([FromBody] Ingreso ingreso)
         {
             return Json(controladorValores.RegistrarIngreso(ingreso), new Newtonsoft.Json.JsonSerializerSettings());

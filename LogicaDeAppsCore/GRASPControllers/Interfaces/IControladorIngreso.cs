@@ -15,10 +15,12 @@ namespace LogicaDeAppsCore
 
         bool ReigstrarIngreso(Ingreso ingreso);
 
+        void IniciarRegistroIngreso();
+
         void SetIngresos(List<Ingreso> pIngresos);
 
         List<Ingreso> GetIngresos();
 
-        List<Ingreso> ListarIngresos();
+        Task<List<Ingreso>> ListarIngresos();
     }
 }

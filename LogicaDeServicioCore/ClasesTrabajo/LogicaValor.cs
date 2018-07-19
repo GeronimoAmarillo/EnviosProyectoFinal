@@ -24,16 +24,30 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public List<Ingreso> ListarIngresos()
+        public static List<Ingreso> ListarIngresos()
         {
-            List<Ingreso> ingresos = new List<Ingreso>();
-            return ingresos;
+            try
+            {
+                List<Ingreso> lista = FabricaPersistencia.GetPersistenciaIngreso().ListarIngresos();
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los ingresos." + ex.Message);
+            }
         }
 
-        public bool RegistrarIngreso(Ingreso unIngreso)
+        public static bool RegistrarIngreso(Ingreso unIngreso)
         {
-            bool exito = false;
-            return exito;
+            try
+            {
+                return FabricaPersistencia.GetPersistenciaIngreso().RegistrarIngreso(unIngreso);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar dar de alta el ingreso." + ex.Message);
+            }
         }
 
         public static  bool RegistrarImpuesto(Impuesto unImpuesto)

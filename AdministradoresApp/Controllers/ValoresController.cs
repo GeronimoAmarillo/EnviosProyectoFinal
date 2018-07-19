@@ -227,6 +227,89 @@ namespace AdministradoresApp.Controllers
 
         }
 
+        public ActionResult RegistrarIngreso()
+        {
+            if (ComprobarLogin() == "G")
+            {
+                IControladorIngreso controladorIngreso = FabricaApps.GetControladorIngreso();
+
+                controladorIngreso.IniciarRegistroIngreso();
+
+                HttpContext.Session.Set<Ingreso>(SESSSION_ALTA, controladorIngreso.GetIngreso());
+
+                return View();
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+
+
+
+        [HttpPost]
+        public ActionResult RegistrarIngreso([FromForm]Ingreso ingreso)
+        {
+            try
+            {
+                if (ComprobarLogin() == "G")
+                {
+
+                    Ingreso ingresoAlta = HttpContext.Session.Get<Ingreso>(SESSSION_ALTA);
+
+                    ingresoAlta.Suma = ingreso.Suma;
+                    ingresoAlta.Descripcion = ingreso.Descripcion;
+                    ingresoAlta.Id = 0;
+
+                    IControladorIngreso controladorIngreso = FabricaApps.GetControladorIngreso();
+
+                    controladorIngreso.SetIngreso(ingresoAlta);
+
+                    string mensaje = "";
+
+                    if (ModelState.IsValid)
+                    {
+                        bool exito = controladorIngreso.ReigstrarIngreso(ingresoAlta);
+
+                        if (exito)
+                        {
+                            controladorIngreso.SetIngreso(null);
+                            mensaje = "El ingreso se dio de alta con exito!.";
+                        }
+                        else
+                        {
+                            mensaje = "Se produjo un error al dar de alta el ingreso!.";
+                        }
+                    }
+
+                    if (mensaje != "")
+                    {
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                    }
+
+                    return RedirectToAction("Index");
+
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+
+        }
+
+
 
         public async Task<ActionResult> ListarGastos()
         {
@@ -280,6 +363,33 @@ namespace AdministradoresApp.Controllers
             catch (Exception ex)
             {
                 return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+
+        }
+
+
+
+        public async Task<ActionResult> ListarIngresos()
+        {
+            if (ComprobarLogin() == "G")
+            {
+                IControladorIngreso controladorIngreso = FabricaApps.GetControladorIngreso();
+
+                SortedList<string, string> ingresosSorted = new SortedList<string, string>();
+
+                List<Ingreso> ingresos = await controladorIngreso.ListarIngresos();
+
+                ingresosSorted.Add("Ingreso", JsonConvert.SerializeObject(ingresos));
+
+                HttpContext.Session.Set<SortedList<string, string>>(SESSION_LISTA_ACTUAL, ingresosSorted);
+
+                return RedirectToAction("Index", "Valores", new { area = "" });
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
 
         }

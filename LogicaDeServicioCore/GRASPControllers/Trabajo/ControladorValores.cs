@@ -59,12 +59,26 @@ namespace LogicaDeServicioCore
 
         public bool RegistrarIngreso(Ingreso ingreso)
         {
-            return true;
+            try
+            {
+                return LogicaValor.RegistrarIngreso(ingreso);
+            }
+            catch
+            {
+                throw new Exception("Error al intentar dar de alta el ingreso.");
+            }
         }
 
         public List<Ingreso> ListarIngresos()
         {
-            return new List<Ingreso>();
+            try
+            {
+                return LogicaValor.ListarIngresos();
+            }
+            catch
+            {
+                throw new Exception("Error al intentar listar los ingresos.");
+            }
         }
     }
 }
