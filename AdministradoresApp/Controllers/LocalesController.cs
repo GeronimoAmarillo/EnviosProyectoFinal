@@ -16,6 +16,7 @@ namespace AdministradoresApp.Controllers
     public class LocalesController : Controller
     {
         public static string SESSSION_ALTA = "AltaLocal";
+        public static string SESSSION_MODIFICAR = "ModificarLocal";
         public static string SESSION_MENSAJE = "Mensaje";
         public static string LOG_USER = "UsuarioLogueado";
 
@@ -137,6 +138,93 @@ namespace AdministradoresApp.Controllers
             
         }
 
+        public async Task<ActionResult> Modificar(int id)
+        {
+            if (ComprobarLogin() == "G")
+            {
+                IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
+
+                Local local = await controladorLocal.BuscarLocal(id);
+
+                if (local != null)
+                {
+                    HttpContext.Session.Set<Local>(SESSSION_MODIFICAR, local);
+
+                    return View(local);
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No existe el local que desea modificar");
+
+                    return RedirectToAction("Index", "Locales", new { area = "" });
+                }
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult Modificar([FromForm]Local local)
+        {
+            try
+            {
+                if (ComprobarLogin() == "G")
+                {
+
+                    Local localModificar = HttpContext.Session.Get<Local>(SESSSION_MODIFICAR);
+
+                    localModificar.Id = local.Id;
+                    localModificar.Direccion = local.Direccion;
+                    localModificar.Nombre = local.Nombre;
+
+                    IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
+
+                    string mensaje = "";
+
+                    if (ModelState.IsValid)
+                    {
+                        bool exito = controladorLocal.ModificarLocal(localModificar);
+
+                        if (exito)
+                        {
+                            controladorLocal.SetLocal(null);
+                            mensaje = "El local se modifico con exito!.";
+                        }
+                        else
+                        {
+                            mensaje = "Se produjo un error al dar de alta el local!.";
+                        }
+                    }
+
+                    if (mensaje != "")
+                    {
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                    }
+
+                    return RedirectToAction("Index");
+
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+
+        }
+
         public string ComprobarLogin()
         {
             try
@@ -173,32 +261,5 @@ namespace AdministradoresApp.Controllers
                 throw new Exception("Error al comprobar el logueo.");
             }
         }
-
-        /*[HttpGet]
-        public ActionResult Existe(string nombre, string direccion)
-        {
-            IControladorLocal controladorLocal = HttpContext.Session.Get<IControladorLocal>(SESSSION_ALTA);
-            HttpContext.Session.Remove(SESSSION_ALTA);
-
-            Local local = controladorLocal.GetLocal();
-
-            if (!controladorLocal.ExisteLocal(nombre, direccion))
-            {
-                local.Nombre = nombre;
-                local.Direccion = direccion;
-
-                controladorLocal.SetLocal(local);
-
-                HttpContext.Session.Set<IControladorLocal>(SESSSION_ALTA, controladorLocal);
-            }
-            else
-            {
-                ViewData["Mensaje"] = "El local que desea ingresar ya existe en el sistema!.";
-
-                return View();
-            }
-
-            return View();
-        }*/
     }
 }

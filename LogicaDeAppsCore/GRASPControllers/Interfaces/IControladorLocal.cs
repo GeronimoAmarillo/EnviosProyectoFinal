@@ -13,7 +13,7 @@ namespace LogicaDeAppsCore
 
         void IniciarRegistroLocal();
 
-        Local BuscarLocal(string nombre);
+        Task<Local> BuscarLocal(int id);
 
         bool ModificarLocal(Local local);
 

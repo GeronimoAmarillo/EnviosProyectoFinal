@@ -36,9 +36,16 @@ namespace LogicaDeAppsCore
 
                 var result = client.PostAsync(url, content).Result;
 
-                //result.Content
+                var contentResult = result.Content.ReadAsStringAsync();
 
-                return result.IsSuccessStatusCode;
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception ex)
             {

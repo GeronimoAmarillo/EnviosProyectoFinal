@@ -52,14 +52,61 @@ namespace LogicaDeAppsCore
             SetLocal(new Local());
         }
 
-        public Local BuscarLocal(string nombre)
+        public async Task<Local> BuscarLocal(int id)
         {
-            return new Local();
+            try
+            {
+                //http://localhost:8080/
+
+                var httpClient = new HttpClient();
+                var json = await httpClient.GetStringAsync("http://localhost:8080/api/Locales/Local?id=" + id);
+
+                Local local = null;
+
+                local = JsonConvert.DeserializeObject<Local>(json);
+
+                return local;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el local.");
+            }
         }
 
         public bool ModificarLocal(Local local)
         {
-            return true;
+            try
+            {
+
+                HttpClient client = new HttpClient();
+
+                if (ExisteLocal(local.Nombre, local.Direccion).ToString().ToUpper() == "FALSE")
+                {
+                    throw new Exception("El local que desea modificar no existe en el sistema.");
+                }
+
+                string url = "http://localhost:8080/api/Locales/Modificar";
+
+                var content = new StringContent(JsonConvert.SerializeObject(local), Encoding.UTF8, "application/json");
+
+                var result = client.PutAsync(url, content).Result;
+
+                var contentResult = result.Content.ReadAsStringAsync();
+
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+              
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("ERROR!: " + ex.Message);
+            }
         }
 
         public void SetLocal(Local pLocal)
@@ -113,9 +160,16 @@ namespace LogicaDeAppsCore
 
                 var result = client.PostAsync(url, content).Result;
 
-                //result.Content
+                var contentResult = result.Content.ReadAsStringAsync();
 
-                return result.IsSuccessStatusCode;
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception ex)
             {
