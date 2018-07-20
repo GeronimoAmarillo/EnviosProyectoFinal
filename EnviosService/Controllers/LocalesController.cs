@@ -29,11 +29,11 @@ namespace EnviosService.Controllers
         }
 
         
-        [HttpGet("{nombre}")]
+        [HttpGet("{id}")]
         [Route("api/Locales/Local")]
-        public JsonResult Local(string nombre)
+        public JsonResult Local(int id)
         {
-            return Json(controladorLocal.BuscarLocal(nombre), new Newtonsoft.Json.JsonSerializerSettings());
+            return Json(controladorLocal.BuscarLocal(id), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
         
@@ -48,6 +48,7 @@ namespace EnviosService.Controllers
         [HttpPost]
         [Route("api/Locales/Local")]
         [Route("api/Locales/Alta")]
+        [Route("api/Locales/Modificar")]
         public JsonResult Local([FromBody] Local item)
         {
             switch (Request.Method.ToString())
