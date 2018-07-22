@@ -79,24 +79,36 @@ namespace PersistenciaCore
             var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
             optionsBuilder.UseSqlServer(Conexion.ConnectionString);
-
-            using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+            try
             {
-                Cliente clienteDesdeBd = dbConnection.Clientes.Where(x => x.RUT.ToString() == cliente.RUT.ToString());
-                
-                if (clienteDesdeBd!=null)
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    return false;
-                }
-                else
-                {
-                    dbConnection.Usuarios.Add(UsuarioaAgregar);
-                    ClienteaAgregar.IdUsuario = UsuarioaAgregar.Id;
-                    dbConnection.Clientes.Add(ClienteaAgregar);
+                    var usuarioDesdeBd = dbConnection.Usuarios.Where(x => x.NombreUsuario.ToString() == cliente.NombreUsuario.ToString());
+                    var clienteDesdeBd = dbConnection.Clientes.Where(x => x.RUT.ToString() == cliente.RUT.ToString());
+                    if (usuarioDesdeBd != null)
+                    {
+                        usuarioDesdeBd.Nombre = cliente.Nombre;
+                        usuarioDesdeBd.Direccion = cliente.Direccion;
+                        usuarioDesdeBd.Telefono = cliente.Telefono;
+                        usuarioDesdeBd.Email = cliente.Email;
+                    }
+
+                    if (clienteDesdeBd != null)
+                    {
+                        clienteDesdeBd.Mensualidad = cliente.Mensualidad;
+                        
+                    }
+                    
                     dbConnection.SaveChanges();
                     return true;
+
                 }
             }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar modificar el Cliente" + ex.Message);
+            }
+
             return true;
         }
 
