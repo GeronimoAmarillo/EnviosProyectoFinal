@@ -74,8 +74,29 @@ namespace PersistenciaCore
             return true;
         }
 
-        public bool ModificarCliente(Usuario usuario)
+        public bool ModificarCliente(Cliente cliente)
         {
+            var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+            optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+            using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+            {
+                Cliente clienteDesdeBd = dbConnection.Clientes.Where(x => x.RUT.ToString() == cliente.RUT.ToString());
+                
+                if (clienteDesdeBd!=null)
+                {
+                    return false;
+                }
+                else
+                {
+                    dbConnection.Usuarios.Add(UsuarioaAgregar);
+                    ClienteaAgregar.IdUsuario = UsuarioaAgregar.Id;
+                    dbConnection.Clientes.Add(ClienteaAgregar);
+                    dbConnection.SaveChanges();
+                    return true;
+                }
+            }
             return true;
         }
 

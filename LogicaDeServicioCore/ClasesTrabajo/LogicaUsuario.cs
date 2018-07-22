@@ -53,9 +53,14 @@ namespace LogicaDeServicioCore
             return cadete;
         }
 
-        public static bool ModoficarUsuario(EntidadesCompartidasCore.Usuario unUsuario)
+        public static bool ModificarUsuario(EntidadesCompartidasCore.Usuario unUsuario)
         {
             bool exito = false;
+            if (unUsuario is Cliente)
+            {
+                exito = FabricaPersistencia.GetPersistenciaCliente().ModificarCliente((Cliente)unUsuario);
+                return exito;
+            }
             return exito;
         }
 

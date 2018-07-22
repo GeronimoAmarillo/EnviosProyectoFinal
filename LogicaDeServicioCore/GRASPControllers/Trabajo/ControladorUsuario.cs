@@ -62,7 +62,15 @@ namespace LogicaDeServicioCore
         
         public bool ModificarUsuario(Usuario pUsuario)
         {
-            return true;
+            try
+            {
+                bool exito = LogicaUsuario.ModificarUsuario(pUsuario);
+                return exito;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
