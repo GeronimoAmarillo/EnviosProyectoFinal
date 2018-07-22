@@ -11,7 +11,7 @@ namespace PersistenciaCore
 {
     class PersistenciaCliente:IPersistenciaCliente
     {
-        public PersistenciaCliente()
+        /*public PersistenciaCliente()
         {
             Mapper.Initialize(cfg =>
             {
@@ -33,7 +33,7 @@ namespace PersistenciaCore
                     .ForMember(d => d.Email, opt => opt.MapFrom(u => u.Email))
                 ;
             });
-        }
+        }*/
 
         public bool AltaCliente(Cliente cliente)
         {
@@ -83,8 +83,8 @@ namespace PersistenciaCore
             {
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    var usuarioDesdeBd = dbConnection.Usuarios.Where(x => x.NombreUsuario.ToString() == cliente.NombreUsuario.ToString());
-                    var clienteDesdeBd = dbConnection.Clientes.Where(x => x.RUT.ToString() == cliente.RUT.ToString());
+                    Usuarios usuarioDesdeBd = dbConnection.Usuarios.Single(x => x.NombreUsuario.ToString() == cliente.NombreUsuario.ToString());
+                    Clientes clienteDesdeBd = dbConnection.Clientes.Single(x => x.RUT.ToString() == cliente.RUT.ToString());
                     if (usuarioDesdeBd != null)
                     {
                         usuarioDesdeBd.Nombre = cliente.Nombre;
@@ -96,9 +96,9 @@ namespace PersistenciaCore
                     if (clienteDesdeBd != null)
                     {
                         clienteDesdeBd.Mensualidad = cliente.Mensualidad;
-                        
+
                     }
-                    
+
                     dbConnection.SaveChanges();
                     return true;
 
@@ -108,8 +108,6 @@ namespace PersistenciaCore
             {
                 throw new Exception("Error al intentar modificar el Cliente" + ex.Message);
             }
-
-            return true;
         }
 
         public bool ComprobarUser(string user)
@@ -119,7 +117,45 @@ namespace PersistenciaCore
 
         public List<Cliente> ListarClientes()
         {
-            return new List<Cliente>();
+            try
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                List<Cliente> clientesResultado = new List<Cliente>();
+
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    var clienteEncontrado = dbConnection.Clientes.Select(c => new {
+                        Cliente = c,
+                        Usuario = c.Usuarios
+                    });
+
+                    foreach (var c in clienteEncontrado)
+                    {
+                        Cliente clienteR = new Cliente();
+
+                        clienteR.Id = c.Cliente.IdUsuario;
+                        clienteR.Nombre = c.Usuario.Nombre;
+                        clienteR.Direccion = c.Usuario.Direccion;
+                        clienteR.Contraseña = c.Usuario.Contraseña;
+                        clienteR.Email = c.Usuario.Email;
+                        clienteR.Mensualidad = c.Cliente.Mensualidad;
+                        clienteR.NombreUsuario = c.Usuario.NombreUsuario;
+                        clienteR.RUT = c.Cliente.RUT;
+                        clienteR.Telefono = c.Usuario.Telefono;
+
+                        clientesResultado.Add(clienteR);
+                    }
+                }
+                return clientesResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los clientes." + ex.Message);
+            }
         }
 
         public Cliente Login(string user, string contraseña)
