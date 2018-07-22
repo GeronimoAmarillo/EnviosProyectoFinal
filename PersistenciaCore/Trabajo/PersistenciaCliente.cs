@@ -13,6 +13,11 @@ namespace PersistenciaCore
     {
         /*public PersistenciaCliente()
         {
+            
+        }*/
+
+        public bool AltaCliente(Cliente cliente)
+        {
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<Cliente, Clientes>()
@@ -33,10 +38,7 @@ namespace PersistenciaCore
                     .ForMember(d => d.Email, opt => opt.MapFrom(u => u.Email))
                 ;
             });
-        }*/
 
-        public bool AltaCliente(Cliente cliente)
-        {
             var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
             optionsBuilder.UseSqlServer(Conexion.ConnectionString);
@@ -83,24 +85,20 @@ namespace PersistenciaCore
             {
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    Usuarios usuarioDesdeBd = dbConnection.Usuarios.Single(x => x.NombreUsuario.ToString() == cliente.NombreUsuario.ToString());
+                    Usuarios usuarioDesdeBd = dbConnection.Usuarios.Single(x => x.Nombre.ToString() == cliente.Nombre.ToString());
                     Clientes clienteDesdeBd = dbConnection.Clientes.Single(x => x.RUT.ToString() == cliente.RUT.ToString());
-                    if (usuarioDesdeBd != null)
+                    if (usuarioDesdeBd != null && clienteDesdeBd != null)
                     {
                         usuarioDesdeBd.Nombre = cliente.Nombre;
                         usuarioDesdeBd.Direccion = cliente.Direccion;
                         usuarioDesdeBd.Telefono = cliente.Telefono;
                         usuarioDesdeBd.Email = cliente.Email;
-                    }
-
-                    if (clienteDesdeBd != null)
-                    {
                         clienteDesdeBd.Mensualidad = cliente.Mensualidad;
-
+                        dbConnection.SaveChanges();
+                        return true;
                     }
-
-                    dbConnection.SaveChanges();
-                    return true;
+                    return false;
+                    
 
                 }
             }
