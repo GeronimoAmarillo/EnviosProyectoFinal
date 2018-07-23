@@ -4,21 +4,68 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidasCore;
+using PersistenciaCore;
 
 namespace LogicaDeServicioCore
 {
     public class LogicaVehiculo
     {
-        public bool AltaVehiculo(Vehiculo unVehiculo)
+        public static bool AltaVehiculo(Vehiculo unVehiculo)
         {
-            bool exito = false;
-            return exito;
+            try
+            {
+                if (unVehiculo is Automobil)
+                {
+                    return FabricaPersistencia.GetPersistenciaAuto().AltaAuto((Automobil)unVehiculo);
+                }
+                else if (unVehiculo is Camion)
+                {
+                    return FabricaPersistencia.GetPersistenciaCamion().AltaCamion((Camion)unVehiculo);
+                }
+                else if (unVehiculo is Camioneta)
+                {
+                    return FabricaPersistencia.GetPersistenciaCamioneta().AltaCamioneta((Camioneta)unVehiculo);
+                }
+                else
+                {
+                    return FabricaPersistencia.GetPersistenciaMoto().AltaMoto((Moto)unVehiculo);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar dar de alta el Vehiculo." + ex.Message);
+            }
         }
 
-        public bool ExisteVehiculo(string matricula)
+        public static bool ExisteVehiculo(string matricula)
         {
-            bool existe = false;
-            return existe;
+            try
+            {
+                bool existe = false;
+
+                if (FabricaPersistencia.GetPersistenciaAuto().ExisteAuto(matricula))
+                {
+                    existe = true;
+                }
+                else if (FabricaPersistencia.GetPersistenciaCamion().ExisteCamion(matricula))
+                {
+                    existe = true;
+                }
+                else if (FabricaPersistencia.GetPersistenciaCamioneta().ExisteCamioneta(matricula))
+                {
+                    existe = true;
+                }
+                else if (FabricaPersistencia.GetPersistenciaMoto().ExisteMoto(matricula))
+                {
+                    existe = true;
+                }
+
+                return existe;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar comprobar la existencia del vehiculo con los datos ingresados.");
+            }
         }
 
         public Vehiculo BuscarVehiculo(string matricula)
@@ -51,10 +98,36 @@ namespace LogicaDeServicioCore
             return exito;
         }
 
-        public List<Vehiculo> ListarVehiculos()
+        public static List<Vehiculo> ListarVehiculos()
         {
-            List<Vehiculo> vehiculos = new List<Vehiculo>();
-            return vehiculos;
+            try
+            {
+                List<Vehiculo> lista = new List<Vehiculo>();
+
+                List<Automobil> autos = FabricaPersistencia.GetPersistenciaAuto().ListarAutos();
+
+                lista.AddRange(autos);
+
+                List<Camioneta> camionetas = FabricaPersistencia.GetPersistenciaCamioneta().ListarCamionetas();
+
+                lista.AddRange(camionetas);
+
+                List<Camion> camiones = FabricaPersistencia.GetPersistenciaCamion().ListarCamiones();
+
+                lista.AddRange(camiones);
+
+                List<Moto> motos = FabricaPersistencia.GetPersistenciaMoto().ListarMotos();
+
+                lista.AddRange(motos);
+
+                lista.Sort();
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los vehiculos." + ex.Message);
+            }
         }
     }
 }

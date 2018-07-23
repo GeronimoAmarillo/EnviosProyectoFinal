@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidasCore;
 
+
 namespace LogicaDeServicioCore
 {
     class ControladorVehiculo:IControladorVehiculo
@@ -12,6 +13,18 @@ namespace LogicaDeServicioCore
         public List<Cadete> ListarCadetesDisponibles()
         {
             return new List<Cadete>();
+        }
+
+        public List<Vehiculo> ListarVehiculos()
+        {
+            try
+            {
+                return LogicaVehiculo.ListarVehiculos();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al Listar los vehiculos." + ex.Message);
+            }
         }
 
         public bool ModificarVehiculo(Vehiculo pVehiculo)
@@ -41,12 +54,26 @@ namespace LogicaDeServicioCore
 
         public bool AltaVehiculo(Vehiculo pVehiculo)
         {
-            return true;
+            try
+            {
+                return LogicaVehiculo.AltaVehiculo(pVehiculo);
+            }
+            catch
+            {
+                throw new Exception("Error al intentar dar de alta el Vehiculo.");
+            }
         }
 
         public bool ExisteVehiculo(string matricula)
         {
-            return true;
+            try
+            {
+                return LogicaVehiculo.ExisteVehiculo(matricula);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar comprobar la existencia del Vehiculo con los datos ingresados.");
+            }
         }
     }
 }
