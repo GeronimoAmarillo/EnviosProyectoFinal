@@ -33,7 +33,7 @@ namespace LogicaDeAppsCore
                 //http://localhost:8080/
 
                 var httpClient = new HttpClient();
-                var json = await httpClient.GetStringAsync("http://localhost:8080/api/Locales/ExisteLocal?"+"nombre="+nombre+"&direccion="+direccion);
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionLocales + "/ExisteLocal?"+"nombre="+nombre+"&direccion="+direccion);
 
                 bool existe = false;
 
@@ -59,7 +59,7 @@ namespace LogicaDeAppsCore
                 //http://localhost:8080/
 
                 var httpClient = new HttpClient();
-                var json = await httpClient.GetStringAsync("http://localhost:8080/api/Locales/Local?id=" + id);
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionLocales + "/Local?id=" + id);
 
                 Local local = null;
 
@@ -85,7 +85,7 @@ namespace LogicaDeAppsCore
                     throw new Exception("El local que desea modificar no existe en el sistema.");
                 }
 
-                string url = "http://localhost:8080/api/Locales/Modificar";
+                string url = ConexionREST.ConexionLocales + "/Modificar";
 
                 var content = new StringContent(JsonConvert.SerializeObject(local), Encoding.UTF8, "application/json");
 
@@ -126,7 +126,7 @@ namespace LogicaDeAppsCore
                 //http://localhost:8080/
 
                 var httpClient = new HttpClient();
-                var json = await httpClient.GetStringAsync("http://localhost:8080/api/Locales/Locales");
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionLocales + "/Locales");
 
                 List<Local> locales = null;
 
@@ -154,7 +154,7 @@ namespace LogicaDeAppsCore
                     throw new Exception("El local que desea dar de alta ya existe en el sistema.");
                 }
 
-                string url = "http://localhost:8080/api/Locales/Alta";
+                string url = ConexionREST.ConexionLocales + "/Alta";
 
                 var content = new StringContent(JsonConvert.SerializeObject(local),Encoding.UTF8,"application/json");
 

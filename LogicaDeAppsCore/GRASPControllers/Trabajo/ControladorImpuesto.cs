@@ -30,7 +30,7 @@ namespace LogicaDeAppsCore
 
                 HttpClient client = new HttpClient();
 
-                string url = "http://localhost:8080/api/Valores/Impuesto";
+                string url = ConexionREST.ConexionValores + "/Impuesto";
 
                 var content = new StringContent(JsonConvert.SerializeObject(impuesto), Encoding.UTF8, "application/json");
 
@@ -60,7 +60,7 @@ namespace LogicaDeAppsCore
                 //http://localhost:8080/
 
                 var httpClient = new HttpClient();
-                var json = await httpClient.GetStringAsync("http://localhost:8080/api/Valores/Impuestos");
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionValores + "/Impuestos");
 
                 List<Impuesto> impuestos = null;
 
