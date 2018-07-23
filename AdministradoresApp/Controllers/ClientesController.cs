@@ -63,5 +63,53 @@ namespace AdministradoresApp.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
         }
+
+        public IActionResult ModificarCliente()
+        {
+            try
+            {
+                string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, null);
+
+                if (mensaje != null && mensaje != "")
+                {
+                    ViewBag.Message = mensaje;
+                }
+
+                return View();
+            }
+            catch
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario de modificacion de Cliente.");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ModificarCliente([FromForm] Cliente unCliente)
+        {
+            try
+            {
+                IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
+                bool exito = await controladorUsuario.ModificarUsuario(unCliente);
+                if (exito)
+                {
+                    ViewBag.Message = "Cliente modificado exitosamente";
+                    return View("Index");
+                }
+                else
+                {
+                    ViewBag.Message = "Error al intentar modificar el cliente";
+                    return View();
+                }
+            }
+            catch
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar modificar el cliente.");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+        }
     }
 }

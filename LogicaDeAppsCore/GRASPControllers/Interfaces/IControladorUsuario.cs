@@ -39,7 +39,7 @@ namespace LogicaDeAppsCore
 
         bool Logout();
 
-        bool ModificarUsuario(Usuario pUsuario);
+        Task<bool> ModificarUsuario(Usuario pUsuario);
 
     }
 }

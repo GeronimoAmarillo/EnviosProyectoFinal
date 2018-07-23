@@ -152,9 +152,25 @@ namespace LogicaDeAppsCore
             return true;
         }
 
-        public bool ModificarUsuario(Usuario pUsuario)
+        public async Task<bool> ModificarUsuario(Usuario pUsuario)
         {
-            return true;
-        }
+            try
+            {
+                bool exito = false;
+                var httpClient = new HttpClient();
+                var EnvioJson = JsonConvert.SerializeObject(pUsuario);
+
+                HttpResponseMessage retorno = await httpClient.PostAsync("http://localhost:8080/api/Usuarios/Usuario", new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
+                string resultado = await retorno.Content.ReadAsStringAsync();
+
+                if (retorno.IsSuccessStatusCode && resultado == "true")
+                    exito = true;
+                return exito;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar dar de alta: " + ex.Message);
+            }
+        }   
     }
 }
