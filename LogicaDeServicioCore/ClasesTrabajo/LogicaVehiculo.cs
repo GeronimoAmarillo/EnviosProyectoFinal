@@ -10,6 +10,21 @@ namespace LogicaDeServicioCore
 {
     public class LogicaVehiculo
     {
+
+        public static List<Cadete> ListarCadetesDisponibles()
+        {
+            try
+            {
+                List<Cadete> lista = FabricaPersistencia.GetPersistenciaCadete().ListarCadetesDisponibles();
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los cadetes disponibles." + ex.Message);
+            }
+        }
+
         public static bool AltaVehiculo(Vehiculo unVehiculo)
         {
             try

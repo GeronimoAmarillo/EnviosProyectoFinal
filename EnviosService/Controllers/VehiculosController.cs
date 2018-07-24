@@ -39,20 +39,23 @@ namespace EnviosService.Controllers
             return Json("Accion Http Desconocida", new Newtonsoft.Json.JsonSerializerSettings());
         }
 
-        [Route("api/Vehiculos/Existe")]
+        
         [HttpPut]
+        [Route("api/Vehiculos/Existe")]
         public JsonResult Vehiculo([FromBody] string matricula)
         {
              return Json(controladorVehiculo.ExisteVehiculo(matricula), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
         [HttpGet]
+        [Route("api/Vehiculos/Cadetes")]
         public JsonResult Cadetes()
         {
             return Json(controladorVehiculo.ListarCadetesDisponibles(), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
         [HttpGet("{cedula}")]
+        [Route("api/Vehiculos/Cadete")]
         public JsonResult Cadete(int cedula)
         {
             return Json(controladorVehiculo.SeleccionarCadete(cedula), new Newtonsoft.Json.JsonSerializerSettings());

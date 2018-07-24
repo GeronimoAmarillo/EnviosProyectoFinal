@@ -12,7 +12,14 @@ namespace LogicaDeServicioCore
     {
         public List<Cadete> ListarCadetesDisponibles()
         {
-            return new List<Cadete>();
+            try
+            {
+                return LogicaVehiculo.ListarCadetesDisponibles();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al Listar los vehiculos." + ex.Message);
+            }
         }
 
         public List<Vehiculo> ListarVehiculos()
