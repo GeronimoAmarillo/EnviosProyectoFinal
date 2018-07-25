@@ -97,7 +97,7 @@ namespace PersistenciaCore
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    cadetes = dbConnection.Cadetes.Include("Empleados.Usuarios").Where(c => c.Vehiculos != null).ToList();
+                    cadetes = dbConnection.Cadetes.Include("Empleados.Usuarios").Include("Vehiculos").Where(c => c.Vehiculos == null || !(c.Vehiculos.Any())).ToList();
                 }
 
                 List<Cadete> cadetesResultado = new List<Cadete>();

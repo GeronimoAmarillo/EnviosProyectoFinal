@@ -23,6 +23,12 @@ VALUES('User6', '12345', 'Nombre6', 'Direccion6', '12345678', 'user6@dominio.com
 INSERT INTO Usuarios (NombreUsuario, Contraseña, Nombre, Direccion, Telefono, Email)
 VALUES('User7', '12345', 'Nombre7', 'Direccion7', '12345678', 'user7@dominio.com')
 
+INSERT INTO Usuarios (NombreUsuario, Contraseña, Nombre, Direccion, Telefono, Email)
+VALUES('User8', '12345', 'Nombre8', 'Direccion8', '12345678', 'user8@dominio.com')
+
+INSERT INTO Usuarios (NombreUsuario, Contraseña, Nombre, Direccion, Telefono, Email)
+VALUES('User9', '12345', 'Nombre9', 'Direccion9', '12345678', 'user9@dominio.com')
+
 
 
 
@@ -40,6 +46,12 @@ VALUES(15000, 4, 44444444)
 
 INSERT INTO Empleados (Sueldo, IdUsuario, Ci)
 VALUES(15000, 5, 55555555)
+
+INSERT INTO Empleados (Sueldo, IdUsuario, Ci)
+VALUES(15000, 22, 88888888)
+
+INSERT INTO Empleados (Sueldo, IdUsuario, Ci)
+VALUES(15000, 23, 99999999)
 
 
 
@@ -63,6 +75,12 @@ VALUES('E', 123123123, 44444444)
 
 INSERT INTO Cadetes(TipoLibreta, IdTelefono, CiEmpleado)
 VALUES('E', 321321321, 55555555)
+
+INSERT INTO Cadetes(TipoLibreta, IdTelefono, CiEmpleado)
+VALUES('E', 123123123, 88888888)
+
+INSERT INTO Cadetes(TipoLibreta, IdTelefono, CiEmpleado)
+VALUES('E', 321321321, 99999999)
 
 
 

@@ -135,8 +135,6 @@ namespace LogicaDeServicioCore
 
                 lista.AddRange(motos);
 
-                lista.Sort();
-
                 return lista;
             }
             catch (Exception ex)

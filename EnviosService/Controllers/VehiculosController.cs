@@ -23,10 +23,8 @@ namespace EnviosService.Controllers
         
         [HttpPost]
         [HttpPut]
-        [Route("api/Vehiculos/Vehiculo")]
-        [Route("api/Vehiculos/Alta")]
-        [Route("api/Vehiculos/Modificar")]
-        public JsonResult Vehiculo([FromBody] Vehiculo vehiculo)
+        [Route("api/Vehiculos/Auto")]
+        public JsonResult Auto([FromBody] Automobil vehiculo)
         {
             switch (Request.Method.ToString())
             {
@@ -39,10 +37,57 @@ namespace EnviosService.Controllers
             return Json("Accion Http Desconocida", new Newtonsoft.Json.JsonSerializerSettings());
         }
 
-        
+        [HttpPost]
         [HttpPut]
+        [Route("api/Vehiculos/Camion")]
+        public JsonResult Camion([FromBody] Camion vehiculo)
+        {
+            switch (Request.Method.ToString())
+            {
+                case "PUT":
+                    return Json(controladorVehiculo.ModificarVehiculo(vehiculo), new Newtonsoft.Json.JsonSerializerSettings());
+                case "POST":
+                    return Json(controladorVehiculo.AltaVehiculo(vehiculo), new Newtonsoft.Json.JsonSerializerSettings());
+            }
+
+            return Json("Accion Http Desconocida", new Newtonsoft.Json.JsonSerializerSettings());
+        }
+        [HttpPost]
+        [HttpPut]
+        [Route("api/Vehiculos/Camioneta")]
+        public JsonResult Camioneta([FromBody] Camioneta vehiculo)
+        {
+            switch (Request.Method.ToString())
+            {
+                case "PUT":
+                    return Json(controladorVehiculo.ModificarVehiculo(vehiculo), new Newtonsoft.Json.JsonSerializerSettings());
+                case "POST":
+                    return Json(controladorVehiculo.AltaVehiculo(vehiculo), new Newtonsoft.Json.JsonSerializerSettings());
+            }
+
+            return Json("Accion Http Desconocida", new Newtonsoft.Json.JsonSerializerSettings());
+        }
+        [HttpPost]
+        [HttpPut]
+        [Route("api/Vehiculos/Moto")]
+        public JsonResult Moto([FromBody] Moto vehiculo)
+        {
+            switch (Request.Method.ToString())
+            {
+                case "PUT":
+                    return Json(controladorVehiculo.ModificarVehiculo(vehiculo), new Newtonsoft.Json.JsonSerializerSettings());
+                case "POST":
+                    return Json(controladorVehiculo.AltaVehiculo(vehiculo), new Newtonsoft.Json.JsonSerializerSettings());
+            }
+
+            return Json("Accion Http Desconocida", new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
+
+        [HttpGet]
+        [HttpGet("{matricula}")]
         [Route("api/Vehiculos/Existe")]
-        public JsonResult Vehiculo([FromBody] string matricula)
+        public JsonResult Vehiculo(string matricula)
         {
              return Json(controladorVehiculo.ExisteVehiculo(matricula), new Newtonsoft.Json.JsonSerializerSettings());
         }
@@ -52,6 +97,13 @@ namespace EnviosService.Controllers
         public JsonResult Cadetes()
         {
             return Json(controladorVehiculo.ListarCadetesDisponibles(), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
+        [HttpGet]
+        [Route("api/Vehiculos/Vehiculos")]
+        public JsonResult Vehiculos()
+        {
+            return Json(controladorVehiculo.ListarVehiculos(), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
         [HttpGet("{cedula}")]
