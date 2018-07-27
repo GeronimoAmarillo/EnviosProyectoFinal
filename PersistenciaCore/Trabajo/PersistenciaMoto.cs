@@ -114,6 +114,7 @@ namespace PersistenciaCore
                     motoR.Cadete = m.Vehiculos.Cadete;
                     motoR.Estado = m.Vehiculos.Estado;
                     motoR.Cilindrada = m.Cilindrada;
+                    motoR.MatriculaMoto = m.MatriculaMoto;
 
                     motosResultado.Add(motoR);
                 }

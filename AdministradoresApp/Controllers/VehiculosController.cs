@@ -16,6 +16,7 @@ namespace AdministradoresApp.Controllers
 
         public static string SESSSION_ALTA = "AltaVehiculo";
         public static string SESSSION_VEHICULOS = "Vehiculos";
+        public static string SESSION_FILTRADOS = "Filtrados";
         public static string SESSSION_MODIFICAR = "ModificarVehiculo";
         public static string SESSION_MENSAJE = "Mensaje";
         public static string LOG_USER = "UsuarioLogueado";
@@ -27,6 +28,8 @@ namespace AdministradoresApp.Controllers
                 if (ComprobarLogin() == "G")
                 {
                     IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
+
+                    HttpContext.Session.Set<List<Vehiculo>>(SESSSION_VEHICULOS, null);
 
                     List<Vehiculo> vehiculos = await controladorVehiculo.ListarVehiculos();
 
@@ -41,7 +44,18 @@ namespace AdministradoresApp.Controllers
                         ViewBag.Message = mensaje;
                     }
 
-                    return View(vehiculos);
+                    List<Vehiculo> filtrados = HttpContext.Session.Get<List<Vehiculo>>(SESSION_FILTRADOS);
+
+                    if (filtrados != null)
+                    {
+                        HttpContext.Session.Set<List<Vehiculo>>(SESSION_FILTRADOS, null);
+
+                        return View(filtrados);
+                    }
+                    else
+                    {
+                        return View(vehiculos);
+                    }
                 }
                 else
                 {
@@ -51,7 +65,7 @@ namespace AdministradoresApp.Controllers
                 }
 
             }
-            catch
+            catch(Exception ex)
             {
                 HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Vehiculos registrados");
 
@@ -372,26 +386,51 @@ namespace AdministradoresApp.Controllers
             }
         }
 
-        public async Task<ActionResult> Modificar(int id)
+        public ActionResult ListarAutos()
         {
             if (ComprobarLogin() == "G")
             {
-                IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
+                List<Vehiculo> autos = new List<Vehiculo>();
+                List<Vehiculo> vehiculos = HttpContext.Session.Get<List<Vehiculo>>(SESSSION_VEHICULOS);
 
-                Local local = await controladorLocal.BuscarLocal(id);
-
-                if (local != null)
+                foreach (Vehiculo v in vehiculos)
                 {
-                    HttpContext.Session.Set<Local>(SESSSION_MODIFICAR, local);
-
-                    return View(local);
+                    if (v is Automobil)
+                    {
+                        autos.Add((Automobil)v);
+                    }
                 }
-                else
+
+                HttpContext.Session.Set<List<Vehiculo>>(SESSION_FILTRADOS, autos);
+
+                return RedirectToAction("Index", "Vehiculos", new { area = "" });
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+        public ActionResult ListarCamiones()
+        {
+            if (ComprobarLogin() == "G")
+            {
+                List<Vehiculo> camiones = new List<Vehiculo>();
+                List<Vehiculo> vehiculos = HttpContext.Session.Get<List<Vehiculo>>(SESSSION_VEHICULOS);
+
+                foreach (Vehiculo v in vehiculos)
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No existe el local que desea modificar");
-
-                    return RedirectToAction("Index", "Locales", new { area = "" });
+                    if (v is Camion)
+                    {
+                        camiones.Add((Camion)v);
+                    }
                 }
+
+                HttpContext.Session.Set<List<Vehiculo>>(SESSION_FILTRADOS, camiones);
+
+                return RedirectToAction("Index", "Vehiculos", new { area = "" });
             }
             else
             {
@@ -402,61 +441,60 @@ namespace AdministradoresApp.Controllers
 
         }
 
-        [HttpPost]
-        public ActionResult Modificar([FromForm]Local local)
+
+
+        public ActionResult ListarCamionetas()
         {
-            try
+            if (ComprobarLogin() == "G")
             {
-                if (ComprobarLogin() == "G")
+                List<Vehiculo> camionetas = new List<Vehiculo>();
+                List<Vehiculo> vehiculos = HttpContext.Session.Get<List<Vehiculo>>(SESSSION_VEHICULOS);
+
+                foreach (Vehiculo v in vehiculos)
                 {
-
-                    Local localModificar = HttpContext.Session.Get<Local>(SESSSION_MODIFICAR);
-
-                    localModificar.Id = local.Id;
-                    localModificar.Direccion = local.Direccion;
-                    localModificar.Nombre = local.Nombre;
-
-                    IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
-
-                    string mensaje = "";
-
-                    if (ModelState.IsValid)
+                    if (v is Camioneta)
                     {
-                        bool exito = controladorLocal.ModificarLocal(localModificar);
-
-                        if (exito)
-                        {
-                            controladorLocal.SetLocal(null);
-                            mensaje = "El local se modifico con exito!.";
-                        }
-                        else
-                        {
-                            mensaje = "Se produjo un error al dar de alta el local!.";
-                        }
+                        camionetas.Add((Camioneta)v);
                     }
-
-                    if (mensaje != "")
-                    {
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
-                    }
-
-                    return RedirectToAction("Index");
-
-                }
-                else
-                {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
-
-                    return RedirectToAction("Index", "Home", new { area = "" });
                 }
 
+                HttpContext.Session.Set<List<Vehiculo>>(SESSION_FILTRADOS, camionetas);
 
+                return RedirectToAction("Index", "Vehiculos", new { area = "" });
             }
-            catch (Exception ex)
+            else
             {
-                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-            }
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+        }
+
+        public ActionResult ListarMotos()
+        {
+            if (ComprobarLogin() == "G")
+            {
+                List<Vehiculo> motos = new List<Vehiculo>();
+                List<Vehiculo> vehiculos = HttpContext.Session.Get<List<Vehiculo>>(SESSSION_VEHICULOS);
+
+                foreach (Vehiculo v in vehiculos)
+                {
+                    if (v is Moto)
+                    {
+                        motos.Add((Moto)v);
+                    }
+                }
+
+                HttpContext.Session.Set<List<Vehiculo>>(SESSION_FILTRADOS, motos);
+
+                return RedirectToAction("Index", "Vehiculos", new { area = "" });
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
         }
 
         public string ComprobarLogin()

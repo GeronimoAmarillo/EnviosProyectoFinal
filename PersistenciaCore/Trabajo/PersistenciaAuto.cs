@@ -78,6 +78,7 @@ namespace PersistenciaCore
                     autoR.Cadete = m.Vehiculos.Cadete;
                     autoR.Estado = m.Vehiculos.Estado;
                     autoR.Puertas = m.Puertas;
+                    autoR.MatriculaAuto = m.MatriculaAuto;
 
                     autosResultado.Add(autoR);
                 }

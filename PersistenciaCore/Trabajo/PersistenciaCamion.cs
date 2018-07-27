@@ -78,6 +78,7 @@ namespace PersistenciaCore
                     camionR.Cadete = m.Vehiculos.Cadete;
                     camionR.Estado = m.Vehiculos.Estado;
                     camionR.Altura = m.Altura;
+                    camionR.MatriculaCamion = m.MatriculaCamion;
 
                     camionesResultado.Add(camionR);
                 }

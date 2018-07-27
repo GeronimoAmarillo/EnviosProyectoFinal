@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using EntidadesCompartidasCore;
 using LogicaDeServicioCore;
+using Newtonsoft.Json;
 
 namespace EnviosService.Controllers
 {
@@ -103,7 +104,12 @@ namespace EnviosService.Controllers
         [Route("api/Vehiculos/Vehiculos")]
         public JsonResult Vehiculos()
         {
-            return Json(controladorVehiculo.ListarVehiculos(), new Newtonsoft.Json.JsonSerializerSettings());
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+
+            return Json(controladorVehiculo.ListarVehiculos(), settings);
         }
 
         [HttpGet("{cedula}")]

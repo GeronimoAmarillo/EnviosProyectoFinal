@@ -181,7 +181,14 @@ namespace LogicaDeAppsCore
 
                 List<Vehiculo> vehiculos = null;
 
-                vehiculos = JsonConvert.DeserializeObject<List<Vehiculo>>(json);
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Objects
+                };
+
+                //JsonConverter[] conv = new JsonConverter[] { new MessageConverter() };
+
+                vehiculos = JsonConvert.DeserializeObject<List<Vehiculo>>(json, settings);
 
                 return vehiculos;
 
