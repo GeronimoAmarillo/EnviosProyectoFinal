@@ -8,6 +8,7 @@ using EntidadesCompartidasCore;
 using LogicaDeAppsCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AdministradoresApp.Controllers
 {
@@ -75,11 +76,28 @@ namespace AdministradoresApp.Controllers
         }
 
 
-        public ActionResult AltaAuto()
+        public async Task<ActionResult> AltaAuto()
         {
             if (ComprobarLogin() == "G")
             {
                 HttpContext.Session.Set<Automobil>(SESSSION_ALTA, new Automobil());
+
+                IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
+
+                List<Cadete> cadetes = await controladorVehiculo.ListarCadetesDisponibles();
+
+                List<SelectListItem> items = new List<SelectListItem>();
+
+                foreach (Cadete c in cadetes)
+                {
+                    SelectListItem item = new SelectListItem();
+                    item.Text = "Nombre: " + c.Nombre + " - Cedula: " + c.Ci + ".";
+                    item.Value = c.CiEmpleado.ToString();
+
+                    items.Add(item);
+                }
+
+                ViewBag.Cadetes = items;
 
                 return View();
             }
@@ -93,7 +111,7 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult AltaAuto([FromForm]Automobil auto)
+        public ActionResult AltaAuto([FromForm]Automobil auto, int cadete)
         {
             try
             {
@@ -106,7 +124,7 @@ namespace AdministradoresApp.Controllers
                     autoAlta.Marca = auto.Vehiculos.Marca;
                     autoAlta.Modelo = auto.Vehiculos.Modelo;
                     autoAlta.Capacidad = auto.Vehiculos.Capacidad;
-                    autoAlta.Cadete = auto.Vehiculos.Cadete;
+                    autoAlta.Cadete = cadete;
                     autoAlta.Estado = auto.Vehiculos.Estado;
                     autoAlta.Puertas = auto.Puertas;
                     autoAlta.MatriculaAuto = auto.MatriculaAuto;
