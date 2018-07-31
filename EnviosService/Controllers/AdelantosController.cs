@@ -10,7 +10,7 @@ using LogicaDeServicioCore;
 namespace EnviosService.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Adelantos")]
+    
     public class AdelantosController : Controller
     {
         private IControladorAdelanto controladorAdelanto;
@@ -21,21 +21,25 @@ namespace EnviosService.Controllers
         }
 
         //GET /Api/Empleados
-
+        
         [HttpGet("{cedula}")]
+        [Route("api/Adelantos/Empleado")]
         public JsonResult Empleado(int cedula)
         {
             return Json(controladorAdelanto.BuscarEmpleado(cedula), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
+        
         [HttpGet]
+        [Route("api/Adelantos/Empleados")]
         public JsonResult Empleados()
         {
             return Json(controladorAdelanto.ListarEmpleados(), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
         [HttpPost]
-        public JsonResult Adelantos([FromBody] Adelanto item)
+        [Route("api/Adelantos/Adelanto")]
+        public JsonResult Adelanto([FromBody] Adelanto item)
         {
             switch (Request.Method.ToString())
             {
@@ -44,6 +48,13 @@ namespace EnviosService.Controllers
             }
 
             return Json("Accion Http Desconocida", new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
+        [HttpGet]
+        [Route("api/Adelantos/Adelantos")]
+        public JsonResult Adelantos([FromBody] Adelanto item)
+        {
+            return Json(controladorAdelanto.ListarAdelantos(), new Newtonsoft.Json.JsonSerializerSettings());
         }
     }
 }
