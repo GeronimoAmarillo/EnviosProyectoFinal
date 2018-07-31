@@ -22,7 +22,46 @@ namespace PersistenciaCore
 
         public List<EntidadesCompartidasCore.Cadete> ListarCadetes()
         {
-            return new List<EntidadesCompartidasCore.Cadete>();
+            try
+            {
+                List<Cadetes> cadetes = new List<Cadetes>();
+
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    cadetes = dbConnection.Cadetes.Include("Empleados.Usuarios").ToList();
+                }
+
+                List<Cadete> cadetesResultado = new List<Cadete>();
+
+                foreach (Cadetes a in cadetes)
+                {
+                    Cadete cadeteR = new Cadete();
+
+                    cadeteR.Ci = a.CiEmpleado;
+                    cadeteR.CiEmpleado = a.CiEmpleado;
+                    cadeteR.Direccion = a.Empleados.Usuarios.Direccion;
+                    cadeteR.Email = a.Empleados.Usuarios.Email;
+                    cadeteR.Id = a.Empleados.Usuarios.Id;
+                    cadeteR.Nombre = a.Empleados.Usuarios.Nombre;
+                    cadeteR.NombreUsuario = a.Empleados.Usuarios.NombreUsuario;
+                    cadeteR.Sueldo = a.Empleados.Sueldo;
+                    cadeteR.Telefono = a.Empleados.Usuarios.Telefono;
+                    cadeteR.IdTelefono = a.IdTelefono;
+
+                    cadetesResultado.Add(cadeteR);
+                }
+
+                return cadetesResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los cadetes." + ex.Message);
+            }
         }
 
         public EntidadesCompartidasCore.Cadete Login(string user, string contraseña)
@@ -141,7 +180,43 @@ namespace PersistenciaCore
 
         public EntidadesCompartidasCore.Cadete BuscarCadete(int ci)
         {
-            return new EntidadesCompartidasCore.Cadete();
+            try
+            {
+                Cadetes cadete = new Cadetes();
+
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    cadete = dbConnection.Cadetes.Include("Empleados.Usuarios").Where(c => c.CiEmpleado == ci).FirstOrDefault();
+                }
+
+                Cadete cadeteResultado = new Cadete();
+
+                if(cadete != null)
+                {
+
+                    cadeteResultado.Ci = cadete.CiEmpleado;
+                    cadeteResultado.CiEmpleado = cadete.CiEmpleado;
+                    cadeteResultado.Direccion = cadete.Empleados.Usuarios.Direccion;
+                    cadeteResultado.Email = cadete.Empleados.Usuarios.Email;
+                    cadeteResultado.Id = cadete.Empleados.Usuarios.Id;
+                    cadeteResultado.Nombre = cadete.Empleados.Usuarios.Nombre;
+                    cadeteResultado.NombreUsuario = cadete.Empleados.Usuarios.NombreUsuario;
+                    cadeteResultado.Sueldo = cadete.Empleados.Sueldo;
+                    cadeteResultado.Telefono = cadete.Empleados.Usuarios.Telefono;
+                    cadeteResultado.IdTelefono = cadete.IdTelefono;
+                }
+
+                return cadeteResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el cadete." + ex.Message);
+            }
         }
     }
 }

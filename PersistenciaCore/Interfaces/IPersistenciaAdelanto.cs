@@ -10,5 +10,6 @@ namespace PersistenciaCore
     public interface IPersistenciaAdelanto
     {
         bool RealizarAdelanto(EntidadesCompartidasCore.Adelanto adelanto);
+        List<Adelanto> ListarAdelantos();
     }
 }

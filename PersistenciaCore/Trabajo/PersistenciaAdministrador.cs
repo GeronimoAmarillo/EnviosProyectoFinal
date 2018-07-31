@@ -27,7 +27,46 @@ namespace PersistenciaCore
 
         public List<EntidadesCompartidasCore.Administrador> ListarAdministradores()
         {
-            return new List<EntidadesCompartidasCore.Administrador>();
+            try
+            {
+                List<Administradores> administradores = new List<Administradores>();
+
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    administradores = dbConnection.Administradores.Include("Empleados.Usuarios").ToList();
+                }
+
+                List<Administrador> adminsResultado = new List<Administrador>();
+
+                foreach (Administradores a in administradores)
+                {
+                    Administrador adminR = new Administrador();
+
+                    adminR.Ci = a.CiEmpleado;
+                    adminR.CiEmpleado = a.CiEmpleado;
+                    adminR.Direccion = a.Empleados.Usuarios.Direccion;
+                    adminR.Email = a.Empleados.Usuarios.Email;
+                    adminR.Id = a.Empleados.Usuarios.Id;
+                    adminR.Nombre = a.Empleados.Usuarios.Nombre;
+                    adminR.NombreUsuario = a.Empleados.Usuarios.NombreUsuario;
+                    adminR.Sueldo = a.Empleados.Sueldo;
+                    adminR.Telefono = a.Empleados.Usuarios.Telefono;
+                    adminR.Tipo = a.Tipo;
+
+                    adminsResultado.Add(adminR);
+                }
+
+                return adminsResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los administradores." + ex.Message);
+            }
         }
 
         public bool ModificarAdmin(EntidadesCompartidasCore.Administrador admin)
@@ -89,9 +128,45 @@ namespace PersistenciaCore
             return true;
         }
 
-        public EntidadesCompartidasCore.Administrador BusxarAdministrador(int ci)
+        public EntidadesCompartidasCore.Administrador BuscarAdministrador(int ci)
         {
-            return new EntidadesCompartidasCore.Administrador();
+            try
+            {
+                Administradores administrador = new Administradores();
+
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    administrador = dbConnection.Administradores.Include("Empleados.Usuarios").Where(a => a.CiEmpleado == ci).FirstOrDefault();
+                }
+
+                Administrador adminResultado = new Administrador();
+
+                if (administrador != null)
+                {
+
+                    adminResultado.Ci = administrador.CiEmpleado;
+                    adminResultado.CiEmpleado = administrador.CiEmpleado;
+                    adminResultado.Direccion = administrador.Empleados.Usuarios.Direccion;
+                    adminResultado.Email = administrador.Empleados.Usuarios.Email;
+                    adminResultado.Id = administrador.Empleados.Usuarios.Id;
+                    adminResultado.Nombre = administrador.Empleados.Usuarios.Nombre;
+                    adminResultado.NombreUsuario = administrador.Empleados.Usuarios.NombreUsuario;
+                    adminResultado.Sueldo = administrador.Empleados.Sueldo;
+                    adminResultado.Telefono = administrador.Empleados.Usuarios.Telefono;
+                    adminResultado.Tipo = administrador.Tipo;
+                }
+
+                return adminResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el administrador administradores." + ex.Message);
+            }
         }
     }
 }

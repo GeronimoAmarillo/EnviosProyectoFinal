@@ -23,6 +23,6 @@ namespace PersistenciaCore
 
         bool BajaAdministrador(int ci);
 
-        Administrador BusxarAdministrador(int ci);
+        Administrador BuscarAdministrador(int ci);
     }
 }

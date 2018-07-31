@@ -61,8 +61,24 @@ namespace LogicaDeServicioCore
 
         public static List<EntidadesCompartidasCore.Empleado> ListarEmpleados()
         {
-            List<EntidadesCompartidasCore.Empleado> lista = new List<EntidadesCompartidasCore.Empleado>();
-            return lista;
+            try
+            {
+                List<Empleado> lista = new List<Empleado>();
+
+                List<Administrador> admins = FabricaPersistencia.GetPersistenciaAdministrador().ListarAdministradores();
+
+                lista.AddRange(admins);
+
+                List<Cadete> cadetes = FabricaPersistencia.GetPersistenciaCadete().ListarCadetes();
+
+                lista.AddRange(cadetes);
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los empleados." + ex.Message);
+            }
         }
 
         public static List<EntidadesCompartidasCore.Cadete> ListarCadetesDisponibles()
@@ -125,8 +141,23 @@ namespace LogicaDeServicioCore
 
         public static EntidadesCompartidasCore.Empleado BuscarEmpleado(int cedula)
         {
-            EntidadesCompartidasCore.Empleado empleado = new EntidadesCompartidasCore.Empleado();
-            return empleado;
+            Empleado empleado;
+
+            try
+            {
+                empleado = FabricaPersistencia.GetPersistenciaAdministrador().BuscarAdministrador(cedula);
+
+                if (empleado == null)
+                {
+                    empleado = FabricaPersistencia.GetPersistenciaCadete().BuscarCadete(cedula);
+                }
+
+                return empleado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el Empleado" + ex.Message);
+            }
         }
 
         public static string CrearContrasenia()
