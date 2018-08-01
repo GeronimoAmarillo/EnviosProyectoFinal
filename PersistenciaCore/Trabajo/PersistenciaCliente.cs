@@ -11,10 +11,6 @@ namespace PersistenciaCore
 {
     class PersistenciaCliente:IPersistenciaCliente
     {
-        /*public PersistenciaCliente()
-        {
-            
-        }*/
 
         public bool AltaCliente(Cliente cliente)
         {
