@@ -27,10 +27,20 @@ namespace PersistenciaCore
             {
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    dbConnection.Calificaciones.Add(nuevaCalificacion);
-                    dbConnection.SaveChanges();
+                    Clientes cliente = dbConnection.Clientes.FirstOrDefault(x => x.Rut == calificacion.RutCliente);
+                    if (cliente != null)
+                    {
+                        dbConnection.Calificaciones.Add(nuevaCalificacion);
+                        dbConnection.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        throw new Exception("No existe el cliente que califica.");
+                    }
+                    
                 }
-                return true;
+                
             }
             catch(Exception ex)
             {

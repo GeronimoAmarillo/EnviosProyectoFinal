@@ -10,7 +10,7 @@ namespace LogicaDeServicioCore
 {
     public class LogicaCalificacion
     {
-        public static bool Calificar(int puntaje, string comentario, int rutCliente)
+        public static bool Calificar(int puntaje, string comentario, long rutCliente)
         {
             bool exito = false;
             Calificacion nuevaCalificacion = new Calificacion()
