@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidasCore;
+using PersistenciaCore;
 
 namespace LogicaDeServicioCore
 {
@@ -27,9 +28,25 @@ namespace LogicaDeServicioCore
             return vehiculo;
         }
 
-        public bool ModificarVehiculo(Vehiculo unVehiculo)
+        public static bool ModificarVehiculo(Vehiculo unVehiculo)
         {
             bool exito = false;
+            if (unVehiculo is Automobil)
+            {
+                exito = FabricaPersistencia.GetPersistenciaAuto().ModificarAuto((Automobil)unVehiculo);
+            }
+            if (unVehiculo is Camion)
+            {
+                exito = FabricaPersistencia.GetPersistenciaCamion().ModificarCamion((Camion)unVehiculo);
+            }
+            if (unVehiculo is Camioneta)
+            {
+                exito = FabricaPersistencia.GetPersistenciaCamioneta().ModificarCamioneta((Camioneta)unVehiculo);
+            }
+            else
+            {
+                exito = FabricaPersistencia.GetPersistenciaMoto().ModificarMoto((Moto)unVehiculo);
+            }
             return exito;
         }
 
