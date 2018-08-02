@@ -27,7 +27,7 @@ namespace PersistenciaCore
             {
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    Clientes cliente = dbConnection.Clientes.FirstOrDefault(x => x.Rut == calificacion.RutCliente);
+                    Clientes cliente = dbConnection.Clientes.FirstOrDefault(x => x.RUT == calificacion.RutCliente);
                     if (cliente != null)
                     {
                         dbConnection.Calificaciones.Add(nuevaCalificacion);
