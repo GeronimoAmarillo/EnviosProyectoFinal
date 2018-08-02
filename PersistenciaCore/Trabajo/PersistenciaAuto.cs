@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AutoMapper;
 using EntidadesCompartidasCore;
-using Microsoft.EntityFrameworkCore;
-
 namespace PersistenciaCore
 {
     class PersistenciaAuto:IPersistenciaAuto
@@ -28,7 +25,6 @@ namespace PersistenciaCore
 
         public bool ModificarAuto(EntidadesCompartidasCore.Automobil auto)
         {
-            
             return true;
         }
 
