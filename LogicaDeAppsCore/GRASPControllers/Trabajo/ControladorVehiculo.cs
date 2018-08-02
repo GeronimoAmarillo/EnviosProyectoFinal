@@ -47,7 +47,7 @@ namespace LogicaDeAppsCore
 
                 HttpClient client = new HttpClient();
 
-                string url = ConexionREST.ConexionLocales + "/Modificar";
+                string url = ConexionREST.ConexionVehiculos + "/Modificar";
 
                 var content = new StringContent(JsonConvert.SerializeObject(pVehiculo), Encoding.UTF8, "application/json");
 
