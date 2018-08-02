@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidasCore;
+using Newtonsoft.Json;
 
 namespace LogicaDeAppsCore
 {
@@ -40,7 +42,33 @@ namespace LogicaDeAppsCore
 
         public bool ModificarVehiculo(Vehiculo pVehiculo)
         {
-            return true;
+            try
+            {
+
+                HttpClient client = new HttpClient();
+
+                string url = ConexionREST.ConexionLocales + "/Modificar";
+
+                var content = new StringContent(JsonConvert.SerializeObject(pVehiculo), Encoding.UTF8, "application/json");
+
+                var result = client.PutAsync(url, content).Result;
+
+                var contentResult = result.Content.ReadAsStringAsync();
+
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("ERROR!: " + ex.Message);
+            }
         }
 
         public Cadete SeleccionarCadete(int ci)
