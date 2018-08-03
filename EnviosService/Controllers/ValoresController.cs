@@ -10,7 +10,7 @@ using LogicaDeServicioCore;
 namespace EnviosService.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Valores")]
+    
     public class ValoresController : Controller
     {
         private IControladorValores controladorValores;
@@ -21,18 +21,21 @@ namespace EnviosService.Controllers
         }
 
         [HttpGet]
+        [Route("api/Valores/Gastos")]
         public JsonResult Gastos()
         {
             return Json(controladorValores.ListarGastos(), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
         [HttpGet]
+        [Route("api/Valores/Ingresos")]
         public JsonResult Ingresos()
         {
             return Json(controladorValores.ListarIngresos(), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
         [HttpPost]
+        [Route("api/Valores/Gasto")]
         public JsonResult Gasto([FromBody] Gasto gasto)
         {
             return Json(controladorValores.RegistrarGasto(gasto), new Newtonsoft.Json.JsonSerializerSettings());
@@ -40,6 +43,7 @@ namespace EnviosService.Controllers
         }
 
         [HttpPost]
+        [Route("api/Valores/Ingreso")]
         public JsonResult Ingreso([FromBody] Ingreso ingreso)
         {
             return Json(controladorValores.RegistrarIngreso(ingreso), new Newtonsoft.Json.JsonSerializerSettings());
@@ -47,9 +51,18 @@ namespace EnviosService.Controllers
         }
 
         [HttpPost]
+        [Route("api/Valores/Impuesto")]
         public JsonResult Impuesto([FromBody] Impuesto impuesto)
         {
             return Json(controladorValores.RegistrarImpuesto(impuesto), new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+
+        [HttpGet]
+        [Route("api/Valores/Impuestos")]
+        public JsonResult Impuestos()
+        {
+            return Json(controladorValores.ListarImpuestos(), new Newtonsoft.Json.JsonSerializerSettings());
 
         }
 

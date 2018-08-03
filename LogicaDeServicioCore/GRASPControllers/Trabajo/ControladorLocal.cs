@@ -23,14 +23,28 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public EntidadesCompartidasCore.Local BuscarLocal(string nombre)
+        public EntidadesCompartidasCore.Local BuscarLocal(int id)
         {
-            return new EntidadesCompartidasCore.Local();
+            try
+            {
+                return LogicaLocal.BuscarLocal(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el local.");
+            }
         }
 
         public bool ModificarLocal(EntidadesCompartidasCore.Local local)
         {
-            return true;
+            try
+            {
+                return LogicaLocal.ModificarLocal(local);
+            }
+            catch
+            {
+                throw new Exception("Error al intentar modificar el Local.");
+            }
         }
 
         public bool AltaLocal(EntidadesCompartidasCore.Local local)

@@ -220,7 +220,47 @@ namespace PersistenciaCore
 
         public List<EntidadesCompartidasCore.Cadete> ListarCadetesDisponibles()
         {
-            return new List<EntidadesCompartidasCore.Cadete>();
+            try
+            {
+                List<Cadetes> cadetes = new List<Cadetes>();
+
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    cadetes = dbConnection.Cadetes.Include("Empleados.Usuarios").Include("Vehiculos").Where(c => c.Vehiculos == null || !(c.Vehiculos.Any())).ToList();
+                }
+
+                List<Cadete> cadetesResultado = new List<Cadete>();
+
+                foreach (Cadetes l in cadetes)
+                {
+                    Cadete cadeteR = new Cadete();
+
+                    cadeteR.Id = l.Empleados.Usuarios.Id;
+                    cadeteR.Nombre = l.Empleados.Usuarios.Nombre;
+                    cadeteR.Direccion = l.Empleados.Usuarios.Direccion;
+                    cadeteR.Ci = l.Empleados.Ci;
+                    cadeteR.Contraseña = l.Empleados.Usuarios.Contraseña;
+                    cadeteR.Email = l.Empleados.Usuarios.Email;
+                    cadeteR.IdTelefono = l.IdTelefono;
+                    cadeteR.NombreUsuario = l.Empleados.Usuarios.NombreUsuario;
+                    cadeteR.Sueldo = l.Empleados.Sueldo;
+                    cadeteR.Telefono = l.Empleados.Usuarios.Telefono;
+                    cadeteR.TipoLibreta = l.TipoLibreta;
+
+                    cadetesResultado.Add(cadeteR);
+                }
+
+                return cadetesResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los cadetes disponibles." + ex.Message);
+            }
         }
 
         public bool BajaCadete(int ci)

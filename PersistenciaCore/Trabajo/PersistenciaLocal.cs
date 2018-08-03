@@ -69,18 +69,69 @@ namespace PersistenciaCore
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al listar los locales." + ex.Message);
+                throw new Exception("Error al verificar el local." + ex.Message);
             }
         }
 
-        public EntidadesCompartidasCore.Local BuscarLocal(string nombre)
+        public EntidadesCompartidasCore.Local BuscarLocal(int id)
         {
-            return new EntidadesCompartidasCore.Local();
+            try
+            {
+                Local localResultado = null;
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    var local = dbConnection.Locales.Where(l => l.Id == id).Select(c => new {
+                        Local = c
+                    }).FirstOrDefault();
+
+                    if (local != null && local.Local is Locales)
+                    {
+                        localResultado = new Local();
+                        localResultado.Id = id;
+                        localResultado.Nombre = local.Local.Nombre;
+                        localResultado.Direccion = local.Local.Direccion;
+                    }
+                }
+
+                return localResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el local." + ex.Message);
+            }
         }
 
         public bool ModificarLocal(EntidadesCompartidasCore.Local local)
         {
-            return true;
+            try
+            {
+                PersistenciaCore.Locales localModificar = new PersistenciaCore.Locales();
+                localModificar.Id = local.Id;
+                localModificar.Direccion = local.Direccion;
+                localModificar.Nombre = local.Nombre;
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    dbConnection.Locales.Update(localModificar);
+                    dbConnection.SaveChanges();
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al modificar el Local.");
+            }
         }
 
         public List<EntidadesCompartidasCore.Local> ListarLocales()

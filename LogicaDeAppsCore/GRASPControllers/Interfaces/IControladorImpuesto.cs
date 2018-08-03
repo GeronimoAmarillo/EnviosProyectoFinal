@@ -18,5 +18,7 @@ namespace LogicaDeAppsCore
 
         void IniciarReigstroImpuesto();
 
+        Task<List<Impuesto>> ListarImpuestos();
+
     }
 }

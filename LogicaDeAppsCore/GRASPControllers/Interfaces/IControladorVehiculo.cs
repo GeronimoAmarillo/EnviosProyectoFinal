@@ -13,7 +13,7 @@ namespace LogicaDeAppsCore
 
         void SetMatricula(string matricula);
 
-        List<Cadete> ListarCadetesDisponibles();
+        Task<List<Cadete>> ListarCadetesDisponibles();
 
         Cadete GetCadete();
 
@@ -37,6 +37,8 @@ namespace LogicaDeAppsCore
 
         bool AltaVehiculo(Vehiculo pVehiculo);
 
-        bool ExisteVehiculo(string matricula);
+        Task<List<Vehiculo>> ListarVehiculos();
+
+        Task<bool> ExisteVehiculo(string matricula);
     }
 }

@@ -1,0 +1,118 @@
+﻿@model IEnumerable<EntidadesCompartidasCore.Vehiculo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <p>Listados</p>
+            </th>
+            <th>
+                <p>Altas</p>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.ActionLink("Autos", "ListarAutos", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Camiones", "ListarCamiones", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Camionetas", "ListarCamionetas", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Motos", "ListarMotos", new { /* id=item.PrimaryKey */ })
+            </td>
+            <td>
+                @Html.ActionLink("Autos", "AltaAuto", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Camiones", "AltaCamion", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Camionetas", "AltaCamioneta", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Motos", "AltaMoto", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Matricula)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Marca)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Modelo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Capacidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cadete)
+            </th>
+            <th>
+                <label>Tipo</label>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Matricula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Marca)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Modelo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Capacidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cadete)
+            </td>
+            <td>
+                @{ 
+                    if (item is Automobil)
+                    { 
+                        <label> Auto</label>
+                    }
+                    else if (item is Camion)
+                    { 
+                        <label>Camion</label>
+                    }
+                    else if (item is Camioneta)
+                    { 
+                        <label>Camioneta</label>
+                    }
+                    else if(item is Moto)
+                    { 
+                        <label>Moto</label>
+                    }
+                }
+            </td>
+            
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+        
+}
+    </tbody>
+</table>

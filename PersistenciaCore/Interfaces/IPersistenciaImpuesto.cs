@@ -10,5 +10,6 @@ namespace PersistenciaCore
     public interface IPersistenciaImpuesto
     {
         bool RegistrarImpuesto(EntidadesCompartidasCore.Impuesto impuesto);
+        List<EntidadesCompartidasCore.Impuesto> ListarImpuestos();
     }
 }

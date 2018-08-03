@@ -11,27 +11,74 @@ namespace LogicaDeServicioCore
     {
         public List<Gasto> ListarGastos()
         {
-            return new List<Gasto>();
+            try
+            {
+                return LogicaValor.ListarGastos();
+            }
+            catch
+            {
+                throw new Exception("Error al intentar listar los gastos.");
+            }
         }
 
         public bool RegistrarGasto(Gasto gasto)
         {
-            return true;
+            try
+            {
+                return LogicaValor.RegistrarGasto(gasto);
+            }
+            catch
+            {
+                throw new Exception("Error al intentar dar de alta el gasto.");
+            }
         }
 
         public bool RegistrarImpuesto(Impuesto impuesto)
         {
-            return true;
+            try
+            {
+                return LogicaValor.RegistrarImpuesto(impuesto);
+            }
+            catch
+            {
+                throw new Exception("Error al intentar dar de alta el impuesto.");
+            }
+        }
+
+        public List<Impuesto> ListarImpuestos()
+        {
+            try
+            {
+                return LogicaValor.ListarImpuestos();
+            }
+            catch
+            {
+                throw new Exception("Error al intentar listar los impuestos.");
+            }
         }
 
         public bool RegistrarIngreso(Ingreso ingreso)
         {
-            return true;
+            try
+            {
+                return LogicaValor.RegistrarIngreso(ingreso);
+            }
+            catch
+            {
+                throw new Exception("Error al intentar dar de alta el ingreso.");
+            }
         }
 
         public List<Ingreso> ListarIngresos()
         {
-            return new List<Ingreso>();
+            try
+            {
+                return LogicaValor.ListarIngresos();
+            }
+            catch
+            {
+                throw new Exception("Error al intentar listar los ingresos.");
+            }
         }
     }
 }

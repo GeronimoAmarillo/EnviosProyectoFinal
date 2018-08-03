@@ -51,7 +51,7 @@ namespace LogicaDeAppsCore
                 //http://localhost:8080/api
 
                 var httpClient = new HttpClient();
-                var json = await httpClient.GetStringAsync("http://localhost:8080/api/Usuarios/Login?" + "usuario=" + user + "&contrasenia=" + pass);
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionUsuarios+"/Login?" + "usuario=" + user + "&contrasenia=" + pass);
 
                 Usuario usuarioLogueado = null;
                 Administrador admin = null;
