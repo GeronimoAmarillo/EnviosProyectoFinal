@@ -37,13 +37,13 @@ namespace TestsLogicaServicioCore
                 Id =0,
                 NombreUsuario="", 
                 Contraseña="",
-                Nombre="Matias", 
+                Nombre="tito", 
                 Direccion="direccion",
                 Telefono="12345",
-                Email ="email@email.com",
+                Email ="email@hotmail.com",
                 Sueldo =1234,
-                Ci =41739143,
-                Tipo ="Administrador"
+                Ci =2222222,
+                Tipo ="A"
             };
 
             var resultado = FabricaServicio.GetControladorUsuario().AltaUsuario(administrador);
@@ -56,12 +56,16 @@ namespace TestsLogicaServicioCore
         {
             Cadete cadete = new Cadete
             {
-                Nombre = "cadete1",
-                Direccion = "alguna 124",
-                Telefono = "098574555",
-                Email = "cadete1@undominio.com",
-                CiEmpleado = 4173916,
-                TipoLibreta="a",
+                Id = 0,
+                NombreUsuario = "",
+                Contraseña = "",
+                Nombre = "Matias",
+                Direccion = "direccion",
+                Telefono = "12345",
+                Email = "email@email.com",
+                Sueldo = 1234,
+                Ci = 41739143,
+                TipoLibreta ="a",
                 IdTelefono=2345,
             };
 

@@ -7,8 +7,6 @@ namespace EntidadesCompartidasCore
     {
         
         public decimal Sueldo { get; set; }
-
-        public int IdUsuario { get; set; }
         
         public int Ci { get; set; }
         

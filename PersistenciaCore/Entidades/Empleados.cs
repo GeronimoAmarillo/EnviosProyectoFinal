@@ -31,6 +31,7 @@ namespace PersistenciaCore
         
         public virtual  Administradores Administradores { get; set; }
 
+        [ForeignKey("IdUsuario")]
         public virtual Usuarios Usuarios { get; set; }
     }
 }
