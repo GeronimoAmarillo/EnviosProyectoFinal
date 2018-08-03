@@ -34,7 +34,8 @@ namespace PersistenciaCore
                 ;
             });
         }*/
-
+        public bool AltaCliente(Cliente cliente)
+        { 
             var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
             optionsBuilder.UseSqlServer(Conexion.ConnectionString);
