@@ -9,7 +9,7 @@ namespace PersistenciaCore
 {
     public interface IPersistenciaTurno
     {
-        bool ExisteTurno(string dia, DateTime hora);
+        bool ExisteTurno(string dia, string hora);
 
         List<EntidadesCompartidasCore.Turno> ListarTurnos();
 

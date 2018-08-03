@@ -53,7 +53,14 @@ namespace LogicaDeServicioCore
 
         public bool ComprobarUser(string user)
         {
-            return true;
+            try
+            {
+                return LogicaUsuario.ComprobarUser(user);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar comprobar la existencia del Local con los datos ingresados.");
+            }
         }
         public bool RecuperarContraseña(string email)
         {

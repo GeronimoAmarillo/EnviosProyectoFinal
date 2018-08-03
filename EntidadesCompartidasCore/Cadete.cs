@@ -8,8 +8,6 @@ namespace EntidadesCompartidasCore
         public string TipoLibreta { get; set; }
 
         public long IdTelefono { get; set; }
-        
-        public int CiEmpleado { get; set; }
 
         public  Empleado Empleados { get; set; }
         

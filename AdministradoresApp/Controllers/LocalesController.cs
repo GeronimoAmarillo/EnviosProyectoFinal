@@ -23,8 +23,8 @@ namespace AdministradoresApp.Controllers
         {
             try
             {
-                if (ComprobarLogin() == "G")
-                {
+                //if (ComprobarLogin() == "G")
+                //{
                     IControladorLocal controladorLocal = FabricaApps.GetControladorLocal();
 
                     List<Local> locales = await controladorLocal.ListarLocales();
@@ -39,13 +39,13 @@ namespace AdministradoresApp.Controllers
                     }
 
                     return View(locales);
-                }
-                else
-                {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                //}
+                //else
+                //{
+                //    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-                    return RedirectToAction("Index", "Home", new { area = "" });
-                }
+                //    return RedirectToAction("Index", "Home", new { area = "" });
+                //}
                 
             }
             catch

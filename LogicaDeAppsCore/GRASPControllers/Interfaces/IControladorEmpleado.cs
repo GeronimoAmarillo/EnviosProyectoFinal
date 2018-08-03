@@ -9,7 +9,7 @@ namespace LogicaDeAppsCore
 {
     public interface IControladorEmpleado
     {
-        bool ExisteEmpleado(int ci);
+        Task<bool> ExisteEmpleado(int ci);
 
         Empleado GetEmpleado();
 
@@ -21,12 +21,16 @@ namespace LogicaDeAppsCore
 
         bool EliminarEmpleado(Empleado pEmpleado);
 
-        bool AltaEmpleado(Empleado pEmpleado);
+        bool AltaEmpleadoAdministrador(Administrador pEmpleado);
+
+        bool AltaEmpleadoCadete(Cadete pEmpleado);
 
         void SetCi(int pCi);
 
         Empleado ContemplarTipo();
 
         int GetCi();
+
+        Task<List<Empleado>> ListarEmpleados();
     }
 }

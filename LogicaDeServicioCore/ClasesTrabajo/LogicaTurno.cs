@@ -4,15 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidasCore;
+using Microsoft.EntityFrameworkCore;
+using PersistenciaCore;
 
 namespace LogicaDeServicioCore
 {
     public class LogicaTurno
     {
-        public bool ExisteTurno(DateTime fechayHora)
+        public static bool ExisteTurno(string dia, string hora)
         {
-            bool exito = false;
-            return exito;
+            try
+            {
+
+                return FabricaPersistencia.GetPersistenciaTurno().ExisteTurno( dia, hora);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar comprobar la existencia del Turno con los datos ingresados." + ex.Message);
+            }
         }
 
         public Boolean ModificarTurno(Turno unTurno)
@@ -21,10 +31,16 @@ namespace LogicaDeServicioCore
             return exito;
         }
 
-        public bool AltaTurno(Turno unTurno)
+        public static bool AltaTurno(Turno unTurno)
         {
-            bool exito = false;
-            return exito;
+            try
+            {
+                return FabricaPersistencia.GetPersistenciaTurno().AltaTurno(unTurno);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar dar de alta el turno." + ex.Message);
+            }
         }
 
         public List<Turno> ListarTurnos()

@@ -81,7 +81,9 @@ namespace PersistenciaCore
 
         public bool ComprobarUser(string user)
         {
-            return true;
+           bool existe= false;
+
+            return existe;           
         }
 
         public List<Cliente> ListarClientes()
