@@ -30,7 +30,7 @@ namespace PersistenciaCore
         public virtual Cadetes Cadetes { get; set; }
         
         public virtual  Administradores Administradores { get; set; }
-
+        [ForeignKey("IdUsuario")]
         public virtual Usuarios Usuarios { get; set; }
     }
 }

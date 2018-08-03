@@ -25,5 +25,7 @@ namespace LogicaDeServicioCore
         bool AltaVehiculo(Vehiculo pVehiculo);
 
         bool ExisteVehiculo(string matricula);
+
+        List<Vehiculo> ListarVehiculos();
     }
 }

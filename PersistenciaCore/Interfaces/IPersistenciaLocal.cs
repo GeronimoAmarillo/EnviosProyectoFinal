@@ -14,7 +14,7 @@ namespace PersistenciaCore
 
         bool ExisteLocal(string nombre, string direccion);
 
-        EntidadesCompartidasCore.Local BuscarLocal(string nombre);
+        EntidadesCompartidasCore.Local BuscarLocal(int id);
 
         bool ModificarLocal(EntidadesCompartidasCore.Local local);
 

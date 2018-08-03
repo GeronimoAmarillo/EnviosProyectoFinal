@@ -18,5 +18,7 @@ namespace LogicaDeServicioCore
         List<Ingreso> ListarIngresos();
 
         bool RegistrarGasto(Gasto gasto);
+
+        List<Impuesto> ListarImpuestos();
     }
 }

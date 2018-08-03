@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidasCore;
+using Newtonsoft.Json;
 
 namespace LogicaDeAppsCore
 {
@@ -17,9 +19,26 @@ namespace LogicaDeAppsCore
             return gasto;
         }
 
-        public List<Gasto> ListarGastos()
+        public async Task<List<Gasto>> ListarGastos()
         {
-            return new List<Gasto>();
+            try
+            {
+                //http://localhost:8080/
+
+                var httpClient = new HttpClient();
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionValores +"/Gastos");
+
+                List<Gasto> gastos = null;
+
+                gastos = JsonConvert.DeserializeObject<List<Gasto>>(json);
+
+                return gastos;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Se produjo un error al intentar listar los gastos.");
+            }
         }
 
         public List<Gasto> GetGastos()
@@ -29,7 +48,7 @@ namespace LogicaDeAppsCore
 
         public void IniciarRegistroGasto()
         {
-
+            SetGasto(new Gasto());
         }
 
         public void SetGasto(Gasto pGasto)
@@ -39,7 +58,32 @@ namespace LogicaDeAppsCore
 
         public bool RegistrarGasto(Gasto gasto)
         {
-            return true;
+            try
+            {
+
+                HttpClient client = new HttpClient();
+
+                string url = ConexionREST.ConexionValores + "/Gasto";
+
+                var content = new StringContent(JsonConvert.SerializeObject(gasto), Encoding.UTF8, "application/json");
+
+                var result = client.PostAsync(url, content).Result;
+
+                var contentResult = result.Content.ReadAsStringAsync();
+
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("ERROR!: " + ex.Message);
+            }
         }
     }
 }

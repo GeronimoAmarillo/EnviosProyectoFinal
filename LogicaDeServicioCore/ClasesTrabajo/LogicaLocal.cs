@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidasCore;
 using Microsoft.EntityFrameworkCore;
-using Persistencia;
 using PersistenciaCore;
 
 namespace LogicaDeServicioCore
@@ -39,16 +38,30 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public static EntidadesCompartidasCore.Local BuscarLocal(string nombreLocal)
+        public static EntidadesCompartidasCore.Local BuscarLocal(int id)
         {
-            EntidadesCompartidasCore.Local local = new EntidadesCompartidasCore.Local();
-            return local;
+            try
+            {
+
+                return FabricaPersistencia.GetPersistenciaLocal().BuscarLocal(id);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el local." + ex.Message);
+            }
         }
 
-        public static EntidadesCompartidasCore.Local ModificarLocal(EntidadesCompartidasCore.Local unLocal)
+        public static bool ModificarLocal(EntidadesCompartidasCore.Local unLocal)
         {
-            EntidadesCompartidasCore.Local local = new EntidadesCompartidasCore.Local();
-            return local;
+            try
+            {
+                return FabricaPersistencia.GetPersistenciaLocal().ModificarLocal(unLocal);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar modificar el Local." + ex.Message);
+            }
         }
 
         public static List<Local> ListarLocales()
@@ -61,7 +74,7 @@ namespace LogicaDeServicioCore
             }
             catch(Exception ex)
             {
-                throw new Exception("Error al intentar dar de alta el Local." + ex.Message);
+                throw new Exception("Error al listar los locales." + ex.Message);
             }
         }
     }

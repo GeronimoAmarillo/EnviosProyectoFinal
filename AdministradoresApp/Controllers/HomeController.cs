@@ -10,9 +10,31 @@ namespace AdministradoresApp.Controllers
 {
     public class HomeController : Controller
     {
+        public static string SESSION_MENSAJE = "Mensaje";
+
+
         public IActionResult Index()
         {
-            return View();
+            try
+            { 
+                string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
+
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, null);
+
+                if (mensaje != null && mensaje != "")
+                {
+                    ViewBag.Message = mensaje;
+                }
+
+                return View();
+            }
+            catch
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Locales registrados");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+            
         }
 
         public IActionResult About()

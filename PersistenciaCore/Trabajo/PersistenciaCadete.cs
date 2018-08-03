@@ -12,17 +12,151 @@ namespace PersistenciaCore
     {
         public bool AltaCadete(EntidadesCompartidasCore.Cadete cadete)
         {
-            return true;
+            try
+            {
+                PersistenciaCore.Usuarios usuNuevo = new PersistenciaCore.Usuarios();
+
+                //usuNuevo.Id = cadete.Id;
+                usuNuevo.Nombre = cadete.Nombre;
+                usuNuevo.NombreUsuario = cadete.NombreUsuario;
+                usuNuevo.Contraseña = cadete.Contraseña;
+                usuNuevo.Direccion = cadete.Direccion;
+                usuNuevo.Telefono = cadete.Telefono;
+                usuNuevo.Email = cadete.Email;
+
+                PersistenciaCore.Empleados empNuevo = new PersistenciaCore.Empleados();
+
+               // empNuevo.IdUsuario = usuNuevo.Id;
+                empNuevo.Sueldo = cadete.Sueldo;
+                empNuevo.Ci = cadete.Ci;
+
+                PersistenciaCore.Cadetes cadeteNuevo = new PersistenciaCore.Cadetes();
+
+                cadeteNuevo.CiEmpleado = cadete.Ci;
+                cadeteNuevo.IdTelefono = cadete.IdTelefono;
+                cadeteNuevo.TipoLibreta = cadete.TipoLibreta;
+ 
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+
+                using (EnviosContext context = new EnviosContext(optionsBuilder.Options))
+                {
+                    using (var dbContextTransaction = context.Database.BeginTransaction())
+                    {
+                        try
+                        {
+
+                            context.Usuarios.Add(usuNuevo);
+                            context.SaveChanges();
+
+                            var id = context.Usuarios.Where(u => u.NombreUsuario == usuNuevo.NombreUsuario).Select(c => new
+                            {
+                                id = c.Id
+                            }).FirstOrDefault();
+                            empNuevo.IdUsuario = id.id;
+                            context.Empleados.Add(empNuevo);
+                            context.Cadetes.Add(cadeteNuevo);
+
+
+                            context.SaveChanges();
+
+                            dbContextTransaction.Commit();
+
+                        }
+                        catch (Exception ex)
+                        {
+                            dbContextTransaction.Rollback();
+                        }
+                    }
+
+                    return true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al dar de alta el cadete.");
+            }
+
         }
 
         public bool ExisteCadete(int ci)
         {
-            return true;
+            bool existe = false;
+
+
+            var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+            optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+            using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+            {
+                var cadete = dbConnection.Cadetes.Where(a => a.CiEmpleado == ci).Select(c => new {
+                    Cadete = c
+                }).FirstOrDefault();
+
+                if (cadete != null && cadete.Cadete is Cadetes)
+                {
+                    existe = true;
+                }
+            }
+
+            return existe;
+
         }
 
         public List<EntidadesCompartidasCore.Cadete> ListarCadetes()
         {
-            return new List<EntidadesCompartidasCore.Cadete>();
+            try
+            {
+                List<Cadetes> emp = new List<Cadetes>();
+
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    var resultado = dbConnection.Cadetes.Select(c => new
+                    {
+                        Administrador = c,
+                        Empleado = c.Empleados,
+                        Usuario = c.Empleados.Usuarios
+                    }).ToList();
+
+
+                    List<Cadete> empresult = new List<Cadete>();
+
+                    foreach (var a in resultado)
+                    {
+                        Cadete cad = new Cadete();
+
+                        cad.Ci = a.Empleado.Ci;
+                        cad.Contraseña = a.Usuario.Contraseña;
+                        cad.Direccion = a.Usuario.Direccion;
+                        cad.Email = a.Usuario.Email;
+                        cad.Id = a.Usuario.Id;
+                        cad.Nombre = a.Usuario.Nombre;
+                        cad.NombreUsuario = a.Usuario.NombreUsuario;
+                        cad.Sueldo = a.Empleado.Sueldo;
+                        cad.Telefono = a.Usuario.Telefono;
+                        cad.TipoLibreta = a.Empleado.Cadetes.TipoLibreta;
+                        
+
+                        empresult.Add(cad);
+                    }
+
+                    return empresult;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los empleados." + ex.Message);
+            }
+
         }
 
         public EntidadesCompartidasCore.Cadete Login(string user, string contraseña)
@@ -86,7 +220,47 @@ namespace PersistenciaCore
 
         public List<EntidadesCompartidasCore.Cadete> ListarCadetesDisponibles()
         {
-            return new List<EntidadesCompartidasCore.Cadete>();
+            try
+            {
+                List<Cadetes> cadetes = new List<Cadetes>();
+
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    cadetes = dbConnection.Cadetes.Include("Empleados.Usuarios").Include("Vehiculos").Where(c => c.Vehiculos == null || !(c.Vehiculos.Any())).ToList();
+                }
+
+                List<Cadete> cadetesResultado = new List<Cadete>();
+
+                foreach (Cadetes l in cadetes)
+                {
+                    Cadete cadeteR = new Cadete();
+
+                    cadeteR.Id = l.Empleados.Usuarios.Id;
+                    cadeteR.Nombre = l.Empleados.Usuarios.Nombre;
+                    cadeteR.Direccion = l.Empleados.Usuarios.Direccion;
+                    cadeteR.Ci = l.Empleados.Ci;
+                    cadeteR.Contraseña = l.Empleados.Usuarios.Contraseña;
+                    cadeteR.Email = l.Empleados.Usuarios.Email;
+                    cadeteR.IdTelefono = l.IdTelefono;
+                    cadeteR.NombreUsuario = l.Empleados.Usuarios.NombreUsuario;
+                    cadeteR.Sueldo = l.Empleados.Sueldo;
+                    cadeteR.Telefono = l.Empleados.Usuarios.Telefono;
+                    cadeteR.TipoLibreta = l.TipoLibreta;
+
+                    cadetesResultado.Add(cadeteR);
+                }
+
+                return cadetesResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los cadetes disponibles." + ex.Message);
+            }
         }
 
         public bool BajaCadete(int ci)

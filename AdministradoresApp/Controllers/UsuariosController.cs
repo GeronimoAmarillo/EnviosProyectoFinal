@@ -12,54 +12,95 @@ namespace AdministradoresApp.Controllers
     public class UsuariosController : Controller
     {
         public static string LOG_USER = "UsuarioLogueado";
-        
+
+        public static string SESSION_MENSAJE = "Mensaje";
+
         public IActionResult Login()
         {
-            return View();
+            try
+            {
+                string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, null);
+
+                if (mensaje != null && mensaje != "")
+                {
+                    ViewBag.Message = mensaje;
+                }
+
+                return View();
+            }
+            catch
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario de Logueo.");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+            
         }
 
         [HttpPost]
         public IActionResult Logout()
         {
-            if (HttpContext.Session.Get<Usuario>(LOG_USER) != null)
+            try
             {
-                HttpContext.Session.Set<Usuario>(LOG_USER, null);
+                if (HttpContext.Session.Get<Usuario>(LOG_USER) != null)
+                {
+                    HttpContext.Session.Set<Usuario>(LOG_USER, null);
 
-                ViewData["Mensaje"] = "Usuario deslogueado exitosamente!.";
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "Usuario deslogueado exitosamente!.");
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "Accion Incorrecta: No existe un usuario previamente logueado!.");
+                }
+
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
-            else
+            catch
             {
-                ViewData["Mensaje"] = "Accion Incorrecta: No existe un usuario previamente logueado!.";
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar desloguearse.");
 
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
-
-            return RedirectToAction("Login", "Usuarios");
+            
         }
 
         [HttpPost]
         public async Task<IActionResult> Login([FromForm] Usuario usuario)
         {
-            IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
-
-            Usuario usuarioLogueado = await controladorUsuario.Login(usuario.NombreUsuario, usuario.Contraseña);
-
-            if (usuarioLogueado != null)
+            try
             {
-                HttpContext.Session.Set<Usuario>(LOG_USER, usuarioLogueado);
+                IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
 
-                ViewData["Mensaje"] = "Usuario logueado exitosamente!.";
+                Usuario usuarioLogueado = await controladorUsuario.Login(usuario.NombreUsuario, usuario.Contraseña);
+                
+
+                if (usuarioLogueado != null && usuarioLogueado is Administrador)
+                {
+                    Administrador admin = (Administrador)usuarioLogueado;
+
+                    HttpContext.Session.Set<Administrador>(LOG_USER, admin);
+
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "Usuario logueado exitosamente!.");
+                }
+                else
+                {
+                    HttpContext.Session.Set<Usuario>(LOG_USER, null);
+
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "Usuario y/o contraseña invalidos.");
+
+                    return RedirectToAction("Login", "Usuarios", new { area = "" });
+                }
+
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
-            else
+            catch
             {
-                HttpContext.Session.Set<Usuario>(LOG_USER, null);
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar Loguearse.");
 
-                ViewData["Mensaje"] = "Usuario y/o contraseña invalidos.";
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
-
-            return RedirectToAction("Login");
+            
         }
-
-        
-
     }
 }

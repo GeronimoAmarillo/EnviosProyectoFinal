@@ -21,8 +21,8 @@ namespace TestsLogicaServicioCore
             Local local = new Local
             {
                 Id = 0,
-                Direccion = "DireccionOptica5",
-                Nombre = "Optica5",
+                Direccion = "DireccionOptica7",
+                Nombre = "Optica7",
                 Entregas = null,
                 Entregas1 = null
             };
@@ -47,7 +47,7 @@ namespace TestsLogicaServicioCore
 
             var resultado = FabricaServicio.GetControladorLocal().AltaLocal(local);
 
-            Assert.True(resultado);
+            Assert.False(resultado);
 
         }
 

@@ -51,11 +51,29 @@ namespace LogicaDeAppsCore
                 //http://localhost:8080/api
 
                 var httpClient = new HttpClient();
-                var json = await httpClient.GetStringAsync("http://localhost:8080/api/Usuarios/Login?" + "usuario=" + user + "&contrasenia=" + pass);
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionUsuarios+"/Login?" + "usuario=" + user + "&contrasenia=" + pass);
 
                 Usuario usuarioLogueado = null;
+                Administrador admin = null;
+                Cadete cadete = null;
+                Cliente cliente = null;
 
-                usuarioLogueado = JsonConvert.DeserializeObject<Usuario>(json);
+
+                usuarioLogueado = JsonConvert.DeserializeObject<Administrador>(json);
+
+                admin = (Administrador)usuarioLogueado;
+
+                if (admin == null || admin.Tipo == null)
+                {
+                    usuarioLogueado = JsonConvert.DeserializeObject<Cadete>(json);
+                    cadete = (Cadete)usuarioLogueado;
+
+                    if (cadete == null || cadete.TipoLibreta == null)
+                    {
+                        usuarioLogueado = JsonConvert.DeserializeObject<Cliente>(json);
+                        cliente = (Cliente)usuarioLogueado;
+                    }
+                }
 
                 return usuarioLogueado;
                 
@@ -65,6 +83,27 @@ namespace LogicaDeAppsCore
                 throw new Exception("No existe un usuario registrado con el usuario y/o contraseña ingresados.");
             }
             
+        }
+
+        public async Task<bool> AltaUsuario(Usuario unUsuario)
+        {
+            try
+            {
+                bool exito = false;
+                var httpClient = new HttpClient();
+                var EnvioJson = JsonConvert.SerializeObject(unUsuario);
+                
+                HttpResponseMessage retorno = await httpClient.PostAsync("http://localhost:8080/api/Usuarios/AltaUsuario", new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
+                string resultado = await retorno.Content.ReadAsStringAsync();
+                
+                if (retorno.IsSuccessStatusCode && resultado == "true")
+                    exito = true;
+                return exito;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Error al intentar dar de alta: " + ex.Message);
+            }
         }
 
         public bool ModificarNombreUsuario(string user)
@@ -113,9 +152,25 @@ namespace LogicaDeAppsCore
             return true;
         }
 
-        public bool ModificarUsuario(Usuario pUsuario)
+        public async Task<bool> ModificarUsuario(Usuario pUsuario)
         {
-            return true;
-        }
+            try
+            {
+                bool exito = false;
+                var httpClient = new HttpClient();
+                var EnvioJson = JsonConvert.SerializeObject(pUsuario);
+
+                HttpResponseMessage retorno = await httpClient.PostAsync("http://localhost:8080/api/Usuarios/Usuario", new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
+                string resultado = await retorno.Content.ReadAsStringAsync();
+
+                if (retorno.IsSuccessStatusCode && resultado == "true")
+                    exito = true;
+                return exito;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar dar de alta: " + ex.Message);
+            }
+        }   
     }
 }

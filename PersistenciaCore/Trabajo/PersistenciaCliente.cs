@@ -11,7 +11,7 @@ namespace PersistenciaCore
 {
     class PersistenciaCliente:IPersistenciaCliente
     {
-        public PersistenciaCliente()
+        /*public PersistenciaCliente()
         {
             Mapper.Initialize(cfg =>
             {
@@ -33,26 +33,28 @@ namespace PersistenciaCore
                     .ForMember(d => d.Email, opt => opt.MapFrom(u => u.Email))
                 ;
             });
-        }
-
+        }*/
         public bool AltaCliente(Cliente cliente)
-        {
+        { 
             var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
             optionsBuilder.UseSqlServer(Conexion.ConnectionString);
 
             try
             {
+                Usuarios UsuarioaAgregar = Mapper.Map<Usuarios>(cliente);
                 Clientes ClienteaAgregar = Mapper.Map<Clientes>(cliente);
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
                     if (dbConnection.Clientes.Any(x => x.RUT.ToString() == cliente.RUT.ToString()))
                     {
-                        throw new Exception("Ya existe el rut");
-                        //return false;
+                        //throw new Exception("Ya existe el rut");
+                        return false;
                     }
                     else
                     {
+                        dbConnection.Usuarios.Add(UsuarioaAgregar);
+                        ClienteaAgregar.IdUsuario = UsuarioaAgregar.Id;
                         dbConnection.Clientes.Add(ClienteaAgregar);
                         dbConnection.SaveChanges();
                         return true;
@@ -71,19 +73,86 @@ namespace PersistenciaCore
             return true;
         }
 
-        public bool ModificarCliente(Usuario usuario)
+        public bool ModificarCliente(Cliente cliente)
         {
-            return true;
+            var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+            optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+            try
+            {
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    Usuarios usuarioDesdeBd = dbConnection.Usuarios.Single(x => x.Nombre.ToString() == cliente.Nombre.ToString());
+                    Clientes clienteDesdeBd = dbConnection.Clientes.Single(x => x.RUT.ToString() == cliente.RUT.ToString());
+                    if (usuarioDesdeBd != null && clienteDesdeBd != null)
+                    {
+                        usuarioDesdeBd.Nombre = cliente.Nombre;
+                        usuarioDesdeBd.Direccion = cliente.Direccion;
+                        usuarioDesdeBd.Telefono = cliente.Telefono;
+                        usuarioDesdeBd.Email = cliente.Email;
+                        clienteDesdeBd.Mensualidad = cliente.Mensualidad;
+                        dbConnection.SaveChanges();
+                        return true;
+                    }
+                    return false;
+                    
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar modificar el Cliente" + ex.Message);
+            }
         }
 
         public bool ComprobarUser(string user)
         {
-            return true;
+           bool existe= false;
+
+            return existe;           
         }
 
         public List<Cliente> ListarClientes()
         {
-            return new List<Cliente>();
+            try
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                List<Cliente> clientesResultado = new List<Cliente>();
+
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    var clienteEncontrado = dbConnection.Clientes.Select(c => new {
+                        Cliente = c,
+                        Usuario = c.Usuarios
+                    });
+
+                    foreach (var c in clienteEncontrado)
+                    {
+                        Cliente clienteR = new Cliente();
+
+                        clienteR.Id = c.Cliente.IdUsuario;
+                        clienteR.Nombre = c.Usuario.Nombre;
+                        clienteR.Direccion = c.Usuario.Direccion;
+                        clienteR.Contraseña = c.Usuario.Contraseña;
+                        clienteR.Email = c.Usuario.Email;
+                        clienteR.Mensualidad = c.Cliente.Mensualidad;
+                        clienteR.NombreUsuario = c.Usuario.NombreUsuario;
+                        clienteR.RUT = c.Cliente.RUT;
+                        clienteR.Telefono = c.Usuario.Telefono;
+
+                        clientesResultado.Add(clienteR);
+                    }
+                }
+                return clientesResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los clientes." + ex.Message);
+            }
         }
 
         public Cliente Login(string user, string contraseña)

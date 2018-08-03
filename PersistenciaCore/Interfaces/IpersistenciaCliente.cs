@@ -13,7 +13,7 @@ namespace PersistenciaCore
 
         bool ExisteCliente(int rut);
 
-        bool ModificarCliente(EntidadesCompartidasCore.Usuario usuario);
+        bool ModificarCliente(EntidadesCompartidasCore.Cliente unCliente);
 
         bool ComprobarUser(string user);
 

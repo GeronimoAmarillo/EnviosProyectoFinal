@@ -13,7 +13,7 @@ namespace LogicaDeServicioCore
     {
         bool ExisteLocal(string nombre, string direccion);
 
-        Local BuscarLocal(string nombre);
+        Local BuscarLocal(int id);
 
         bool ModificarLocal(Local local);
 

@@ -10,7 +10,7 @@ using LogicaDeServicioCore;
 namespace EnviosService.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Usuarios")]
+    //[Route("api/Usuarios")]
     public class UsuariosController : Controller
     {
         private IControladorUsuario controladorUsuario;
@@ -20,19 +20,16 @@ namespace EnviosService.Controllers
             controladorUsuario = FabricaServicio.GetControladorUsuario();
         }
 
-        [HttpGet("{usuario, contrasenia}")]
-        [Route("Api/Usuarios/Login")]
-        public JsonResult Login(string usuario, string contrasenia)
-        {
-            return Json(controladorUsuario.Login(usuario, contrasenia));
-        }
-
+        
+        [HttpPost]
+        [Route("Api/Usuarios/AltaUsuario")]
         public JsonResult AltaUsuario([FromBody] Usuario unUsuario)
         {
             return Json(controladorUsuario.AltaUsuario(unUsuario), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
-        [HttpGet("{usuario, contraseña}")]
+        [HttpGet("{usuario, contrasenia}")]
+        [Route("api/Usuarios/Login")]
         public JsonResult Usuario(string usuario, string contrasenia)
         {
             return Json(controladorUsuario.Login(usuario, contrasenia), new Newtonsoft.Json.JsonSerializerSettings());
