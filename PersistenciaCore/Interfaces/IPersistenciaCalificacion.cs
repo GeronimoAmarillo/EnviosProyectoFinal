@@ -9,6 +9,6 @@ namespace PersistenciaCore
 {
     public interface IPersistenciaCalificacion
     {
-        bool Calificar(int puntaje, string comentario, EntidadesCompartidasCore.Cliente cliente);
+        bool Calificar(Calificacion calificacion);
     }
 }

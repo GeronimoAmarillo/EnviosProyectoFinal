@@ -9,8 +9,9 @@ namespace LogicaDeAppsCore
 {
     class ControladorCalificacion:IControladorCalificacion
     {
-        public bool Calificar(int puntaje, string comentario)
+        public bool Calificar(int puntaje, string comentario, int rutCliente)
         {
+
             return true;
         }
     }

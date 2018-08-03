@@ -9,6 +9,7 @@ namespace TestsLogicaServicioCore
 {
     public class LogicaPaletsTest
     {
+        [Fact]
         public void AltaPaletOKTest()
         {
             Palet palet = new Palet
