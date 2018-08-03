@@ -21,8 +21,4 @@
     <ProjectReference Include="..\LogicaDeAppsCore\LogicaDeAppsCore.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Clientes\" />
-  </ItemGroup>
-
 </Project>

@@ -12,12 +12,14 @@ namespace EntidadesCompartidasCore
         static string conexionUsuarios = "http://localhost:8080/api/Usuarios";
         static string conexionVehiculos = "http://localhost:8080/api/Vehiculos";
         static string conexionValores = "http://localhost:8080/api/Valores";
+        static string conexionClientes = "http://localhost:8080/api/Clientes";
 
-        public static string ConexionValores { get => conexionValores;}
-        public static string ConexionVehiculos { get => conexionVehiculos;}
-        public static string ConexionUsuarios { get => conexionUsuarios;}
-        public static string ConexionPalets { get => conexionPalets;}
-        public static string ConexionLocales { get => conexionLocales;}
-        public static string ConexionRaiz { get => conexionRaiz;}
+        public static string ConexionValores { get => conexionValores; }
+        public static string ConexionVehiculos { get => conexionVehiculos; }
+        public static string ConexionUsuarios { get => conexionUsuarios; }
+        public static string ConexionPalets { get => conexionPalets; }
+        public static string ConexionLocales { get => conexionLocales; }
+        public static string ConexionRaiz { get => conexionRaiz; }
+        public static string ConexionClientes { get => conexionClientes; }
     }
 }

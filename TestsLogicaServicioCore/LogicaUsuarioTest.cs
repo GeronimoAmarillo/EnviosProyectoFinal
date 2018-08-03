@@ -93,5 +93,22 @@ namespace TestsLogicaServicioCore
 
             Assert.False(result);
         }
+
+        [Fact]
+        public void modificarClienteTest()
+        {
+            Cliente unCliente = new Cliente
+            {
+                Nombre = "cliente1",
+                Direccion = "Elm street 124",
+                Telefono = "098574632",
+                Email = "cliente1@undominio.com",
+                RUT = 2547854125,
+                Mensualidad = 58000
+            };
+
+            var result = LogicaUsuario.ModificarUsuario(unCliente);
+            Assert.True(result);
+        }
     }
 }

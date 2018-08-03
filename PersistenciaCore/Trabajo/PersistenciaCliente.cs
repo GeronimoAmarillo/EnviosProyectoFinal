@@ -35,8 +35,6 @@ namespace PersistenciaCore
             });
         }*/
 
-        public bool AltaCliente(Cliente cliente)
-        {
             var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
             optionsBuilder.UseSqlServer(Conexion.ConnectionString);
@@ -74,9 +72,36 @@ namespace PersistenciaCore
             return true;
         }
 
-        public bool ModificarCliente(Usuario usuario)
+        public bool ModificarCliente(Cliente cliente)
         {
-            return true;
+            var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+            optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+            try
+            {
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    Usuarios usuarioDesdeBd = dbConnection.Usuarios.Single(x => x.Nombre.ToString() == cliente.Nombre.ToString());
+                    Clientes clienteDesdeBd = dbConnection.Clientes.Single(x => x.RUT.ToString() == cliente.RUT.ToString());
+                    if (usuarioDesdeBd != null && clienteDesdeBd != null)
+                    {
+                        usuarioDesdeBd.Nombre = cliente.Nombre;
+                        usuarioDesdeBd.Direccion = cliente.Direccion;
+                        usuarioDesdeBd.Telefono = cliente.Telefono;
+                        usuarioDesdeBd.Email = cliente.Email;
+                        clienteDesdeBd.Mensualidad = cliente.Mensualidad;
+                        dbConnection.SaveChanges();
+                        return true;
+                    }
+                    return false;
+                    
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar modificar el Cliente" + ex.Message);
+            }
         }
 
         public bool ComprobarUser(string user)
