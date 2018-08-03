@@ -20,6 +20,9 @@ namespace EnviosService.Controllers
             controladorUsuario = FabricaServicio.GetControladorUsuario();
         }
 
+        
+        [HttpPost]
+        [Route("Api/Usuarios/AltaUsuario")]
         public JsonResult AltaUsuario([FromBody] Usuario unUsuario)
         {
             return Json(controladorUsuario.AltaUsuario(unUsuario), new Newtonsoft.Json.JsonSerializerSettings());

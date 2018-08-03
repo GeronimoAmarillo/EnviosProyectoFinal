@@ -15,6 +15,8 @@ namespace LogicaDeAppsCore
 
         string GetContraseña();
 
+        Task<bool> AltaUsuario(Usuario unUsuario);
+
         void SetContraseña(string pContraseña);
 
         Task<Usuario> Login(string user, string pass);
