@@ -110,6 +110,7 @@ namespace LogicaDeAppsCore
                 throw new Exception("ERROR!: " + ex.Message);
             }
         }
+
         public bool AltaEmpleadoCadete(Cadete pEmpleado)
         {
             try
