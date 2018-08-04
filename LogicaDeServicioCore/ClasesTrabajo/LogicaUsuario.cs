@@ -145,7 +145,7 @@ namespace LogicaDeServicioCore
             bool exito = false;
             try
             {
-                EntidadesCompartidasCore.Usuario usuario = LogicaUsuario.BuscarEmpleado(cedula);
+                EntidadesCompartidasCore.Usuario usuario = LogicaUsuario.BuscarUsuario(cedula);
 
                 if (usuario is EntidadesCompartidasCore.Administrador)
                 {
@@ -214,7 +214,7 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public static EntidadesCompartidasCore.Empleado BuscarEmpleado(int cedula)
+        public static EntidadesCompartidasCore.Usuario BuscarUsuario(int cedula)
         {
             EntidadesCompartidasCore.Empleado empleado = new EntidadesCompartidasCore.Empleado();
             return empleado;

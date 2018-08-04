@@ -81,7 +81,29 @@ namespace LogicaDeAppsCore
 
         public bool EliminarEmpleado(Empleado pEmpleado)
         {
-            return true;
+            try
+            {
+
+                HttpClient client = new HttpClient();
+                Empleado emp = GetEmpleado();
+
+                if (ExisteEmpleado(pEmpleado.Ci).ToString().ToUpper() == "FALSE")
+                {
+                    throw new Exception("El empleado que desea dar de baja no existe en el sistema.");
+                }
+
+                string url = "http://localhost:8080/api/Empleados/Baja";
+
+                var content = new StringContent(JsonConvert.SerializeObject(pEmpleado), Encoding.UTF8, "application/json");
+
+                var result = client.PostAsync(url, content).Result;
+
+                return result.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("ERROR!: " + ex.Message);
+            }
         }
 
         public bool AltaEmpleadoAdministrador(Administrador pEmpleado)

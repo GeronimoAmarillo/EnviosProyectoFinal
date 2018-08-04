@@ -65,6 +65,14 @@ namespace EnviosService.Controllers
 
             return Json("Accion Http Desconocida", new Newtonsoft.Json.JsonSerializerSettings());
         }
+        [HttpDelete]
+        [Route("api/Empleados/EliminarEmpleado")]
+        public JsonResult EliminarEmpleado([FromBody] Empleado item)
+        {
+           
+                    return Json(controladorEmpleado.BajaEmpleado(item), new Newtonsoft.Json.JsonSerializerSettings());
+            
+        }
         [HttpGet]
         [Route("api/Empleados/Listar")]
         public JsonResult Locales()
