@@ -41,6 +41,56 @@ namespace PersistenciaCore
             }
         }
 
+        public bool VerificarAdelantoSaldado(int cedula)
+        {
+            try
+            {
+                bool adelantoSaldado = true;
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    var adelanto = dbConnection.Adelantos.Include("Empleados.Usuarios").Where(a => a.Empleado == cedula).FirstOrDefault();
+
+                    int mesActual = DateTime.Now.Month;
+                    int anioActual = DateTime.Now.Year;
+
+                    int mesCalculado;
+                    int anioCalculado;
+
+                    int mesExpedido = adelanto.fechaExpedido.Month;
+                    int anioExpedido = adelanto.fechaExpedido.Year;
+
+                    int cuotas = adelanto.CantidadCuotas;
+
+                    if ((mesExpedido + cuotas) >= 12)
+                    {
+                        mesCalculado = (mesExpedido + cuotas) - 12;
+                        anioCalculado = anioExpedido + 1;
+                    }
+                    else
+                    {
+                        mesCalculado = mesExpedido + cuotas;
+                        anioCalculado = anioExpedido;
+                    }
+
+                    if (mesActual < mesCalculado && anioActual == anioCalculado)
+                    {
+                        adelantoSaldado = false;
+                    }
+
+                    return adelantoSaldado;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al verificar la habilitacion para solicitar Adelanto.");
+            }
+        }
+
         public List<Adelanto> ListarAdelantos()
         {
             try

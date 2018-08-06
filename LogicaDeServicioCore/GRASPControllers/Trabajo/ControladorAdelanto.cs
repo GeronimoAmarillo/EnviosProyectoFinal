@@ -57,5 +57,17 @@ namespace LogicaDeServicioCore
                 throw new Exception("Error al intentar listar los adelantos." + ex.Message);
             }
         }
+
+        public bool VerificarAdelantoSaldado(int cedula)
+        {
+            try
+            {
+                return LogicaAdelanto.VerificarAdelantoSaldado(cedula);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar determinar si el empleado esta habilitado para solicitar Adelanto." + ex.Message);
+            }
+        }
     }
 }

@@ -6,6 +6,8 @@ namespace PersistenciaCore
     public partial class Adelantos
     {
         public int Id { get; set; }
+
+        public DateTime fechaExpedido { get; set; }
         
         public int Empleado { get; set; }
         

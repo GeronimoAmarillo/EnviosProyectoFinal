@@ -16,5 +16,7 @@ namespace LogicaDeServicioCore
         bool RealizarAdelanto(Adelanto pAdelanto);
 
         List<EntidadesCompartidasCore.Adelanto> ListarAdelantos();
+
+        bool VerificarAdelantoSaldado(int cedula);
     }
 }

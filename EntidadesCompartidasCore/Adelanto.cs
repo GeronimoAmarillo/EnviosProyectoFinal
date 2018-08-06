@@ -6,7 +6,9 @@ namespace EntidadesCompartidasCore
     public partial class Adelanto
     {
         public int Id { get; set; }
-        
+
+        public DateTime fechaExpedido { get; set; }
+
         public int Empleado { get; set; }
         
         public decimal Suma { get; set; }

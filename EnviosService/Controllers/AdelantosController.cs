@@ -29,7 +29,14 @@ namespace EnviosService.Controllers
             return Json(controladorAdelanto.BuscarEmpleado(cedula), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
-        
+        [HttpGet("{cedula}")]
+        [Route("api/Adelantos/Empleado/Habilitado")]
+        public JsonResult Verificar(int cedula)
+        {
+            return Json(controladorAdelanto.VerificarAdelantoSaldado(cedula), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
+
         [HttpGet]
         [Route("api/Adelantos/Empleados")]
         public JsonResult Empleados()
@@ -52,7 +59,7 @@ namespace EnviosService.Controllers
 
         [HttpGet]
         [Route("api/Adelantos/Adelantos")]
-        public JsonResult Adelantos([FromBody] Adelanto item)
+        public JsonResult Adelantos()
         {
             return Json(controladorAdelanto.ListarAdelantos(), new Newtonsoft.Json.JsonSerializerSettings());
         }

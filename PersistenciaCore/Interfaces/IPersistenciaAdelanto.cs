@@ -11,5 +11,6 @@ namespace PersistenciaCore
     {
         bool RealizarAdelanto(EntidadesCompartidasCore.Adelanto adelanto);
         List<Adelanto> ListarAdelantos();
+        bool VerificarAdelantoSaldado(int cedula);
     }
 }
