@@ -24,7 +24,8 @@ namespace PersistenciaCore
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    var admin = dbConnection.Administradores.Where(a => a.CiEmpleado == ci).Select(c => new {
+                    var admin = dbConnection.Administradores.Where(a => a.CiEmpleado == ci).Select(c => new
+                    {
                         Admin = c
                     }).FirstOrDefault();
 
@@ -129,7 +130,8 @@ namespace PersistenciaCore
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    var admin = dbConnection.Usuarios.Where(a => a.NombreUsuario == user).Select(c => new {
+                    var admin = dbConnection.Usuarios.Where(a => a.NombreUsuario == user).Select(c => new
+                    {
                         Admin = c
                     }).FirstOrDefault();
 
@@ -147,10 +149,12 @@ namespace PersistenciaCore
                 throw new Exception("Error al buscar el administrador.");
             }
         }
-        public List<EntidadesCompartidasCore.Administrador>ListarAdministradores()
+
+        public EntidadesCompartidasCore.Administrador BuscarAdministrador(int ci)
         {
-            try {
-                List<Administradores> emp = new List<Administradores>();
+            try
+            {
+                Administradores administrador = new Administradores();
 
 
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
@@ -159,33 +163,36 @@ namespace PersistenciaCore
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    var resultado = dbConnection.Administradores.Select(c => new
-                    {
-                        Administrador = c,
-                        Empleado = c.Empleados,
-                        Usuario = c.Empleados.Usuarios
-                    }).ToList();
+                    administrador = dbConnection.Administradores.Include("Empleados.Usuarios").Where(a => a.CiEmpleado == ci).FirstOrDefault();
+                }
 
-                    
-                    List<Administrador> empresult = new List<Administrador>();
+                Administrador adminResultado = new Administrador();
 
-                    foreach (var a in resultado)
-                    {
-                        Administrador empr = new Administrador();
+                if (administrador != null)
+                {
 
-                        empr.Ci = a.Empleado.Ci;
-                        empr.Contraseña = a.Usuario.Contraseña;
-                        empr.Direccion = a.Usuario.Direccion;
-                        empr.Email = a.Usuario.Email;
-                        empr.Id = a.Usuario.Id;
-                        empr.Nombre = a.Usuario.Nombre;
-                        empr.NombreUsuario = a.Usuario.NombreUsuario;
-                        empr.Sueldo = a.Empleado.Sueldo;
-                        empr.Telefono = a.Usuario.Telefono;
-                        empr.Tipo = a.Empleado.Administradores.Tipo;
+                    adminResultado.Ci = administrador.CiEmpleado;
+                    adminResultado.CiEmpleado = administrador.CiEmpleado;
+                    adminResultado.Direccion = administrador.Empleados.Usuarios.Direccion;
+                    adminResultado.Email = administrador.Empleados.Usuarios.Email;
+                    adminResultado.Id = administrador.Empleados.Usuarios.Id;
+                    adminResultado.Nombre = administrador.Empleados.Usuarios.Nombre;
+                    adminResultado.NombreUsuario = administrador.Empleados.Usuarios.NombreUsuario;
+                    adminResultado.Sueldo = administrador.Empleados.Sueldo;
+                    adminResultado.Telefono = administrador.Empleados.Usuarios.Telefono;
+                    adminResultado.Tipo = administrador.Tipo;
+                }
 
-                        empresult.Add(empr);
-                    }
+                return adminResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el administrador administradores." + ex.Message);
+            }
+
+        }
+
+
 
         public List<EntidadesCompartidasCore.Administrador> ListarAdministradores()
         {
@@ -230,10 +237,10 @@ namespace PersistenciaCore
                 throw new Exception("Error al listar los administradores." + ex.Message);
             }
         }
-       
 
 
-       public bool ModificarAdmin(EntidadesCompartidasCore.Administrador admin)
+
+        public bool ModificarAdmin(EntidadesCompartidasCore.Administrador admin)
         {
             return true;
         }
@@ -250,13 +257,14 @@ namespace PersistenciaCore
             {
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    var adminEncontrado = dbConnection.Administradores.Where(c => c.Empleados.Usuarios.NombreUsuario == user && c.Empleados.Usuarios.Contraseña == contraseña).Select(c => new {
+                    var adminEncontrado = dbConnection.Administradores.Where(c => c.Empleados.Usuarios.NombreUsuario == user && c.Empleados.Usuarios.Contraseña == contraseña).Select(c => new
+                    {
                         Administrador = c,
                         Empleado = c.Empleados,
                         Usuario = c.Empleados.Usuarios
                     }).FirstOrDefault();
 
-                    if (adminEncontrado !=  null)
+                    if (adminEncontrado != null)
                     {
                         if (adminEncontrado.Usuario != null && adminEncontrado.Empleado != null && adminEncontrado.Administrador != null)
                         {
@@ -273,13 +281,13 @@ namespace PersistenciaCore
                             administradorResultado.Telefono = adminEncontrado.Usuario.Telefono;
                             administradorResultado.Tipo = adminEncontrado.Administrador.Tipo;
                         }
-                        
+
                     }
 
                     return administradorResultado;
                 }
 
-                    
+
             }
             catch (Exception ex)
             {
@@ -291,7 +299,7 @@ namespace PersistenciaCore
         {
             try
             {
-                EntidadesCompartidasCore.Administrador administrador = FabricaPersistencia.GetPersistenciaAdministrador().BusxarAdministrador(ci);
+                EntidadesCompartidasCore.Administrador administrador = FabricaPersistencia.GetPersistenciaAdministrador().BuscarAdministrador(ci);
                 PersistenciaCore.Usuarios usuNuevo = new PersistenciaCore.Usuarios();
 
                 usuNuevo.Id = administrador.Id;
@@ -352,47 +360,5 @@ namespace PersistenciaCore
             }
 
         }
-
-
-                    public EntidadesCompartidasCore.Administrador BuscarAdministrador(int ci)
-                    {
-                        try
-                        {
-                            Administradores administrador = new Administradores();
-
-
-                            var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
-
-                            optionsBuilder.UseSqlServer(Conexion.ConnectionString);
-
-                            using (var dbConnection = new EnviosContext(optionsBuilder.Options))
-                            {
-                                administrador = dbConnection.Administradores.Include("Empleados.Usuarios").Where(a => a.CiEmpleado == ci).FirstOrDefault();
-                            }
-
-                            Administrador adminResultado = new Administrador();
-
-                            if (administrador != null)
-                            {
-
-                                adminResultado.Ci = administrador.CiEmpleado;
-                                adminResultado.CiEmpleado = administrador.CiEmpleado;
-                                adminResultado.Direccion = administrador.Empleados.Usuarios.Direccion;
-                                adminResultado.Email = administrador.Empleados.Usuarios.Email;
-                                adminResultado.Id = administrador.Empleados.Usuarios.Id;
-                                adminResultado.Nombre = administrador.Empleados.Usuarios.Nombre;
-                                adminResultado.NombreUsuario = administrador.Empleados.Usuarios.NombreUsuario;
-                                adminResultado.Sueldo = administrador.Empleados.Sueldo;
-                                adminResultado.Telefono = administrador.Empleados.Usuarios.Telefono;
-                                adminResultado.Tipo = administrador.Tipo;
-                            }
-
-                            return adminResultado;
-                        }
-                        catch (Exception ex)
-                        {
-                            throw new Exception("Error al buscar el administrador administradores." + ex.Message);
-                        }
-
-                    }
+    }         
 }
