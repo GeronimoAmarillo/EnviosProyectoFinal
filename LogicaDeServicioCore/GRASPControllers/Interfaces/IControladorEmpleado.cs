@@ -18,5 +18,7 @@ namespace LogicaDeServicioCore
         bool BajaEmpleado(Empleado pEmpleado);
 
         bool AltaEmpleado(Empleado pEmpleado);
+
+        List<Empleado> Listar();
     }
 }

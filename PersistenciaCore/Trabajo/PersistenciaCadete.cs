@@ -12,12 +12,99 @@ namespace PersistenciaCore
     {
         public bool AltaCadete(EntidadesCompartidasCore.Cadete cadete)
         {
-            return true;
+            try
+            {
+                PersistenciaCore.Usuarios usuNuevo = new PersistenciaCore.Usuarios();
+
+                //usuNuevo.Id = cadete.Id;
+                usuNuevo.Nombre = cadete.Nombre;
+                usuNuevo.NombreUsuario = cadete.NombreUsuario;
+                usuNuevo.Contraseña = cadete.Contraseña;
+                usuNuevo.Direccion = cadete.Direccion;
+                usuNuevo.Telefono = cadete.Telefono;
+                usuNuevo.Email = cadete.Email;
+
+                PersistenciaCore.Empleados empNuevo = new PersistenciaCore.Empleados();
+
+               // empNuevo.IdUsuario = usuNuevo.Id;
+                empNuevo.Sueldo = cadete.Sueldo;
+                empNuevo.Ci = cadete.Ci;
+
+                PersistenciaCore.Cadetes cadeteNuevo = new PersistenciaCore.Cadetes();
+
+                cadeteNuevo.CiEmpleado = cadete.Ci;
+                cadeteNuevo.IdTelefono = cadete.IdTelefono;
+                cadeteNuevo.TipoLibreta = cadete.TipoLibreta;
+ 
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+
+                using (EnviosContext context = new EnviosContext(optionsBuilder.Options))
+                {
+                    using (var dbContextTransaction = context.Database.BeginTransaction())
+                    {
+                        try
+                        {
+
+                            context.Usuarios.Add(usuNuevo);
+                            context.SaveChanges();
+
+                            var id = context.Usuarios.Where(u => u.NombreUsuario == usuNuevo.NombreUsuario).Select(c => new
+                            {
+                                id = c.Id
+                            }).FirstOrDefault();
+                            empNuevo.IdUsuario = id.id;
+                            context.Empleados.Add(empNuevo);
+                            context.Cadetes.Add(cadeteNuevo);
+
+
+                            context.SaveChanges();
+
+                            dbContextTransaction.Commit();
+
+                        }
+                        catch (Exception ex)
+                        {
+                            dbContextTransaction.Rollback();
+                        }
+                    }
+
+                    return true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al dar de alta el cadete.");
+            }
+
         }
 
         public bool ExisteCadete(int ci)
         {
-            return true;
+            bool existe = false;
+
+
+            var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+            optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+            using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+            {
+                var cadete = dbConnection.Cadetes.Where(a => a.CiEmpleado == ci).Select(c => new {
+                    Cadete = c
+                }).FirstOrDefault();
+
+                if (cadete != null && cadete.Cadete is Cadetes)
+                {
+                    existe = true;
+                }
+            }
+
+            return existe;
+
         }
 
         public List<EntidadesCompartidasCore.Cadete> ListarCadetes()

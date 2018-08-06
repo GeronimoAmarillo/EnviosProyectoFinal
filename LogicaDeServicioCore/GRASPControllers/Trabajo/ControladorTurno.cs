@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidasCore;
+using Microsoft.EntityFrameworkCore;
+using PersistenciaCore;
 
 namespace LogicaDeServicioCore
 {
@@ -11,8 +13,14 @@ namespace LogicaDeServicioCore
     {
 
         public bool ExisteTurno(string dia, string hora)
-        {
-            return true;
+        { try
+            {
+                return LogicaTurno.ExisteTurno(dia,hora);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar comprobar la existencia del Local con los datos ingresados.");
+            }
         }
 
         public Turno BuscarTurno(string codigo)
@@ -27,7 +35,15 @@ namespace LogicaDeServicioCore
 
         public bool AltaTurno(Turno turno)
         {
-            return true;
+            try
+            {
+                return LogicaTurno.AltaTurno(turno);
+            }
+
+            catch
+            {
+                throw new Exception("Error al intentar dar de alta el turno.");
+            }
         }
     }
 }

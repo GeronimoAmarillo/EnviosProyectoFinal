@@ -15,6 +15,8 @@ namespace LogicaDeAppsCore
 
         string GetContraseña();
 
+        Task<bool> AltaUsuario(Usuario unUsuario);
+
         void SetContraseña(string pContraseña);
 
         Task<Usuario> Login(string user, string pass);
@@ -37,7 +39,7 @@ namespace LogicaDeAppsCore
 
         bool Logout();
 
-        bool ModificarUsuario(Usuario pUsuario);
+        Task<bool> ModificarUsuario(Usuario pUsuario);
 
     }
 }

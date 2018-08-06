@@ -1,0 +1,5 @@
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmpleadosApp.Android", "EmpleadosApp\EmpleadosApp.Android\EmpleadosApp.Android.csproj", "{D7F88100-EBF4-44FD-85A0-C18C7B5CE1A7}"
+EndProject
+
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmpleadosApp.iOS", "EmpleadosApp\EmpleadosApp.iOS\EmpleadosApp.iOS.csproj", "{D1CFEB22-E791-47F4-BE84-BF9A7663EDCA}"
+EndProject

@@ -11,7 +11,7 @@ namespace LogicaDeAppsCore
     {
         void IniciarRegistroTurno();
 
-        bool ExisteTurno(string dia, string hora);
+        Task<bool> ExisteTurno(string dia, string hora);
 
         Turno BuscarTurno(string codigo);
 

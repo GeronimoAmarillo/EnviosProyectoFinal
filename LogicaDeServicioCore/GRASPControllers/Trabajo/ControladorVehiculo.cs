@@ -36,7 +36,15 @@ namespace LogicaDeServicioCore
 
         public bool ModificarVehiculo(Vehiculo pVehiculo)
         {
-            return true;
+            try
+            {
+                return LogicaVehiculo.ModificarVehiculo(pVehiculo);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
         }
 
         public Cadete SeleccionarCadete(int ci)
