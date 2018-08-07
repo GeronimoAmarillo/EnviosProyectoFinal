@@ -19,6 +19,7 @@ namespace AdministradoresApp.Controllers
         public static string SESSSION_ALTA = "AltaEmpleado";
         public static string SESSION_MENSAJE = "Mensaje";
         public static string LOG_USER = "UsuarioLogueado";
+        public static string EMPLEADO_SELECCIONADO = "EmpleadoSeleccionado";
 
         public async Task<ActionResult> Index()
         {
@@ -57,7 +58,36 @@ namespace AdministradoresApp.Controllers
             }
 
         }
-    
+
+        public ActionResult Adelantos(int ci)
+        {
+            try
+            {
+                if (ComprobarLogin() == "G")
+                {
+                    HttpContext.Session.Set<int?>(EMPLEADO_SELECCIONADO, null);
+
+                    HttpContext.Session.Set<int?>(EMPLEADO_SELECCIONADO, ci);
+
+                    return RedirectToAction("Index", "Adelantos", new { area = "" });
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+
+        }
+        catch
+        {
+            HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Locales registrados");
+
+            return RedirectToAction("Index", "Home", new { area = "" });
+        }
+
+        }
+
         public ActionResult AltaAdministrador()
         {
             //if (ComprobarLogin() == "G")

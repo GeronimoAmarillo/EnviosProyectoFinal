@@ -34,6 +34,18 @@ namespace LogicaDeServicioCore
             }
         }
 
+        public static List<Adelanto> ListarAdelantosXEmpleado(int cedula)
+        {
+            try
+            {
+                return FabricaPersistencia.GetPersistenciaAdelanto().ListarAdelantosXEmpleado(cedula);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar listar los adelantos." + ex.Message);
+            }
+        }
+
         public static bool VerificarAdelantoSaldado(int cedula)
         {
             try

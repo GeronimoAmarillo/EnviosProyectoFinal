@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using AdministradoresApp.Models;
 using EntidadesCompartidasCore;
 using LogicaDeAppsCore;
 using Microsoft.AspNetCore.Http;
@@ -16,21 +18,38 @@ namespace AdministradoresApp.Controllers
         public static string LOG_USER = "UsuarioLogueado";
         public static string SESSION_ADELANTOS = "Adelantos";
         public static string SESSION_FILTRADOS = "Filtrados";
+        public static string EMPLEADO_SELECCIONADO = "EmpleadoSeleccionado";
 
 
-        public async Task<IActionResult> Index()
+        public async Task<ActionResult> Index()
         {
             try
             {
                 if (ComprobarLogin() == "G")
                 {
-                    IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
+                    
+                    IControladorAdelanto controladorAdelanto = FabricaApps.GetControladorAdelanto();
 
-                    HttpContext.Session.Set<List<Vehiculo>>(SESSION_ADELANTOS, null);
+                    int ci = HttpContext.Session.Get<int>(EMPLEADO_SELECCIONADO);
+                   
 
-                    List<Vehiculo> vehiculos = await controladorVehiculo.ListarVehiculos();
+                    List<Adelanto> adelantos = await controladorAdelanto.ListarAdelantosXEmpleado(ci);
 
-                    HttpContext.Session.Set<List<Vehiculo>>(SESSION_ADELANTOS, vehiculos);
+                    if (adelantos == null)
+                    {
+                        adelantos = new List<Adelanto>();
+                    }
+
+                    //---------------------------------
+                    //---------------------------------
+
+                    bool habilitado = await controladorAdelanto.verificarAdelantoSaldado(ci);
+
+                    ViewBag.Habilitado = habilitado;
+
+                    //---------------------------------
+                    //---------------------------------
+
 
                     string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
 
@@ -41,18 +60,7 @@ namespace AdministradoresApp.Controllers
                         ViewBag.Message = mensaje;
                     }
 
-                    List<Vehiculo> filtrados = HttpContext.Session.Get<List<Vehiculo>>(SESSION_FILTRADOS);
-
-                    if (filtrados != null)
-                    {
-                        HttpContext.Session.Set<List<Vehiculo>>(SESSION_FILTRADOS, null);
-
-                        return View(filtrados);
-                    }
-                    else
-                    {
-                        return View(vehiculos);
-                    }
+                    return View(adelantos);
                 }
                 else
                 {
@@ -64,10 +72,75 @@ namespace AdministradoresApp.Controllers
             }
             catch (Exception ex)
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Vehiculos registrados");
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Adelantos registrados");
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
+        }
+
+        public ActionResult Alta()
+        {
+            if (ComprobarLogin() == "G")
+            {
+                return View();
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult Alta([FromForm]Adelanto adelanto)
+        {
+            try
+            {
+                if (ComprobarLogin() == "G")
+                {
+
+                    IControladorAdelanto controladorAdelanto = FabricaApps.GetControladorAdelanto();
+                    
+                    string mensaje = "";
+
+                    if (ModelState.IsValid)
+                    {
+                        bool exito = controladorAdelanto.RealizarAdelanto(adelanto);
+
+                        if (exito)
+                        {
+                            mensaje = "El adelanto se registro exitosamente con exito!.";
+                        }
+                        else
+                        {
+                            mensaje = "Se produjo un error al registrar el adelanto!.";
+                        }
+                    }
+
+                    if (mensaje != "")
+                    {
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                    }
+
+                    return RedirectToAction("Index");
+
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+
         }
 
         public string ComprobarLogin()

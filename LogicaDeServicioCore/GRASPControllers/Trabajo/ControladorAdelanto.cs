@@ -58,6 +58,18 @@ namespace LogicaDeServicioCore
             }
         }
 
+        public List<EntidadesCompartidasCore.Adelanto> ListarAdelantosXEmpleado(int cedula)
+        {
+            try
+            {
+                return LogicaAdelanto.ListarAdelantosXEmpleado(cedula);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar listar los adelantos." + ex.Message);
+            }
+        }
+
         public bool VerificarAdelantoSaldado(int cedula)
         {
             try

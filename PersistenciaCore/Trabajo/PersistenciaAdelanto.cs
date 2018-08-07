@@ -21,6 +21,7 @@ namespace PersistenciaCore
                 adelantoAgregar.Id = adelanto.Id;
                 adelantoAgregar.Saldado = adelanto.Saldado;
                 adelantoAgregar.Suma = adelanto.Suma;
+                adelantoAgregar.fechaExpedido = adelanto.fechaExpedido;
 
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
@@ -55,31 +56,34 @@ namespace PersistenciaCore
                 {
                     var adelanto = dbConnection.Adelantos.Include("Empleados.Usuarios").Where(a => a.Empleado == cedula).FirstOrDefault();
 
-                    int mesActual = DateTime.Now.Month;
-                    int anioActual = DateTime.Now.Year;
-
-                    int mesCalculado;
-                    int anioCalculado;
-
-                    int mesExpedido = adelanto.fechaExpedido.Month;
-                    int anioExpedido = adelanto.fechaExpedido.Year;
-
-                    int cuotas = adelanto.CantidadCuotas;
-
-                    if ((mesExpedido + cuotas) >= 12)
+                    if(adelanto != null)
                     {
-                        mesCalculado = (mesExpedido + cuotas) - 12;
-                        anioCalculado = anioExpedido + 1;
-                    }
-                    else
-                    {
-                        mesCalculado = mesExpedido + cuotas;
-                        anioCalculado = anioExpedido;
-                    }
+                        int mesActual = DateTime.Now.Month;
+                        int anioActual = DateTime.Now.Year;
 
-                    if (mesActual < mesCalculado && anioActual == anioCalculado)
-                    {
-                        adelantoSaldado = false;
+                        int mesCalculado;
+                        int anioCalculado;
+
+                        int mesExpedido = adelanto.fechaExpedido.Month;
+                        int anioExpedido = adelanto.fechaExpedido.Year;
+
+                        int cuotas = adelanto.CantidadCuotas;
+
+                        if ((mesExpedido + cuotas) >= 12)
+                        {
+                            mesCalculado = (mesExpedido + cuotas) - 12;
+                            anioCalculado = anioExpedido + 1;
+                        }
+                        else
+                        {
+                            mesCalculado = mesExpedido + cuotas;
+                            anioCalculado = anioExpedido;
+                        }
+
+                        if (mesActual < mesCalculado && anioActual == anioCalculado)
+                        {
+                            adelantoSaldado = false;
+                        }
                     }
 
                     return adelantoSaldado;
@@ -118,6 +122,47 @@ namespace PersistenciaCore
                     adelantoR.Empleados = ConvertirEmpleado(a.Empleados);
                     adelantoR.Saldado = a.Saldado;
                     adelantoR.Suma = a.Suma;
+                    adelantoR.fechaExpedido = a.fechaExpedido;
+
+
+                    adelantosResultado.Add(adelantoR);
+                }
+
+                return adelantosResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los adelantos." + ex.Message);
+            }
+        }
+
+        public List<Adelanto> ListarAdelantosXEmpleado(int cedula)
+        {
+            try
+            {
+                List<Adelantos> adelantos = new List<Adelantos>();
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    adelantos = dbConnection.Adelantos.Where(a => a.Empleado == cedula).ToList();
+                }
+
+                List<Adelanto> adelantosResultado = new List<Adelanto>();
+
+                foreach (Adelantos a in adelantos)
+                {
+                    Adelanto adelantoR = new Adelanto();
+
+                    adelantoR.Id = a.Id;
+                    adelantoR.CantidadCuotas = a.CantidadCuotas;
+                    adelantoR.Empleado = a.Empleado;
+                    adelantoR.Saldado = a.Saldado;
+                    adelantoR.Suma = a.Suma;
+                    adelantoR.fechaExpedido = a.fechaExpedido;
 
 
                     adelantosResultado.Add(adelantoR);

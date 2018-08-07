@@ -13,6 +13,7 @@ namespace EntidadesCompartidasCore
         static string conexionVehiculos = "http://localhost:8080/api/Vehiculos";
         static string conexionValores = "http://localhost:8080/api/Valores";
         static string conexionClientes = "http://localhost:8080/api/Clientes";
+        static string conexionAdelantos = "http://localhost:8080/api/Adelantos";
 
         public static string ConexionValores { get => conexionValores; }
         public static string ConexionVehiculos { get => conexionVehiculos; }
@@ -21,5 +22,7 @@ namespace EntidadesCompartidasCore
         public static string ConexionLocales { get => conexionLocales; }
         public static string ConexionRaiz { get => conexionRaiz; }
         public static string ConexionClientes { get => conexionClientes; }
+
+        public static string ConexionAdelantos { get => conexionAdelantos; }
     }
 }

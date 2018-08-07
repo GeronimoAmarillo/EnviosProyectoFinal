@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using EntidadesCompartidasCore;
 using LogicaDeServicioCore;
+using Newtonsoft.Json;
 
 namespace EnviosService.Controllers
 {
@@ -26,7 +27,12 @@ namespace EnviosService.Controllers
         [Route("api/Adelantos/Empleado")]
         public JsonResult Empleado(int cedula)
         {
-            return Json(controladorAdelanto.BuscarEmpleado(cedula), new Newtonsoft.Json.JsonSerializerSettings());
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+
+            return Json(controladorAdelanto.BuscarEmpleado(cedula), settings);
         }
 
         [HttpGet("{cedula}")]
@@ -41,7 +47,12 @@ namespace EnviosService.Controllers
         [Route("api/Adelantos/Empleados")]
         public JsonResult Empleados()
         {
-            return Json(controladorAdelanto.ListarEmpleados(), new Newtonsoft.Json.JsonSerializerSettings());
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+
+            return Json(controladorAdelanto.ListarEmpleados(), settings);
         }
 
         [HttpPost]
@@ -62,6 +73,13 @@ namespace EnviosService.Controllers
         public JsonResult Adelantos()
         {
             return Json(controladorAdelanto.ListarAdelantos(), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
+        [HttpGet("{cedula}")]
+        [Route("api/Adelantos/AdelantosEmpleado")]
+        public JsonResult Adelantos(int cedula)
+        {
+            return Json(controladorAdelanto.ListarAdelantosXEmpleado(cedula), new Newtonsoft.Json.JsonSerializerSettings());
         }
     }
 }
