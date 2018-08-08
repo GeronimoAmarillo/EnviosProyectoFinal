@@ -94,12 +94,76 @@ namespace PersistenciaCore
 
         public bool BajaCamion(string matricula)
         {
-            return true;
+            try
+            {
+                Camiones camion = new Camiones();
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    camion = dbConnection.Camiones.Include("Vehiculos").Where(a => a.MatriculaCamion == matricula).FirstOrDefault();
+
+                    if (camion != null)
+                    {
+                        dbConnection.Camiones.Remove(camion);
+
+                        dbConnection.Vehiculos.Remove(camion.Vehiculos);
+
+                        dbConnection.SaveChanges();
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el camion." + ex.Message);
+            }
         }
 
         public EntidadesCompartidasCore.Camion BuscarCamion(string matricula)
         {
-            return new EntidadesCompartidasCore.Camion();
+            try
+            {
+                Camiones camion = new Camiones();
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    camion = dbConnection.Camiones.Include("Vehiculos").Where(a => a.MatriculaCamion == matricula).FirstOrDefault();
+                }
+
+                Camion camionResultado = new Camion();
+
+                if (camion != null)
+                {
+
+                    camionResultado.Cadete = camion.Vehiculos.Cadete;
+                    camionResultado.Capacidad = camion.Vehiculos.Capacidad;
+                    camionResultado.Altura = camion.Altura;
+                    camionResultado.Estado = camion.Vehiculos.Estado;
+                    camionResultado.Marca = camion.Vehiculos.Marca;
+                    camionResultado.Matricula = camion.Vehiculos.Matricula;
+                    camionResultado.MatriculaCamion = camion.Vehiculos.Matricula;
+                    camionResultado.Modelo = camion.Vehiculos.Modelo;
+                }
+
+                return camionResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el camion." + ex.Message);
+            }
         }
 
         public bool ModificarCamion(EntidadesCompartidasCore.Camion camion)

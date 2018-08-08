@@ -59,12 +59,26 @@ namespace LogicaDeServicioCore
 
         public bool BajaVehiculo(Vehiculo vehiculo)
         {
-            return true;
+            try
+            {
+                return LogicaVehiculo.BajaVehiculo(vehiculo.Matricula);
+            }
+            catch
+            {
+                throw new Exception("Error al intentar dar de baja el Vehiculo.");
+            }
         }
 
         public Vehiculo BuscarVehiculo(string matricula)
         {
-            return new Vehiculo();
+            try
+            {
+                return LogicaVehiculo.BuscarVehiculo(matricula);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el vehiculo.");
+            }
         }
 
         public bool AltaVehiculo(Vehiculo pVehiculo)

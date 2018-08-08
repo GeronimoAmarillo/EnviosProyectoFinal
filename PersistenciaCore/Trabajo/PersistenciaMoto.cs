@@ -83,7 +83,41 @@ namespace PersistenciaCore
 
         public EntidadesCompartidasCore.Moto BuscarMoto(string matricula)
         {
-            return new EntidadesCompartidasCore.Moto();
+            try
+            {
+                Motos moto = new Motos();
+
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    moto = dbConnection.Motos.Include("Vehiculos").Where(a => a.MatriculaMoto == matricula).FirstOrDefault();
+                }
+
+                Moto motoResultado = new Moto();
+
+                if (moto != null)
+                {
+
+                    motoResultado.Cadete = moto.Vehiculos.Cadete;
+                    motoResultado.Capacidad = moto.Vehiculos.Capacidad;
+                    motoResultado.Cilindrada = moto.Cilindrada;
+                    motoResultado.Estado = moto.Vehiculos.Estado;
+                    motoResultado.Marca = moto.Vehiculos.Marca;
+                    motoResultado.Matricula = moto.Vehiculos.Matricula;
+                    motoResultado.MatriculaMoto = moto.Vehiculos.Matricula;
+                    motoResultado.Modelo = moto.Vehiculos.Modelo;
+                }
+
+                return motoResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar la moto." + ex.Message);
+            }
         }
 
         public List<EntidadesCompartidasCore.Moto> ListarMotos()
@@ -130,7 +164,38 @@ namespace PersistenciaCore
 
         public bool BajaMoto(string matricula)
         {
-            return true;
+            try
+            {
+                Motos moto = new Motos();
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    moto = dbConnection.Motos.Include("Vehiculos").Where(a => a.MatriculaMoto == matricula).FirstOrDefault();
+
+                    if (moto != null)
+                    {
+                        dbConnection.Motos.Remove(moto);
+
+                        dbConnection.Vehiculos.Remove(moto.Vehiculos);
+
+                        dbConnection.SaveChanges();
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al eliminar la moto." + ex.Message);
+            }
         }
 
         public bool ModificarMoto(EntidadesCompartidasCore.Moto moto)
