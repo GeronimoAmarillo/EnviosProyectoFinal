@@ -143,11 +143,11 @@ namespace PersistenciaCore
                     camion = dbConnection.Camiones.Include("Vehiculos").Where(a => a.MatriculaCamion == matricula).FirstOrDefault();
                 }
 
-                Camion camionResultado = new Camion();
+                Camion camionResultado = null;
 
                 if (camion != null)
                 {
-
+                    camionResultado = new Camion();
                     camionResultado.Cadete = camion.Vehiculos.Cadete;
                     camionResultado.Capacidad = camion.Vehiculos.Capacidad;
                     camionResultado.Altura = camion.Altura;

@@ -97,10 +97,12 @@ namespace PersistenciaCore
                     moto = dbConnection.Motos.Include("Vehiculos").Where(a => a.MatriculaMoto == matricula).FirstOrDefault();
                 }
 
-                Moto motoResultado = new Moto();
+                Moto motoResultado = null;
 
                 if (moto != null)
                 {
+
+                    motoResultado = new Moto();
 
                     motoResultado.Cadete = moto.Vehiculos.Cadete;
                     motoResultado.Capacidad = moto.Vehiculos.Capacidad;

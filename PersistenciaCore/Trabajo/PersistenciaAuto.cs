@@ -203,10 +203,11 @@ namespace PersistenciaCore
                     auto = dbConnection.Automobiles.Include("Vehiculos").Where(a => a.MatriculaAuto == matricula).FirstOrDefault();
                 }
 
-                Automobil autoResultado = new Automobil();
+                Automobil autoResultado = null;
 
                 if (auto != null)
                 {
+                    autoResultado = new Automobil();
 
                     autoResultado.Cadete = auto.Vehiculos.Cadete;
                     autoResultado.Capacidad = auto.Vehiculos.Capacidad;

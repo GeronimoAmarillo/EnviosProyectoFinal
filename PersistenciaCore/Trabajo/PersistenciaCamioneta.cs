@@ -202,10 +202,11 @@ namespace PersistenciaCore
                     camioneta = dbConnection.Camionetas.Include("Vehiculos").Where(a => a.MatriculaCamioneta == matricula).FirstOrDefault();
                 }
 
-                Camioneta camionetaResultado = new Camioneta();
+                Camioneta camionetaResultado = null;
 
                 if (camioneta != null)
                 {
+                    camionetaResultado = new Camioneta();
 
                     camionetaResultado.Cadete = camioneta.Vehiculos.Cadete;
                     camionetaResultado.Capacidad = camioneta.Vehiculos.Capacidad;
