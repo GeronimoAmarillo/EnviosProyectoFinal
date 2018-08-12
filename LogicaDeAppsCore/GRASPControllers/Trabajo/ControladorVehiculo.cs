@@ -60,10 +60,25 @@ namespace LogicaDeAppsCore
         {
             try
             {
-
+                string url = "";
                 HttpClient client = new HttpClient();
 
-                string url = ConexionREST.ConexionVehiculos + "/Modificar";
+                if (pVehiculo is Automobil)
+                {
+                    url = ConexionREST.ConexionVehiculos + "/Auto";
+                }
+                else if (pVehiculo is Camion)
+                {
+                    url = ConexionREST.ConexionVehiculos + "/Camion";
+                }
+                else if (pVehiculo is Camioneta)
+                {
+                    url = ConexionREST.ConexionVehiculos + "/Camioneta";
+                }
+                else
+                {
+                    url = ConexionREST.ConexionVehiculos + "/Moto";
+                }
 
                 var content = new StringContent(JsonConvert.SerializeObject(pVehiculo), Encoding.UTF8, "application/json");
 

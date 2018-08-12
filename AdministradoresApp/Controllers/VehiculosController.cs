@@ -404,7 +404,66 @@ namespace AdministradoresApp.Controllers
             }
         }
 
-        public ActionResult ListarAutos()
+        public ActionResult Modificar()
+        {
+            if (ComprobarLogin() == "G")
+            {
+                return View();
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Modificar([FromForm]Vehiculo unVehiculo)
+        {
+            try
+            {
+                string mensaje = "";
+                if (ComprobarLogin() == "G")
+                {
+                    IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
+
+                    if (ModelState.IsValid)
+                    {
+                        bool exito = controladorVehiculo.ModificarVehiculo(unVehiculo);
+
+                        if (exito)
+                        {
+                            mensaje = "El vehiculo se modificó con exito!.";
+                        }
+                        else
+                        {
+                            mensaje = "Se produjo un error al modificar el vehiculo!.";
+                        }
+                    }
+
+
+                    if (mensaje != "")
+                    {
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                    }
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+        }
+
+            public ActionResult ListarAutos()
         {
             if (ComprobarLogin() == "G")
             {
