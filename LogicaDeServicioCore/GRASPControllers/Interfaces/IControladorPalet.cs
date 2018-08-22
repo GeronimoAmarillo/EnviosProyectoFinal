@@ -18,6 +18,6 @@ namespace LogicaDeServicioCore
 
         Palet BuscarPalet(int id);
 
-        bool BajaPalet(Palet palet);
+        bool BajaPalet(int id);
     }
 }

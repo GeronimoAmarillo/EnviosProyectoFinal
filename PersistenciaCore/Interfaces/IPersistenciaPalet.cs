@@ -13,6 +13,8 @@ namespace PersistenciaCore
 
         EntidadesCompartidasCore.Galpon BuscarGalpon(int id);
 
-        bool BajaPalet(EntidadesCompartidasCore.Palet palet);
+        Palet BuscarPalet(int id);
+
+        bool BajaPalet(int id);
     }
 }

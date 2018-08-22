@@ -51,7 +51,7 @@ namespace EnviosService.Controllers
                 case "POST":
                     return Json(controladorPalet.AltaPalet(item), new Newtonsoft.Json.JsonSerializerSettings());
                 case "DELETE":
-                    return Json(controladorPalet.BajaPalet(item), new Newtonsoft.Json.JsonSerializerSettings());
+                    return Json(controladorPalet.BajaPalet(item.Id), new Newtonsoft.Json.JsonSerializerSettings());
             }
 
             return Json("Accion Http Desconocida", new Newtonsoft.Json.JsonSerializerSettings());
