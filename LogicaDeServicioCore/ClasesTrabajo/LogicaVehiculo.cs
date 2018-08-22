@@ -83,10 +83,34 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public Vehiculo BuscarVehiculo(string matricula)
+        public static Vehiculo BuscarVehiculo(string matricula)
         {
-            Vehiculo vehiculo = new Vehiculo();
-            return vehiculo;
+            try
+            {
+                Vehiculo vehiculo = FabricaPersistencia.GetPersistenciaAuto().BuscarAuto(matricula);
+
+                if (vehiculo == null)
+                {
+                    vehiculo = FabricaPersistencia.GetPersistenciaCamioneta().BuscarCamioneta(matricula);
+                }
+
+                if (vehiculo == null)
+                {
+                    vehiculo = FabricaPersistencia.GetPersistenciaCamion().BuscarCamion(matricula);
+                }
+
+                if (vehiculo == null)
+                {
+                    vehiculo = FabricaPersistencia.GetPersistenciaMoto().BuscarMoto(matricula);
+                }
+
+                return vehiculo;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el vehiculo." + ex.Message);
+            }
         }
 
         public static bool ModificarVehiculo(Vehiculo unVehiculo)
@@ -123,10 +147,35 @@ namespace LogicaDeServicioCore
             return exito;
         }
 
-        public bool BajaVehiculo(string matricula)
+        public static bool BajaVehiculo(string matricula)
         {
-            bool exito = false;
-            return exito;
+            try
+            {
+                bool resultado = false;
+
+                resultado = FabricaPersistencia.GetPersistenciaAuto().BajaAuto(matricula);
+
+                if (resultado == false)
+                {
+                    resultado = FabricaPersistencia.GetPersistenciaCamion().BajaCamion(matricula);
+                }
+
+                if (resultado == false)
+                {
+                    resultado = FabricaPersistencia.GetPersistenciaCamioneta().BajaCamioneta(matricula);
+                }
+
+                if (resultado == false)
+                {
+                    resultado = FabricaPersistencia.GetPersistenciaMoto().BajaMoto(matricula);
+                }
+
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar dar de baja el Vehiculo." + ex.Message);
+            }
         }
 
         public static List<Vehiculo> ListarVehiculos()
