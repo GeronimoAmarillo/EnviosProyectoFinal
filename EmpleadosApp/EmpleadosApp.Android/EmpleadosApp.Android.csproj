@@ -72,12 +72,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adaptadores\AdaptadorClientes.cs" />
+    <Compile Include="Adaptadores\AdaptadorPalets.cs" />
     <Compile Include="Adaptadores\AdaptadorRacks.cs" />
     <Compile Include="Adaptadores\AdaptadorSectores.cs" />
     <Compile Include="AltaPalletActivity.cs" />
     <Compile Include="AsyncHelper.cs" />
+    <Compile Include="BajaPaletActivity.cs" />
     <Compile Include="InicioActivity.cs" />
     <Compile Include="ListadoClientesActivity.cs" />
+    <Compile Include="ListadoPaletsActivity.cs" />
     <Compile Include="ListadoRacksActivity.cs" />
     <Compile Include="ListadoSectoresActivity.cs" />
     <Compile Include="MainActivity.cs" />
@@ -112,6 +115,15 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\ListadoClienteActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ListadoPaletsActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\PaletRow.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\BajaPaletActivity.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

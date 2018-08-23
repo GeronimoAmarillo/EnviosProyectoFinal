@@ -15,6 +15,8 @@ namespace PersistenciaCore
 
         Palet BuscarPalet(int id);
 
+        List<Palet> ListarPalets();
+
         bool BajaPalet(int id);
     }
 }

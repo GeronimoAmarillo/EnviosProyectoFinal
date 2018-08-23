@@ -191,7 +191,7 @@ namespace PersistenciaCore
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    palets = dbConnection.Palets.ToList();
+                    palets = dbConnection.Palets.Include("Clientes.Usuarios").Include("Casillas.Racks.Sectores").ToList();
                 }
 
                 List<Palet> paletsResultado = new List<Palet>();
@@ -202,6 +202,7 @@ namespace PersistenciaCore
 
                     paletR.Cantidad = p.Cantidad;
                     paletR.Casilla = p.Casilla;
+                    paletR.Clientes = ConvertirCliente(p.Clientes);
                     paletR.Cliente = p.Cliente;
                     paletR.Id = p.Id;
                     paletR.Peso = p.Peso;
@@ -217,6 +218,7 @@ namespace PersistenciaCore
                 throw new Exception("Error al listar los palets." + ex.Message);
             }
         }
+        
 
         public EntidadesCompartidasCore.Galpon BuscarGalpon(int id)
         {
