@@ -404,11 +404,11 @@ namespace AdministradoresApp.Controllers
             }
         }
 
-        public ActionResult Modificar()
+        public ActionResult Modificar(Vehiculo vehiculo)
         {
             if (ComprobarLogin() == "G")
             {
-                return View();
+                return View(vehiculo);
             }
             else
             {
@@ -419,7 +419,7 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult Modificar([FromForm]Vehiculo unVehiculo)
+        public ActionResult ModificarPost([FromForm]Vehiculo unVehiculo)
         {
             try
             {
