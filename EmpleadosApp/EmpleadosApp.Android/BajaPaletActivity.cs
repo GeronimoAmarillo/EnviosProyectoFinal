@@ -37,7 +37,7 @@ namespace EmpleadosApp.Droid
 
             VerificarSesion();
 
-            SetContentView(Resource.Layout.AltaPalletActivity);
+            SetContentView(Resource.Layout.BajaPaletActivity);
 
             try
             {
@@ -141,12 +141,12 @@ namespace EmpleadosApp.Droid
 
         private void SetupViews()
         {
-            tvId = FindViewById<Button>(Resource.Id.tvId);
-            tvProducto = FindViewById<Button>(Resource.Id.tvProducto);
-            tvCantidad = FindViewById<Button>(Resource.Id.tvCantidad);
-            tvPeso = FindViewById<Button>(Resource.Id.tvPeso);
-            tvCasilla = FindViewById<Button>(Resource.Id.tvCasilla);
-            tvCliente = FindViewById<Button>(Resource.Id.tvCliente);
+            tvId = FindViewById<TextView>(Resource.Id.tvId);
+            tvProducto = FindViewById<TextView>(Resource.Id.tvProducto);
+            tvCantidad = FindViewById<TextView>(Resource.Id.tvCantidad);
+            tvPeso = FindViewById<TextView>(Resource.Id.tvPeso);
+            tvCasilla = FindViewById<TextView>(Resource.Id.tvCasilla);
+            tvCliente = FindViewById<TextView>(Resource.Id.tvCliente);
             btnBajaPallet = FindViewById<Button>(Resource.Id.btnBajaPallet);
             btnVolver = FindViewById<Button>(Resource.Id.btnVolver);
 
