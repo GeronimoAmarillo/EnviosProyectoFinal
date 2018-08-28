@@ -13,9 +13,54 @@ namespace AdministradoresApp.Controllers
     public class ClientesController : Controller
     {
         public static string SESSION_MENSAJE = "Mensaje";
+        public static string SESSSION_ALTA = "AltaCliente";
+        public static string SESSSION_MODIFICAR = "ModificarCliente";
+        public static string LOG_USER = "UsuarioLogueado";
 
+        public async Task<ActionResult> Index()
+        {
+            try
+            {
+                List<Cliente> clientes = new List<Cliente>()
+                {
+                    new Cliente()
+                    {
+                        Nombre = "Pepe",
+                        Mensualidad = 5000,
+                        Direccion = "Calixo 4000",
+                        Email = "email@dominio.com",
+                        RUT = 5475122661,
+                        Telefono = "099874147",
+                        Id = 1
+                    }
+                };
 
-        public IActionResult AltaCliente()
+                //IControladorCliente controladorCliente = FabricaApps.GetControladorCliente();
+
+                //List<Cliente> clientes = await controladorCliente.ListarClientes();
+
+                string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
+
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, null);
+
+                if (mensaje != null && mensaje != "")
+                {
+                    ViewBag.Message = mensaje;
+                }
+
+                return View(clientes);
+
+            }
+            catch
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los clientes registrados");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+
+        public IActionResult Alta()
         {
             try
             {
@@ -39,7 +84,7 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AltaCliente([FromForm] Cliente unCliente)
+        public async Task<IActionResult> Alta([FromForm] Cliente unCliente)
         {
             try
             {
@@ -64,19 +109,35 @@ namespace AdministradoresApp.Controllers
             }
         }
 
-        public IActionResult ModificarCliente()
+        public IActionResult Modificar(int id)
         {
             try
             {
-                string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, null);
-
-                if (mensaje != null && mensaje != "")
+                if (ComprobarLogin() == "G")
                 {
-                    ViewBag.Message = mensaje;
-                }
+                    IControladorCliente controladorCliente = FabricaApps.GetControladorCliente();
 
-                return View();
+                    Cliente unCliente = controladorCliente.BuscarCliente(id);
+
+                    if (unCliente != null)
+                    {
+                        HttpContext.Session.Set<Cliente>(SESSSION_MODIFICAR, unCliente);
+
+                        return View(unCliente);
+                    }
+                    else
+                    {
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "No existe el cliente que desea modificar");
+
+                        return RedirectToAction("Index", "Clientes", new { area = "" });
+                    }
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
             }
             catch
             {
@@ -87,7 +148,7 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ModificarCliente([FromForm] Cliente unCliente)
+        public async Task<IActionResult> Modificar([FromForm] Cliente unCliente)
         {
             try
             {
@@ -111,5 +172,43 @@ namespace AdministradoresApp.Controllers
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
         }
+
+        public string ComprobarLogin()
+        {
+            try
+            {
+                Administrador administrador = HttpContext.Session.Get<Administrador>(LOG_USER);
+
+                if (administrador != null)
+                {
+
+                    if (administrador.Tipo.ToUpper() == "G")
+                    {
+                        return "G";
+                    }
+                    else if (administrador.Tipo.ToUpper() == "C")
+                    {
+                        return "C";
+                    }
+                    else if (administrador.Tipo.ToUpper() == "L")
+                    {
+                        return "L";
+                    }
+                    else
+                    {
+                        return "Valor invalido.";
+                    }
+                }
+                else
+                {
+                    return "";
+                }
+            }
+            catch
+            {
+                throw new Exception("Error al comprobar el logueo.");
+            }
+        }
+
     }
 }
