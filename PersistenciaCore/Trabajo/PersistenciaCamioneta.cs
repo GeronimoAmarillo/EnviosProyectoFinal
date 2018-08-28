@@ -94,7 +94,38 @@ namespace PersistenciaCore
 
         public bool BajaCamioneta(string matricula)
         {
-            return true;
+            try
+            {
+                Camionetas camioneta = new Camionetas();
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    camioneta = dbConnection.Camionetas.Include("Vehiculos").Where(a => a.MatriculaCamioneta == matricula).FirstOrDefault();
+
+                    if (camioneta != null)
+                    {
+                        dbConnection.Camionetas.Remove(camioneta);
+
+                        dbConnection.Vehiculos.Remove(camioneta.Vehiculos);
+
+                        dbConnection.SaveChanges();
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al eliminar la camioneta." + ex.Message);
+            }
         }
 
         public bool ModificarCamioneta(EntidadesCompartidasCore.Camioneta camioneta)
@@ -158,7 +189,41 @@ namespace PersistenciaCore
 
         public EntidadesCompartidasCore.Camioneta BuscarCamioneta(string matricula)
         {
-            return new EntidadesCompartidasCore.Camioneta();
+            try
+            {
+                Camionetas camioneta = new Camionetas();
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    camioneta = dbConnection.Camionetas.Include("Vehiculos").Where(a => a.MatriculaCamioneta == matricula).FirstOrDefault();
+                }
+
+                Camioneta camionetaResultado = null;
+
+                if (camioneta != null)
+                {
+                    camionetaResultado = new Camioneta();
+
+                    camionetaResultado.Cadete = camioneta.Vehiculos.Cadete;
+                    camionetaResultado.Capacidad = camioneta.Vehiculos.Capacidad;
+                    camionetaResultado.Cabina = camioneta.Cabina;
+                    camionetaResultado.Estado = camioneta.Vehiculos.Estado;
+                    camionetaResultado.Marca = camioneta.Vehiculos.Marca;
+                    camionetaResultado.Matricula = camioneta.Vehiculos.Matricula;
+                    camionetaResultado.MatriculaCamioneta = camioneta.Vehiculos.Matricula;
+                    camionetaResultado.Modelo = camioneta.Vehiculos.Modelo;
+                }
+
+                return camionetaResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar la camioneta." + ex.Message);
+            }
         }
 
         public bool ExisteCamioneta(string matricula)

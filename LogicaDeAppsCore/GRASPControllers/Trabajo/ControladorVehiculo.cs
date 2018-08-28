@@ -109,12 +109,63 @@ namespace LogicaDeAppsCore
 
         public bool EliminarVehiculo(Vehiculo vehiculo)
         {
-            return true;
+            try
+            {
+
+                HttpClient client = new HttpClient();
+
+                if (ExisteVehiculo(vehiculo.Matricula).ToString().ToUpper() == "FALSE")
+                {
+                    throw new Exception("El vehiculo que desea dar de baja no existe en el sistema.");
+                }
+
+                string url = ConexionREST.ConexionVehiculos + "/Vehiculo/Baja";
+
+                var content = new StringContent(JsonConvert.SerializeObject(vehiculo), Encoding.UTF8, "application/json");
+
+                var result = client.PostAsync(url, content).Result;
+
+                var contentResult = result.Content.ReadAsStringAsync();
+
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("ERROR!: " + ex.Message);
+            }
         }
 
-        public Vehiculo BuscarVehiculo(string matricula)
+        public async Task<Vehiculo> BuscarVehiculo(string matricula)
         {
-            return new Vehiculo();
+            try
+            {
+                //http://localhost:8080/
+
+                var httpClient = new HttpClient();
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionVehiculos + "/Vehiculo?matricula=" + matricula);
+
+                Vehiculo vehiculo = null;
+
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Objects
+                };
+
+                vehiculo = JsonConvert.DeserializeObject<Vehiculo>(json, settings);
+
+                return vehiculo;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el vehiculo.");
+            }
         }
 
         public Vehiculo ContemplarTipo()

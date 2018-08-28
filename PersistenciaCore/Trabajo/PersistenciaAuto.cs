@@ -94,7 +94,38 @@ namespace PersistenciaCore
 
         public bool BajaAuto(string matricula)
         {
-            return true;
+            try
+            {
+                Automobiles auto = new Automobiles();
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    auto = dbConnection.Automobiles.Include("Vehiculos").Where(a => a.MatriculaAuto == matricula).FirstOrDefault();
+
+                    if (auto != null)
+                    {
+                        dbConnection.Automobiles.Remove(auto);
+
+                        dbConnection.Vehiculos.Remove(auto.Vehiculos);
+
+                        dbConnection.SaveChanges();
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar la moto." + ex.Message);
+            }
         }
 
         public bool ModificarAuto(EntidadesCompartidasCore.Automobil auto)
@@ -159,7 +190,41 @@ namespace PersistenciaCore
 
         public EntidadesCompartidasCore.Automobil BuscarAuto(string matricula)
         {
-            return new EntidadesCompartidasCore.Automobil();
+            try
+            {
+                Automobiles auto = new Automobiles();
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    auto = dbConnection.Automobiles.Include("Vehiculos").Where(a => a.MatriculaAuto == matricula).FirstOrDefault();
+                }
+
+                Automobil autoResultado = null;
+
+                if (auto != null)
+                {
+                    autoResultado = new Automobil();
+
+                    autoResultado.Cadete = auto.Vehiculos.Cadete;
+                    autoResultado.Capacidad = auto.Vehiculos.Capacidad;
+                    autoResultado.Puertas = auto.Puertas;
+                    autoResultado.Estado = auto.Vehiculos.Estado;
+                    autoResultado.Marca = auto.Vehiculos.Marca;
+                    autoResultado.Matricula = auto.Vehiculos.Matricula;
+                    autoResultado.MatriculaAuto = auto.Vehiculos.Matricula;
+                    autoResultado.Modelo = auto.Vehiculos.Modelo;
+                }
+
+                return autoResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el auto." + ex.Message);
+            }
         }
 
         public bool ExisteAuto(string matricula)
