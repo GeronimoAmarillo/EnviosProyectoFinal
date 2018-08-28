@@ -10,7 +10,7 @@ using LogicaDeServicioCore;
 namespace EnviosService.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Clientes")]
+    
     public class ClientesController : Controller
     {
         private IControladorCliente controladorCliente;
@@ -19,19 +19,23 @@ namespace EnviosService.Controllers
         {
             controladorCliente = FabricaServicio.GetControladorCliente();
         }
-
+        [Route("api/Clientes/Buscar")]
         [HttpGet("{rut}")]
         public JsonResult Cliente(int rut)
         {
             return Json(controladorCliente.BuscarCliente(rut), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
+        [Route("api/Clientes/Existe")]
         [HttpGet("{rut}")]
         public JsonResult ExisteCliente(int rut)
         {
             return Json(controladorCliente.ExisteCliente(rut), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
+        [Route("api/Clientes/Alta")]
+        [Route("api/Clientes/Modificar")]
+        [Route("api/Clientes/Cliente")]
         [HttpPut]
         [HttpPost]
         public JsonResult Cliente([FromBody] Cliente cliente)

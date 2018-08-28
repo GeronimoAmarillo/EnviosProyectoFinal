@@ -19,6 +19,8 @@ namespace PersistenciaCore
 
         List<EntidadesCompartidasCore.Cliente> ListarClientes();
 
+        Cliente BuscarCliente(int rut);
+
         EntidadesCompartidasCore.Cliente Login(string user, string contraseña);
 
         bool BajaCliente(int ci);
