@@ -102,5 +102,77 @@ namespace ClientesApp.Controllers
             }
 
         }
+
+        public IActionResult ModificarEmail()
+        {
+            try
+            {
+                Cliente usuarioLogueado = (Cliente)HttpContext.Session.Get<Usuario>(LOG_USER);
+
+                if (usuarioLogueado != null)
+                {
+                    string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, null);
+
+                    if (mensaje != null && mensaje != "")
+                    {
+                        ViewBag.Message = mensaje;
+                    }
+
+                    return View(usuarioLogueado);
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay ningun usuario logueado.");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+
+            }
+            catch
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario de Modificacion de Email de contacto.");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+
+        /*public async Task<IActionResult> ModificarEmail([FromForm] Cliente cliente)
+        {
+            try
+            {
+                IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
+
+                Usuario usuarioLogueado = await controladorUsuario.Login(usuario.NombreUsuario, usuario.Contraseña);
+
+
+                if (usuarioLogueado != null && usuarioLogueado is Cliente)
+                {
+                    Cliente cliente = (Cliente)usuarioLogueado;
+
+                    HttpContext.Session.Set<Cliente>(LOG_USER, cliente);
+
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "Usuario logueado exitosamente!.");
+                }
+                else
+                {
+                    HttpContext.Session.Set<Usuario>(LOG_USER, null);
+
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "Usuario y/o contraseña invalidos.");
+
+                    return RedirectToAction("Login", "Usuarios", new { area = "" });
+                }
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+            catch
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar Loguearse.");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }*/
     }
 }
