@@ -16,6 +16,7 @@ namespace AdministradoresApp.Controllers
     {
 
         public static string SESSSION_ALTA = "AltaVehiculo";
+        public static string SESSION_BAJA = "BajaVehiculo";
         public static string SESSSION_VEHICULOS = "Vehiculos";
         public static string SESSION_FILTRADOS = "Filtrados";
         public static string SESSSION_MODIFICAR = "ModificarVehiculo";
@@ -74,6 +75,82 @@ namespace AdministradoresApp.Controllers
             }
 
         }
+
+        public async Task<ActionResult> BajaVehiculo(string matricula)
+        {
+            if (ComprobarLogin() == "G")
+            {
+                IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
+
+                Vehiculo vehiculo = await controladorVehiculo.BuscarVehiculo(matricula);
+
+                HttpContext.Session.Set<Vehiculo>(SESSION_BAJA, vehiculo);
+
+                return View(vehiculo);
+                
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult BajaVehiculoPost()
+        {
+            try
+            {
+                if (ComprobarLogin() == "G")
+                {
+                    Vehiculo vehiculoBaja = HttpContext.Session.Get<Vehiculo>(SESSION_BAJA);
+
+                    HttpContext.Session.Set<Vehiculo>(SESSION_BAJA, null);
+
+                    IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
+
+                    string mensaje = "";
+
+                    if (ModelState.IsValid)
+                    {
+                        bool exito = controladorVehiculo.EliminarVehiculo(vehiculoBaja);
+
+                        if (exito)
+                        {
+                            mensaje = "El vehiculo se dio de baja con exito!.";
+                        }
+                        else
+                        {
+                            mensaje = "Se produjo un error al dar de baja el vehiculo!.";
+                        }
+                    }
+
+                    if (mensaje != "")
+                    {
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                    }
+
+                    return RedirectToAction("Index");
+
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+
+        }
+
 
 
         public async Task<ActionResult> AltaAuto()
