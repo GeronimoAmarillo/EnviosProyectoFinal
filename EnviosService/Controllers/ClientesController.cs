@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using EntidadesCompartidasCore;
 using LogicaDeServicioCore;
+using Newtonsoft.Json;
 
 namespace EnviosService.Controllers
 {
@@ -23,7 +24,11 @@ namespace EnviosService.Controllers
         [HttpGet("{rut}")]
         public JsonResult Cliente(int rut)
         {
-            return Json(controladorCliente.BuscarCliente(rut), new Newtonsoft.Json.JsonSerializerSettings());
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+            return Json(controladorCliente.BuscarCliente(rut), settings);
         }
 
         [Route("api/Clientes/Existe")]
