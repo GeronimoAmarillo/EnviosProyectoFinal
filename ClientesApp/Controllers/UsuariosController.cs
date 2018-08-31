@@ -227,7 +227,7 @@ namespace ClientesApp.Controllers
 
         }
 
-
+        [ValidateAntiForgeryToken]
         public IActionResult ConfirmarModificacion(long rut, string emailNuevo)
         {
             try
@@ -287,6 +287,7 @@ namespace ClientesApp.Controllers
 
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<IActionResult> ConfirmarModificacion([FromForm] ClienteEmailNuevo cliente)
         {
