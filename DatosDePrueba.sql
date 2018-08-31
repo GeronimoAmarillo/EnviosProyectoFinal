@@ -2,56 +2,57 @@
 
 GO
 
-INSERT INTO Usuarios (NombreUsuario, Contraseña, Nombre, Direccion, Telefono, Email)
-VALUES('User1', '12345', 'Nombre1', 'Direccion1', '12345678', 'user1@dominio.com')
 
 INSERT INTO Usuarios (NombreUsuario, Contraseña, Nombre, Direccion, Telefono, Email)
-VALUES('User2', '12345', 'Nombre2', 'Direccion2', '12345678', 'user2@dominio.com')
+VALUES('User1', '123456789', 'Nombre1', 'Direccion1', '12345678', 'user1@dominio.com')
 
 INSERT INTO Usuarios (NombreUsuario, Contraseña, Nombre, Direccion, Telefono, Email)
-VALUES('User3', '12345', 'Nombre3', 'Direccion3', '12345678', 'user3@dominio.com')
+VALUES('User2', '123456789', 'Nombre2', 'Direccion2', '12345678', 'user2@dominio.com')
 
 INSERT INTO Usuarios (NombreUsuario, Contraseña, Nombre, Direccion, Telefono, Email)
-VALUES('User4', '12345', 'Nombre4', 'Direccion4', '12345678', 'user4@dominio.com')
+VALUES('User3', '123456789', 'Nombre3', 'Direccion3', '12345678', 'user3@dominio.com')
 
 INSERT INTO Usuarios (NombreUsuario, Contraseña, Nombre, Direccion, Telefono, Email)
-VALUES('User5', '12345', 'Nombre5', 'Direccion5', '12345678', 'user5@dominio.com')
+VALUES('User4', '123456789', 'Nombre4', 'Direccion4', '12345678', 'user4@dominio.com')
 
 INSERT INTO Usuarios (NombreUsuario, Contraseña, Nombre, Direccion, Telefono, Email)
-VALUES('User6', '12345', 'Nombre6', 'Direccion6', '12345678', 'user6@dominio.com')
+VALUES('User5', '123456789', 'Nombre5', 'Direccion5', '12345678', 'user5@dominio.com')
 
 INSERT INTO Usuarios (NombreUsuario, Contraseña, Nombre, Direccion, Telefono, Email)
-VALUES('User7', '12345', 'Nombre7', 'Direccion7', '12345678', 'user7@dominio.com')
+VALUES('User6', '123456789', 'Nombre6', 'Direccion6', '12345678', 'user6@dominio.com')
 
 INSERT INTO Usuarios (NombreUsuario, Contraseña, Nombre, Direccion, Telefono, Email)
-VALUES('User8', '12345', 'Nombre8', 'Direccion8', '12345678', 'user8@dominio.com')
+VALUES('User7', '123456789', 'Nombre7', 'Direccion7', '12345678', 'user7@dominio.com')
 
 INSERT INTO Usuarios (NombreUsuario, Contraseña, Nombre, Direccion, Telefono, Email)
-VALUES('User9', '12345', 'Nombre9', 'Direccion9', '12345678', 'user9@dominio.com')
+VALUES('User8', '123456789', 'Nombre8', 'Direccion8', '12345678', 'user8@dominio.com')
+
+INSERT INTO Usuarios (NombreUsuario, Contraseña, Nombre, Direccion, Telefono, Email)
+VALUES('User9', '123456789', 'Nombre9', 'Direccion9', '12345678', 'user9@dominio.com')
 
 
 
 
 INSERT INTO Empleados (Sueldo, IdUsuario, Ci)
-VALUES(15000, 1, 11111111)
+VALUES(15000, 10, 11111111)
 
 INSERT INTO Empleados (Sueldo, IdUsuario, Ci)
-VALUES(15000, 2, 22222222)
+VALUES(15000, 11, 22222222)
 
 INSERT INTO Empleados (Sueldo, IdUsuario, Ci)
-VALUES(15000, 3, 33333333)
+VALUES(15000, 12, 33333333)
 
 INSERT INTO Empleados (Sueldo, IdUsuario, Ci)
-VALUES(15000, 4, 44444444)
+VALUES(15000, 13, 44444444)
 
 INSERT INTO Empleados (Sueldo, IdUsuario, Ci)
-VALUES(15000, 5, 55555555)
+VALUES(15000, 14, 55555555)
 
 INSERT INTO Empleados (Sueldo, IdUsuario, Ci)
-VALUES(15000, 22, 88888888)
+VALUES(15000, 15, 88888888)
 
 INSERT INTO Empleados (Sueldo, IdUsuario, Ci)
-VALUES(15000, 23, 99999999)
+VALUES(15000, 16, 99999999)
 
 
 
@@ -87,11 +88,10 @@ VALUES('E', 321321321, 99999999)
 
 
 INSERT INTO Clientes(RUT, IdUsuario, Mensualidad)
-VALUES(66666666, 6, 45000)
+VALUES(66666666, 17, 45000)
 
 INSERT INTO Clientes(RUT, IdUsuario, Mensualidad)
-VALUES(77777777, 7, 45000)
-
+VALUES(77777777, 18, 45000)
 
 
 INSERT INTO Locales(Nombre, Direccion)
@@ -111,14 +111,15 @@ VALUES('Optica4', 'DireccionOptica4')
 INSERT INTO Galpones(Altura, Superficie)
 VALUES(20, 1000)
 
+
 INSERT INTO Sectores(Codigo, Superficie, Temperatura, Galpon)
-VALUES(11, 250, 25, 1)
+VALUES(11, 250, 25, 4)
 INSERT INTO Sectores(Codigo, Superficie, Temperatura, Galpon)
-VALUES(12, 250, 20, 1)
+VALUES(12, 250, 20, 4)
 INSERT INTO Sectores(Codigo, Superficie, Temperatura, Galpon)
-VALUES(13, 250, 10, 1)
+VALUES(13, 250, 10, 4)
 INSERT INTO Sectores(Codigo, Superficie, Temperatura, Galpon)
-VALUES(14, 250, 5, 1)
+VALUES(14, 250, 5, 4)
 
 INSERT INTO Racks(Codigo, Altura, Superficie, Sector)
 VALUES(111, 5, 40, 11)
