@@ -18,6 +18,53 @@ namespace LogicaDeAppsCore
             return true;
         }
 
+        public async Task<bool> ExisteClienteXEmail(string email)
+        {
+            try
+            {
+                //http://localhost:8080/
+
+                var httpClient = new HttpClient();
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionClientes + "/ExisteXEmail?" + "email=" + email);
+
+                bool existe = false;
+
+                existe = JsonConvert.DeserializeObject<bool>(json);
+
+                return existe;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar comprobar la existencia del Cliente con los datos ingresados.");
+            }
+        }
+
+        public async Task<Cliente> BuscarClienteXEmail(string email)
+        {
+            try
+            {
+                //http://localhost:8080/
+
+                var httpClient = new HttpClient();
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionClientes + "/BuscarXEmail?" + "email=" + email);
+
+                Cliente cliente = null;
+
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Objects
+                };
+
+                cliente = JsonConvert.DeserializeObject<Cliente>(json, settings);
+
+                return cliente;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el Cliente.");
+            }
+        }
+
         public void IniciarRegistroCliente()
         {
 

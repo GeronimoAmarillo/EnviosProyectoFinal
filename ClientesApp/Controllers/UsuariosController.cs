@@ -20,6 +20,17 @@ namespace ClientesApp.Controllers
         {
             try
             {
+                Usuario usuario = HttpContext.Session.Get<Usuario>(LOG_USER);
+
+                if (usuario == null)
+                {
+                    ViewBag.Logueado = false;
+                }
+                else
+                {
+                    ViewBag.Logueado = true;
+                }
+
                 string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
                 HttpContext.Session.Set<string>(SESSION_MENSAJE, null);
 
@@ -226,8 +237,7 @@ namespace ClientesApp.Controllers
             }
 
         }
-
-        [ValidateAntiForgeryToken]
+        
         public IActionResult ConfirmarModificacion(long rut, string emailNuevo)
         {
             try
@@ -286,8 +296,7 @@ namespace ClientesApp.Controllers
             }
 
         }
-
-        [ValidateAntiForgeryToken]
+        
         [HttpPost]
         public async Task<IActionResult> ConfirmarModificacion([FromForm] ClienteEmailNuevo cliente)
         {
@@ -351,6 +360,156 @@ namespace ClientesApp.Controllers
             catch
             {
                 HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar Loguearse.");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+
+        public IActionResult RecuperarContraseña()
+        {
+            try
+            {
+                return View();
+            }
+            catch
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario de Recuperacion de contraseña.");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RecuperarContraseña([FromForm] string email)
+        {
+            try
+            {
+                if (await FabricaApps.GetControladorCliente().ExisteClienteXEmail(email))
+                {
+                    MailMessage mail = new MailMessage();
+                    mail.From = new MailAddress("enviosservice2018@gmail.com");
+                    mail.To.Add(email);
+                    mail.Subject = "Recuperación de contraseña - EnviosService";
+                    mail.Body = "Hola, Hemos comenzado el proceso de recuperación de contraseña como solicitastes! \n " +
+                        "para definir su nueva contraseña haga click en el siguiente enlace: \n" +
+                        "http://localhost:56270/Usuarios/DefinicionContraseña?email=" + email;
+                    mail.IsBodyHtml = true;
+                    mail.Priority = MailPriority.Normal;
+
+                    SmtpClient smtp = new SmtpClient();
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 25;
+                    smtp.EnableSsl = true;
+                    smtp.UseDefaultCredentials = true;
+                    string correoPropio = "enviosservice2018@gmail.com";
+                    string contraseñaCorreo = "MatiasPabloGero";
+                    smtp.Credentials = new System.Net.NetworkCredential(correoPropio, contraseñaCorreo);
+
+                    smtp.Send(mail);
+                    ViewBag.Mensaje = "Se envio un correo con el enlace para definir su nueva contraseña a " + email + ".";
+
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "Se envio un correo con el enlace para definir su nueva contraseña a " + email + ".");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "El email ingresado no es valido o no pertenece a ningun Cliente del sistema.");
+
+                    return RedirectToAction("RecuperarContraseña", "Usuarios", new { area = "" });
+                }
+
+                
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar Recuperar la contraseña.");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+
+        public IActionResult DefinicionContraseña(string email)
+        {
+            try
+            {
+                return View(email);
+            }
+            catch
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario de Recuperacion de contraseña.");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DefinicionContraseñaPost([FromForm] string email, [FromForm] string contraseña)
+        {
+            try
+            {
+
+                Cliente cliente = await FabricaApps.GetControladorCliente().BuscarClienteXEmail(email);
+
+                if (cliente != null)
+                {
+                    cliente.Contraseña = contraseña;
+
+                    IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
+
+                    bool exito = await controladorUsuario.ModificarUsuario(cliente);
+
+                    if (exito)
+                    {
+                        MailMessage mail = new MailMessage();
+                        mail.From = new MailAddress("enviosservice2018@gmail.com");
+                        mail.To.Add(cliente.Email);
+                        mail.Subject = "Cambio de eMail de Contacto EnviosService";
+                        mail.Body = "Hola " + cliente.Nombre + ", Hemos modificado tu Contraseña de acceso como solicitastes! \n " +
+                            "tu nueva Contraseña de ingreso sera a partir de hoy: " + contraseña;
+                        mail.IsBodyHtml = true;
+                        mail.Priority = MailPriority.Normal;
+
+                        SmtpClient smtp = new SmtpClient();
+                        smtp.Host = "smtp.gmail.com";
+                        smtp.Port = 25;
+                        smtp.EnableSsl = true;
+                        smtp.UseDefaultCredentials = true;
+                        string correoPropio = "enviosservice2018@gmail.com";
+                        string contraseñaCorreo = "MatiasPabloGero";
+                        smtp.Credentials = new System.Net.NetworkCredential(correoPropio, contraseñaCorreo);
+
+                        smtp.Send(mail);
+                        ViewBag.Mensaje = "Contraseña de acceso modificado correctamente, se envio un correo a " + email + "con la nueva contraseña de acceso.";
+
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "Usuario modificado exitosamente!.");
+
+                        return RedirectToAction("Index", "Home", new { area = "" });
+                    }
+                    else
+                    {
+
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "Se produjo un error al recuperar su contraseña.");
+
+                        return RedirectToAction("Index", "Home", new { area = "" });
+                    }
+                    
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "El email ingresado no es valido o no pertenece a ningun Cliente del sistema.");
+
+                    return RedirectToAction("RecuperarContraseña", "Usuarios", new { area = "" });
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar Definir la nueva contraseña.");
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }

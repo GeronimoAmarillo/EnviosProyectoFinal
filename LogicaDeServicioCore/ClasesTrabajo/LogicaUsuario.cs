@@ -139,6 +139,22 @@ namespace LogicaDeServicioCore
             }
         }
 
+        public static EntidadesCompartidasCore.Cliente BuscarClienteXEmail(string email)
+        {
+            Cliente cliente;
+
+            try
+            {
+                cliente = FabricaPersistencia.GetPersistenciaCliente().BuscarClienteXEmail(email);
+
+                return cliente;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el Cliente" + ex.Message);
+            }
+        }
+
         public static List<EntidadesCompartidasCore.Empleado> ListarEmpleados()
         {
             try

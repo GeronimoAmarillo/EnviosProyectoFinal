@@ -1,0 +1,29 @@
+﻿@model string
+
+@{
+    ViewData["Title"] = "RecuperarContraseña";
+}
+
+<h2>RecuperarContraseña</h2>
+
+<h4>ClienteEmailNuevo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="RecuperarContraseña">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label>Ingrese su nuevo eMail</label>
+                <input id="email" class="form-control" />
+            </div>
+            <div class="form-group" hidden>
+                <input type="submit" value="Solicitar Recuperación" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

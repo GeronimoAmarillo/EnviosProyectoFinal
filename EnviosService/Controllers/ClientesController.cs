@@ -31,6 +31,17 @@ namespace EnviosService.Controllers
             return Json(controladorCliente.BuscarCliente(rut), settings);
         }
 
+        [Route("api/Clientes/BuscarXEmail")]
+        [HttpGet("{email}")]
+        public JsonResult ClienteXEmail(string email)
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+            return Json(controladorCliente.BuscarClienteXEmail(email), settings);
+        }
+
         [Route("api/Clientes/Existe")]
         [HttpGet("{rut}")]
         public JsonResult ExisteCliente(int rut)

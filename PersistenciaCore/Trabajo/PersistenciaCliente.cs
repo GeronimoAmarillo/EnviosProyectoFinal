@@ -71,6 +71,42 @@ namespace PersistenciaCore
             }
         }
 
+        public Cliente BuscarClienteXEmail(string email)
+        {
+            try
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                Cliente clienteResultado = new Cliente();
+
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    var clienteEncontrado = dbConnection.Clientes.Include("Usuarios").Where(x => x.Usuarios.Email == email).FirstOrDefault();
+
+                    if (clienteEncontrado != null)
+                    {
+                        clienteResultado.Id = clienteEncontrado.IdUsuario;
+                        clienteResultado.Nombre = clienteEncontrado.Usuarios.Nombre;
+                        clienteResultado.Direccion = clienteEncontrado.Usuarios.Direccion;
+                        clienteResultado.Contraseña = clienteEncontrado.Usuarios.Contraseña;
+                        clienteResultado.Email = clienteEncontrado.Usuarios.Email;
+                        clienteResultado.Mensualidad = clienteEncontrado.Mensualidad;
+                        clienteResultado.NombreUsuario = clienteEncontrado.Usuarios.NombreUsuario;
+                        clienteResultado.RUT = clienteEncontrado.RUT;
+                        clienteResultado.Telefono = clienteEncontrado.Usuarios.Telefono;
+                    }
+                }
+                return clienteResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el cliente." + ex.Message);
+            }
+        }
+
         public bool ExisteClienteXEmail(string email)
         {
             try

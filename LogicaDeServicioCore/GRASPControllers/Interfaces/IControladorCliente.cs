@@ -18,5 +18,7 @@ namespace LogicaDeServicioCore
         bool AltaCliente(Cliente pCliente);
 
         bool ExisteClienteXEmail(string email);
+
+        EntidadesCompartidasCore.Cliente BuscarClienteXEmail(string email);
     }
 }

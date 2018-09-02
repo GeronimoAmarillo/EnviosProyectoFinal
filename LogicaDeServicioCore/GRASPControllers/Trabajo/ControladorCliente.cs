@@ -43,6 +43,22 @@ namespace LogicaDeServicioCore
             }
         }
 
+        public EntidadesCompartidasCore.Cliente BuscarClienteXEmail(string email)
+        {
+            Cliente cliente;
+
+            try
+            {
+                cliente = LogicaUsuario.BuscarClienteXEmail(email);
+
+                return cliente;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el Cliente" + ex.Message);
+            }
+        }
+
         public bool ModificarCliente(EntidadesCompartidasCore.Cliente pCliente)
         {
             try
