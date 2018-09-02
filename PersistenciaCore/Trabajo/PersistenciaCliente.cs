@@ -71,6 +71,37 @@ namespace PersistenciaCore
             }
         }
 
+        public bool ExisteClienteXEmail(string email)
+        {
+            try
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                Cliente clienteResultado = new Cliente();
+
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    var clienteEncontrado = dbConnection.Clientes.Where(x => x.Usuarios.Email == email).FirstOrDefault();
+
+                    if (clienteEncontrado != null)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el cliente." + ex.Message);
+            }
+        }
+
         public bool AltaCliente(Cliente cliente)
         { 
             var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();

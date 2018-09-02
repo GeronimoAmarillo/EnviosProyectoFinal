@@ -24,5 +24,7 @@ namespace PersistenciaCore
         EntidadesCompartidasCore.Cliente Login(string user, string contraseña);
 
         bool BajaCliente(int ci);
+
+        bool ExisteClienteXEmail(string email);
     }
 }

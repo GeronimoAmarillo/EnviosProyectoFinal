@@ -63,6 +63,18 @@ namespace LogicaDeServicioCore
             return existe;
         }
 
+        public static bool ExisteClienteXEmail(string email)
+        {
+            try
+            {
+                return FabricaPersistencia.GetPersistenciaCliente().ExisteClienteXEmail(email);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el Cliente" + ex.Message);
+            }
+        }
+
         public static bool ExisteEmpleado(int cedula)
         {
             bool existe = false;

@@ -14,7 +14,19 @@ namespace LogicaDeServicioCore
             return true;
         }
 
-        
+        public bool ExisteClienteXEmail(string email)
+        {
+            try
+            {
+                return LogicaUsuario.ExisteClienteXEmail(email);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el Cliente" + ex.Message);
+            }
+        }
+
+
         public EntidadesCompartidasCore.Cliente BuscarCliente(int rut)
         {
             Cliente cliente;

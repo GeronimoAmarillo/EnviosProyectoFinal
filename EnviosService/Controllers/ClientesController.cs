@@ -38,6 +38,13 @@ namespace EnviosService.Controllers
             return Json(controladorCliente.ExisteCliente(rut), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
+        [Route("api/Clientes/ExisteXEmail")]
+        [HttpGet("{email}")]
+        public JsonResult ExisteClienteXEmail(string email)
+        {
+            return Json(controladorCliente.ExisteClienteXEmail(email), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
         [Route("api/Clientes/Alta")]
         [Route("api/Clientes/Modificar")]
         [Route("api/Clientes/Cliente")]
