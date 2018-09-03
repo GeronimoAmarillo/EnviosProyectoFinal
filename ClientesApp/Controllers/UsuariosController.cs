@@ -436,7 +436,8 @@ namespace ClientesApp.Controllers
         {
             try
             {
-                return View(email);
+                ViewBag.Email = email;
+                return View();
             }
             catch
             {
@@ -459,9 +460,9 @@ namespace ClientesApp.Controllers
                 {
                     cliente.Contraseña = contraseña;
 
-                    IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
+                    IControladorCliente controladorUsuario = FabricaApps.GetControladorCliente();
 
-                    bool exito = await controladorUsuario.ModificarUsuario(cliente);
+                    bool exito = controladorUsuario.ModificarCliente(cliente);
 
                     if (exito)
                     {

@@ -85,10 +85,15 @@ namespace LogicaDeAppsCore
             try
             {
                 HttpClient client = new HttpClient();
+
                 string url = ConexionREST.ConexionClientes + "/Modificar";
+
                 var content = new StringContent(JsonConvert.SerializeObject(pCliente), Encoding.UTF8, "application/json");
+
                 var result = client.PutAsync(url, content).Result;
+
                 var contentResult = result.Content.ReadAsStringAsync();
+
                 if (contentResult.Result.ToUpper() == "TRUE")
                 {
                     return true;
