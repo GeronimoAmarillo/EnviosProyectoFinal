@@ -91,6 +91,7 @@ namespace PersistenciaCore
                         usuarioDesdeBd.Telefono = cliente.Telefono;
                         usuarioDesdeBd.Email = cliente.Email;
                         clienteDesdeBd.Mensualidad = cliente.Mensualidad;
+                        dbConnection.Update(clienteDesdeBd);
                         dbConnection.SaveChanges();
                         return true;
                     }
