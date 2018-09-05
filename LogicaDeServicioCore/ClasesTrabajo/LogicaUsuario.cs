@@ -94,12 +94,37 @@ namespace LogicaDeServicioCore
         public static bool ModificarUsuario(EntidadesCompartidasCore.Usuario unUsuario)
         {
             bool exito = false;
-            if (unUsuario is Cliente)
+            try
             {
-                exito = FabricaPersistencia.GetPersistenciaCliente().ModificarCliente((Cliente)unUsuario);
+                if (unUsuario is Cliente)
+                {
+                    exito = FabricaPersistencia.GetPersistenciaCliente().ModificarCliente((Cliente)unUsuario);
+                    return exito;
+                }
                 return exito;
+
             }
-            return exito;
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar modificar el Usuario." + ex.Message);
+            }
+            
+        }
+
+        public static EntidadesCompartidasCore.Cliente BuscarCliente(int rut)
+        {
+            Cliente cliente;
+
+            try
+            {
+                cliente = FabricaPersistencia.GetPersistenciaCliente().BuscarCliente(rut);
+                
+                return cliente;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el Cliente" + ex.Message);
+            }
         }
 
         public static List<EntidadesCompartidasCore.Empleado> ListarEmpleados()
