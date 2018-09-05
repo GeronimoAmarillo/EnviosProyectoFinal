@@ -130,30 +130,7 @@ namespace PersistenciaCore
 
         public bool ModificarCamioneta(EntidadesCompartidasCore.Camioneta camioneta)
         {
-            Mapper.Initialize(cfg =>
-            {
-                cfg.CreateMap<Vehiculo, Vehiculos>()
-                    .ForMember(v => v.Matricula, opt => opt.MapFrom(u => u.Matricula))
-                    .ForMember(v => v.Marca, opt => opt.MapFrom(u => u.Marca))
-                    .ForMember(v => v.Modelo, opt => opt.MapFrom(u => u.Modelo))
-                    .ForMember(v => v.Capacidad, opt => opt.MapFrom(u => u.Capacidad))
-                    .ForMember(v => v.Estado, opt => opt.MapFrom(u => u.Estado))
-                    .ForMember(v => v.Cadete, opt => opt.MapFrom(u => u.Cadete))
-                    .ForMember(v => v.Automobiles, opt => opt.MapFrom(u => u.Automobiles))
-                    .ForMember(v => v.Cadetes, opt => opt.MapFrom(u => u.Cadetes))
-                    .ForMember(v => v.Camiones, opt => opt.MapFrom(u => u.Camiones))
-                    .ForMember(v => v.Camionetas, opt => opt.MapFrom(u => u.Camionetas))
-                    .ForMember(v => v.Motos, opt => opt.MapFrom(u => u.Motos))
-                    .ForMember(v => v.Multas, opt => opt.MapFrom(u => u.Multas))
-                    .ForMember(v => v.Reparaciones, opt => opt.MapFrom(u => u.Reparaciones))
-                ;
-
-                cfg.CreateMap<Camioneta, Camionetas>()
-                    .ForMember(c => c.Cabina, opt => opt.MapFrom(u => u.Cabina))
-                    .ForMember(c => c.MatriculaCamioneta, opt => opt.MapFrom(u => u.MatriculaCamioneta))
-                    .ForMember(c => c.Vehiculos, opt => opt.MapFrom(u => u.Vehiculos))
-                ;
-            });
+            
 
             var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
@@ -161,16 +138,31 @@ namespace PersistenciaCore
 
             try
             {
-                Vehiculos vehiculoaModificar = Mapper.Map<Vehiculos>(camioneta);
-                Camionetas camionetaaModificar = Mapper.Map<Camionetas>(camioneta);
+                Vehiculos vehiculoaModificar = new Vehiculos()
+                {
+                    Matricula = camioneta.Matricula,
+                    Marca = camioneta.Marca,
+                    Modelo = camioneta.Modelo,
+                    Capacidad = camioneta.Capacidad,
+                    Estado = camioneta.Estado,
+                    Cadete = camioneta.Cadete
+                };
+
+                Camionetas camionetaaModificar = new Camionetas()
+                {
+                    Cabina = camioneta.Cabina,
+                    MatriculaCamioneta = camioneta.Matricula,
+                    Vehiculos = vehiculoaModificar
+                };
+
+                camionetaaModificar.Vehiculos = vehiculoaModificar;
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    Vehiculos vehiculoDesdeDB = dbConnection.Vehiculos.FirstOrDefault(x => x.Matricula == camioneta.Matricula);
-                    Camionetas camionetaDesdeDb = dbConnection.Camionetas.FirstOrDefault(x => x.MatriculaCamioneta == camioneta.Matricula);
-                    if (vehiculoDesdeDB != null && camionetaDesdeDb != null)
+                    int vehiculoDesdeDB = (dbConnection.Vehiculos.Where(x => x.Matricula == camioneta.Matricula)).Count();
+                    int camionetaDesdeDb = (dbConnection.Camionetas.Where(x => x.MatriculaCamioneta == camioneta.Matricula)).Count();
+                    if (vehiculoDesdeDB == 1 && camionetaDesdeDb == 1)
                     {
-                        dbConnection.Update(vehiculoaModificar);
-                        dbConnection.Update(camionetaaModificar);
+                        dbConnection.Camionetas.Update(camionetaaModificar);
                         dbConnection.SaveChanges();
                         return true;
                     }
