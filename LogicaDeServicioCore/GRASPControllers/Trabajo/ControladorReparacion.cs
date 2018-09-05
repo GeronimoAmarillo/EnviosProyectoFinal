@@ -11,7 +11,14 @@ namespace LogicaDeServicioCore
     {
         public bool RegistrarReparacion(Reparacion reparacion)
         {
-            return true;
+            try
+            {
+                return LogicaVehiculo.RegistrarReparacion(reparacion);
+            }
+            catch
+            {
+                throw new Exception("Error al intentar registrar la reparación.");
+            }
         }
 
         public List<Vehiculo> ListarVehiculos()

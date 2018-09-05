@@ -10,7 +10,7 @@ using LogicaDeServicioCore;
 namespace EnviosService.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Reparaciones")]
+    
     public class ReparacionesController : Controller
     {
         private IControladorReparacion controladorReparacion;
@@ -20,18 +20,21 @@ namespace EnviosService.Controllers
             controladorReparacion = FabricaServicio.GetControladorReparacion();
         }
 
+        [Route("api/Reparaciones/Vehiculo")]
         [HttpGet("{matricula}")]
         public JsonResult Vehiculo(string matricula)
         {
             return Json(controladorReparacion.SeleccionarVehiculo(matricula), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
+        [Route("api/Reparaciones/Vehiculos")]
         [HttpGet]
         public JsonResult Vehiculos()
         {
             return Json(controladorReparacion.ListarVehiculos(), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
+        [Route("api/Reparaciones/Reparacion")]
         [HttpPost]
         public JsonResult Reparacion([FromBody] Reparacion item)
         {
