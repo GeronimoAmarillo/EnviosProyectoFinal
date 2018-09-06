@@ -1,0 +1,47 @@
+﻿@model EntidadesCompartidasCore.Multa
+
+@{
+    ViewData["Title"] = "Registrar Multa";
+}
+
+<h2>Registrar Multa</h2>
+
+<h4>Multa</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Registrar">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Suma" class="control-label"></label>
+                <input asp-for="Suma" class="form-control" />
+                <span asp-validation-for="Suma" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fecha" class="control-label"></label>
+                <input asp-for="Fecha" type="date" class="form-control" />
+                <span asp-validation-for="Fecha" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Motivo" class="control-label"></label>
+                <input asp-for="Motivo" class="form-control" />
+                <span asp-validation-for="Motivo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Vehiculo" type="hidden" value="@(ViewBag.Matricula ?? String.Empty)" class="form-control" />
+                <span asp-validation-for="Vehiculo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Registrar Multa" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

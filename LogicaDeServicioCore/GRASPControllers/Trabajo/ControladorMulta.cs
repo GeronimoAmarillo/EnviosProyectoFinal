@@ -21,7 +21,15 @@ namespace LogicaDeServicioCore
 
         public bool RegistrarMulta(Multa pMulta)
         {
-            return true;
+            try
+            {
+                return LogicaMulta.RegistrarMulta(pMulta);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Error al inentar registrar la multa. " + ex.Message);
+            }
+            
         }
     }
 }
