@@ -10,22 +10,21 @@ namespace PersistenciaCore
 {
     class PersistenciaReparacion:IPersistenciaReparacion
     {
-        public bool RegistrarReparacion(EntidadesCompartidasCore.Reparacion reparacion)
+        public bool RegistrarReparacion(Reparacion reparacion)
         {
             try
             {
-                PersistenciaCore.Reparaciones reparacionAgregar = new PersistenciaCore.Reparaciones();
+                Reparaciones reparacionAgregar = new Reparaciones();
 
                 reparacionAgregar.Descripcion = reparacion.Descripcion;
                 reparacionAgregar.Id = reparacion.Id;
                 reparacionAgregar.Monto = reparacion.Monto;
-                reparacion.Taller = reparacion.Taller;
-                reparacion.Vehiculo = reparacion.Vehiculo;
+                reparacionAgregar.Taller = reparacion.Taller;
+                reparacionAgregar.Vehiculo = reparacion.Vehiculo;
 
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
                 optionsBuilder.UseSqlServer(Conexion.ConnectionString);
-
 
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
@@ -37,7 +36,7 @@ namespace PersistenciaCore
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al registrar la reparación.");
+                throw new Exception("Error al registrar la reparación." + ex.Message);
             }
         }
     }

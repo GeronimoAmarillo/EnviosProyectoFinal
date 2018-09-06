@@ -139,7 +139,9 @@ namespace LogicaDeServicioCore
         {
             try
             {
-                return FabricaPersistencia.GetPersistenciaReparacion().RegistrarReparacion(unaReparacion);
+                bool exito = FabricaPersistencia.GetPersistenciaReparacion().RegistrarReparacion(unaReparacion);
+
+                return exito;
             }
             catch (Exception ex)
             {
