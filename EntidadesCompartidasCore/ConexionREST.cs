@@ -6,7 +6,7 @@ namespace EntidadesCompartidasCore
 {
     public static class ConexionREST
     {
-        static string conexionRaiz = "http://localhost:8080/api/";
+        /*static string conexionRaiz = "http://localhost:8080/api/";
         static string conexionLocales = "http://localhost:8080/api/Locales";
         static string conexionPalets = "http://localhost:8080/api/Palets";
         static string conexionUsuarios = "http://localhost:8080/api/Usuarios";
@@ -15,6 +15,16 @@ namespace EntidadesCompartidasCore
         static string conexionClientes = "http://localhost:8080/api/Clientes";
         static string conexionAdelantos = "http://localhost:8080/api/Adelantos";
         static string conexionMultas = "http://localhost:8080/api/Multas";
+        static string conexionAdelantos = "http://localhost:8080/api/Adelantos";*/
+
+        static string conexionRaiz = "https://enviosservice.azurewebsites.net/api/";
+        static string conexionLocales = "https://enviosservice.azurewebsites.net/api/Locales";
+        static string conexionPalets = "https://enviosservice.azurewebsites.net/api/Palets";
+        static string conexionUsuarios = "https://enviosservice.azurewebsites.net/api/Usuarios";
+        static string conexionVehiculos = "https://enviosservice.azurewebsites.net/api/Vehiculos";
+        static string conexionValores = "https://enviosservice.azurewebsites.net/api/Valores";
+        static string conexionClientes = "https://enviosservice.azurewebsites.net/api/Clientes";
+        static string conexionAdelantos = "https://enviosservice.azurewebsites.net/api/Adelantos";
 
         public static string ConexionValores { get => conexionValores; }
         public static string ConexionVehiculos { get => conexionVehiculos; }
