@@ -63,6 +63,18 @@ namespace LogicaDeServicioCore
             return existe;
         }
 
+        public static bool ExisteClienteXEmail(string email)
+        {
+            try
+            {
+                return FabricaPersistencia.GetPersistenciaCliente().ExisteClienteXEmail(email);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el Cliente" + ex.Message);
+            }
+        }
+
         public static bool ExisteEmpleado(int cedula)
         {
             bool existe = false;
@@ -119,6 +131,22 @@ namespace LogicaDeServicioCore
             {
                 cliente = FabricaPersistencia.GetPersistenciaCliente().BuscarCliente(rut);
                 
+                return cliente;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el Cliente" + ex.Message);
+            }
+        }
+
+        public static EntidadesCompartidasCore.Cliente BuscarClienteXEmail(string email)
+        {
+            Cliente cliente;
+
+            try
+            {
+                cliente = FabricaPersistencia.GetPersistenciaCliente().BuscarClienteXEmail(email);
+
                 return cliente;
             }
             catch (Exception ex)

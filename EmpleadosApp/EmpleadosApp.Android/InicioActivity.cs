@@ -19,6 +19,7 @@ namespace EmpleadosApp.Droid
     public class InicioActivity : Activity
     {
         Button btnIrAltaPalet;
+        Button btnIrBajaPalet;
         Usuario usuarioLogueado;
 
         protected override void OnCreate(Bundle bundle)
@@ -74,6 +75,29 @@ namespace EmpleadosApp.Droid
         private void SetupEvents()
         {
             btnIrAltaPalet.Click += btnIrAltaPalet_Click;
+            btnIrBajaPalet.Click += btnIrBajaPalet_Click;
+        }
+
+        private void btnIrBajaPalet_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (usuarioLogueado != null)
+                {
+                    Intent intent = new Intent(this, typeof(ListadoPaletsActivity));
+                    intent.PutExtra("UsuarioLogueado", Newtonsoft.Json.JsonConvert.SerializeObject(usuarioLogueado));
+
+                    StartActivity(intent);
+                }
+                else
+                {
+                    Toast.MakeText(this, "No hay usuario Logueado, logueese para utilizar esta función", ToastLength.Long).Show();
+                }
+            }
+            catch (Exception ex)
+            {
+                Toast.MakeText(this, "ERROR: " + ex.Message, ToastLength.Long).Show();
+            }
         }
 
         private void btnIrAltaPalet_Click(object sender, EventArgs e)
@@ -103,6 +127,7 @@ namespace EmpleadosApp.Droid
         private void SetupViews()
         {
             btnIrAltaPalet = FindViewById<Button>(Resource.Id.btnIrAltaPalet);
+            btnIrBajaPalet = FindViewById<Button>(Resource.Id.btnIrBajaPalet);
         }
     }
 }

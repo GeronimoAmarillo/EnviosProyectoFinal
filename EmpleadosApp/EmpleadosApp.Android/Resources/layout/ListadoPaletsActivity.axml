@@ -3,14 +3,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <Button
-        android:layout_height="wrap_content"
+    <TextView
+        android:text="Seleccione el Palet"
+        android:id="@+id/tvListaPalets"
         android:layout_width="match_parent"
-        android:id="@+id/btnIrAltaPalet"
-        android:text="Ingresar Pallet" />
-    <Button
         android:layout_height="wrap_content"
+        android:textSize="50px" />
+    <ListView
+        android:id="@+id/lvPalets"
         android:layout_width="match_parent"
-        android:id="@+id/btnIrBajaPalet"
-        android:text="Expulsar Pallet" />
+        android:layout_height="match_parent" />
 </LinearLayout>

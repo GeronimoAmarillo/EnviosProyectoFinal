@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using EntidadesCompartidasCore;
 using LogicaDeServicioCore;
+using Newtonsoft.Json;
 
 namespace EnviosService.Controllers
 {
@@ -23,7 +24,22 @@ namespace EnviosService.Controllers
         [HttpGet("{rut}")]
         public JsonResult Cliente(int rut)
         {
-            return Json(controladorCliente.BuscarCliente(rut), new Newtonsoft.Json.JsonSerializerSettings());
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+            return Json(controladorCliente.BuscarCliente(rut), settings);
+        }
+
+        [Route("api/Clientes/BuscarXEmail")]
+        [HttpGet("{email}")]
+        public JsonResult ClienteXEmail(string email)
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+            return Json(controladorCliente.BuscarClienteXEmail(email), settings);
         }
 
         [Route("api/Clientes/Existe")]
@@ -31,6 +47,13 @@ namespace EnviosService.Controllers
         public JsonResult ExisteCliente(int rut)
         {
             return Json(controladorCliente.ExisteCliente(rut), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
+        [Route("api/Clientes/ExisteXEmail")]
+        [HttpGet("{email}")]
+        public JsonResult ExisteClienteXEmail(string email)
+        {
+            return Json(controladorCliente.ExisteClienteXEmail(email), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
         [Route("api/Clientes/Alta")]

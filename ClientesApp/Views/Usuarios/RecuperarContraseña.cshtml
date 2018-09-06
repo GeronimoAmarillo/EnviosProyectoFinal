@@ -1,0 +1,28 @@
+﻿@model string
+
+@{
+    ViewData["Title"] = "RecuperarContraseña";
+}
+
+<h2>RecuperarContraseña</h2>
+
+<h4>ClienteEmailNuevo</h4>
+<hr />
+
+@using (Html.BeginForm("RecuperarContraseña", "Usuarios"))
+{
+    <div class="form-group">
+        <label>Ingrese su eMail de contacto</label>
+        <input type="text" name="email" class="form-control" />
+        <br />
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-default">Solicitar</button>
+    </div>
+    }
+
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
