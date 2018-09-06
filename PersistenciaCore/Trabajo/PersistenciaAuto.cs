@@ -130,30 +130,22 @@ namespace PersistenciaCore
 
         public bool ModificarAuto(EntidadesCompartidasCore.Automobil auto)
         {
-            Mapper.Initialize(cfg =>
+            Vehiculos vehiculoaModificar = new Vehiculos()
             {
-                cfg.CreateMap<Vehiculo, Vehiculos>()
-                    .ForMember(v => v.Matricula, opt => opt.MapFrom(u => u.Matricula))
-                    .ForMember(v => v.Marca, opt => opt.MapFrom(u => u.Marca))
-                    .ForMember(v => v.Modelo, opt => opt.MapFrom(u => u.Modelo))
-                    .ForMember(v => v.Capacidad, opt => opt.MapFrom(u => u.Capacidad))
-                    .ForMember(v => v.Estado, opt => opt.MapFrom(u => u.Estado))
-                    .ForMember(v => v.Cadete, opt => opt.MapFrom(u => u.Cadete))
-                    .ForMember(v => v.Automobiles, opt => opt.MapFrom(u => u.Automobiles))
-                    .ForMember(v => v.Cadetes, opt => opt.MapFrom(u => u.Cadetes))
-                    .ForMember(v => v.Camiones, opt => opt.MapFrom(u => u.Camiones))
-                    .ForMember(v => v.Camionetas, opt => opt.MapFrom(u => u.Camionetas))
-                    .ForMember(v => v.Motos, opt => opt.MapFrom(u => u.Motos))
-                    .ForMember(v => v.Multas, opt => opt.MapFrom(u => u.Multas))
-                    .ForMember(v => v.Reparaciones, opt => opt.MapFrom(u => u.Reparaciones))
-                ;
+                Matricula = auto.Matricula,
+                Marca = auto.Marca,
+                Modelo = auto.Modelo,
+                Capacidad = auto.Capacidad,
+                Estado = auto.Estado,
+                Cadete = auto.Cadete
+            };
 
-                cfg.CreateMap<Automobil, Automobiles>()
-                    .ForMember(a => a.Puertas, opt => opt.MapFrom(u => u.Puertas))
-                    .ForMember(a => a.MatriculaAuto, opt => opt.MapFrom(u => u.MatriculaAuto))
-                    .ForMember(a => a.Vehiculos, opt => opt.MapFrom(u => u.Vehiculos))
-                ;
-            });
+            Automobiles autoaModificar = new Automobiles()
+            {
+                Puertas = auto.Puertas,
+                MatriculaAuto = auto.Matricula,
+                Vehiculos = vehiculoaModificar
+            };
 
             var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
@@ -161,16 +153,13 @@ namespace PersistenciaCore
 
             try
             {
-                Vehiculos vehiculoaModificar = Mapper.Map<Vehiculos>(auto);
-                Automobiles autoaModificar = Mapper.Map<Automobiles>(auto);
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    Vehiculos vehiculoDesdeDB = dbConnection.Vehiculos.FirstOrDefault(x => x.Matricula == auto.Matricula);
-                    Automobiles autoDesdeDb = dbConnection.Automobiles.FirstOrDefault(x => x.MatriculaAuto == auto.Matricula);
-                    if (vehiculoDesdeDB != null && autoDesdeDb != null)
+                    int vehiculoDesdeDB = (dbConnection.Vehiculos.Where(x => x.Matricula == auto.Matricula)).Count();
+                    int autoDesdeDb = (dbConnection.Camionetas.Where(x => x.MatriculaCamioneta == auto.Matricula)).Count();
+                    if (vehiculoDesdeDB == 1 && autoDesdeDb == 1)
                     {
-                        dbConnection.Update(vehiculoaModificar);
-                        dbConnection.Update(autoaModificar);
+                        dbConnection.Automobiles.Update(autoaModificar);
                         dbConnection.SaveChanges();
                         return true;
                     }
