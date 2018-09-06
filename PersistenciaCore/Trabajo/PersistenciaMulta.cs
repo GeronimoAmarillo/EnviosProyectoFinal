@@ -30,10 +30,17 @@ namespace PersistenciaCore
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
                     Vehiculos vehiculoDeLaMulta = dbConnection.Vehiculos.FirstOrDefault(x => x.Matricula == multa.Vehiculo);
-                    multaaAgregar.Vehiculos = vehiculoDeLaMulta;
-                    dbConnection.Multas.Add(multaaAgregar);
-                    dbConnection.SaveChanges();
-                    return true;
+                    if (vehiculoDeLaMulta != null)
+                    {
+                        multaaAgregar.Vehiculos = vehiculoDeLaMulta;
+                        dbConnection.Multas.Add(multaaAgregar);
+                        dbConnection.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
             }
             catch (Exception ex)
