@@ -5,6 +5,10 @@
     }
 
     <h2>Index</h2>
+    @if (ViewBag.Message != null)
+    {
+        <h3>@ViewBag.Message</h3>
+    }
 
     <table class="table">
         <thead>
@@ -78,7 +82,7 @@
                     </td>
 
                     <td>
-                        @Html.ActionLink("RegistrarMulta", "Registrar", new { matricula = item.Matricula })
+                        @Html.ActionLink("Registrar Multa", "Registrar", new { matricula = item.Matricula })
                     </td>
                 </tr>
 

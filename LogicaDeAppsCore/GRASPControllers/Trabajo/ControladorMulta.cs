@@ -56,7 +56,7 @@ namespace LogicaDeAppsCore
                 bool exito = false;
                 var httpClient = new HttpClient();
                 var EnvioJson = JsonConvert.SerializeObject(pMulta);
-                string url = ConexionREST.ConexionMultas + "/Multas";
+                string url = ConexionREST.ConexionMultas;
                 HttpResponseMessage retorno = await httpClient.PostAsync(url, new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
                 string resultado = await retorno.Content.ReadAsStringAsync();
 

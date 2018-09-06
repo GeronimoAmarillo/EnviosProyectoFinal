@@ -20,6 +20,7 @@ namespace PersistenciaCore
             {
                 Multas multaaAgregar = new Multas()
                 {
+                    Id= multa.Id,
                     Vehiculo = multa.Vehiculo,
                     Suma = multa.Suma,
                     Fecha = multa.Fecha,
@@ -28,7 +29,7 @@ namespace PersistenciaCore
 
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    Vehiculos vehiculoDeLaMulta = dbConnection.Vehiculos.FirstOrDefault(x => x.Matricula == multa.Vehiculos.Matricula);
+                    Vehiculos vehiculoDeLaMulta = dbConnection.Vehiculos.FirstOrDefault(x => x.Matricula == multa.Vehiculo);
                     multaaAgregar.Vehiculos = vehiculoDeLaMulta;
                     dbConnection.Multas.Add(multaaAgregar);
                     dbConnection.SaveChanges();

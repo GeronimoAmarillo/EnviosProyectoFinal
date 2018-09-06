@@ -93,17 +93,18 @@ namespace AdministradoresApp.Controllers
 
                         if (exito)
                         {
-                            mensaje = "La multa se registró con exito!.";
+                            mensaje = "La multa se registró con exito!";
                         }
                         else
                         {
-                            mensaje = "Se produjo un error al registrar la multa!.";
+                            mensaje = "Se produjo un error al registrar la multa.";
                         }
                     }
 
                     if (mensaje != "")
                     {
                         HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                        ViewBag.Message = mensaje;
                     }
 
                     return RedirectToAction("Index");
