@@ -25,6 +25,7 @@ namespace EntidadesCompartidasCore
         static string conexionValores = "https://enviosservice.azurewebsites.net/api/Valores";
         static string conexionClientes = "https://enviosservice.azurewebsites.net/api/Clientes";
         static string conexionAdelantos = "https://enviosservice.azurewebsites.net/api/Adelantos";
+        static string conexionMultas = "https://enviosservice.azurewebsites.net/api/Multas";
 
         public static string ConexionValores { get => conexionValores; }
         public static string ConexionVehiculos { get => conexionVehiculos; }
