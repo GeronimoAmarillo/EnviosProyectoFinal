@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using EntidadesCompartidasCore;
 using LogicaDeServicioCore;
+using Newtonsoft.Json;
 
 namespace EnviosService.Controllers
 {
@@ -24,14 +25,23 @@ namespace EnviosService.Controllers
         [HttpGet("{matricula}")]
         public JsonResult Vehiculo(string matricula)
         {
-            return Json(controladorReparacion.SeleccionarVehiculo(matricula), new Newtonsoft.Json.JsonSerializerSettings());
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+
+            return Json(controladorReparacion.SeleccionarVehiculo(matricula), settings);
         }
 
         [Route("api/Reparaciones/Vehiculos")]
         [HttpGet]
         public JsonResult Vehiculos()
         {
-            return Json(controladorReparacion.ListarVehiculos(), new Newtonsoft.Json.JsonSerializerSettings());
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+            return Json(controladorReparacion.ListarVehiculos(), settings);
         }
 
         [Route("api/Reparaciones/Reparacion")]

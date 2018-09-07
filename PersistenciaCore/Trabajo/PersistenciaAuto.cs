@@ -200,7 +200,7 @@ namespace PersistenciaCore
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    auto = dbConnection.Automobiles.Include("Vehiculos").Where(a => a.MatriculaAuto == matricula).FirstOrDefault();
+                    auto = dbConnection.Automobiles.Include("Vehiculos.Reparaciones").Where(a => a.MatriculaAuto == matricula).FirstOrDefault();
                 }
 
                 Automobil autoResultado = null;
@@ -217,6 +217,22 @@ namespace PersistenciaCore
                     autoResultado.Matricula = auto.Vehiculos.Matricula;
                     autoResultado.MatriculaAuto = auto.Vehiculos.Matricula;
                     autoResultado.Modelo = auto.Vehiculos.Modelo;
+
+                    List<Reparacion> reparaciones = new List<Reparacion>();
+
+                    foreach (Reparaciones r in auto.Vehiculos.Reparaciones)
+                    {
+                        Reparacion nR = new Reparacion();
+
+                        nR.Id = r.Id;
+                        nR.Monto = r.Monto;
+                        nR.Taller = r.Taller;
+                        nR.Vehiculo = r.Vehiculo;
+
+                        reparaciones.Add(nR);
+                    }
+
+                    autoResultado.Reparaciones = reparaciones;
                 }
 
                 return autoResultado;
