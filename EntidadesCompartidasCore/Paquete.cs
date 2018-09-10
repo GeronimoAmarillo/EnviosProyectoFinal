@@ -2,17 +2,20 @@ namespace EntidadesCompartidasCore
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     public partial class Paquete
     {
+        [Required]
         public int NumReferencia { get; set; }
-        
+        [Required]
         public DateTime FechaSalida { get; set; }
-        
+        [Required]
+        [MinLength(2)]
         public string Estado { get; set; }
-        
+        [Required]
         public string Ubicacion { get; set; }
-
+        
         public int? Entrega { get; set; }
 
         public long? Cliente { get; set; }
