@@ -9,9 +9,12 @@ namespace EntidadesCompartidasCore
     public partial class Empleado:Usuario
     {
         [Required]
+        [Range(1000, Double.MaxValue)]
         public decimal Sueldo { get; set; }
+        [Required]
         public int IdUsuario { get; set; }
         [Required]
+        [Range(1000000, 99999999)]
         public int Ci { get; set; }
         
         public  List<Adelanto> Adelantos { get; set; }

@@ -20,6 +20,7 @@ namespace AdministradoresApp.Controllers
         public static string SESSSION_VEHICULOS = "Vehiculos";
         public static string SESSION_FILTRADOS = "Filtrados";
         public static string SESSSION_MODIFICAR = "ModificarVehiculo";
+        public static string SESSSION_SELECCIONADO = "VehiculoSeleccionado";
         public static string SESSION_MENSAJE = "Mensaje";
         public static string LOG_USER = "UsuarioLogueado";
 
@@ -852,6 +853,25 @@ namespace AdministradoresApp.Controllers
                 HttpContext.Session.Set<List<Vehiculo>>(SESSION_FILTRADOS, motos);
 
                 return RedirectToAction("Index", "Vehiculos", new { area = "" });
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+        }
+
+        public ActionResult IrReparaciones(string matricula)
+        {
+            if (ComprobarLogin() == "G")
+            {
+
+                HttpContext.Session.Set<string>(SESSSION_SELECCIONADO, null);
+
+                HttpContext.Session.Set<string>(SESSSION_SELECCIONADO, matricula);
+
+                return RedirectToAction("Index", "Reparaciones", new { area = "" });
             }
             else
             {

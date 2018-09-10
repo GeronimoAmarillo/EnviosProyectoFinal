@@ -6,10 +6,11 @@
 
     public partial class ClienteEmailNuevo : Usuario
     {
+        [Required]
         public long RUT { get; set; }
-
+        [Required]
         public int IdUsuario { get; set; }
-
+        [Required]
         public decimal Mensualidad { get; set; }
 
         [Required]

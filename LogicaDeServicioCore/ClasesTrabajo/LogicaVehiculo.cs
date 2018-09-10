@@ -135,10 +135,18 @@ namespace LogicaDeServicioCore
             return exito;
         }
 
-        public bool RegistrarReparacion(Reparacion unaReparacion)
+        public static bool RegistrarReparacion(Reparacion unaReparacion)
         {
-            bool exito = false;
-            return exito;
+            try
+            {
+                bool exito = FabricaPersistencia.GetPersistenciaReparacion().RegistrarReparacion(unaReparacion);
+
+                return exito;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar registrar la reparación." + ex.Message);
+            }
         }
 
         public bool RegistrarMulta(Multa unaMulta)
