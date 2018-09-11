@@ -141,28 +141,32 @@ namespace PersistenciaCore
         public bool AltaCliente(Cliente cliente)
         { 
             var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
-
+            
             optionsBuilder.UseSqlServer(Conexion.ConnectionString);
 
             try
             {
-                Usuarios UsuarioaAgregar = Mapper.Map<Usuarios>(cliente);
-                Clientes ClienteaAgregar = Mapper.Map<Clientes>(cliente);
+
+                Clientes clienteAgregar = new Clientes();
+
+                clienteAgregar.IdUsuario = 0;
+                clienteAgregar.Mensualidad = cliente.Mensualidad;
+                clienteAgregar.RUT = cliente.RUT;
+                clienteAgregar.Usuarios = new Usuarios();
+                clienteAgregar.Usuarios.Contraseña = cliente.Contraseña;
+                clienteAgregar.Usuarios.Direccion = cliente.Direccion;
+                clienteAgregar.Usuarios.Email = cliente.Email;
+                clienteAgregar.Usuarios.Id = 0;
+                clienteAgregar.Usuarios.Nombre = cliente.Nombre;
+                clienteAgregar.Usuarios.NombreUsuario = cliente.NombreUsuario;
+                clienteAgregar.Usuarios.Telefono = cliente.Telefono;
+
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    if (dbConnection.Clientes.Any(x => x.RUT.ToString() == cliente.RUT.ToString()))
-                    {
-                        //throw new Exception("Ya existe el rut");
-                        return false;
-                    }
-                    else
-                    {
-                        dbConnection.Usuarios.Add(UsuarioaAgregar);
-                        ClienteaAgregar.IdUsuario = UsuarioaAgregar.Id;
-                        dbConnection.Clientes.Add(ClienteaAgregar);
-                        dbConnection.SaveChanges();
-                        return true;
-                    }
+                    dbConnection.Clientes.Add(clienteAgregar);
+                    dbConnection.SaveChanges();
+
+                    return true;
                 }
 
             }
@@ -172,9 +176,34 @@ namespace PersistenciaCore
             }
         }
 
-        public bool ExisteCliente(int rut)
+        public bool ExisteCliente(long rut)
         {
-            return true;
+            try
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                Cliente clienteResultado = new Cliente();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    var clienteEncontrado = dbConnection.Clientes.Where(x => x.RUT == rut).FirstOrDefault();
+
+                    if (clienteEncontrado != null)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el cliente." + ex.Message);
+            }
         }
 
         public bool ModificarCliente(Cliente cliente)

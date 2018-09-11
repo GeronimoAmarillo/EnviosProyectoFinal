@@ -12,10 +12,13 @@ namespace LogicaDeAppsCore
         bool ExisteCliente(int rut);
 
         void IniciarRegistroCliente();
+        
 
         Cliente GetCliente();
 
         Cliente BuscarCliente(int rut);
+
+        Task<List<Cliente>> ListarClientes();
 
         Task<bool> ExisteClienteXEmail(string email);
 

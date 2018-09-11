@@ -20,7 +20,6 @@ namespace LogicaDeServicioCore
                     if (!ExisteCliente(((Cliente)unUsuario).RUT))
                     {
                         unUsuario.NombreUsuario = unUsuario.Email;
-                        unUsuario.Contraseña = CrearContrasenia();
                         exito = FabricaPersistencia.GetPersistenciaCliente().AltaCliente((Cliente)unUsuario);
                         return exito;
                     }
@@ -59,8 +58,14 @@ namespace LogicaDeServicioCore
 
         public static bool ExisteCliente(long rut)
         {
-            bool existe = false;
-            return existe;
+            try
+            {
+                return FabricaPersistencia.GetPersistenciaCliente().ExisteCliente(rut);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar comprobar la existencia del cliente con los datos ingresados." + ex.Message);
+            }
         }
 
         public static bool ExisteClienteXEmail(string email)
@@ -93,7 +98,7 @@ namespace LogicaDeServicioCore
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al intentar comprobar la existencia del Local con los datos ingresados." + ex.Message);
+                throw new Exception("Error al intentar comprobar la existencia del cliente con los datos ingresados." + ex.Message);
             }
         }
 

@@ -94,7 +94,21 @@ namespace LogicaDeServicioCore
 
         public bool AltaCliente(EntidadesCompartidasCore.Cliente pCliente)
         {
-            return true;
+            try
+            {
+                if (pCliente != null)
+                {
+                    return LogicaUsuario.AltaUsuario(pCliente);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar dar de alta el Cliente." + ex.Message);
+            }
         }
         
     }

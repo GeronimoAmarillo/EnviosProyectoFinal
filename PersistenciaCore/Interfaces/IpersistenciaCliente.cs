@@ -12,7 +12,7 @@ namespace PersistenciaCore
         bool AltaCliente(EntidadesCompartidasCore.Cliente cliente);
         Cliente BuscarClienteXEmail(string email);
 
-        bool ExisteCliente(int rut);
+        bool ExisteCliente(long rut);
 
         bool ModificarCliente(EntidadesCompartidasCore.Cliente unCliente);
 

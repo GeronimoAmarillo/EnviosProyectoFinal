@@ -18,6 +18,8 @@ namespace LogicaDeAppsCore
             return true;
         }
 
+       
+
         public async Task<bool> ExisteClienteXEmail(string email)
         {
             try
@@ -107,6 +109,35 @@ namespace LogicaDeAppsCore
             catch (Exception ex)
             {
                 throw new Exception("ERROR!: " + ex.Message);
+            }
+        }
+
+
+        public async Task<List<Cliente>> ListarClientes()
+        {
+            try
+            {
+                //http://localhost:8080/
+
+                var httpClient = new HttpClient();
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionClientes + "/Clientes");
+
+                List<Cliente> clientes = null;
+
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Objects
+                };
+
+
+                clientes = JsonConvert.DeserializeObject<List<Cliente>>(json, settings);
+
+                return clientes;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Se produjo un error al intentar listar los clientes.");
             }
         }
 
