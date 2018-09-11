@@ -21,23 +21,10 @@ namespace AdministradoresApp.Controllers
         {
             try
             {
-                List<Cliente> clientes = new List<Cliente>()
-                {
-                    new Cliente()
-                    {
-                        Nombre = "Pepe",
-                        Mensualidad = 5000,
-                        Direccion = "Calixo 4000",
-                        Email = "email@dominio.com",
-                        RUT = 5475122661,
-                        Telefono = "099874147",
-                        Id = 1
-                    }
-                };
 
-                //IControladorCliente controladorCliente = FabricaApps.GetControladorCliente();
+                IControladorCliente controladorCliente = FabricaApps.GetControladorCliente();
 
-                //List<Cliente> clientes = await controladorCliente.ListarClientes();
+                List<Cliente> clientes = await controladorCliente.ListarClientes();
 
                 string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
 

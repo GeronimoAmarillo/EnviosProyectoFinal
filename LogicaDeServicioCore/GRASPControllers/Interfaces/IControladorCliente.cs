@@ -19,6 +19,8 @@ namespace LogicaDeServicioCore
 
         bool ExisteClienteXEmail(string email);
 
+        List<EntidadesCompartidasCore.Cliente> ListarClientes();
+
         EntidadesCompartidasCore.Cliente BuscarClienteXEmail(string email);
     }
 }

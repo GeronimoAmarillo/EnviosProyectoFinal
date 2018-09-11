@@ -14,6 +14,20 @@ namespace LogicaDeServicioCore
             return true;
         }
 
+        public List<EntidadesCompartidasCore.Cliente> ListarClientes()
+        {
+            try
+            {
+                List<Cliente> lista = LogicaUsuario.ListarClientes();
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los clientes." + ex.Message);
+            }
+        }
+
         public bool ExisteClienteXEmail(string email)
         {
             try
