@@ -80,7 +80,9 @@ namespace AdministradoresApp.Controllers
                 IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
 
                 unCliente.Contraseña = controladorUsuario.CrearContrasenia();
-                
+
+                //if (ModelState.IsValid)
+                //{
                     bool exito = await controladorUsuario.AltaUsuario(unCliente);
 
                     if (exito)
@@ -112,18 +114,23 @@ namespace AdministradoresApp.Controllers
                         {
                             ViewBag.Message = "A pesar de que el alta se dio de forma exitosa, fallo el envio del mail al Cliente con sus credenciales de acceso al sistema!.";
                             return RedirectToAction("Index");
-                    }
+                        }
 
                         ViewBag.Message = "Cliente agregado exitosamente";
                         return RedirectToAction("Index");
 
-                }
+                    }
+                    else
+                    {
+                        ViewBag.Message = "Datos incorrectos!.";
+                        return View();
+                    }
+                /*}
                 else
                 {
                     ViewBag.Message = "Datos incorrectos!.";
                     return View();
-                }
-
+                }*/
             }
             catch
             {
