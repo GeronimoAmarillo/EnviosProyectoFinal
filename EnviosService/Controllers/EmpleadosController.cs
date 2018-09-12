@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using EntidadesCompartidasCore;
 using LogicaDeServicioCore;
+using Newtonsoft.Json;
 
 namespace EnviosService.Controllers
 {
@@ -69,8 +70,12 @@ namespace EnviosService.Controllers
         [Route("api/Empleados/Listar")]
         public JsonResult Locales()
         {
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
 
-            return Json((controladorEmpleado.Listar()), new Newtonsoft.Json.JsonSerializerSettings());
+            return Json((controladorEmpleado.Listar()), settings);
         }
     }
 }

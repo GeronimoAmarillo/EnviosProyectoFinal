@@ -48,26 +48,22 @@ namespace PersistenciaCore
         {
             try
             {
-                PersistenciaCore.Usuarios usuNuevo = new PersistenciaCore.Usuarios();
-
-                //usuNuevo.Id = administrador.Id;
-                usuNuevo.Nombre = administrador.Nombre;
-                usuNuevo.NombreUsuario = administrador.NombreUsuario;
-                usuNuevo.Contraseña = administrador.Contraseña;
-                usuNuevo.Direccion = administrador.Direccion;
-                usuNuevo.Telefono = administrador.Telefono;
-                usuNuevo.Email = administrador.Email;
-
-                PersistenciaCore.Empleados empNuevo = new PersistenciaCore.Empleados();
-
-                empNuevo.IdUsuario = usuNuevo.Id;
-                empNuevo.Sueldo = administrador.Sueldo;
-                empNuevo.Ci = administrador.Ci;
-
                 PersistenciaCore.Administradores adminNuevo = new PersistenciaCore.Administradores();
-
+                
                 adminNuevo.CiEmpleado = administrador.Ci;
                 adminNuevo.Tipo = administrador.Tipo;
+                adminNuevo.Empleados = new Empleados();
+                adminNuevo.Empleados.Sueldo = administrador.Sueldo;
+                adminNuevo.Empleados.Ci = administrador.Ci;
+                adminNuevo.Empleados.IdUsuario = administrador.IdUsuario;
+                adminNuevo.Empleados.Usuarios = new Usuarios();
+                adminNuevo.Empleados.Usuarios.Id = administrador.Id;
+                adminNuevo.Empleados.Usuarios.Nombre = administrador.Nombre;
+                adminNuevo.Empleados.Usuarios.NombreUsuario = administrador.NombreUsuario;
+                adminNuevo.Empleados.Usuarios.Contraseña = administrador.Contraseña;
+                adminNuevo.Empleados.Usuarios.Direccion = administrador.Direccion;
+                adminNuevo.Empleados.Usuarios.Telefono = administrador.Telefono;
+                adminNuevo.Empleados.Usuarios.Email = administrador.Email;
 
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
@@ -76,33 +72,8 @@ namespace PersistenciaCore
 
                 using (EnviosContext context = new EnviosContext(optionsBuilder.Options))
                 {
-                    using (var dbContextTransaction = context.Database.BeginTransaction())
-                    {
-                        try
-                        {
-
-                            context.Usuarios.Add(usuNuevo);
-                            context.SaveChanges();
-
-                            var id = context.Usuarios.Where(u => u.NombreUsuario == usuNuevo.NombreUsuario).Select(c => new
-                            {
-                                id = c.Id
-                            }).FirstOrDefault();
-                            empNuevo.IdUsuario = id.id;
-                            context.Empleados.Add(empNuevo);
-                            context.Administradores.Add(adminNuevo);
-
-
-                            context.SaveChanges();
-
-                            dbContextTransaction.Commit();
-
-                        }
-                        catch (Exception ex)
-                        {
-                            dbContextTransaction.Rollback();
-                        }
-                    }
+                    context.Administradores.Add(adminNuevo);
+                    context.SaveChanges();
 
                     return true;
                 }
