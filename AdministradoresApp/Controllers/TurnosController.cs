@@ -23,8 +23,8 @@ namespace AdministradoresApp.Controllers
         {
             try
             {
-                //if (ComprobarLogin() == "G")
-                //{
+                if (ComprobarLogin() == "G")
+                {
                     IControladorTurno controladorTurno = FabricaApps.GetControladorTurno();
 
                     controladorTurno.IniciarRegistroTurno();
@@ -32,13 +32,13 @@ namespace AdministradoresApp.Controllers
                     HttpContext.Session.Set<Turno>(SESSSION_ALTA, controladorTurno.GetTurno());
 
                     return View();
-                //}
-                //else
-                //{
-                //    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-                //    return RedirectToAction("Index", "Home", new { area = "" });
-                //}
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
 
             }
             catch
@@ -54,8 +54,8 @@ namespace AdministradoresApp.Controllers
         {
             try
             {
-                //if (ComprobarLogin() == "G")
-                //{
+                if (ComprobarLogin() == "G")
+                {
 
                     Turno turnoAlta = HttpContext.Session.Get<Turno>(SESSSION_ALTA);
 
@@ -91,13 +91,13 @@ namespace AdministradoresApp.Controllers
 
                     return RedirectToAction("Index");
 
-                //}
-                //else
-                //{
-                //    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-                //    return RedirectToAction("Index", "Home", new { area = "" });
-                //}
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
 
 
             }
@@ -108,41 +108,41 @@ namespace AdministradoresApp.Controllers
 
         }
 
-        //public string ComprobarLogin()
-        //{
-        //    try
-        //    {
-        //        Administrador administrador = HttpContext.Session.Get<Administrador>(LOG_USER);
+        public string ComprobarLogin()
+        {
+            try
+            {
+                Administrador administrador = HttpContext.Session.Get<Administrador>(LOG_USER);
 
-        //        if (administrador != null)
-        //        {
+                if (administrador != null)
+                {
 
-        //            if (administrador.Tipo.ToUpper() == "G")
-        //            {
-        //                return "G";
-        //            }
-        //            else if (administrador.Tipo.ToUpper() == "C")
-        //            {
-        //                return "C";
-        //            }
-        //            else if (administrador.Tipo.ToUpper() == "L")
-        //            {
-        //                return "L";
-        //            }
-        //            else
-        //            {
-        //                return "Valor invalido.";
-        //            }
-        //        }
-        //        else
-        //        {
-        //            return "";
-        //        }
-        //    }
-        //    catch
-        //    {
-        //        throw new Exception("Error al comprobar el logueo.");
-        //    }
-        //}
+                    if (administrador.Tipo.ToUpper() == "G")
+                    {
+                        return "G";
+                    }
+                    else if (administrador.Tipo.ToUpper() == "C")
+                    {
+                        return "C";
+                    }
+                    else if (administrador.Tipo.ToUpper() == "L")
+                    {
+                        return "L";
+                    }
+                    else
+                    {
+                        return "Valor invalido.";
+                    }
+                }
+                else
+                {
+                    return "";
+                }
+            }
+            catch
+            {
+                throw new Exception("Error al comprobar el logueo.");
+            }
+        }
     }
 }

@@ -103,7 +103,16 @@ namespace LogicaDeAppsCore
 
                 var result = client.PostAsync(url, content).Result;
 
-                return result.IsSuccessStatusCode;
+                var contentResult = result.Content.ReadAsStringAsync();
+
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception ex)
             {
@@ -130,7 +139,16 @@ namespace LogicaDeAppsCore
 
                 var result = client.PostAsync(url, content).Result;
 
-                return result.IsSuccessStatusCode;
+                var contentResult = result.Content.ReadAsStringAsync();
+
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception ex)
             {

@@ -22,21 +22,30 @@ namespace AdministradoresApp.Controllers
         {
             try
             {
-
-                IControladorCliente controladorCliente = FabricaApps.GetControladorCliente();
-
-                List<Cliente> clientes = await controladorCliente.ListarClientes();
-
-                string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
-
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, null);
-
-                if (mensaje != null && mensaje != "")
+                if (ComprobarLogin() == "G")
                 {
-                    ViewBag.Message = mensaje;
-                }
+                    IControladorCliente controladorCliente = FabricaApps.GetControladorCliente();
 
-                return View(clientes);
+                    List<Cliente> clientes = await controladorCliente.ListarClientes();
+
+                    string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
+
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, null);
+
+                    if (mensaje != null && mensaje != "")
+                    {
+                        ViewBag.Message = mensaje;
+                    }
+
+                    return View(clientes);
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+                
 
             }
             catch
@@ -52,15 +61,26 @@ namespace AdministradoresApp.Controllers
         {
             try
             {
-                string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, null);
-
-                if (mensaje != null && mensaje != "")
+                if (ComprobarLogin() == "G")
                 {
-                    ViewBag.Message = mensaje;
+                    string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, null);
+
+                    if (mensaje != null && mensaje != "")
+                    {
+                        ViewBag.Message = mensaje;
+                    }
+
+                    return View();
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
                 }
 
-                return View();
+                
             }
             catch
             {
@@ -76,53 +96,62 @@ namespace AdministradoresApp.Controllers
         {
             try
             {
-
-                IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
-
-                unCliente.Contraseña = controladorUsuario.CrearContrasenia();
-                
-                bool exito = await controladorUsuario.AltaUsuario(unCliente);
-
-                if (exito)
+                if (ComprobarLogin() == "G")
                 {
+                    IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
 
-                    try
+                    unCliente.Contraseña = controladorUsuario.CrearContrasenia();
+
+                    bool exito = await controladorUsuario.AltaUsuario(unCliente);
+
+                    if (exito)
                     {
-                        MailMessage mail = new MailMessage();
-                        mail.From = new MailAddress("enviosservice2018@gmail.com");
-                        mail.To.Add(unCliente.Email);
-                        mail.Subject = "Ha sido registrado en - EnviosService";
-                        mail.Body = "Hola " + unCliente.Nombre + ", Le hemos registrado en el sistema como solicitó! \n " +
-                            "Sus credenciales de acceso al sistema son: - user: " + unCliente.Email + ", - pass: " + unCliente.Contraseña;
-                        mail.IsBodyHtml = true;
-                        mail.Priority = MailPriority.Normal;
 
-                        SmtpClient smtp = new SmtpClient();
-                        smtp.Host = "smtp.gmail.com";
-                        smtp.Port = 25;
-                        smtp.EnableSsl = true;
-                        smtp.UseDefaultCredentials = true;
-                        string correoPropio = "enviosservice2018@gmail.com";
-                        string contraseñaCorreo = "MatiasPabloGero";
-                        smtp.Credentials = new System.Net.NetworkCredential(correoPropio, contraseñaCorreo);
+                        try
+                        {
+                            MailMessage mail = new MailMessage();
+                            mail.From = new MailAddress("enviosservice2018@gmail.com");
+                            mail.To.Add(unCliente.Email);
+                            mail.Subject = "Ha sido registrado en - EnviosService";
+                            mail.Body = "Hola " + unCliente.Nombre + ", Le hemos registrado en el sistema como solicitó! \n " +
+                                "Sus credenciales de acceso al sistema son: - user: " + unCliente.Email + ", - pass: " + unCliente.Contraseña;
+                            mail.IsBodyHtml = true;
+                            mail.Priority = MailPriority.Normal;
 
-                        smtp.Send(mail);
-                    }
-                    catch (Exception ex)
-                    {
-                        ViewBag.Message = "A pesar de que el alta se dio de forma exitosa, fallo el envio del mail al Cliente con sus credenciales de acceso al sistema!.";
+                            SmtpClient smtp = new SmtpClient();
+                            smtp.Host = "smtp.gmail.com";
+                            smtp.Port = 25;
+                            smtp.EnableSsl = true;
+                            smtp.UseDefaultCredentials = true;
+                            string correoPropio = "enviosservice2018@gmail.com";
+                            string contraseñaCorreo = "MatiasPabloGero";
+                            smtp.Credentials = new System.Net.NetworkCredential(correoPropio, contraseñaCorreo);
+
+                            smtp.Send(mail);
+                        }
+                        catch (Exception ex)
+                        {
+                            ViewBag.Message = "A pesar de que el alta se dio de forma exitosa, fallo el envio del mail al Cliente con sus credenciales de acceso al sistema!.";
+                            return RedirectToAction("Index");
+                        }
+
+                        ViewBag.Message = "Cliente agregado exitosamente";
                         return RedirectToAction("Index");
+
                     }
-
-                    ViewBag.Message = "Cliente agregado exitosamente";
-                    return RedirectToAction("Index");
-
+                    else
+                    {
+                        ViewBag.Message = "Datos incorrectos!.";
+                        return View();
+                    }
                 }
                 else
                 {
-                    ViewBag.Message = "Datos incorrectos!.";
-                    return View();
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
                 }
+                
             }
             catch
             {
@@ -175,18 +204,28 @@ namespace AdministradoresApp.Controllers
         {
             try
             {
-                IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
-                bool exito = await controladorUsuario.ModificarUsuario(unCliente);
-                if (exito)
+                if (ComprobarLogin() == "G")
                 {
-                    ViewBag.Message = "Cliente modificado exitosamente";
-                    return View("Index");
+                    IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
+                    bool exito = await controladorUsuario.ModificarUsuario(unCliente);
+                    if (exito)
+                    {
+                        ViewBag.Message = "Cliente modificado exitosamente";
+                        return View("Index");
+                    }
+                    else
+                    {
+                        ViewBag.Message = "Error al intentar modificar el cliente";
+                        return View();
+                    }
                 }
                 else
                 {
-                    ViewBag.Message = "Error al intentar modificar el cliente";
-                    return View();
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
                 }
+                
             }
             catch
             {
