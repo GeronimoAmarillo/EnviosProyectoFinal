@@ -80,57 +80,49 @@ namespace AdministradoresApp.Controllers
                 IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
 
                 unCliente.Contraseña = controladorUsuario.CrearContrasenia();
+                
+                bool exito = await controladorUsuario.AltaUsuario(unCliente);
 
-                //if (ModelState.IsValid)
-                //{
-                    bool exito = await controladorUsuario.AltaUsuario(unCliente);
+                if (exito)
+                {
 
-                    if (exito)
+                    try
                     {
+                        MailMessage mail = new MailMessage();
+                        mail.From = new MailAddress("enviosservice2018@gmail.com");
+                        mail.To.Add(unCliente.Email);
+                        mail.Subject = "Ha sido registrado en - EnviosService";
+                        mail.Body = "Hola " + unCliente.Nombre + ", Le hemos registrado en el sistema como solicitó! \n " +
+                            "Sus credenciales de acceso al sistema son: - user: " + unCliente.Email + ", - pass: " + unCliente.Contraseña;
+                        mail.IsBodyHtml = true;
+                        mail.Priority = MailPriority.Normal;
 
-                        try
-                        {
-                            MailMessage mail = new MailMessage();
-                            mail.From = new MailAddress("enviosservice2018@gmail.com");
-                            mail.To.Add(unCliente.Email);
-                            mail.Subject = "Ha sido registrado en - EnviosService";
-                            mail.Body = "Hola " + unCliente.Nombre + ", Le hemos registrado en el sistema como solicitó! \n " +
-                                "Sus credenciales de acceso al sistema son: - user: " + unCliente.Email + ", - pass: " + unCliente.Contraseña;
-                            mail.IsBodyHtml = true;
-                            mail.Priority = MailPriority.Normal;
+                        SmtpClient smtp = new SmtpClient();
+                        smtp.Host = "smtp.gmail.com";
+                        smtp.Port = 25;
+                        smtp.EnableSsl = true;
+                        smtp.UseDefaultCredentials = true;
+                        string correoPropio = "enviosservice2018@gmail.com";
+                        string contraseñaCorreo = "MatiasPabloGero";
+                        smtp.Credentials = new System.Net.NetworkCredential(correoPropio, contraseñaCorreo);
 
-                            SmtpClient smtp = new SmtpClient();
-                            smtp.Host = "smtp.gmail.com";
-                            smtp.Port = 25;
-                            smtp.EnableSsl = true;
-                            smtp.UseDefaultCredentials = true;
-                            string correoPropio = "enviosservice2018@gmail.com";
-                            string contraseñaCorreo = "MatiasPabloGero";
-                            smtp.Credentials = new System.Net.NetworkCredential(correoPropio, contraseñaCorreo);
-
-                            smtp.Send(mail);
-                        }
-                        catch (Exception ex)
-                        {
-                            ViewBag.Message = "A pesar de que el alta se dio de forma exitosa, fallo el envio del mail al Cliente con sus credenciales de acceso al sistema!.";
-                            return RedirectToAction("Index");
-                        }
-
-                        ViewBag.Message = "Cliente agregado exitosamente";
+                        smtp.Send(mail);
+                    }
+                    catch (Exception ex)
+                    {
+                        ViewBag.Message = "A pesar de que el alta se dio de forma exitosa, fallo el envio del mail al Cliente con sus credenciales de acceso al sistema!.";
                         return RedirectToAction("Index");
+                    }
 
-                    }
-                    else
-                    {
-                        ViewBag.Message = "Datos incorrectos!.";
-                        return View();
-                    }
-                /*}
+                    ViewBag.Message = "Cliente agregado exitosamente";
+                    return RedirectToAction("Index");
+
+                }
                 else
                 {
                     ViewBag.Message = "Datos incorrectos!.";
                     return View();
-                }*/
+                }
             }
             catch
             {
