@@ -66,6 +66,24 @@ namespace EmpleadosApp.Droid
 
             try
             {
+                if (!ValidarProducto(etProducto.Text))
+                {
+                    etProducto.Error = "Dato invalido: debe tener al menos 2 caracteres y un maximo de 100.";
+                    return;
+                }
+
+                if (!ValidarPeso(etPeso.Text))
+                {
+                    etPeso.Error = "Dato invalido: debe ingresar un numero entre 1 - 1500.";
+                    return;
+                }
+
+                if (!ValidarCantidad(etCantidad.Text))
+                {
+                    etCantidad.Error = "Dato invalido: debe ingresar un nuermo entre 1 - 20000.";
+                    return;
+                }
+
                 string producto = etProducto.Text.ToString();
                 decimal peso = Convert.ToDecimal(etPeso.Text);
                 int cantidad = Convert.ToInt32(etCantidad.Text);
@@ -117,7 +135,74 @@ namespace EmpleadosApp.Droid
             }
         }
 
-        
+        private bool ValidarCantidad(string text)
+        {
+            try
+            {
+                int cantidad = Convert.ToInt32(text);
+
+
+                if (cantidad < 1 || cantidad > 20000)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Toast.MakeText(this, "ERROR: " + ex.Message, ToastLength.Long).Show();
+
+                return false;
+            }
+        }
+
+        private bool ValidarPeso(string text)
+        {
+            try
+            {
+                decimal peso = Convert.ToDecimal(text);
+
+
+                if (peso < 1 || peso > 1500)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Toast.MakeText(this, "ERROR: " + ex.Message, ToastLength.Long).Show();
+
+                return false;
+            }
+        }
+
+        private bool ValidarProducto(string text)
+        {
+            try
+            {
+                if (text.Length < 2 || text.Length > 100)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Toast.MakeText(this, "ERROR: " + ex.Message, ToastLength.Long).Show();
+
+                return false;
+            }
+        }
 
         private void SetupViews()
         {
