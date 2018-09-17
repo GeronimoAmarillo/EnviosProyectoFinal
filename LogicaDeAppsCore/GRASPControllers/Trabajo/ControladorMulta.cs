@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidasCore;
+using Newtonsoft.Json;
 
 namespace LogicaDeAppsCore
 {
@@ -47,9 +49,26 @@ namespace LogicaDeAppsCore
             return vehiculos;
         }
 
-        public bool RegistrarMulta(Multa pMulta)
+        public async Task<bool> RegistrarMulta(Multa pMulta)
         {
-            return true;
+            try
+            {
+                bool exito = false;
+                var httpClient = new HttpClient();
+                var EnvioJson = JsonConvert.SerializeObject(pMulta);
+                string url = ConexionREST.ConexionMultas;
+                HttpResponseMessage retorno = await httpClient.PostAsync(url, new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
+                string resultado = await retorno.Content.ReadAsStringAsync();
+
+                if (retorno.IsSuccessStatusCode && resultado == "true")
+                    exito = true;
+                return exito;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar registrar la multa: " + ex.Message);
+            }
         }
+
     }
 }

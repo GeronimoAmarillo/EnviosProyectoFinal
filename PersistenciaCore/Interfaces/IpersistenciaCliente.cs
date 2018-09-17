@@ -10,6 +10,7 @@ namespace PersistenciaCore
     public interface IPersistenciaCliente
     {
         bool AltaCliente(EntidadesCompartidasCore.Cliente cliente);
+        Cliente BuscarClienteXEmail(string email);
 
         bool ExisteCliente(int rut);
 
@@ -19,8 +20,12 @@ namespace PersistenciaCore
 
         List<EntidadesCompartidasCore.Cliente> ListarClientes();
 
+        Cliente BuscarCliente(int rut);
+
         EntidadesCompartidasCore.Cliente Login(string user, string contraseña);
 
         bool BajaCliente(int ci);
+
+        bool ExisteClienteXEmail(string email);
     }
 }

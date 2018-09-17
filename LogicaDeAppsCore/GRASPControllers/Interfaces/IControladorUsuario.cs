@@ -29,7 +29,7 @@ namespace LogicaDeAppsCore
 
         Usuario ModificarContraseña(string contraseñaNueva);
 
-        Usuario ModificarEmail(Usuario pUsuario);
+        Task<Usuario> ModificarEmail(Usuario pUsuario);
 
         Usuario GetUsuario();
 

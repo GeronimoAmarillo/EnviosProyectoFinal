@@ -6,11 +6,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using EntidadesCompartidasCore;
 using LogicaDeServicioCore;
+using Newtonsoft.Json;
 
 namespace EnviosService.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Clientes")]
+    
     public class ClientesController : Controller
     {
         private IControladorCliente controladorCliente;
@@ -19,19 +20,45 @@ namespace EnviosService.Controllers
         {
             controladorCliente = FabricaServicio.GetControladorCliente();
         }
-
+        [Route("api/Clientes/Buscar")]
         [HttpGet("{rut}")]
         public JsonResult Cliente(int rut)
         {
-            return Json(controladorCliente.BuscarCliente(rut), new Newtonsoft.Json.JsonSerializerSettings());
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+            return Json(controladorCliente.BuscarCliente(rut), settings);
         }
 
+        [Route("api/Clientes/BuscarXEmail")]
+        [HttpGet("{email}")]
+        public JsonResult ClienteXEmail(string email)
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+            return Json(controladorCliente.BuscarClienteXEmail(email), settings);
+        }
+
+        [Route("api/Clientes/Existe")]
         [HttpGet("{rut}")]
         public JsonResult ExisteCliente(int rut)
         {
             return Json(controladorCliente.ExisteCliente(rut), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
+        [Route("api/Clientes/ExisteXEmail")]
+        [HttpGet("{email}")]
+        public JsonResult ExisteClienteXEmail(string email)
+        {
+            return Json(controladorCliente.ExisteClienteXEmail(email), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
+        [Route("api/Clientes/Alta")]
+        [Route("api/Clientes/Modificar")]
+        [Route("api/Clientes/Cliente")]
         [HttpPut]
         [HttpPost]
         public JsonResult Cliente([FromBody] Cliente cliente)

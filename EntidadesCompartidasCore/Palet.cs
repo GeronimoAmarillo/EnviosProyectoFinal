@@ -21,7 +21,7 @@ namespace EntidadesCompartidasCore
         [Required]
         [Range(1, 1500)]
         public decimal Peso { get; set; }
-
+        
         public int Casilla { get; set; }
 
         public long Cliente { get; set; }

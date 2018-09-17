@@ -7,5 +7,10 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:id="@+id/btnIrAltaPalet"
-        android:text="Ingresar Palet" />
+        android:text="Ingresar Pallet" />
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/btnIrBajaPalet"
+        android:text="Expulsar Pallet" />
 </LinearLayout>

@@ -13,6 +13,68 @@ namespace PersistenciaCore
 {
     class PersistenciaPalet:IPersistenciaPalet
     {
+        public Palet BuscarPalet(int id)
+        {
+            try
+            {
+                Palets palet = new Palets();
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    palet = dbConnection.Palets.Include("Clientes.Usuarios").Where(a => a.Id == id).FirstOrDefault();
+                }
+
+                Palet paletResultado = null;
+
+                if (palet != null)
+                {
+                    paletResultado = new Palet();
+
+                    paletResultado.Cantidad = palet.Cantidad;
+                    paletResultado.Casilla = palet.Casilla;
+                    paletResultado.Cliente = palet.Cliente;
+                    paletResultado.Clientes = ConvertirCliente(palet.Clientes);
+                    paletResultado.Id = palet.Id;
+                    paletResultado.Peso = palet.Peso;
+                    paletResultado.Producto = palet.Producto;
+                }
+
+                return paletResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el palet." + ex.Message);
+            }
+        }
+
+        public Cliente ConvertirCliente(Clientes c)
+        {
+            try
+            {
+                Cliente cliente = new Cliente();
+
+                cliente.Direccion = c.Usuarios.Direccion;
+                cliente.Email = c.Usuarios.Email;
+                cliente.Id = c.Usuarios.Id;
+                cliente.IdUsuario = c.IdUsuario;
+                cliente.Mensualidad = c.Mensualidad;
+                cliente.Nombre = c.Usuarios.Nombre;
+                cliente.NombreUsuario = c.Usuarios.NombreUsuario;
+                cliente.RUT = c.RUT;
+                cliente.Telefono = c.Usuarios.Telefono;
+
+                return cliente;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al convertir el cliente." + ex.Message);
+            }
+        }
+
         public bool AltaPalet(EntidadesCompartidasCore.Palet palet)
         {
             try
@@ -129,7 +191,7 @@ namespace PersistenciaCore
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    palets = dbConnection.Palets.ToList();
+                    palets = dbConnection.Palets.Include("Clientes.Usuarios").Include("Casillas.Racks.Sectores").ToList();
                 }
 
                 List<Palet> paletsResultado = new List<Palet>();
@@ -140,6 +202,7 @@ namespace PersistenciaCore
 
                     paletR.Cantidad = p.Cantidad;
                     paletR.Casilla = p.Casilla;
+                    paletR.Clientes = ConvertirCliente(p.Clientes);
                     paletR.Cliente = p.Cliente;
                     paletR.Id = p.Id;
                     paletR.Peso = p.Peso;
@@ -155,6 +218,7 @@ namespace PersistenciaCore
                 throw new Exception("Error al listar los palets." + ex.Message);
             }
         }
+        
 
         public EntidadesCompartidasCore.Galpon BuscarGalpon(int id)
         {
@@ -237,9 +301,38 @@ namespace PersistenciaCore
             }
         }
 
-        public bool BajaPalet(EntidadesCompartidasCore.Palet palet)
+        public bool BajaPalet(int id)
         {
-            return true;
+            try
+            {
+                Palets paletBaja = new Palets();
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    paletBaja = dbConnection.Palets.Where(a => a.Id == id).FirstOrDefault();
+
+                    if (paletBaja != null)
+                    {
+                        dbConnection.Palets.Remove(paletBaja);
+
+                        dbConnection.SaveChanges();
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al dar de baja el palet." + ex.Message);
+            }
         }
 
         public List<Sector> convertirSectores(List<Sectores> sectores)

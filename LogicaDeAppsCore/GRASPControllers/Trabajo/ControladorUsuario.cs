@@ -127,9 +127,71 @@ namespace LogicaDeAppsCore
             return new Usuario();
         }
 
-        public Usuario ModificarEmail(Usuario pUsuario)
+        public async Task<Usuario> ModificarEmail(Usuario pUsuario)
         {
-            return new Usuario();
+
+            ClienteEmailNuevo cliente = null;
+            long rut;
+
+            try
+            {
+
+                if (pUsuario != null && pUsuario is ClienteEmailNuevo)
+                {
+                    cliente = (ClienteEmailNuevo)pUsuario;
+                    rut = cliente.RUT;
+
+                    bool exito = false;
+
+                    var httpClient = new HttpClient();
+                    var EnvioJson = JsonConvert.SerializeObject(pUsuario);
+
+                    var result = await httpClient.PutAsync(ConexionREST.ConexionClientes + "/Modificar", new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
+
+                    var contentResult = result.Content.ReadAsStringAsync();
+
+                    if (contentResult.Result.ToUpper() == "TRUE")
+                    {
+                        exito = true;
+                    }
+                    else
+                    {
+                        exito = false;
+                    }
+
+                    if (exito)
+                    {
+                        try
+                        {
+                            //http://localhost:8080/api
+
+                            Cliente clienteModificado = new Cliente();
+
+                            var json = await httpClient.GetStringAsync(ConexionREST.ConexionClientes + "/Buscar?rut=" + rut);
+
+                            JsonSerializerSettings settings = new JsonSerializerSettings
+                            {
+                                TypeNameHandling = TypeNameHandling.Objects
+                            };
+
+                            clienteModificado = JsonConvert.DeserializeObject<Cliente>(json, settings);
+                            
+                            return clienteModificado;
+
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception("Ocurrio un error al recuperar el usuario modificado.");
+                        }
+                    }
+                }
+
+                return new Usuario();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar modificar el Usuario: " + ex.Message);
+            }
         }
 
         public Usuario GetUsuario()

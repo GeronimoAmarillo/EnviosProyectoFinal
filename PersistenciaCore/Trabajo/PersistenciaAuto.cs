@@ -94,35 +94,58 @@ namespace PersistenciaCore
 
         public bool BajaAuto(string matricula)
         {
-            return true;
+            try
+            {
+                Automobiles auto = new Automobiles();
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    auto = dbConnection.Automobiles.Include("Vehiculos").Where(a => a.MatriculaAuto == matricula).FirstOrDefault();
+
+                    if (auto != null)
+                    {
+                        dbConnection.Automobiles.Remove(auto);
+
+                        dbConnection.Vehiculos.Remove(auto.Vehiculos);
+
+                        dbConnection.SaveChanges();
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar la moto." + ex.Message);
+            }
         }
 
         public bool ModificarAuto(EntidadesCompartidasCore.Automobil auto)
         {
-            Mapper.Initialize(cfg =>
+            Vehiculos vehiculoaModificar = new Vehiculos()
             {
-                cfg.CreateMap<Vehiculo, Vehiculos>()
-                    .ForMember(v => v.Matricula, opt => opt.MapFrom(u => u.Matricula))
-                    .ForMember(v => v.Marca, opt => opt.MapFrom(u => u.Marca))
-                    .ForMember(v => v.Modelo, opt => opt.MapFrom(u => u.Modelo))
-                    .ForMember(v => v.Capacidad, opt => opt.MapFrom(u => u.Capacidad))
-                    .ForMember(v => v.Estado, opt => opt.MapFrom(u => u.Estado))
-                    .ForMember(v => v.Cadete, opt => opt.MapFrom(u => u.Cadete))
-                    .ForMember(v => v.Automobiles, opt => opt.MapFrom(u => u.Automobiles))
-                    .ForMember(v => v.Cadetes, opt => opt.MapFrom(u => u.Cadetes))
-                    .ForMember(v => v.Camiones, opt => opt.MapFrom(u => u.Camiones))
-                    .ForMember(v => v.Camionetas, opt => opt.MapFrom(u => u.Camionetas))
-                    .ForMember(v => v.Motos, opt => opt.MapFrom(u => u.Motos))
-                    .ForMember(v => v.Multas, opt => opt.MapFrom(u => u.Multas))
-                    .ForMember(v => v.Reparaciones, opt => opt.MapFrom(u => u.Reparaciones))
-                ;
+                Matricula = auto.Matricula,
+                Marca = auto.Marca,
+                Modelo = auto.Modelo,
+                Capacidad = auto.Capacidad,
+                Estado = auto.Estado,
+                Cadete = auto.Cadete
+            };
 
-                cfg.CreateMap<Automobil, Automobiles>()
-                    .ForMember(a => a.Puertas, opt => opt.MapFrom(u => u.Puertas))
-                    .ForMember(a => a.MatriculaAuto, opt => opt.MapFrom(u => u.MatriculaAuto))
-                    .ForMember(a => a.Vehiculos, opt => opt.MapFrom(u => u.Vehiculos))
-                ;
-            });
+            Automobiles autoaModificar = new Automobiles()
+            {
+                Puertas = auto.Puertas,
+                MatriculaAuto = auto.Matricula,
+                Vehiculos = vehiculoaModificar
+            };
 
             var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
@@ -130,16 +153,13 @@ namespace PersistenciaCore
 
             try
             {
-                Vehiculos vehiculoaModificar = Mapper.Map<Vehiculos>(auto);
-                Automobiles autoaModificar = Mapper.Map<Automobiles>(auto);
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    Vehiculos vehiculoDesdeDB = dbConnection.Vehiculos.FirstOrDefault(x => x.Matricula == auto.Matricula);
-                    Automobiles autoDesdeDb = dbConnection.Automobiles.FirstOrDefault(x => x.MatriculaAuto == auto.Matricula);
-                    if (vehiculoDesdeDB != null && autoDesdeDb != null)
+                    int vehiculoDesdeDB = (dbConnection.Vehiculos.Where(x => x.Matricula == auto.Matricula)).Count();
+                    int autoDesdeDb = (dbConnection.Camionetas.Where(x => x.MatriculaCamioneta == auto.Matricula)).Count();
+                    if (vehiculoDesdeDB == 1 && autoDesdeDb == 1)
                     {
-                        dbConnection.Update(vehiculoaModificar);
-                        dbConnection.Update(autoaModificar);
+                        dbConnection.Automobiles.Update(autoaModificar);
                         dbConnection.SaveChanges();
                         return true;
                     }
@@ -159,7 +179,57 @@ namespace PersistenciaCore
 
         public EntidadesCompartidasCore.Automobil BuscarAuto(string matricula)
         {
-            return new EntidadesCompartidasCore.Automobil();
+            try
+            {
+                Automobiles auto = new Automobiles();
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    auto = dbConnection.Automobiles.Include("Vehiculos.Reparaciones").Where(a => a.MatriculaAuto == matricula).FirstOrDefault();
+                }
+
+                Automobil autoResultado = null;
+
+                if (auto != null)
+                {
+                    autoResultado = new Automobil();
+
+                    autoResultado.Cadete = auto.Vehiculos.Cadete;
+                    autoResultado.Capacidad = auto.Vehiculos.Capacidad;
+                    autoResultado.Puertas = auto.Puertas;
+                    autoResultado.Estado = auto.Vehiculos.Estado;
+                    autoResultado.Marca = auto.Vehiculos.Marca;
+                    autoResultado.Matricula = auto.Vehiculos.Matricula;
+                    autoResultado.MatriculaAuto = auto.Vehiculos.Matricula;
+                    autoResultado.Modelo = auto.Vehiculos.Modelo;
+
+                    List<Reparacion> reparaciones = new List<Reparacion>();
+
+                    foreach (Reparaciones r in auto.Vehiculos.Reparaciones)
+                    {
+                        Reparacion nR = new Reparacion();
+
+                        nR.Id = r.Id;
+                        nR.Monto = r.Monto;
+                        nR.Taller = r.Taller;
+                        nR.Vehiculo = r.Vehiculo;
+
+                        reparaciones.Add(nR);
+                    }
+
+                    autoResultado.Reparaciones = reparaciones;
+                }
+
+                return autoResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el auto." + ex.Message);
+            }
         }
 
         public bool ExisteAuto(string matricula)

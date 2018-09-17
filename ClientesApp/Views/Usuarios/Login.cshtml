@@ -1,5 +1,5 @@
 ﻿
-@model EntidadesCompartidas.Usuario
+@model EntidadesCompartidasCore.Usuario
 
 @{
     ViewData["Title"] = "Login";
@@ -44,6 +44,15 @@
         </form>
     </div>
 </div>
+
+@{
+    if (ViewBag.Logueado == false)
+    {
+        <div>
+            <a asp-action="RecuperarContraseña">¿Olvidastes tu Contraseña?</a>
+        </div>
+    }
+}
 
 <div>
     <a asp-action="Index">Volver al inicio</a>

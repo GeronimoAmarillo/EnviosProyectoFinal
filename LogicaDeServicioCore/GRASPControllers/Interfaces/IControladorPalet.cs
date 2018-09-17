@@ -18,6 +18,8 @@ namespace LogicaDeServicioCore
 
         Palet BuscarPalet(int id);
 
-        bool BajaPalet(Palet palet);
+        List<Palet> ListarPalets();
+
+        bool BajaPalet(int id);
     }
 }

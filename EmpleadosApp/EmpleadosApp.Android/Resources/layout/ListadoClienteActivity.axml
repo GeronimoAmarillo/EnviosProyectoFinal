@@ -3,21 +3,19 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-  <TextView
+    <TextView
         android:text="Seleccione el Cliente"
         android:id="@+id/tvListaCliente"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="50px" />
-  <ListView
-      android:id="@+id/lvClientes"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent" />
-  <Button
+    <ListView
+        android:id="@+id/lvClientes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <Button
         android:id="@+id/btnAgregarCliente"
         android:text="Agregar Cliente Nuevo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-  
 </LinearLayout>
