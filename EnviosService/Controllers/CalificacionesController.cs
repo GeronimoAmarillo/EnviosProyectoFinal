@@ -21,9 +21,10 @@ namespace EnviosService.Controllers
         }
 
         [HttpPost]
-        public JsonResult Calificacion([FromBody] int puntaje , [FromBody] string comentario, [FromBody] long rutCliente)
+        public JsonResult Calificacion([FromBody] Calificacion cal)
         {
-            return Json(controladorCalificacion.Calificar(puntaje, comentario, rutCliente));
+            return Json(controladorCalificacion.Calificar(cal.Puntaje, cal.Comentario, cal.RutCliente));
         }
+        
     }
 }
