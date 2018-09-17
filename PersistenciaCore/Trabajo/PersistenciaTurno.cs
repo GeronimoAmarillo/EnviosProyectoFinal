@@ -48,7 +48,39 @@ namespace PersistenciaCore
 
         public List<EntidadesCompartidasCore.Turno> ListarTurnos()
         {
-            return new List<EntidadesCompartidasCore.Turno>();
+            try
+            {
+                List<Turnos> turnos = new List<Turnos>();
+
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    turnos = dbConnection.Turnos.ToList();
+                }
+
+                List<Turno> turnosResultado = new List<Turno>();
+
+                foreach (Turnos l in turnos)
+                {
+                    Turno turnoR = new Turno();
+
+                    turnoR.Codigo = l.Codigo;
+                    turnoR.Dia = l.Dia;
+                    turnoR.Hora = l.Hora;
+
+                    turnosResultado.Add(turnoR);
+                }
+
+                return turnosResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los turnos." + ex.Message);
+            }
         }
 
         public bool ModificarTurno(EntidadesCompartidasCore.Turno turno)

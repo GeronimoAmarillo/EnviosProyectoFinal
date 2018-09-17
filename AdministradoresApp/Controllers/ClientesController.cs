@@ -161,7 +161,7 @@ namespace AdministradoresApp.Controllers
             }
         }
 
-        public IActionResult Modificar(int id)
+        public async Task<IActionResult> Modificar(int rut)
         {
             try
             {
@@ -169,12 +169,10 @@ namespace AdministradoresApp.Controllers
                 {
                     IControladorCliente controladorCliente = FabricaApps.GetControladorCliente();
 
-                    Cliente unCliente = controladorCliente.BuscarCliente(id);
+                    Cliente unCliente = await controladorCliente.BuscarCliente(rut);
 
                     if (unCliente != null)
                     {
-                        HttpContext.Session.Set<Cliente>(SESSSION_MODIFICAR, unCliente);
-
                         return View(unCliente);
                     }
                     else
@@ -200,24 +198,32 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Modificar([FromForm] Cliente unCliente)
+        public IActionResult Modificar([FromForm] Cliente unCliente)
         {
             try
             {
                 if (ComprobarLogin() == "G")
                 {
-                    IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
-                    bool exito = await controladorUsuario.ModificarUsuario(unCliente);
-                    if (exito)
+                    if (ModelState.IsValid)
                     {
-                        ViewBag.Message = "Cliente modificado exitosamente";
-                        return View("Index");
+                        IControladorCliente controladorUsuario = FabricaApps.GetControladorCliente();
+                        bool exito = controladorUsuario.ModificarCliente(unCliente);
+                        if (exito)
+                        {
+                            ViewBag.Message = "Cliente modificado exitosamente";
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            ViewBag.Message = "Error al intentar modificar el cliente";
+                            return View();
+                        }
                     }
                     else
                     {
-                        ViewBag.Message = "Error al intentar modificar el cliente";
                         return View();
                     }
+                    
                 }
                 else
                 {

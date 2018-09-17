@@ -19,11 +19,19 @@ namespace EnviosService.Controllers
             controladorTurno = FabricaServicio.GetControladorTurno();
         }
 
+        [Route("api/Turnos/Turnos")]
+        [HttpGet]
+        public JsonResult Turnos()
+        {
+            return Json(controladorTurno.ListarTurnos(), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
         [HttpGet("{codigo}")]
         public JsonResult Turno(string codigo)
         {
             return Json(controladorTurno.BuscarTurno(codigo), new Newtonsoft.Json.JsonSerializerSettings());
         }
+
         [HttpGet("{dia, hora}")]
         [Route("api/Turnos/ExisteTurno")]
         public JsonResult ExisteTurno(string dia, string hora)

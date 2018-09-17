@@ -77,9 +77,30 @@ namespace LogicaDeAppsCore
             return cliente;
         }
 
-        public Cliente BuscarCliente(int rut)
+        public async Task<Cliente> BuscarCliente(int rut)
         {
-            return new Cliente();
+            try
+            {
+                //http://localhost:8080/
+
+                var httpClient = new HttpClient();
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionClientes + "/Buscar?" + "rut=" + rut);
+
+                Cliente cliente = null;
+
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Objects
+                };
+
+                cliente = JsonConvert.DeserializeObject<Cliente>(json, settings);
+
+                return cliente;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el Cliente.");
+            }
         }
 
         public bool ModificarCliente(Cliente pCliente)

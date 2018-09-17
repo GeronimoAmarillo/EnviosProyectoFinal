@@ -43,10 +43,18 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public List<Turno> ListarTurnos()
+        public static List<Turno> ListarTurnos()
         {
-            List<Turno> turnos = new List<Turno>();
-            return turnos;
+            try
+            {
+                List<Turno> lista = FabricaPersistencia.GetPersistenciaTurno().ListarTurnos();
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los turnos." + ex.Message);
+            }
         }
     }
 }

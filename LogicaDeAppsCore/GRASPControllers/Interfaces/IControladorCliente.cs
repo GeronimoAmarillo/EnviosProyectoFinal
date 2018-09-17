@@ -16,7 +16,7 @@ namespace LogicaDeAppsCore
 
         Cliente GetCliente();
 
-        Cliente BuscarCliente(int rut);
+        Task<Cliente> BuscarCliente(int rut);
 
         Task<List<Cliente>> ListarClientes();
 

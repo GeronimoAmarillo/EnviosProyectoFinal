@@ -23,5 +23,7 @@ namespace LogicaDeAppsCore
 
         bool RegistrarTurno();
 
+        Task<List<Turno>> ListarTurnos();
+
     }
 }

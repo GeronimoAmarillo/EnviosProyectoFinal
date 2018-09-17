@@ -19,7 +19,47 @@ namespace AdministradoresApp.Controllers
         public static string SESSION_MENSAJE = "Mensaje";
         public static string LOG_USER = "UsuarioLogueado";
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
+        {
+            try
+            {
+                if (ComprobarLogin() == "G")
+                {
+                    IControladorTurno controladorTurno = FabricaApps.GetControladorTurno();
+
+                    List<Turno> turnos = await controladorTurno.ListarTurnos();
+
+                    string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
+
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, null);
+
+                    if (mensaje != null && mensaje != "")
+                    {
+                        ViewBag.Message = mensaje;
+                    }
+
+                    return View(turnos);
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+
+            }
+            catch
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Locales registrados");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+
+
+
+        public ActionResult Alta()
         {
             try
             {
@@ -47,8 +87,9 @@ namespace AdministradoresApp.Controllers
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
-
         }
+
+
         [HttpPost]
         public ActionResult Alta([FromForm]Turno turno)
         {
@@ -57,40 +98,47 @@ namespace AdministradoresApp.Controllers
                 if (ComprobarLogin() == "G")
                 {
 
-                    Turno turnoAlta = HttpContext.Session.Get<Turno>(SESSSION_ALTA);
 
-                    turnoAlta.Codigo = turno.Codigo;
-                    turnoAlta.Dia = turno.Dia;
-                    turnoAlta.Hora = turno.Hora;
-
-                    IControladorTurno controladorTurno = FabricaApps.GetControladorTurno();
-
-                    controladorTurno.SetTurno(turnoAlta);
-
-                    string mensaje = "";
 
                     if (ModelState.IsValid)
                     {
+                        Turno turnoAlta = HttpContext.Session.Get<Turno>(SESSSION_ALTA);
+
+                        turnoAlta.Codigo = "" + turno.Dia.Substring(0, 3).ToUpper() + turno.Hora.ToString().ToUpper() + "";
+                        turnoAlta.Dia = turno.Dia;
+                        turnoAlta.Hora = turno.Hora;
+
+                        IControladorTurno controladorTurno = FabricaApps.GetControladorTurno();
+
+                        controladorTurno.SetTurno(turnoAlta);
+
+                        string mensaje = "";
+
                         bool exito = controladorTurno.RegistrarTurno();
 
                         if (exito)
                         {
                             controladorTurno.SetTurno(null);
+
                             mensaje = "El turno se dio de alta con exito!.";
                         }
                         else
                         {
                             mensaje = "Se produjo un error al dar de alta el turno!.";
                         }
-                    }
 
-                    if (mensaje != "")
+                        if (mensaje != "")
+                        {
+                            HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                        }
+
+                        return RedirectToAction("Index");
+                    }
+                    else
                     {
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                        return View();
                     }
-
-                    return RedirectToAction("Index");
-
+                    
                 }
                 else
                 {
