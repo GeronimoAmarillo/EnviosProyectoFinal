@@ -28,6 +28,7 @@ namespace PersistenciaCore
 
                 autoAgregar.Puertas = automobiles.Puertas;
                 autoAgregar.MatriculaAuto = automobiles.Matricula;
+                autoAgregar.Vehiculos = vehiculoAgregar;
 
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
@@ -36,7 +37,6 @@ namespace PersistenciaCore
 
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    dbConnection.Vehiculos.Add(vehiculoAgregar);
                     dbConnection.Automobiles.Add(autoAgregar);
 
                     dbConnection.SaveChanges();
@@ -156,7 +156,7 @@ namespace PersistenciaCore
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
                     int vehiculoDesdeDB = (dbConnection.Vehiculos.Where(x => x.Matricula == auto.Matricula)).Count();
-                    int autoDesdeDb = (dbConnection.Camionetas.Where(x => x.MatriculaCamioneta == auto.Matricula)).Count();
+                    int autoDesdeDb = (dbConnection.Automobiles.Where(x => x.MatriculaAuto == auto.Matricula)).Count();
                     if (vehiculoDesdeDB == 1 && autoDesdeDb == 1)
                     {
                         dbConnection.Automobiles.Update(autoaModificar);

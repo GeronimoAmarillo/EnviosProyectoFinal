@@ -28,6 +28,7 @@ namespace PersistenciaCore
 
                 camionetaAgregar.Cabina = camioneta.Cabina;
                 camionetaAgregar.MatriculaCamioneta = camioneta.Matricula;
+                camionetaAgregar.Vehiculos = vehiculoAgregar;
 
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
@@ -36,7 +37,6 @@ namespace PersistenciaCore
 
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    dbConnection.Vehiculos.Add(vehiculoAgregar);
                     dbConnection.Camionetas.Add(camionetaAgregar);
 
                     dbConnection.SaveChanges();
@@ -163,6 +163,7 @@ namespace PersistenciaCore
                     if (vehiculoDesdeDB == 1 && camionetaDesdeDb == 1)
                     {
                         dbConnection.Camionetas.Update(camionetaaModificar);
+
                         dbConnection.SaveChanges();
                         return true;
                     }

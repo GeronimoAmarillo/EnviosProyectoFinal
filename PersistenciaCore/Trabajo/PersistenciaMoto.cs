@@ -29,6 +29,8 @@ namespace PersistenciaCore
                 motoAgregar.Cilindrada = moto.Cilindrada;
                 motoAgregar.MatriculaMoto = moto.Matricula;
 
+                motoAgregar.Vehiculos = vehiculoAgregar;
+
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
                 optionsBuilder.UseSqlServer(Conexion.ConnectionString);
@@ -36,7 +38,6 @@ namespace PersistenciaCore
 
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    dbConnection.Vehiculos.Add(vehiculoAgregar);
                     dbConnection.Motos.Add(motoAgregar);
 
                     dbConnection.SaveChanges();
@@ -246,10 +247,11 @@ namespace PersistenciaCore
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
                     int vehiculoDesdeDB = (dbConnection.Vehiculos.Where(x => x.Matricula == moto.Matricula)).Count();
-                    int motoDesdeDb = (dbConnection.Camionetas.Where(x => x.MatriculaCamioneta == moto.Matricula)).Count();
+                    int motoDesdeDb = (dbConnection.Motos.Where(x => x.MatriculaMoto == moto.Matricula)).Count();
                     if (vehiculoDesdeDB == 1 && motoDesdeDb == 1)
                     {
                         dbConnection.Motos.Update(motoaModificar);
+
                         dbConnection.SaveChanges();
                         return true;
                     }
