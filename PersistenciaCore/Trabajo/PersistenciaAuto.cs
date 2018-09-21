@@ -189,7 +189,7 @@ namespace PersistenciaCore
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    auto = dbConnection.Automobiles.Include("Vehiculos.Reparaciones").Where(a => a.MatriculaAuto == matricula).FirstOrDefault();
+                    auto = dbConnection.Automobiles.Include("Vehiculos.Reparaciones").Include("Vehiculos.Multas").Where(a => a.MatriculaAuto == matricula).FirstOrDefault();
                 }
 
                 Automobil autoResultado = null;
@@ -221,7 +221,23 @@ namespace PersistenciaCore
                         reparaciones.Add(nR);
                     }
 
+                    List<Multa> multas = new List<Multa>();
+
+                    foreach (Multas r in auto.Vehiculos.Multas)
+                    {
+                        Multa nR = new Multa();
+
+                        nR.Id = r.Id;
+                        nR.Fecha = r.Fecha;
+                        nR.Suma = r.Suma;
+                        nR.Motivo = r.Motivo;
+                        nR.Vehiculo = r.Vehiculo;
+
+                        multas.Add(nR);
+                    }
+
                     autoResultado.Reparaciones = reparaciones;
+                    autoResultado.Multas = multas;
                 }
 
                 return autoResultado;

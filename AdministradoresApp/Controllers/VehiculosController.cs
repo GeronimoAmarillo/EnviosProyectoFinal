@@ -835,6 +835,25 @@ namespace AdministradoresApp.Controllers
             }
         }
 
+        public ActionResult IrMultas(string matricula)
+        {
+            if (ComprobarLogin() == "G")
+            {
+
+                HttpContext.Session.Set<string>(SESSSION_SELECCIONADO, null);
+
+                HttpContext.Session.Set<string>(SESSSION_SELECCIONADO, matricula);
+
+                return RedirectToAction("Index", "Multas", new { area = "" });
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+        }
+
         public string ComprobarLogin()
         {
             try

@@ -29,18 +29,21 @@ namespace PersistenciaCore
 
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    Vehiculos vehiculoDeLaMulta = dbConnection.Vehiculos.FirstOrDefault(x => x.Matricula == multa.Vehiculo);
-                    if (vehiculoDeLaMulta != null)
+                    var ultimoRegistro = dbConnection.Multas.OrderByDescending(x => x.Id).FirstOrDefault();
+
+                    if (ultimoRegistro == null)
                     {
-                        multaaAgregar.Vehiculos = vehiculoDeLaMulta;
-                        dbConnection.Multas.Add(multaaAgregar);
-                        dbConnection.SaveChanges();
-                        return true;
+                        multaaAgregar.Id = 1;
                     }
                     else
                     {
-                        return false;
+                        multaaAgregar.Id = ultimoRegistro.Id + 1;
                     }
+
+                    dbConnection.Multas.Add(multaaAgregar);
+                    dbConnection.SaveChanges();
+
+                    return true;
                 }
             }
             catch (Exception ex)
