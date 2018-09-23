@@ -34,25 +34,25 @@ VALUES('User9', '123456789', 'Nombre9', 'Direccion9', '12345678', 'user9@dominio
 
 
 INSERT INTO Empleados (Sueldo, IdUsuario, Ci)
-VALUES(15000, 10, 11111111)
+VALUES(15000, 1, 11111111)
 
 INSERT INTO Empleados (Sueldo, IdUsuario, Ci)
-VALUES(15000, 11, 22222222)
+VALUES(15000, 2, 22222222)
 
 INSERT INTO Empleados (Sueldo, IdUsuario, Ci)
-VALUES(15000, 12, 33333333)
+VALUES(15000, 3, 33333333)
 
 INSERT INTO Empleados (Sueldo, IdUsuario, Ci)
-VALUES(15000, 13, 44444444)
+VALUES(15000, 4, 44444444)
 
 INSERT INTO Empleados (Sueldo, IdUsuario, Ci)
-VALUES(15000, 14, 55555555)
+VALUES(15000, 5, 55555555)
 
 INSERT INTO Empleados (Sueldo, IdUsuario, Ci)
-VALUES(15000, 15, 88888888)
+VALUES(15000, 6, 88888888)
 
 INSERT INTO Empleados (Sueldo, IdUsuario, Ci)
-VALUES(15000, 16, 99999999)
+VALUES(15000, 7, 99999999)
 
 
 
@@ -88,10 +88,10 @@ VALUES('E', 321321321, 99999999)
 
 
 INSERT INTO Clientes(RUT, IdUsuario, Mensualidad)
-VALUES(66666666, 17, 45000)
+VALUES(66666666, 8, 45000)
 
 INSERT INTO Clientes(RUT, IdUsuario, Mensualidad)
-VALUES(77777777, 18, 45000)
+VALUES(77777777, 9, 45000)
 
 
 INSERT INTO Locales(Nombre, Direccion)
@@ -113,13 +113,13 @@ VALUES(20, 1000)
 
 
 INSERT INTO Sectores(Codigo, Superficie, Temperatura, Galpon)
-VALUES(11, 250, 25, 4)
+VALUES(11, 250, 25, 1)
 INSERT INTO Sectores(Codigo, Superficie, Temperatura, Galpon)
-VALUES(12, 250, 20, 4)
+VALUES(12, 250, 20, 1)
 INSERT INTO Sectores(Codigo, Superficie, Temperatura, Galpon)
-VALUES(13, 250, 10, 4)
+VALUES(13, 250, 10, 1)
 INSERT INTO Sectores(Codigo, Superficie, Temperatura, Galpon)
-VALUES(14, 250, 5, 4)
+VALUES(14, 250, 5, 1)
 
 INSERT INTO Racks(Codigo, Altura, Superficie, Sector)
 VALUES(111, 5, 40, 11)

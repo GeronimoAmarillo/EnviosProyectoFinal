@@ -24,6 +24,10 @@ namespace PersistenciaCore
 
         bool ComprobarUser(string user);
 
+        bool SetearCodigoRecuperacionContraseña(Cadete cadete);
+
+        bool SetearCodigoModificarEmail(Cadete cadete);
+
         EntidadesCompartidasCore.Cadete BuscarCadete(int ci);
     }
 }

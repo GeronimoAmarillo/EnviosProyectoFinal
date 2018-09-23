@@ -28,6 +28,20 @@ namespace EnviosService.Controllers
             return Json(controladorUsuario.AltaUsuario(unUsuario), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
+        [HttpPost]
+        [Route("Api/Usuarios/RecuperacionContrasenia")]
+        public JsonResult CodigoContraseña([FromBody] Usuario unUsuario)
+        {
+            return Json(controladorUsuario.SetearCodigoRecuperarContraseña(unUsuario), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
+        [HttpPost]
+        [Route("Api/Usuarios/RecuperacionEmail")]
+        public JsonResult CodigoEmail([FromBody] Usuario unUsuario)
+        {
+            return Json(controladorUsuario.SetearCodigoModificarEmail(unUsuario), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
         [HttpGet("{usuario, contrasenia}")]
         [Route("api/Usuarios/Login")]
         public JsonResult Usuario(string usuario, string contrasenia)

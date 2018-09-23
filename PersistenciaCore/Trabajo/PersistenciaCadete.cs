@@ -56,6 +56,82 @@ namespace PersistenciaCore
 
         }
 
+        public bool SetearCodigoRecuperacionContraseña(Cadete cadete)
+        {
+            try
+
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+
+                    Cadetes cadeteDesdeBd = dbConnection.Cadetes.Include("Empleados.Usuarios").Where(x => x.CiEmpleado == cadete.Ci).FirstOrDefault();
+
+
+                    if (cadeteDesdeBd != null)
+                    {
+                        cadeteDesdeBd.Empleados.Usuarios.CodigoRecuperacionContraseña = cadete.CodigoRecuperacionContraseña;
+
+                        dbConnection.Cadetes.Update(cadeteDesdeBd);
+
+                        dbConnection.SaveChanges();
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar modificar el Cadete" + ex.Message);
+            }
+        }
+
+        public bool SetearCodigoModificarEmail(Cadete cadete)
+        {
+            try
+
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+
+                    Cadetes cadeteDesdeBd = dbConnection.Cadetes.Include("Empleados.Usuarios").Where(x => x.CiEmpleado == cadete.Ci).FirstOrDefault();
+
+
+                    if (cadeteDesdeBd != null)
+                    {
+                        cadeteDesdeBd.Empleados.Usuarios.CodigoModificarEmail = cadete.CodigoModificarEmail;
+
+                        dbConnection.Cadetes.Update(cadeteDesdeBd);
+
+                        dbConnection.SaveChanges();
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar modificar el Cadete" + ex.Message);
+            }
+        }
+
         public bool ExisteCadete(int ci)
         {
             bool existe = false;

@@ -209,6 +209,82 @@ namespace PersistenciaCore
             }
         }
 
+        public bool SetearCodigoRecuperacionContraseña(Administrador admin)
+        {
+            try
+
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+
+                    Administradores adminDesdeBd = dbConnection.Administradores.Include("Empleados.Usuarios").Where(x => x.CiEmpleado == admin.Ci).FirstOrDefault();
+
+
+                    if (adminDesdeBd != null)
+                    {
+                        adminDesdeBd.Empleados.Usuarios.CodigoRecuperacionContraseña = admin.CodigoRecuperacionContraseña;
+
+                        dbConnection.Administradores.Update(adminDesdeBd);
+
+                        dbConnection.SaveChanges();
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar modificar el Administrador" + ex.Message);
+            }
+        }
+
+        public bool SetearCodigoModificarEmail(Administrador admin)
+        {
+            try
+
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+
+                    Administradores adminDesdeBd = dbConnection.Administradores.Include("Empleados.Usuarios").Where(x => x.CiEmpleado == admin.Ci).FirstOrDefault();
+
+
+                    if (adminDesdeBd != null)
+                    {
+                        adminDesdeBd.Empleados.Usuarios.CodigoModificarEmail = admin.CodigoModificarEmail;
+
+                        dbConnection.Administradores.Update(adminDesdeBd);
+
+                        dbConnection.SaveChanges();
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar modificar el Administrador" + ex.Message);
+            }
+        }
+
 
 
         public bool ModificarAdmin(EntidadesCompartidasCore.Administrador admin)

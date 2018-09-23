@@ -34,7 +34,13 @@ namespace EntidadesCompartidasCore
         [MaxLength(150)]
         [EmailAddress]
         public string Email { get; set; }
-        
+
+        [StringLength(5)]
+        public string CodigoRecuperacionContraseña { get; set; }
+
+        [StringLength(5)]
+        public string CodigoModificarEmail { get; set; }
+
         public List<Cliente> Clientes { get; set; }
         
         public List<Empleado> Empleados { get; set; }

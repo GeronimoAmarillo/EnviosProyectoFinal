@@ -520,7 +520,9 @@ namespace PersistenciaCore.Migrations
 
             modelBuilder.Entity("PersistenciaCore.Reparaciones", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Vehiculo")
                         .HasMaxLength(10);
@@ -583,6 +585,12 @@ namespace PersistenciaCore.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CodigoModificarEmail")
+                        .HasMaxLength(5);
+
+                    b.Property<string>("CodigoRecuperacionContraseña")
+                        .HasMaxLength(5);
 
                     b.Property<string>("Contraseña")
                         .IsRequired()

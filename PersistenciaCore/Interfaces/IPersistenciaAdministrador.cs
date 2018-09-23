@@ -24,5 +24,9 @@ namespace PersistenciaCore
         bool BajaAdministrador(int ci);
 
         Administrador BuscarAdministrador(int ci);
+
+        bool SetearCodigoRecuperacionContraseña(Administrador admin);
+
+        bool SetearCodigoModificarEmail(Administrador admin);
     }
 }

@@ -71,6 +71,82 @@ namespace PersistenciaCore
             }
         }
 
+        public bool SetearCodigoRecuperacionContraseña(Cliente cliente)
+        {
+            try
+
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+            
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+
+                    Clientes clienteDesdeBd = dbConnection.Clientes.Include("Usuarios").Where(x => x.RUT == cliente.RUT).FirstOrDefault();
+
+
+                    if (clienteDesdeBd != null)
+                    {
+                        clienteDesdeBd.Usuarios.CodigoRecuperacionContraseña = cliente.CodigoRecuperacionContraseña;
+
+                        dbConnection.Clientes.Update(clienteDesdeBd);
+
+                        dbConnection.SaveChanges();
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar modificar el Cliente" + ex.Message);
+            }
+        }
+
+        public bool SetearCodigoModificarEmail(Cliente cliente)
+        {
+            try
+
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+
+                    Clientes clienteDesdeBd = dbConnection.Clientes.Include("Usuarios").Where(x => x.RUT == cliente.RUT).FirstOrDefault();
+
+
+                    if (clienteDesdeBd != null)
+                    {
+                        clienteDesdeBd.Usuarios.CodigoModificarEmail = cliente.CodigoModificarEmail;
+
+                        dbConnection.Clientes.Update(clienteDesdeBd);
+
+                        dbConnection.SaveChanges();
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar modificar el Cliente" + ex.Message);
+            }
+        }
+
         public Cliente BuscarClienteXEmail(string email)
         {
             try
