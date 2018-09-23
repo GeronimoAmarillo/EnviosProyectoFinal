@@ -255,6 +255,66 @@ namespace LogicaDeAppsCore
             {
                 throw new Exception("Error al intentar dar de alta: " + ex.Message);
             }
-        }   
+        }
+
+
+
+        public async Task<bool> SetearCodigoContraseña(Usuario unUsuario)
+        {
+            try
+            {
+                bool exito = false;
+
+                var httpClient = new HttpClient();
+
+                var EnvioJson = JsonConvert.SerializeObject(unUsuario);
+
+                HttpResponseMessage retorno = await httpClient.PostAsync(ConexionREST.ConexionUsuarios + "/RecuperacionContrasenia", new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
+
+                var contentResult = retorno.Content.ReadAsStringAsync();
+
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar dar de alta el Usuario: " + ex.Message);
+            }
+        }
+
+        public async Task<bool> SetearCodigoEmail(Usuario unUsuario)
+        {
+            try
+            {
+                bool exito = false;
+
+                var httpClient = new HttpClient();
+
+                var EnvioJson = JsonConvert.SerializeObject(unUsuario);
+
+                HttpResponseMessage retorno = await httpClient.PostAsync(ConexionREST.ConexionUsuarios + "/RecuperacionEmail", new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
+
+                var contentResult = retorno.Content.ReadAsStringAsync();
+
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar dar de alta el Usuario: " + ex.Message);
+            }
+        }
     }
 }
