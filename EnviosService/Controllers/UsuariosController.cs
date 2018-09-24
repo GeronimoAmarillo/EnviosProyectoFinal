@@ -42,6 +42,20 @@ namespace EnviosService.Controllers
             return Json(controladorUsuario.SetearCodigoModificarEmail(unUsuario), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
+        [HttpPost]
+        [Route("Api/Usuarios/VerificarCodigoContrasenia")]
+        public JsonResult VerificarCodigoContraseña([FromBody] Dictionary<string, string> valores)
+        {
+            return Json(controladorUsuario.VerificarCodigoContraseña(valores["email"], valores["codigo"]), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
+        [HttpPost]
+        [Route("Api/Usuarios/VerificarCodigoEmail")]
+        public JsonResult VerificarCodigoEmail([FromBody] Dictionary<string, string> valores)
+        {
+            return Json(controladorUsuario.VerificarCodigoEmail(valores["email"], valores["codigo"]), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
         [HttpGet("{usuario, contrasenia}")]
         [Route("api/Usuarios/Login")]
         public JsonResult Usuario(string usuario, string contrasenia)

@@ -56,6 +56,62 @@ namespace PersistenciaCore
 
         }
 
+        public bool VerificarCodigoContraseña(string email, string codigo)
+        {
+            try
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    var cadeteEncontrado = dbConnection.Cadetes.Include("Empleados.Usuarios").Where(x => x.Empleados.Usuarios.Email == email && x.Empleados.Usuarios.CodigoRecuperacionContraseña == codigo).FirstOrDefault();
+
+                    if (cadeteEncontrado != null)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el cliente." + ex.Message);
+            }
+        }
+
+        public bool VerificarCodigoEmail(string email, string codigo)
+        {
+            try
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    var cadeteEncontrado = dbConnection.Cadetes.Include("Empleados.Usuarios").Where(x => x.Empleados.Usuarios.Email == email && x.Empleados.Usuarios.CodigoModificarEmail == codigo).FirstOrDefault();
+
+                    if (cadeteEncontrado != null)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el cliente." + ex.Message);
+            }
+        }
+
         public bool SetearCodigoRecuperacionContraseña(Cadete cadete)
         {
             try

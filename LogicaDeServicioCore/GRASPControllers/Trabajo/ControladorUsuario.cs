@@ -45,6 +45,42 @@ namespace LogicaDeServicioCore
             }
         }
 
+        public static bool VerificarCodigoContraseña(string email, string codigo)
+        {
+            try
+            {
+                bool correcto = false;
+
+                correcto = LogicaUsuario.VerificarCodigoContraseña(email, codigo);
+
+                return correcto;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
+        public static bool VerificarCodigoEmail(string email, string codigo)
+        {
+            try
+            {
+                bool correcto = false;
+
+                correcto = LogicaUsuario.VerificarCodigoEmail(email, codigo);
+
+                return correcto;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
         public bool EnviarMail(Usuario usuario)
         {
             return true;

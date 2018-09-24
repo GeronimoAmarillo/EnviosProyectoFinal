@@ -316,5 +316,75 @@ namespace LogicaDeAppsCore
                 throw new Exception("Error al intentar dar de alta el Usuario: " + ex.Message);
             }
         }
+
+
+        public async Task<bool> VerificarCodigoContraseña(string codigo, string email)
+        {
+            try
+            {
+                bool exito = false;
+
+                var httpClient = new HttpClient();
+
+                Dictionary<string, string> valores = new Dictionary<string, string>();
+
+                valores.Add("codigo", codigo);
+                valores.Add("email", email);
+
+                var EnvioJson = JsonConvert.SerializeObject(valores);
+
+                HttpResponseMessage retorno = await httpClient.PostAsync(ConexionREST.ConexionUsuarios + "/VerificarCodigoContrasenia", new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
+
+                var contentResult = retorno.Content.ReadAsStringAsync();
+
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar dar de alta el Usuario: " + ex.Message);
+            }
+        }
+
+        public async Task<bool> VerificarCodigoEmail(string codigo, string email)
+        {
+            try
+            {
+                bool exito = false;
+
+                var httpClient = new HttpClient();
+
+                Dictionary<string, string> valores = new Dictionary<string, string>();
+
+                valores.Add("codigo", codigo);
+                valores.Add("email", email);
+
+
+                var EnvioJson = JsonConvert.SerializeObject(valores);
+
+                HttpResponseMessage retorno = await httpClient.PostAsync(ConexionREST.ConexionUsuarios + "/VerificarCodigoEmail", new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
+
+                var contentResult = retorno.Content.ReadAsStringAsync();
+
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar dar de alta el Usuario: " + ex.Message);
+            }
+        }
     }
 }

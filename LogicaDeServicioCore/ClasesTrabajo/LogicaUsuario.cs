@@ -10,6 +10,44 @@ namespace LogicaDeServicioCore
 {
     public class LogicaUsuario
     {
+
+        public static bool VerificarCodigoContraseña(string email, string codigo)
+        {
+            try
+            {
+                bool correcto = false;
+
+                correcto = FabricaPersistencia.GetPersistenciaCliente().VerificarCodigoContraseña(email, codigo);
+
+                return correcto;
+           
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
+        public static bool VerificarCodigoEmail(string email, string codigo)
+        {
+            try
+            {
+                bool correcto = false;
+
+                correcto = FabricaPersistencia.GetPersistenciaCliente().VerificarCodigoContraseña(email, codigo);
+
+                return correcto;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
+
         public static bool AltaUsuario(Usuario unUsuario)
         {
             bool exito = false;

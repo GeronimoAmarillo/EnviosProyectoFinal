@@ -28,5 +28,9 @@ namespace LogicaDeServicioCore
         bool SetearCodigoRecuperarContraseña(Usuario unUsuario);
 
         bool SetearCodigoModificarEmail(Usuario unUsuario);
+
+        bool VerificarCodigoContraseña(string email, string codigo);
+
+        bool VerificarCodigoEmail(string email, string codigo);
     }
 }

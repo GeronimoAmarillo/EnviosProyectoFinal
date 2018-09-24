@@ -183,6 +183,62 @@ namespace PersistenciaCore
             }
         }
 
+        public bool VerificarCodigoContraseña(string email, string codigo)
+        {
+            try
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+                
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    var clienteEncontrado = dbConnection.Clientes.Include("Usuarios").Where(x => x.Usuarios.Email == email && x.Usuarios.CodigoRecuperacionContraseña == codigo).FirstOrDefault();
+
+                    if (clienteEncontrado != null)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el cliente." + ex.Message);
+            }
+        }
+
+        public bool VerificarCodigoEmail(string email, string codigo)
+        {
+            try
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    var clienteEncontrado = dbConnection.Clientes.Include("Usuarios").Where(x => x.Usuarios.Email == email && x.Usuarios.CodigoModificarEmail == codigo).FirstOrDefault();
+
+                    if (clienteEncontrado != null)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el cliente." + ex.Message);
+            }
+        }
+
         public bool ExisteClienteXEmail(string email)
         {
             try

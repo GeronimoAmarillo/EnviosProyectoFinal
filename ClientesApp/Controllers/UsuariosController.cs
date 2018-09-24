@@ -15,6 +15,7 @@ namespace ClientesApp.Controllers
         public static string LOG_USER = "UsuarioLogueado";
 
         public static string SESSION_MENSAJE = "Mensaje";
+        public static string SESSION_CODIGO = "EmailParaCodigo";
 
         public IActionResult Login()
         {
@@ -184,39 +185,46 @@ namespace ClientesApp.Controllers
 
                     string emailViejo = cliente.Email;
 
-                    if (cliente != null && cliente is ClienteEmailNuevo)
+                    Cliente clienteXemail = await FabricaApps.GetControladorCliente().BuscarClienteXEmail(cliente.Email);
+
+
+                    if (await FabricaApps.GetControladorUsuario().SetearCodigoEmail(clienteXemail))
                     {
-                        MailMessage mail = new MailMessage();
-                        mail.From = new MailAddress("enviosservice2018@gmail.com");
-                        mail.To.Add(emailViejo);
-                        mail.Subject = "Cambio de eMail de contacto - EnviosService";
-                        mail.Body = "Hola " + cliente.Nombre + ", Hemos comenzado el proceso de actualizacion de email de contacto como solicitastes! \n " +
-                            "para confirmar el remplazo de la siguiente direccion de correo: " + cliente.Email + ", en lugar de: " + emailViejo + " de click sobre el siguiente enlace de confirmación: \n" +
-                            "http://localhost:56270/Usuarios/ConfirmarModificacion?rut=" + cliente.RUT +"&emailNuevo="+ cliente.Email;
-                        mail.IsBodyHtml = true;
-                        mail.Priority = MailPriority.Normal;
+                        if (cliente != null && cliente is ClienteEmailNuevo)
+                        {
+                            Cliente clienteXemailModificado = await FabricaApps.GetControladorCliente().BuscarClienteXEmail(cliente.Email);
 
-                        SmtpClient smtp = new SmtpClient();
-                        smtp.Host = "smtp.gmail.com";
-                        smtp.Port = 25;
-                        smtp.EnableSsl = true;
-                        smtp.UseDefaultCredentials = true;
-                        string correoPropio = "enviosservice2018@gmail.com";
-                        string contraseñaCorreo = "MatiasPabloGero";
-                        smtp.Credentials = new System.Net.NetworkCredential(correoPropio, contraseñaCorreo);
+                            MailMessage mail = new MailMessage();
+                            mail.From = new MailAddress("enviosservice2018@gmail.com");
+                            mail.To.Add(emailViejo);
+                            mail.Subject = "Cambio de eMail de contacto - EnviosService";
+                            mail.Body = "Hola " + cliente.Nombre + ", Hemos comenzado el proceso de actualizacion de email de contacto como solicitastes! \n " +
+                                "para confirmar el remplazo de la siguiente direccion de correo: " + cliente.Email + ", en lugar de: " + emailViejo + " ingrese en siguiente codigo de confirmacion: " + clienteXemailModificado.CodigoModificarEmail;
+                            mail.IsBodyHtml = true;
+                            mail.Priority = MailPriority.Normal;
 
-                        smtp.Send(mail);
-                        ViewBag.Mensaje = "Se envio un correo de confirmación a " + emailViejo + " con los pasos a seguir para confirmar la actualización.";
+                            SmtpClient smtp = new SmtpClient();
+                            smtp.Host = "smtp.gmail.com";
+                            smtp.Port = 25;
+                            smtp.EnableSsl = true;
+                            smtp.UseDefaultCredentials = true;
+                            string correoPropio = "enviosservice2018@gmail.com";
+                            string contraseñaCorreo = "MatiasPabloGero";
+                            smtp.Credentials = new System.Net.NetworkCredential(correoPropio, contraseñaCorreo);
 
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "Se envio un correo de confirmación a " + emailViejo + " con los pasos a seguir para confirmar la actualización.");
-                    }
-                    else
-                    {
-                        HttpContext.Session.Set<Usuario>(LOG_USER, null);
+                            smtp.Send(mail);
 
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "Usuario y/o contraseña invalidos.");
+                            HttpContext.Session.Set<string>(SESSION_MENSAJE, "Se envio un correo de confirmación a " + emailViejo + " con los pasos a seguir para confirmar la actualización.");
+                            HttpContext.Session.Set<string>(SESSION_CODIGO, clienteXemailModificado.Email);
 
-                        return RedirectToAction("Login", "Usuarios", new { area = "" });
+                            return RedirectToAction("IngresarCodigoEmail", "Usuarios", new { area = "" });
+                        }
+                        else
+                        {
+                            HttpContext.Session.Set<string>(SESSION_MENSAJE, "No se pudo generar el codigo de confirmacion para el usuario con email: " + emailViejo + ".");
+
+                            return RedirectToAction("Index", "Home", new { area = "" });
+                        }
                     }
 
                     return RedirectToAction("Index", "Home", new { area = "" });
@@ -237,7 +245,84 @@ namespace ClientesApp.Controllers
             }
 
         }
-        
+
+        public IActionResult IngresarCodigoEmail()
+        {
+            try
+            {
+                string email = HttpContext.Session.Get<string>(SESSION_CODIGO);
+
+                HttpContext.Session.Set<string>(SESSION_CODIGO, null);
+
+                ViewBag.Email = email;
+
+                return View();
+            }
+            catch
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario.");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> IngresarCodigoEmail([FromForm] string email, [FromForm] string codigo)
+        {
+            try
+            {
+
+                Cliente cliente = await FabricaApps.GetControladorCliente().BuscarClienteXEmail(email);
+
+                if (cliente != null)
+                {
+
+                    if (await FabricaApps.GetControladorUsuario().VerificarCodigoEmail(codigo, email))
+                    {
+
+                        cliente.CodigoModificarEmail = null;
+
+                        IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
+
+                        bool exito = await controladorUsuario.SetearCodigoEmail(cliente);
+
+                        if (exito)
+                        {
+                            return RedirectToAction("ConfirmarModificacion", "Usuarios", new { rut = cliente.RUT, emailNuevo = cliente.Email });
+                        }
+                        else
+                        {
+
+                            HttpContext.Session.Set<string>(SESSION_MENSAJE, "Se produjo un error al verificar el codigo.");
+
+                            return RedirectToAction("Index", "Home", new { area = "" });
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.Incorrecto = "Codigo Incorrecto.";
+
+                        return View();
+                    }
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "El email ingresado no es valido o no pertenece a ningun Cliente del sistema.");
+
+                    return RedirectToAction("RecuperarContraseña", "Usuarios", new { area = "" });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar Definir la nueva contraseña.");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+
         public IActionResult ConfirmarModificacion(long rut, string emailNuevo)
         {
             try
@@ -388,31 +473,48 @@ namespace ClientesApp.Controllers
             {
                 if (await FabricaApps.GetControladorCliente().ExisteClienteXEmail(email))
                 {
-                    MailMessage mail = new MailMessage();
-                    mail.From = new MailAddress("enviosservice2018@gmail.com");
-                    mail.To.Add(email);
-                    mail.Subject = "Recuperación de contraseña - EnviosService";
-                    mail.Body = "Hola, Hemos comenzado el proceso de recuperación de contraseña como solicitastes! \n " +
-                        "para definir su nueva contraseña haga click en el siguiente enlace: \n" +
-                        "http://localhost:56270/Usuarios/DefinicionContraseña?email=" + email;
-                    mail.IsBodyHtml = true;
-                    mail.Priority = MailPriority.Normal;
 
-                    SmtpClient smtp = new SmtpClient();
-                    smtp.Host = "smtp.gmail.com";
-                    smtp.Port = 25;
-                    smtp.EnableSsl = true;
-                    smtp.UseDefaultCredentials = true;
-                    string correoPropio = "enviosservice2018@gmail.com";
-                    string contraseñaCorreo = "MatiasPabloGero";
-                    smtp.Credentials = new System.Net.NetworkCredential(correoPropio, contraseñaCorreo);
+                    Cliente clienteXemail = await FabricaApps.GetControladorCliente().BuscarClienteXEmail(email);
 
-                    smtp.Send(mail);
-                    ViewBag.Mensaje = "Se envio un correo con el enlace para definir su nueva contraseña a " + email + ".";
 
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "Se envio un correo con el enlace para definir su nueva contraseña a " + email + ".");
+                    if (await FabricaApps.GetControladorUsuario().SetearCodigoContraseña(clienteXemail))
+                    {
 
-                    return RedirectToAction("Index", "Home", new { area = "" });
+                        Cliente clienteXemailConCodigo = await FabricaApps.GetControladorCliente().BuscarClienteXEmail(email);
+
+                        MailMessage mail = new MailMessage();
+                        mail.From = new MailAddress("enviosservice2018@gmail.com");
+                        mail.To.Add(email);
+                        mail.Subject = "Recuperación de contraseña - EnviosService";
+                        mail.Body = "Hola, Hemos comenzado el proceso de recuperación de contraseña como solicitastes! \n " +
+                            "para definir su nueva contraseña utilize el siguiente codigo: " + clienteXemailConCodigo.CodigoRecuperacionContraseña;
+                        mail.IsBodyHtml = true;
+                        mail.Priority = MailPriority.Normal;
+
+                        SmtpClient smtp = new SmtpClient();
+                        smtp.Host = "smtp.gmail.com";
+                        smtp.Port = 25;
+                        smtp.EnableSsl = true;
+                        smtp.UseDefaultCredentials = true;
+                        string correoPropio = "enviosservice2018@gmail.com";
+                        string contraseñaCorreo = "MatiasPabloGero";
+                        smtp.Credentials = new System.Net.NetworkCredential(correoPropio, contraseñaCorreo);
+
+                        smtp.Send(mail);
+                        ViewBag.Mensaje = "Se envio un correo con el enlace para definir su nueva contraseña a " + email + ".";
+
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "Se envio un correo con el enlace para definir su nueva contraseña a " + email + ".");
+                        HttpContext.Session.Set<string>(SESSION_CODIGO, clienteXemailConCodigo.Email);
+
+                        return RedirectToAction("IngresarCodigoContraseña", "Usuarios", new { area = "" });
+                    }
+                    else
+                    {
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "No se pudo generar el codigo de confirmacion para el usuario con email: " + email + ".");
+
+                        return RedirectToAction("Index", "Home", new { area = "" });
+                    }
+                    
                 }
                 else
                 {
@@ -432,11 +534,88 @@ namespace ClientesApp.Controllers
 
         }
 
-        public IActionResult DefinicionContraseña(string email)
+        public IActionResult IngresarCodigoContraseña()
         {
             try
             {
+                string email = HttpContext.Session.Get<string>(SESSION_CODIGO);
+
+                HttpContext.Session.Set<string>(SESSION_CODIGO, null);
+
                 ViewBag.Email = email;
+
+                return View();
+            }
+            catch
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario.");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> IngresarCodigoContraseña([FromForm] string email, [FromForm] string codigo)
+        {
+            try
+            {
+
+                Cliente cliente = await FabricaApps.GetControladorCliente().BuscarClienteXEmail(email);
+
+                if (cliente != null)
+                {
+
+                    if (await FabricaApps.GetControladorUsuario().VerificarCodigoContraseña(codigo, email))
+                    {
+
+                        cliente.CodigoRecuperacionContraseña = null;
+
+                        IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
+
+                        bool exito = await controladorUsuario.SetearCodigoContraseña(cliente);
+
+                        if (exito)
+                        {
+                            return RedirectToAction("DefinicionContraseña", "Usuarios", new { pEmail = email });
+                        }
+                        else
+                        {
+
+                            HttpContext.Session.Set<string>(SESSION_MENSAJE, "Se produjo un error al verificar el codigo.");
+
+                            return RedirectToAction("Index", "Home", new { area = "" });
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.Incorrecto = "Codigo Incorrecto.";
+
+                        return View();
+                    }
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "El email ingresado no es valido o no pertenece a ningun Cliente del sistema.");
+
+                    return RedirectToAction("RecuperarContraseña", "Usuarios", new { area = "" });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar Definir la nueva contraseña.");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+
+        public IActionResult DefinicionContraseña(string pEmail)
+        {
+            try
+            {
+                ViewBag.Email = pEmail;
                 return View();
             }
             catch
