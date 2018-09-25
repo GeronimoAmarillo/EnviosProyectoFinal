@@ -61,6 +61,8 @@ namespace PersistenciaCore
                         clienteResultado.NombreUsuario = clienteEncontrado.Usuarios.NombreUsuario;
                         clienteResultado.RUT = clienteEncontrado.RUT;
                         clienteResultado.Telefono = clienteEncontrado.Usuarios.Telefono;
+                        clienteResultado.CodigoRecuperacionContraseña = clienteEncontrado.Usuarios.CodigoRecuperacionContraseña;
+                        clienteResultado.CodigoModificarEmail = clienteEncontrado.Usuarios.CodigoModificarEmail;
                     }
                 }
                 return clienteResultado;
@@ -173,6 +175,8 @@ namespace PersistenciaCore
                         clienteResultado.NombreUsuario = clienteEncontrado.Usuarios.NombreUsuario;
                         clienteResultado.RUT = clienteEncontrado.RUT;
                         clienteResultado.Telefono = clienteEncontrado.Usuarios.Telefono;
+                        clienteResultado.CodigoRecuperacionContraseña = clienteEncontrado.Usuarios.CodigoRecuperacionContraseña;
+                        clienteResultado.CodigoModificarEmail = clienteEncontrado.Usuarios.CodigoModificarEmail;
                     }
                 }
                 return clienteResultado;
@@ -415,6 +419,8 @@ namespace PersistenciaCore
                         clienteR.NombreUsuario = c.Usuario.NombreUsuario;
                         clienteR.RUT = c.Cliente.RUT;
                         clienteR.Telefono = c.Usuario.Telefono;
+                        clienteR.CodigoRecuperacionContraseña = c.Usuario.CodigoRecuperacionContraseña;
+                        clienteR.CodigoModificarEmail = c.Usuario.CodigoModificarEmail;
 
                         clientesResultado.Add(clienteR);
                     }

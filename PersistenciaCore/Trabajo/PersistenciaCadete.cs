@@ -246,6 +246,8 @@ namespace PersistenciaCore
                     cadeteR.Telefono = a.Empleados.Usuarios.Telefono;
                     cadeteR.IdTelefono = a.IdTelefono;
                     cadeteR.TipoLibreta = a.TipoLibreta;
+                    cadeteR.CodigoRecuperacionContraseña = a.Empleados.Usuarios.CodigoRecuperacionContraseña;
+                    cadeteR.CodigoModificarEmail = a.Empleados.Usuarios.CodigoModificarEmail;
 
                     cadetesResultado.Add(cadeteR);
                 }
@@ -292,6 +294,8 @@ namespace PersistenciaCore
                             cadeteResultado.Sueldo = cadeteEncontrado.Empleado.Sueldo;
                             cadeteResultado.Telefono = cadeteEncontrado.Usuario.Telefono;
                             cadeteResultado.TipoLibreta = cadeteEncontrado.Cadete.TipoLibreta;
+                            cadeteResultado.CodigoRecuperacionContraseña = cadeteEncontrado.Cadete.Empleados.Usuarios.CodigoRecuperacionContraseña;
+                            cadeteResultado.CodigoModificarEmail = cadeteEncontrado.Cadete.Empleados.Usuarios.CodigoModificarEmail;
                         }
                         
                     
@@ -350,6 +354,8 @@ namespace PersistenciaCore
                     cadeteR.Sueldo = l.Empleados.Sueldo;
                     cadeteR.Telefono = l.Empleados.Usuarios.Telefono;
                     cadeteR.TipoLibreta = l.TipoLibreta;
+                    cadeteR.CodigoRecuperacionContraseña = l.Empleados.Usuarios.CodigoRecuperacionContraseña;
+                    cadeteR.CodigoModificarEmail = l.Empleados.Usuarios.CodigoModificarEmail;
 
                     cadetesResultado.Add(cadeteR);
                 }
@@ -403,6 +409,8 @@ namespace PersistenciaCore
                     cadeteResultado.Sueldo = cadete.Empleados.Sueldo;
                     cadeteResultado.Telefono = cadete.Empleados.Usuarios.Telefono;
                     cadeteResultado.IdTelefono = cadete.IdTelefono;
+                    cadeteResultado.CodigoRecuperacionContraseña = cadete.Empleados.Usuarios.CodigoRecuperacionContraseña;
+                    cadeteResultado.CodigoModificarEmail = cadete.Empleados.Usuarios.CodigoModificarEmail;
                 }
 
                 return cadeteResultado;

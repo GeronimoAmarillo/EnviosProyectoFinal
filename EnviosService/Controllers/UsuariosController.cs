@@ -30,30 +30,46 @@ namespace EnviosService.Controllers
 
         [HttpPost]
         [Route("Api/Usuarios/RecuperacionContrasenia")]
-        public JsonResult CodigoContraseña([FromBody] Usuario unUsuario)
+        public JsonResult CodigoContraseña([FromBody] Cliente unUsuario)
         {
             return Json(controladorUsuario.SetearCodigoRecuperarContraseña(unUsuario), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
         [HttpPost]
         [Route("Api/Usuarios/RecuperacionEmail")]
-        public JsonResult CodigoEmail([FromBody] Usuario unUsuario)
+        public JsonResult CodigoEmail([FromBody] Cliente unUsuario)
         {
             return Json(controladorUsuario.SetearCodigoModificarEmail(unUsuario), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
         [HttpPost]
         [Route("Api/Usuarios/VerificarCodigoContrasenia")]
-        public JsonResult VerificarCodigoContraseña([FromBody] Dictionary<string, string> valores)
+        public JsonResult VerificarCodigoContraseña([FromBody] List<string> valores)
         {
-            return Json(controladorUsuario.VerificarCodigoContraseña(valores["email"], valores["codigo"]), new Newtonsoft.Json.JsonSerializerSettings());
+            if (valores != null)
+            {
+                return Json(controladorUsuario.VerificarCodigoContraseña(valores[0], valores[1]), new Newtonsoft.Json.JsonSerializerSettings());
+            }
+            else
+            {
+                return Json(null, new Newtonsoft.Json.JsonSerializerSettings());
+            }
+            
         }
 
         [HttpPost]
         [Route("Api/Usuarios/VerificarCodigoEmail")]
-        public JsonResult VerificarCodigoEmail([FromBody] Dictionary<string, string> valores)
+        public JsonResult VerificarCodigoEmail([FromBody] List<string> valores)
         {
-            return Json(controladorUsuario.VerificarCodigoEmail(valores["email"], valores["codigo"]), new Newtonsoft.Json.JsonSerializerSettings());
+            if (valores != null)
+            {
+                return Json(controladorUsuario.VerificarCodigoEmail(valores[0], valores[1]), new Newtonsoft.Json.JsonSerializerSettings());
+            }
+            else
+            {
+                return Json(null, new Newtonsoft.Json.JsonSerializerSettings());
+            }
+           
         }
 
         [HttpGet("{usuario, contrasenia}")]

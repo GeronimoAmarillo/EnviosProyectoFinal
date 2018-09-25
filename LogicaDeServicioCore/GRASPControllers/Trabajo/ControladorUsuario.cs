@@ -45,7 +45,7 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public static bool VerificarCodigoContraseña(string email, string codigo)
+        public bool VerificarCodigoContraseña(string email, string codigo)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace LogicaDeServicioCore
 
         }
 
-        public static bool VerificarCodigoEmail(string email, string codigo)
+        public bool VerificarCodigoEmail(string email, string codigo)
         {
             try
             {

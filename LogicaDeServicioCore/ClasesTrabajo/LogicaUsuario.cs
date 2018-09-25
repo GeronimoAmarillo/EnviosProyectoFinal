@@ -35,7 +35,7 @@ namespace LogicaDeServicioCore
             {
                 bool correcto = false;
 
-                correcto = FabricaPersistencia.GetPersistenciaCliente().VerificarCodigoContraseña(email, codigo);
+                correcto = FabricaPersistencia.GetPersistenciaCliente().VerificarCodigoEmail(email, codigo);
 
                 return correcto;
 
@@ -102,11 +102,15 @@ namespace LogicaDeServicioCore
             {
                 if (unUsuario is Cliente)
                 {
-                    if (!ExisteCliente(((Cliente)unUsuario).RUT))
+                    if (ExisteCliente(((Cliente)unUsuario).RUT))
                     {
-                        if(unUsuario.CodigoRecuperacionContraseña == null)
+                        if (unUsuario.CodigoRecuperacionContraseña == null || unUsuario.CodigoRecuperacionContraseña.Length == 0)
                         {
                             unUsuario.CodigoRecuperacionContraseña = GenerarCodigo();
+                        }
+                        else
+                        {
+                            unUsuario.CodigoRecuperacionContraseña = null;
                         }
                         
                         exito = FabricaPersistencia.GetPersistenciaCliente().SetearCodigoRecuperacionContraseña((Cliente)unUsuario);
@@ -116,7 +120,7 @@ namespace LogicaDeServicioCore
                 }
                 if (unUsuario is Administrador)
                 {
-                    if (!ExisteEmpleado(((Administrador)unUsuario).Ci))
+                    if (ExisteEmpleado(((Administrador)unUsuario).Ci))
                     {
                         if (unUsuario.CodigoRecuperacionContraseña == null)
                         {
@@ -130,7 +134,7 @@ namespace LogicaDeServicioCore
                 }
                 if (unUsuario is Cadete)
                 {
-                    if (!ExisteEmpleado(((Cadete)unUsuario).Ci))
+                    if (ExisteEmpleado(((Cadete)unUsuario).Ci))
                     {
                         if (unUsuario.CodigoRecuperacionContraseña == null)
                         {
@@ -160,11 +164,15 @@ namespace LogicaDeServicioCore
             {
                 if (unUsuario is Cliente)
                 {
-                    if (!ExisteCliente(((Cliente)unUsuario).RUT))
+                    if (ExisteCliente(((Cliente)unUsuario).RUT))
                     {
-                        if (unUsuario.CodigoModificarEmail == null)
+                        if (unUsuario.CodigoModificarEmail == null || unUsuario.CodigoModificarEmail.Length == 0)
                         {
                             unUsuario.CodigoModificarEmail = GenerarCodigo();
+                        }
+                        else
+                        {
+                            unUsuario.CodigoModificarEmail = null;
                         }
 
                         exito = FabricaPersistencia.GetPersistenciaCliente().SetearCodigoModificarEmail((Cliente)unUsuario);
@@ -174,7 +182,7 @@ namespace LogicaDeServicioCore
                 }
                 if (unUsuario is Administrador)
                 {
-                    if (!ExisteEmpleado(((Administrador)unUsuario).Ci))
+                    if (ExisteEmpleado(((Administrador)unUsuario).Ci))
                     {
                         if (unUsuario.CodigoModificarEmail == null)
                         {
@@ -188,7 +196,7 @@ namespace LogicaDeServicioCore
                 }
                 if (unUsuario is Cadete)
                 {
-                    if (!ExisteEmpleado(((Cadete)unUsuario).Ci))
+                    if (ExisteEmpleado(((Cadete)unUsuario).Ci))
                     {
                         if (unUsuario.CodigoModificarEmail == null)
                         {
@@ -470,7 +478,7 @@ namespace LogicaDeServicioCore
             StringBuilder res = new StringBuilder();
             Random rnd = new Random();
             int charNum = 1;
-            while (charNum < 5)
+            while (charNum < 6)
             {
                 res.Append(valid[rnd.Next(valid.Length)]);
                 charNum++;

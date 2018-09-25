@@ -208,6 +208,8 @@ namespace PersistenciaCore
                     adminResultado.Sueldo = administrador.Empleados.Sueldo;
                     adminResultado.Telefono = administrador.Empleados.Usuarios.Telefono;
                     adminResultado.Tipo = administrador.Tipo;
+                    adminResultado.CodigoRecuperacionContraseña = administrador.Empleados.Usuarios.CodigoRecuperacionContraseña;
+                    adminResultado.CodigoModificarEmail = administrador.Empleados.Usuarios.CodigoModificarEmail;
                 }
 
                 return adminResultado;
@@ -253,6 +255,8 @@ namespace PersistenciaCore
                     adminR.Sueldo = a.Empleados.Sueldo;
                     adminR.Telefono = a.Empleados.Usuarios.Telefono;
                     adminR.Tipo = a.Tipo;
+                    adminR.CodigoRecuperacionContraseña = a.Empleados.Usuarios.CodigoRecuperacionContraseña;
+                    adminR.CodigoModificarEmail = a.Empleados.Usuarios.CodigoModificarEmail;
 
                     adminsResultado.Add(adminR);
                 }
