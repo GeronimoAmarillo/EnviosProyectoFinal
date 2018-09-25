@@ -183,12 +183,24 @@ namespace ClientesApp.Controllers
                 if (ComprobarLogin())
                 {
 
-                    string emailViejo = cliente.Email;
+                    string emailViejo = cliente.EmailViejo;
 
-                    Cliente clienteXemail = await FabricaApps.GetControladorCliente().BuscarClienteXEmail(cliente.Email);
+                    Cliente clienteXemail = await FabricaApps.GetControladorCliente().BuscarClienteXEmail(cliente.EmailViejo);
 
+                    bool exito = false;
+                    bool codigoYaSeteado = false;
 
-                    if (await FabricaApps.GetControladorUsuario().SetearCodigoEmail(clienteXemail))
+                    if (clienteXemail.CodigoModificarEmail != null)
+                    {
+                        exito = true;
+                        codigoYaSeteado = true;
+                    }
+                    else
+                    {
+                        exito = await FabricaApps.GetControladorUsuario().SetearCodigoEmail(clienteXemail);
+                    }
+
+                    if (exito && !codigoYaSeteado)
                     {
                         if (cliente != null && cliente is ClienteEmailNuevo)
                         {
@@ -216,6 +228,15 @@ namespace ClientesApp.Controllers
 
                             HttpContext.Session.Set<string>(SESSION_MENSAJE, "Se envio un correo de confirmación a " + emailViejo + " con los pasos a seguir para confirmar la actualización.");
                             HttpContext.Session.Set<string>(SESSION_CODIGO, clienteXemailModificado.Email);
+
+                            return RedirectToAction("IngresarCodigoEmail", "Usuarios", new { area = "" });
+                        }
+                        else if (exito && codigoYaSeteado)
+                        {
+                            ViewBag.Mensaje = "Previamente ya se envio un correo con el codigo para definir su nuevo email a " + emailViejo + ".";
+
+                            HttpContext.Session.Set<string>(SESSION_MENSAJE, "Se envio un correo con el codigo para definir su nuevo email a " + emailViejo + ".");
+                            HttpContext.Session.Set<string>(SESSION_CODIGO, clienteXemail.Email);
 
                             return RedirectToAction("IngresarCodigoEmail", "Usuarios", new { area = "" });
                         }
