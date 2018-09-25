@@ -281,8 +281,6 @@ namespace ClientesApp.Controllers
                     if (await FabricaApps.GetControladorUsuario().VerificarCodigoEmail(codigo, email))
                     {
 
-                        cliente.CodigoModificarEmail = null;
-
                         IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
 
                         bool exito = await controladorUsuario.SetearCodigoEmail(cliente);
@@ -473,14 +471,27 @@ namespace ClientesApp.Controllers
             {
                 if (await FabricaApps.GetControladorCliente().ExisteClienteXEmail(email))
                 {
+                    Cliente clienteXemailConCodigo = null;
 
                     Cliente clienteXemail = await FabricaApps.GetControladorCliente().BuscarClienteXEmail(email);
 
+                    bool exito = false;
+                    bool codigoYaSeteado = false;
 
-                    if (await FabricaApps.GetControladorUsuario().SetearCodigoContraseña(clienteXemail))
+                    if (clienteXemail.CodigoRecuperacionContraseña != null)
+                    {
+                        exito = true;
+                        codigoYaSeteado = true;
+                    }
+                    else
+                    {
+                        exito = await FabricaApps.GetControladorUsuario().SetearCodigoContraseña(clienteXemail);
+                    }
+
+                    if (exito && !codigoYaSeteado)
                     {
 
-                        Cliente clienteXemailConCodigo = await FabricaApps.GetControladorCliente().BuscarClienteXEmail(email);
+                        clienteXemailConCodigo = await FabricaApps.GetControladorCliente().BuscarClienteXEmail(email);
 
                         MailMessage mail = new MailMessage();
                         mail.From = new MailAddress("enviosservice2018@gmail.com");
@@ -501,10 +512,19 @@ namespace ClientesApp.Controllers
                         smtp.Credentials = new System.Net.NetworkCredential(correoPropio, contraseñaCorreo);
 
                         smtp.Send(mail);
-                        ViewBag.Mensaje = "Se envio un correo con el enlace para definir su nueva contraseña a " + email + ".";
+                        ViewBag.Mensaje = "Se envio un correo con el codigo para definir su nueva contraseña a " + email + ".";
 
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "Se envio un correo con el enlace para definir su nueva contraseña a " + email + ".");
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "Se envio un correo con el codigo para definir su nueva contraseña a " + email + ".");
                         HttpContext.Session.Set<string>(SESSION_CODIGO, clienteXemailConCodigo.Email);
+
+                        return RedirectToAction("IngresarCodigoContraseña", "Usuarios", new { area = "" });
+                    }
+                    else if (exito && codigoYaSeteado)
+                    {
+                        ViewBag.Mensaje = "Previamente ya se envio un correo con el codigo para definir su nueva contraseña a " + email + ".";
+
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "Se envio un correo con el codigo para definir su nueva contraseña a " + email + ".");
+                        HttpContext.Session.Set<string>(SESSION_CODIGO, clienteXemail.Email);
 
                         return RedirectToAction("IngresarCodigoContraseña", "Usuarios", new { area = "" });
                     }
@@ -568,9 +588,6 @@ namespace ClientesApp.Controllers
 
                     if (await FabricaApps.GetControladorUsuario().VerificarCodigoContraseña(codigo, email))
                     {
-
-                        cliente.CodigoRecuperacionContraseña = null;
-
                         IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
 
                         bool exito = await controladorUsuario.SetearCodigoContraseña(cliente);

@@ -326,10 +326,9 @@ namespace LogicaDeAppsCore
 
                 var httpClient = new HttpClient();
 
-                Dictionary<string, string> valores = new Dictionary<string, string>();
-
-                valores.Add("codigo", codigo);
-                valores.Add("email", email);
+                List<string> valores = new List<string>();
+                valores.Add(email);
+                valores.Add(codigo);
 
                 var EnvioJson = JsonConvert.SerializeObject(valores);
 
@@ -360,11 +359,9 @@ namespace LogicaDeAppsCore
 
                 var httpClient = new HttpClient();
 
-                Dictionary<string, string> valores = new Dictionary<string, string>();
-
-                valores.Add("codigo", codigo);
-                valores.Add("email", email);
-
+                List<string> valores = new List<string>();
+                valores.Add(email);
+                valores.Add(codigo);
 
                 var EnvioJson = JsonConvert.SerializeObject(valores);
 
