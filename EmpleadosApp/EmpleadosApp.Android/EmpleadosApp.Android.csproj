@@ -72,18 +72,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adaptadores\AdaptadorClientes.cs" />
+    <Compile Include="Adaptadores\AdaptadorLocales.cs" />
     <Compile Include="Adaptadores\AdaptadorPalets.cs" />
     <Compile Include="Adaptadores\AdaptadorRacks.cs" />
     <Compile Include="Adaptadores\AdaptadorSectores.cs" />
     <Compile Include="AltaPalletActivity.cs" />
+    <Compile Include="AsignarPaqueteActivity.cs" />
     <Compile Include="AsyncHelper.cs" />
     <Compile Include="BajaPaletActivity.cs" />
     <Compile Include="InicioActivity.cs" />
     <Compile Include="ListadoClientesActivity.cs" />
+    <Compile Include="ListadoClientesPaqueteActivity.cs" />
+    <Compile Include="ListadoLocalesActivity.cs" />
     <Compile Include="ListadoPaletsActivity.cs" />
     <Compile Include="ListadoRacksActivity.cs" />
     <Compile Include="ListadoSectoresActivity.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="NuevoPaqueteActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -124,6 +129,21 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\BajaPaletActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ListadoLocalesActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\AsignarPaqueteActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\InformacionEntregaActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\LocalRow.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\NuevoPaqueteActivity.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

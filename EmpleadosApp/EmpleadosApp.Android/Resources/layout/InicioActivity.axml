@@ -13,4 +13,9 @@
         android:layout_width="match_parent"
         android:id="@+id/btnIrBajaPalet"
         android:text="Expulsar Pallet" />
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/btnIrLevanteEntrega"
+        android:text="Levantar Entrega" />
 </LinearLayout>

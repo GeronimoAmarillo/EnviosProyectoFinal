@@ -16,7 +16,7 @@ namespace EmpleadosApp.Droid.Adaptadores
     class AdaptadorClientes : BaseAdapter<Cliente>
     {
         private Activity contexto;
-        private List<Cliente> clientes;
+        private List<Local> locales;
 
         public AdaptadorClientes(Activity contextoP, List<Cliente> clientesP)
         {

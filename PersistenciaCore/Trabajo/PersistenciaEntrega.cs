@@ -52,6 +52,11 @@ namespace PersistenciaCore
         {
             try
             {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+
                 PersistenciaCore.Entregas entregaAgregar = new PersistenciaCore.Entregas();
 
                 entregaAgregar.ClienteEmisor = entrega.ClienteEmisor;
@@ -61,15 +66,46 @@ namespace PersistenciaCore
                 entregaAgregar.LocalEmisor = entrega.LocalEmisor;
                 entregaAgregar.LocalReceptor = entrega.LocalReceptor;
                 entregaAgregar.NombreReceptor = entrega.NombreReceptor;
-                entregaAgregar.Paquetes = TransformarPaquetes(entrega.Paquetes);
-                entregaAgregar.Paquetes1 = TransformarPaquetes(entrega.Paquetes1);
+
+
+                int codigo = 0;
+
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    bool existe = true;
+
+                    while (existe == true)
+                    {
+                        codigo = GenerarCodigo();
+
+                        existe = dbConnection.Entregas.Where(x => x.Codigo == codigo).Any();
+                    }
+
+                }
+
+                entregaAgregar.Codigo = codigo;
+
+                if(entrega.Paquetes != null)
+                {
+                    foreach (Paquete p in entrega.Paquetes)
+                    {
+                        p.Entrega = codigo;
+                    }
+
+                    entregaAgregar.Paquetes = TransformarPaquetes(entrega.Paquetes);
+                }
+
+                if (entrega.Paquetes1 != null)
+                {
+                    foreach (Paquete p in entrega.Paquetes1)
+                    {
+                        p.Entrega = codigo;
+                    }
+
+                    entregaAgregar.Paquetes1 = TransformarPaquetes(entrega.Paquetes1);
+                }
+                
                 entregaAgregar.Turno = entrega.Turno;
-
-
-                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
-
-                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
-
 
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
@@ -82,6 +118,28 @@ namespace PersistenciaCore
             catch (Exception ex)
             {
                 throw new Exception("Error al dar de alta la entrega.");
+            }
+        }
+
+        public int GenerarCodigo()
+        {
+            try
+            {
+                const string valid = "1234567890";
+                StringBuilder res = new StringBuilder();
+                Random rnd = new Random();
+                int charNum = 1;
+                while (charNum < 11)
+                {
+                    res.Append(valid[rnd.Next(valid.Length)]);
+                    charNum++;
+                }
+
+                return Convert.ToInt32(res.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("No se puede convertir el codigo generado.");
             }
         }
     }

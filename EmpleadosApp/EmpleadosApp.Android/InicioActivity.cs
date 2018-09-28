@@ -20,6 +20,7 @@ namespace EmpleadosApp.Droid
     {
         Button btnIrAltaPalet;
         Button btnIrBajaPalet;
+        Button btnIrLevanteEntrega;
         Usuario usuarioLogueado;
 
         protected override void OnCreate(Bundle bundle)
@@ -101,6 +102,43 @@ namespace EmpleadosApp.Droid
         {
             btnIrAltaPalet.Click += btnIrAltaPalet_Click;
             btnIrBajaPalet.Click += btnIrBajaPalet_Click;
+            btnIrLevanteEntrega.Click += btnIrLevanteEntrega_Click;
+        }
+
+        private void btnIrLevanteEntrega_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(Application);
+                string json = prefs.GetString("UsuarioLogueado", "N/L");
+
+                if (json != "N/L")
+                {
+                    usuarioLogueado = JsonConvert.DeserializeObject<Usuario>(json);
+
+                    if (usuarioLogueado != null)
+                    {
+                        Entrega entrega = new Entrega();
+
+                        Intent intent = new Intent(this, typeof(ListadoLocalesActivity));
+                        intent.PutExtra("EntregaCreacion", Newtonsoft.Json.JsonConvert.SerializeObject(entrega));
+
+                        StartActivity(intent);
+                    }
+                    else
+                    {
+                        Toast.MakeText(this, "No hay usuario Logueado, logueese para utilizar esta función", ToastLength.Long).Show();
+                    }
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+            catch (Exception ex)
+            {
+                Toast.MakeText(this, "ERROR: " + ex.Message, ToastLength.Long).Show();
+            }
         }
 
         private void btnIrBajaPalet_Click(object sender, EventArgs e)
