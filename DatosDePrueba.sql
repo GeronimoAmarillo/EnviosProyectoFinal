@@ -310,3 +310,35 @@ VALUES('EEE5555', 2.7)
 
 INSERT INTO Camiones(MatriculaCamion, Altura)
 VALUES('FFF6666', 2.5)
+
+INSERT INTO Turnos(Codigo, Dia, Hora)
+VALUES('LUN0600', 'Lunes', 0600)
+
+INSERT INTO Turnos(Codigo, Dia, Hora)
+VALUES('MAR1000', 'Martes', 1000)
+
+INSERT INTO Turnos(Codigo, Dia, Hora)
+VALUES('MIE1500', 'Miercoles', 1500)
+
+INSERT INTO Turnos(Codigo, Dia, Hora)
+VALUES('JUE2000', 'Jueves', 2000)
+
+INSERT INTO Entregas(ClienteEmisor, ClienteReceptor, Fecha, LocalEmisor, LocalReceptor, NombreReceptor, Turno)
+VALUES(null, 66666666, '2018-09-10 06:00:00.000', 1, null, 'Damian Martinez', 'LUN0600')
+
+INSERT INTO Entregas(ClienteEmisor, ClienteReceptor, Fecha, LocalEmisor, LocalReceptor, NombreReceptor, Turno)
+VALUES(null, 66666666, '2018-09-11 10:00:00.000', 2, null, 'Diego Torres', 'MAR1000')
+
+INSERT INTO Paquetes(Cliente, ClientesRUT, Entrega, EntregasCodigo, Estado, FechaSalida, NumReferencia, Ubicacion)
+values(66666666, 66666666, 3, 3, 'Levantado', '2018-09-10 06:00:00.000', 12341234, 'Optica 1')
+INSERT INTO Paquetes(Cliente, ClientesRUT, Entrega, EntregasCodigo, Estado, FechaSalida, NumReferencia, Ubicacion)
+values(66666666, 66666666, 3, 3, 'Levantado', '2018-09-10 06:00:00.000', 12344321, 'Optica 1')
+INSERT INTO Paquetes(Cliente, ClientesRUT, Entrega, EntregasCodigo, Estado, FechaSalida, NumReferencia, Ubicacion)
+values(66666666, 66666666, 3, 3, 'Levantado', '2018-09-10 06:00:00.000', 12345678, 'Optica 1')
+
+INSERT INTO Paquetes(Cliente, ClientesRUT, Entrega, EntregasCodigo, Estado, FechaSalida, NumReferencia, Ubicacion)
+values(66666666, 66666666, 3, 3, 'Levantado', '2018-09-11 10:00:00.000', 23452345, 'Optica 2')
+INSERT INTO Paquetes(Cliente, ClientesRUT, Entrega, EntregasCodigo, Estado, FechaSalida, NumReferencia, Ubicacion)
+values(66666666, 66666666, 3, 3, 'Levantado', '2018-09-11 10:00:00.000', 23455432, 'Optica 2')
+INSERT INTO Paquetes(Cliente, ClientesRUT, Entrega, EntregasCodigo, Estado, FechaSalida, NumReferencia, Ubicacion)
+values(66666666, 66666666, 3, 3, 'Levantado', '2018-09-11 10:00:00.000', 23456789, 'Optica 2')

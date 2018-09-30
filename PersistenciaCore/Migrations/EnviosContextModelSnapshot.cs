@@ -219,16 +219,16 @@ namespace PersistenciaCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("ClienteEmisor");
+                    b.Property<long?>("ClienteEmisor");
 
-                    b.Property<long>("ClienteReceptor");
+                    b.Property<long?>("ClienteReceptor");
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("date");
 
-                    b.Property<int>("LocalEmisor");
+                    b.Property<int?>("LocalEmisor");
 
-                    b.Property<int>("LocalReceptor");
+                    b.Property<int?>("LocalReceptor");
 
                     b.Property<string>("NombreReceptor")
                         .IsRequired()

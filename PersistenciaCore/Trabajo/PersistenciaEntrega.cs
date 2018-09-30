@@ -71,7 +71,7 @@ namespace PersistenciaCore
 
                 int codigo = 0;
 
-                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                /*using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
                     bool existe = true;
 
@@ -82,7 +82,7 @@ namespace PersistenciaCore
                         existe = dbConnection.Entregas.Where(x => x.Codigo == codigo).Any();
                     }
 
-                }
+                }*/
 
                 entregaAgregar.Codigo = codigo;
 
@@ -104,16 +104,6 @@ namespace PersistenciaCore
                     }
 
                     entregaAgregar.Paquetes1 = TransformarPaquetes(entrega.Paquetes1);
-                }
-
-                entregaAgregar.Turno = entrega.Turno;
-
-                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
-                {
-                    dbConnection.Entregas.Add(entregaAgregar);
-                    dbConnection.SaveChanges();
-
-                    return true;
                 }
 
                 entregaAgregar.Turno = entrega.Turno;
