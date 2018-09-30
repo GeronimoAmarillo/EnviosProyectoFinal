@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -104,7 +105,17 @@ namespace PersistenciaCore
 
                     entregaAgregar.Paquetes1 = TransformarPaquetes(entrega.Paquetes1);
                 }
-                
+
+                entregaAgregar.Turno = entrega.Turno;
+
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    dbConnection.Entregas.Add(entregaAgregar);
+                    dbConnection.SaveChanges();
+
+                    return true;
+                }
+
                 entregaAgregar.Turno = entrega.Turno;
 
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))

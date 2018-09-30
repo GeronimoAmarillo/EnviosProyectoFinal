@@ -6,18 +6,18 @@ namespace EntidadesCompartidasAndroid
 {
     public static class ConexionREST
     {
-        static string conexionRaiz = "http://localhost:8080/api/";
-        static string conexionLocales = "http://localhost:8080/api/Locales";
-        static string conexionPalets = "http://localhost:8080/api/Palets";
-        static string conexionUsuarios = "http://localhost:8080/api/Usuarios";
-        static string conexionVehiculos = "http://localhost:8080/api/Vehiculos";
-        static string conexionValores = "http://localhost:8080/api/Valores";
-        static string conexionClientes = "http://localhost:8080/api/Clientes";
-        static string conexionAdelantos = "http://localhost:8080/api/Adelantos";
-        static string conexionMultas = "http://localhost:8080/api/Multas";
-        static string conexionReparaciones = "http://localhost:8080/api/Reparaciones";
-        static string conexionTurnos = "http://localhost:8080/api/Turnos";
-        static string conexionEntregas = "http://localhost:8080/api/Entregas";
+        static string conexionRaiz = "http://169.254.80.80:8080/api/";
+        static string conexionLocales = "http://169.254.80.80:8080/api/Locales";
+        static string conexionPalets = "http://169.254.80.80:8080/api/Palets";
+        static string conexionUsuarios = "http://169.254.80.80:8080/api/Usuarios";
+        static string conexionVehiculos = "http://169.254.80.80:8080/api/Vehiculos";
+        static string conexionValores = "http://169.254.80.80:8080/api/Valores";
+        static string conexionClientes = "http://169.254.80.80:8080/api/Clientes";
+        static string conexionAdelantos = "http://169.254.80.80:8080/api/Adelantos";
+        static string conexionMultas = "http://169.254.80.80:8080/api/Multas";
+        static string conexionReparaciones = "http://169.254.80.80:8080/api/Reparaciones";
+        static string conexionTurnos = "http://169.254.80.80:8080/api/Turnos";
+        static string conexionEntregas = "http://169.254.80.80:8080/api/Entregas";
 
         /*static string conexionRaiz = "https://enviosservice.azurewebsites.net/api/";
         static string conexionLocales = "https://enviosservice.azurewebsites.net/api/Locales";
