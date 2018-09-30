@@ -55,6 +55,18 @@ namespace LogicaDeServicioCore
             }
         }
 
+        public Entrega BuscarEntrega(int codigo)
+        {
+            try
+            {
+                return LogicaEntrega.BuscarEntrega(codigo);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar la entrega." + ex.Message);
+            }
+        }
+
         public bool AltaEntrega(EntidadesCompartidasCore.Entrega pEntrega)
         {
             try

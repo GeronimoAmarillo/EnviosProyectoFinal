@@ -16,6 +16,73 @@ namespace PersistenciaCore
             return true;
         }
 
+        public Entrega BuscarEntrega(int codigo)
+        {
+            try
+            {
+                Entrega entregaResultado = null;
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    var entrega = dbConnection.Entregas.Include("Paquetes").Include("Paquetes1").Where(x => x.Codigo == codigo).FirstOrDefault();
+
+                    if (entrega != null)
+                    {
+                        entregaResultado = new Entrega();
+
+                        entregaResultado.ClienteEmisor = entrega.ClienteEmisor;
+                        entregaResultado.ClienteReceptor = entrega.ClienteReceptor;
+                        entregaResultado.Codigo = entrega.Codigo;
+                        entregaResultado.Fecha = entrega.Fecha;
+                        entregaResultado.LocalEmisor = entrega.LocalEmisor;
+                        entregaResultado.LocalReceptor = entrega.LocalReceptor;
+                        entregaResultado.NombreReceptor = entrega.NombreReceptor;
+                        entregaResultado.Paquetes = TransformarPaquetesInversa(entrega.Paquetes);
+                        entregaResultado.Paquetes1 = TransformarPaquetesInversa(entrega.Paquetes1);
+                        entregaResultado.Turno = entrega.Turno;
+                    }
+                }
+
+                return entregaResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar la entrega." + ex.Message);
+            }
+        }
+
+        private List<Paquete> TransformarPaquetesInversa(ICollection<Paquetes> pPaquetes)
+        {
+            try
+            {
+                List<Paquete> paquetesR = new List<Paquete>();
+
+                foreach (Paquetes p in pPaquetes)
+                {
+                    Paquete pN = new Paquete();
+
+                    pN.Cliente = p.Cliente;
+                    pN.Entrega = p.Entrega;
+                    pN.Estado = p.Estado;
+                    pN.FechaSalida = p.FechaSalida;
+                    pN.NumReferencia = p.NumReferencia;
+                    pN.Ubicacion = p.Ubicacion;
+
+                    paquetesR.Add(pN);
+                }
+
+                return paquetesR;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al transformar los paquetes.");
+            }
+        }
+
         public List<EntidadesCompartidasCore.Entrega> ListarEntregas()
         {
             return new List<EntidadesCompartidasCore.Entrega>();

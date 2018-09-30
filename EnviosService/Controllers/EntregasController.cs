@@ -28,6 +28,13 @@ namespace EnviosService.Controllers
             return Json(controladorEntrega.ListarEntregas(), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
+        [Route("api/Entregas/Buscar")]
+        [HttpGet]
+        public JsonResult Buscar(int codigo)
+        {
+            return Json(controladorEntrega.BuscarEntrega(codigo), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
         [Route("api/Entregas/Alta")]
         [HttpPost]
         public JsonResult Entrega([FromBody] Entrega item)

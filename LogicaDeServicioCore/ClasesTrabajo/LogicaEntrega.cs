@@ -22,6 +22,18 @@ namespace LogicaDeServicioCore
             return entregas;
         }
 
+        public static Entrega BuscarEntrega(int codigo)
+        {
+            try
+            {
+                return FabricaPersistencia.GetPersistenciaEntrega().BuscarEntrega(codigo);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar la entrega." + ex.Message);
+            }
+        }
+
         public static bool AltaEntega(Entrega unaEntrega)
         {
             try
