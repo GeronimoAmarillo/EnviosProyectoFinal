@@ -138,6 +138,8 @@ namespace PersistenciaCore
 
                 int codigo = 0;
 
+                entregaAgregar.Codigo = codigo;
+
                 /*using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
                     bool existe = true;
@@ -151,32 +153,42 @@ namespace PersistenciaCore
 
                 }*/
 
-                entregaAgregar.Codigo = codigo;
-
-                if(entrega.Paquetes != null)
-                {
-                    foreach (Paquete p in entrega.Paquetes)
-                    {
-                        p.Entrega = codigo;
-                    }
-
-                    entregaAgregar.Paquetes = TransformarPaquetes(entrega.Paquetes);
-                }
-
-                if (entrega.Paquetes1 != null)
-                {
-                    foreach (Paquete p in entrega.Paquetes1)
-                    {
-                        p.Entrega = codigo;
-                    }
-
-                    entregaAgregar.Paquetes1 = TransformarPaquetes(entrega.Paquetes1);
-                }
-
                 entregaAgregar.Turno = entrega.Turno;
 
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
+                    var ultimoRegistro = dbConnection.Entregas.OrderByDescending(x => x.Codigo).FirstOrDefault();
+
+                    if (ultimoRegistro == null)
+                    {
+                        codigo = 1;
+                    }
+                    else
+                    {
+                        codigo = ultimoRegistro.Codigo + 1;
+                    }
+                    
+
+                    if (entrega.Paquetes != null)
+                    {
+                        foreach (Paquete p in entrega.Paquetes)
+                        {
+                            p.Entrega = codigo;
+                        }
+
+                        entregaAgregar.Paquetes = TransformarPaquetes(entrega.Paquetes);
+                    }
+
+                    if (entrega.Paquetes1 != null)
+                    {
+                        foreach (Paquete p in entrega.Paquetes1)
+                        {
+                            p.Entrega = codigo;
+                        }
+
+                        entregaAgregar.Paquetes1 = TransformarPaquetes(entrega.Paquetes1);
+                    }
+
                     dbConnection.Entregas.Add(entregaAgregar);
                     dbConnection.SaveChanges();
 
