@@ -135,6 +135,8 @@ namespace PersistenciaCore
                 entregaAgregar.LocalReceptor = entrega.LocalReceptor;
                 entregaAgregar.NombreReceptor = entrega.NombreReceptor;
 
+                List<Paquetes> paquetes = TransformarPaquetes(entrega.Paquetes);
+
 
                 int codigo = 0;
 
@@ -157,41 +159,42 @@ namespace PersistenciaCore
 
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    var ultimoRegistro = dbConnection.Entregas.OrderByDescending(x => x.Codigo).FirstOrDefault();
-
-                    if (ultimoRegistro == null)
+                    using (var transaction = dbConnection.Database.BeginTransaction())
                     {
-                        codigo = 1;
-                    }
-                    else
-                    {
-                        codigo = ultimoRegistro.Codigo + 1;
-                    }
-                    
-
-                    if (entrega.Paquetes != null)
-                    {
-                        foreach (Paquete p in entrega.Paquetes)
+                        try
                         {
-                            p.Entrega = codigo;
+                            dbConnection.Entregas.Add(entregaAgregar);
+                            dbConnection.SaveChanges();
+
+                            var ultimoRegistro = dbConnection.Entregas.OrderByDescending(x => x.Codigo).FirstOrDefault();
+
+                            codigo = ultimoRegistro.Codigo;
+
+                            if (entrega.Paquetes != null)
+                            {
+                                foreach (Paquete p in entrega.Paquetes)
+                                {
+                                    p.Entrega = codigo;
+                                }
+
+                                paquetes = TransformarPaquetes(entrega.Paquetes);
+                            }
+
+                            foreach (Paquetes p in paquetes)
+                            {
+                                dbConnection.Paquetes.Add(p);
+                            }
+
+                            dbConnection.SaveChanges();
+
+                            transaction.Commit();
                         }
-
-                        entregaAgregar.Paquetes = TransformarPaquetes(entrega.Paquetes);
-                    }
-
-                    if (entrega.Paquetes1 != null)
-                    {
-                        foreach (Paquete p in entrega.Paquetes1)
+                        catch (Exception ex)
                         {
-                            p.Entrega = codigo;
+                            transaction.Rollback();
+                            throw new Exception();
                         }
-
-                        entregaAgregar.Paquetes1 = TransformarPaquetes(entrega.Paquetes1);
                     }
-
-                    dbConnection.Entregas.Add(entregaAgregar);
-                    dbConnection.SaveChanges();
-
                     return true;
                 }
             }
