@@ -83,6 +83,44 @@ namespace PersistenciaCore
             }
         }
 
+        public Turnos IdentificarTurno(string diaSemana, int hora)
+        {
+            try
+            {
+                Turnos turnoCandidato = new Turnos();
+                List<Turnos> turnos = new List<Turnos>();
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    turnos = dbConnection.Turnos.Where(x=> x.Dia == diaSemana).ToList();
+                }
+
+                turnos.OrderBy(x=> x.Hora);
+                
+                for (int t = 0; t < turnos.Count; t++)
+                {
+                    if (turnos[t].Hora < hora)
+                    {
+                        turnoCandidato = turnos[t];
+                    }
+                    else
+                    {
+                        turnoCandidato = turnos[t - 1];
+                    }
+                }
+
+                return turnoCandidato;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al identificar el turno." + ex.Message);
+            }
+        }
+
         public bool ModificarTurno(EntidadesCompartidasCore.Turno turno)
         {
             return true;
