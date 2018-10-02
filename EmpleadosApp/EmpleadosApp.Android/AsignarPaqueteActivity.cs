@@ -131,6 +131,9 @@ namespace EmpleadosApp.Droid
             etClienteReceptor = FindViewById<EditText>(Resource.Id.etClienteReceptor);
             etLocalEmisor = FindViewById<EditText>(Resource.Id.etLocalEmisor);
             etNumReferencia = FindViewById<EditText>(Resource.Id.etNumReferencia);
+
+            etClienteReceptor.Text = entrega.ClienteReceptor.ToString();
+            etLocalEmisor.Text = entrega.Locales.Nombre;
         }
 
         public void VerificarSesion()

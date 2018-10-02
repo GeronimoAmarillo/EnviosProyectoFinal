@@ -20,12 +20,14 @@
         android:id="@+id/etClienteReceptor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Aqui va el Cliente Receptor" />
+        android:hint="Aqui va el Cliente Receptor"
+        android:enabled="false"/>
     <EditText
         android:id="@+id/etLocalEmisor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Aqui va el Local Emisor" />
+        android:hint="Aqui va el Local Emisor"
+        android:enabled="false"/>
     <Button
         android:text="Asignar"
         android:layout_width="match_parent"

@@ -215,7 +215,7 @@ namespace PersistenciaCore
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al dar de alta la entrega.");
+                throw new Exception("Error al intentar dar de alta la entrega." + ex);
             }
         }
 

@@ -122,6 +122,7 @@ namespace EmpleadosApp.Droid
 
                         Intent intent = new Intent(this, typeof(ListadoLocalesActivity));
                         intent.PutExtra("EntregaCreacion", Newtonsoft.Json.JsonConvert.SerializeObject(entrega));
+                        intent.PutExtra("Nueva", true);
 
                         StartActivity(intent);
                     }
@@ -214,6 +215,7 @@ namespace EmpleadosApp.Droid
         private void SetupViews()
         {
             btnIrAltaPalet = FindViewById<Button>(Resource.Id.btnIrAltaPalet);
+            btnIrLevanteEntrega = FindViewById<Button>(Resource.Id.btnIrLevanteEntrega);
             btnIrBajaPalet = FindViewById<Button>(Resource.Id.btnIrBajaPalet);
         }
     }

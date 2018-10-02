@@ -42,7 +42,7 @@ namespace LogicaDeServicioCore
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al intentar dar de alta la entrega." + ex.Message);
+                throw new Exception("Error al intentar dar de alta la entrega." + ex);
             }
         }
     }

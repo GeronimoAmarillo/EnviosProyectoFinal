@@ -36,25 +36,45 @@ namespace EmpleadosApp.Droid
                 Bundle extras = Intent.Extras;
                 string entregaJson = extras.GetString("EntregaCreacion");
                 entrega = JsonConvert.DeserializeObject<Entrega>(entregaJson);
-                
-                locales = new List<Local>();
 
-                if (!locales.Any())
+                bool entregaNueva = extras.GetBoolean("Nueva");
+
+                if (entregaNueva)
+                {
+                    locales = new List<Local>();
+
+                    if (!locales.Any())
+                    {
+                        try
+                        {
+                            locales = AsyncHelper.RunSync<List<Local>>(() => ListarLocales());
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new Exception("Se produjo un error al intentar listar los locales.");
+                        }
+                    }
+
+                    SetupViews();
+                    SetupEvents();
+
+                    lvLocales.Adapter = new Adaptadores.AdaptadorLocales(this, locales);
+                }
+                else
                 {
                     try
                     {
-                        locales = AsyncHelper.RunSync<List<Local>>(() => ListarLocales());
+                        var intent = new Intent(this, typeof(AsignarPaqueteActivity));
+                        
+                        intent.PutExtra("EntregaCreacion", Newtonsoft.Json.JsonConvert.SerializeObject(entrega));
+
+                        StartActivity(intent);
                     }
                     catch (Exception ex)
                     {
-                        throw new Exception("Se produjo un error al intentar listar los locales.");
+                        throw new Exception("Error al avanzar.");
                     }
                 }
-
-                SetupViews();
-                SetupEvents();
-
-                lvLocales.Adapter = new Adaptadores.AdaptadorLocales(this, locales);
 
             }
             catch (Exception ex)

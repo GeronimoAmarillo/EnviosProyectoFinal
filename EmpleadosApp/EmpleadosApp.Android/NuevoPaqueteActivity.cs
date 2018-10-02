@@ -21,7 +21,6 @@ namespace EmpleadosApp.Droid
         private Entrega entrega;
         private TextView tvLocalEmisor;
         private TextView tvClienteReceptor;
-        private TextView tvTurno;
         private ListView lvPaquetes;
         private Button btnNuevoPaquete;
         private Button btnCerrarEntrega;
@@ -85,6 +84,7 @@ namespace EmpleadosApp.Droid
                 var intent = new Intent(this, typeof(ListadoLocalesActivity));
 
                 intent.PutExtra("EntregaCreacion", Newtonsoft.Json.JsonConvert.SerializeObject(entrega));
+                intent.PutExtra("Nueva", false);
 
                 StartActivity(intent);
             }
@@ -98,14 +98,12 @@ namespace EmpleadosApp.Droid
         {
             tvClienteReceptor = FindViewById<TextView>(Resource.Id.tvClienteReceptor);
             tvLocalEmisor = FindViewById<TextView>(Resource.Id.tvLocalEmisor);
-            tvTurno = FindViewById<TextView>(Resource.Id.tvTurno);
             btnCerrarEntrega = FindViewById<Button>(Resource.Id.btnTerminar);
             btnNuevoPaquete = FindViewById<Button>(Resource.Id.btnNuevoPaquete);
             lvPaquetes = FindViewById<ListView>(Resource.Id.lvPaquetes);
 
             tvClienteReceptor.Text = entrega.ClienteReceptor.ToString();
             tvLocalEmisor.Text = entrega.LocalEmisor.ToString();
-            tvTurno.Text = entrega.Turno;
 
             lvPaquetes.Adapter = new Adaptadores.AdaptadorPaquetes(this, entrega.Paquetes);
         }

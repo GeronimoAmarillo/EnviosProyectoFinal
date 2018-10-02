@@ -73,9 +73,9 @@ namespace LogicaDeServicioCore
             {
                 return LogicaEntrega.AltaEntega(pEntrega);
             }
-            catch
+            catch(Exception ex)
             {
-                throw new Exception("Error al intentar dar de alta la entrega.");
+                throw new Exception("Error al intentar dar de alta la entrega." + ex);
             }
         }
     }

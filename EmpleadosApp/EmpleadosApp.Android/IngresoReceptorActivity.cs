@@ -69,6 +69,10 @@ namespace EmpleadosApp.Droid
                 }
 
                 entrega.NombreReceptor = etReceptor.Text;
+                entrega.ClienteEmisor = null;
+                entrega.Locales = null;
+
+                entrega.Fecha = DateTime.Now;
                 
 
                 try

@@ -2790,9 +2790,6 @@ namespace EmpleadosApp.Droid
 			// aapt resource value: 0x7f0800e7
 			public const int TextView2 = 2131230951;
 			
-			// aapt resource value: 0x7f0800e9
-			public const int TextView3 = 2131230953;
-			
 			// aapt resource value: 0x7f08009d
 			public const int Textview1 = 2131230877;
 			
@@ -2901,14 +2898,14 @@ namespace EmpleadosApp.Droid
 			// aapt resource value: 0x7f0800b3
 			public const int btnLogin = 2131230899;
 			
-			// aapt resource value: 0x7f0800ec
-			public const int btnNuevoPaquete = 2131230956;
+			// aapt resource value: 0x7f0800eb
+			public const int btnNuevoPaquete = 2131230955;
 			
 			// aapt resource value: 0x7f08009f
 			public const int btnReceptor = 2131230879;
 			
-			// aapt resource value: 0x7f0800ed
-			public const int btnTerminar = 2131230957;
+			// aapt resource value: 0x7f0800ec
+			public const int btnTerminar = 2131230956;
 			
 			// aapt resource value: 0x7f08008b
 			public const int btnVolver = 2131230859;
@@ -3096,8 +3093,8 @@ namespace EmpleadosApp.Droid
 			// aapt resource value: 0x7f0800a9
 			public const int lvPalets = 2131230889;
 			
-			// aapt resource value: 0x7f0800eb
-			public const int lvPaquetes = 2131230955;
+			// aapt resource value: 0x7f0800ea
+			public const int lvPaquetes = 2131230954;
 			
 			// aapt resource value: 0x7f0800ab
 			public const int lvRacks = 2131230891;
@@ -3105,8 +3102,8 @@ namespace EmpleadosApp.Droid
 			// aapt resource value: 0x7f0800ad
 			public const int lvSectores = 2131230893;
 			
-			// aapt resource value: 0x7f0800f7
-			public const int masked = 2131230967;
+			// aapt resource value: 0x7f0800f6
+			public const int masked = 2131230966;
 			
 			// aapt resource value: 0x7f0800d4
 			public const int media_actions = 2131230932;
@@ -3306,8 +3303,8 @@ namespace EmpleadosApp.Droid
 			// aapt resource value: 0x7f080017
 			public const int showTitle = 2131230743;
 			
-			// aapt resource value: 0x7f0800f4
-			public const int sliding_tabs = 2131230964;
+			// aapt resource value: 0x7f0800f3
+			public const int sliding_tabs = 2131230963;
 			
 			// aapt resource value: 0x7f08008f
 			public const int smallLabel = 2131230863;
@@ -3402,8 +3399,8 @@ namespace EmpleadosApp.Droid
 			// aapt resource value: 0x7f080057
 			public const int title_template = 2131230807;
 			
-			// aapt resource value: 0x7f0800f5
-			public const int toolbar = 2131230965;
+			// aapt resource value: 0x7f0800f4
+			public const int toolbar = 2131230964;
 			
 			// aapt resource value: 0x7f080029
 			public const int top = 2131230761;
@@ -3420,8 +3417,8 @@ namespace EmpleadosApp.Droid
 			// aapt resource value: 0x7f08000b
 			public const int transition_scene_layoutid_cache = 2131230731;
 			
-			// aapt resource value: 0x7f0800f1
-			public const int tvAltura = 2131230961;
+			// aapt resource value: 0x7f0800f0
+			public const int tvAltura = 2131230960;
 			
 			// aapt resource value: 0x7f080083
 			public const int tvCantidad = 2131230851;
@@ -3435,17 +3432,17 @@ namespace EmpleadosApp.Droid
 			// aapt resource value: 0x7f0800e8
 			public const int tvClienteReceptor = 2131230952;
 			
-			// aapt resource value: 0x7f0800f0
-			public const int tvCodigo = 2131230960;
+			// aapt resource value: 0x7f0800ef
+			public const int tvCodigo = 2131230959;
 			
 			// aapt resource value: 0x7f0800b0
 			public const int tvDireccionLocal = 2131230896;
 			
-			// aapt resource value: 0x7f0800f2
-			public const int tvDisponibilidad = 2131230962;
+			// aapt resource value: 0x7f0800f1
+			public const int tvDisponibilidad = 2131230961;
 			
-			// aapt resource value: 0x7f0800ef
-			public const int tvEstado = 2131230959;
+			// aapt resource value: 0x7f0800ee
+			public const int tvEstado = 2131230958;
 			
 			// aapt resource value: 0x7f08007f
 			public const int tvId = 2131230847;
@@ -3474,8 +3471,8 @@ namespace EmpleadosApp.Droid
 			// aapt resource value: 0x7f0800af
 			public const int tvNombreLocal = 2131230895;
 			
-			// aapt resource value: 0x7f0800ee
-			public const int tvNumReferencia = 2131230958;
+			// aapt resource value: 0x7f0800ed
+			public const int tvNumReferencia = 2131230957;
 			
 			// aapt resource value: 0x7f080085
 			public const int tvPeso = 2131230853;
@@ -3495,8 +3492,8 @@ namespace EmpleadosApp.Droid
 			// aapt resource value: 0x7f08008e
 			public const int tvTelefono = 2131230862;
 			
-			// aapt resource value: 0x7f0800f3
-			public const int tvTemperatura = 2131230963;
+			// aapt resource value: 0x7f0800f2
+			public const int tvTemperatura = 2131230962;
 			
 			// aapt resource value: 0x7f08007d
 			public const int tvTitulo = 2131230845;
@@ -3504,8 +3501,8 @@ namespace EmpleadosApp.Droid
 			// aapt resource value: 0x7f0800e5
 			public const int tvTituloEntrega = 2131230949;
 			
-			// aapt resource value: 0x7f0800ea
-			public const int tvTurno = 2131230954;
+			// aapt resource value: 0x7f0800e9
+			public const int tvTurno = 2131230953;
 			
 			// aapt resource value: 0x7f080009
 			public const int up = 2131230729;
@@ -3516,8 +3513,8 @@ namespace EmpleadosApp.Droid
 			// aapt resource value: 0x7f08000e
 			public const int view_offset_helper = 2131230734;
 			
-			// aapt resource value: 0x7f0800f6
-			public const int visible = 2131230966;
+			// aapt resource value: 0x7f0800f5
+			public const int visible = 2131230965;
 			
 			// aapt resource value: 0x7f0800c6
 			public const int volume_item_container = 2131230918;
