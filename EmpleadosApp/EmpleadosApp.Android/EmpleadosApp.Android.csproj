@@ -85,7 +85,9 @@
     <Compile Include="InicioActivity.cs" />
     <Compile Include="ListadoClientesActivity.cs" />
     <Compile Include="ListadoClientesPaqueteActivity.cs" />
+    <Compile Include="ListadoClientesPaqueteAsignarActivity.cs" />
     <Compile Include="ListadoLocalesActivity.cs" />
+    <Compile Include="ListadoLocalesAsignarActivity.cs" />
     <Compile Include="ListadoPaletsActivity.cs" />
     <Compile Include="ListadoRacksActivity.cs" />
     <Compile Include="ListadoSectoresActivity.cs" />

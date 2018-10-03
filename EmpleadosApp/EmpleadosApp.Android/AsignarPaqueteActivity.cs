@@ -72,9 +72,16 @@ namespace EmpleadosApp.Droid
                 }
 
                 int numReferencia = Convert.ToInt32(etNumReferencia.Text.ToString());
-                
 
-                paqueteAgregar.Cliente = entrega.ClienteReceptor;
+                if (entrega.ClienteEmisor != null)
+                {
+                    paqueteAgregar.Cliente = entrega.ClienteEmisor;
+                }
+                else
+                {
+                    paqueteAgregar.Cliente = entrega.ClienteReceptor;
+                }
+                
                 paqueteAgregar.Entrega = entrega.Codigo;
                 paqueteAgregar.Estado = "Levantado";
                 paqueteAgregar.FechaSalida = DateTime.Today;
