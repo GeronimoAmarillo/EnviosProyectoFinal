@@ -135,7 +135,7 @@ namespace EmpleadosApp.Droid
         {
             try
             {
-                var intent = new Intent(this, typeof(ListadoClientesPaqueteActivity));
+                var intent = new Intent(this, typeof(ListadoClientesPaqueteAsignarActivity));
                 var id = (int)e.Id;
 
                 Local localReceptor = AsyncHelper.RunSync<Local>(() => BuscarLocal(id));

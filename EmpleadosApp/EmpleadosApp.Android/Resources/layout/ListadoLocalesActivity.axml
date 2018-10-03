@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     <TextView
-        android:text="Seleccione el Local Emisor"
+        android:text="Seleccione el Local"
         android:id="@+id/tvListaLocales"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

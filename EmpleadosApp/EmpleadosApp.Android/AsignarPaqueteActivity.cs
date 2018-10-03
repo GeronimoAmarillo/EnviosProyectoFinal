@@ -131,7 +131,7 @@ namespace EmpleadosApp.Droid
                 throw new Exception("No se pudo validar el numero de referencia.");
             }
         }
-        
+
         private void SetupViews()
         {
             btnAsignar = FindViewById<Button>(Resource.Id.btnAsignarPaquete);
@@ -139,7 +139,15 @@ namespace EmpleadosApp.Droid
             etLocalEmisor = FindViewById<EditText>(Resource.Id.etLocalEmisor);
             etNumReferencia = FindViewById<EditText>(Resource.Id.etNumReferencia);
 
-            etClienteReceptor.Text = entrega.ClienteReceptor.ToString();
+            if (entrega.ClienteEmisor != null)
+            {
+                etClienteReceptor.Text = entrega.ClienteEmisor.ToString();
+            }
+            else
+            {
+                etClienteReceptor.Text = entrega.ClienteReceptor.ToString();
+            }
+            
             etLocalEmisor.Text = entrega.Locales.Nombre;
         }
 

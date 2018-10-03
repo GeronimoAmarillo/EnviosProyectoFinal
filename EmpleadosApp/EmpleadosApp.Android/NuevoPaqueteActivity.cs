@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 
 using Android.App;
@@ -64,11 +65,43 @@ namespace EmpleadosApp.Droid
         {
             try
             {
-                var intent = new Intent(this, typeof(IngresoReceptorActivity));
+                entrega.Locales = null;
 
-                intent.PutExtra("EntregaCreacion", Newtonsoft.Json.JsonConvert.SerializeObject(entrega));
+                entrega.Fecha = DateTime.Now;
 
-                StartActivity(intent);
+                try
+                {
+
+                    using (var httpClient = new HttpClient())
+                    {
+
+                        string url = ConexionREST.ConexionEntregas + "/Alta";
+
+                        var content = new StringContent(JsonConvert.SerializeObject(entrega), Encoding.UTF8, "application/json");
+
+                        var result = httpClient.PostAsync(url, content).Result;
+
+                        var contentResult = result.Content.ReadAsStringAsync();
+
+                        if (contentResult.Result.ToUpper() == "TRUE")
+                        {
+                            Toast.MakeText(this, "Se dio de alta con exito la Entrega.", ToastLength.Long).Show();
+
+                            Intent intent = new Intent(this, typeof(InicioActivity));
+
+                            StartActivity(intent);
+                        }
+                        else
+                        {
+                            Toast.MakeText(this, "Error al dar de alta la entrega.", ToastLength.Long).Show();
+                        }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("ERROR!: " + ex.Message);
+                }
             }
             catch (Exception ex)
             {
@@ -81,7 +114,17 @@ namespace EmpleadosApp.Droid
 
             try
             {
-                var intent = new Intent(this, typeof(ListadoLocalesActivity));
+                var intent = new Intent();
+
+                if (entrega.ClienteEmisor != null)
+                {
+                    intent = new Intent(this, typeof(ListadoLocalesAsignarActivity));
+                }
+                else
+                {
+                    intent = new Intent(this, typeof(ListadoLocalesActivity));
+                }
+                
 
                 intent.PutExtra("EntregaCreacion", Newtonsoft.Json.JsonConvert.SerializeObject(entrega));
                 intent.PutExtra("Nueva", false);
@@ -102,8 +145,24 @@ namespace EmpleadosApp.Droid
             btnNuevoPaquete = FindViewById<Button>(Resource.Id.btnNuevoPaquete);
             lvPaquetes = FindViewById<ListView>(Resource.Id.lvPaquetes);
 
-            tvClienteReceptor.Text = entrega.ClienteReceptor.ToString();
-            tvLocalEmisor.Text = entrega.LocalEmisor.ToString();
+            if (entrega.ClienteEmisor != null)
+            {
+                tvClienteReceptor.Text = entrega.ClienteEmisor.ToString();
+            }
+            else
+            {
+                tvClienteReceptor.Text = entrega.ClienteReceptor.ToString();
+            }
+
+            if (entrega.LocalEmisor != null)
+            {
+                tvLocalEmisor.Text = entrega.LocalEmisor.ToString();
+            }
+            else
+            {
+                tvLocalEmisor.Text = entrega.LocalReceptor.ToString();
+            }
+            
 
             lvPaquetes.Adapter = new Adaptadores.AdaptadorPaquetes(this, entrega.Paquetes);
         }

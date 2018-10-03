@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
-                android:text="LocalEmisor: "
+                android:text="Local: "
                 android:id="@+id/TextView1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="10">
             <TextView
-                android:text="ClienteReceptor: "
+                android:text="Cliente: "
                 android:id="@+id/TextView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

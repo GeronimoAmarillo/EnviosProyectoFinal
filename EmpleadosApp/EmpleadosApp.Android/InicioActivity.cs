@@ -21,6 +21,7 @@ namespace EmpleadosApp.Droid
         Button btnIrAltaPalet;
         Button btnIrBajaPalet;
         Button btnIrLevanteEntrega;
+        Button btnIrRegistroEntrega;
         Usuario usuarioLogueado;
 
         protected override void OnCreate(Bundle bundle)
@@ -103,6 +104,46 @@ namespace EmpleadosApp.Droid
             btnIrAltaPalet.Click += btnIrAltaPalet_Click;
             btnIrBajaPalet.Click += btnIrBajaPalet_Click;
             btnIrLevanteEntrega.Click += btnIrLevanteEntrega_Click;
+            btnIrRegistroEntrega.Click += btnIrRegistroEntrega_Click;
+        }
+
+        private void btnIrRegistroEntrega_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(Application);
+                string json = prefs.GetString("UsuarioLogueado", "N/L");
+
+                if (json != "N/L")
+                {
+                    usuarioLogueado = JsonConvert.DeserializeObject<Usuario>(json);
+
+                    if (usuarioLogueado != null)
+                    {
+                        Entrega entrega = new Entrega();
+
+                        entrega.ClienteReceptor = null;
+
+                        Intent intent = new Intent(this, typeof(ListadoLocalesAsignarActivity));
+                        intent.PutExtra("EntregaCreacion", Newtonsoft.Json.JsonConvert.SerializeObject(entrega));
+                        intent.PutExtra("Nueva", true);
+
+                        StartActivity(intent);
+                    }
+                    else
+                    {
+                        Toast.MakeText(this, "No hay usuario Logueado, logueese para utilizar esta función", ToastLength.Long).Show();
+                    }
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+            catch (Exception ex)
+            {
+                Toast.MakeText(this, "ERROR: " + ex.Message, ToastLength.Long).Show();
+            }
         }
 
         private void btnIrLevanteEntrega_Click(object sender, EventArgs e)
@@ -119,6 +160,8 @@ namespace EmpleadosApp.Droid
                     if (usuarioLogueado != null)
                     {
                         Entrega entrega = new Entrega();
+
+                        entrega.ClienteEmisor = null;
 
                         Intent intent = new Intent(this, typeof(ListadoLocalesActivity));
                         intent.PutExtra("EntregaCreacion", Newtonsoft.Json.JsonConvert.SerializeObject(entrega));
@@ -217,6 +260,7 @@ namespace EmpleadosApp.Droid
             btnIrAltaPalet = FindViewById<Button>(Resource.Id.btnIrAltaPalet);
             btnIrLevanteEntrega = FindViewById<Button>(Resource.Id.btnIrLevanteEntrega);
             btnIrBajaPalet = FindViewById<Button>(Resource.Id.btnIrBajaPalet);
+            btnIrRegistroEntrega = FindViewById<Button>(Resource.Id.btnIrRegistroEntrega);
         }
     }
 }
