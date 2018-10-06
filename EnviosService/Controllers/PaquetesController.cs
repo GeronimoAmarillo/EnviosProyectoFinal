@@ -10,7 +10,7 @@ using LogicaDeServicioCore;
 namespace EnviosService.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Paquetes")]
+    
     public class PaquetesController : Controller
     {
 
@@ -22,6 +22,7 @@ namespace EnviosService.Controllers
         }
 
 
+        [Route("api/Paquetes/Buscar")]
         [HttpGet("{numReferencia}")]
         public JsonResult Paquete(int numReferencia)
         {
@@ -34,10 +35,11 @@ namespace EnviosService.Controllers
             return Json(controladorPaquete.BuscarLocal(nombre), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
-        [HttpGet]
-        public JsonResult Locales(string nombre)
+        [Route("api/Paquetes/ListarEnviados")]
+        [HttpGet("{rut}")]
+        public JsonResult LocaPaquetesles(int rut)
         {
-            return Json(controladorPaquete.ListarLocales(), new Newtonsoft.Json.JsonSerializerSettings());
+            return Json(controladorPaquete.ListarPaquetesEnviadosXCliente(rut), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
         [HttpGet("{tipoLista, cedula}")]

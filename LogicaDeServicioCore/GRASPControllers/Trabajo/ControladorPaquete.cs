@@ -14,9 +14,18 @@ namespace LogicaDeServicioCore
             return true;
         }
       
-        public Paquete BuscarPaquete(int codigo)
+        public Paquete BuscarPaquete(int numReferencia)
         {
-            return new Paquete();
+            try
+            {
+                Paquete paquete = LogicaPaquete.BuscarPaqueteXreferencia(numReferencia);
+
+                return paquete;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el paquete." + ex.Message);
+            }
         }
         
         public List<Local> ListarLocales()
@@ -24,9 +33,18 @@ namespace LogicaDeServicioCore
             return new List<Local>();
         }
 
-        public List<Paquete> ListarPaquetesEnviadosXCliente(int cedula)
+        public List<Paquete> ListarPaquetesEnviadosXCliente(int rut)
         {
-            return new List<Paquete>();
+            try
+            {
+                List<Paquete> lista = LogicaPaquete.ListarPaquetesEnviadosXcliente(rut);
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los paquetes." + ex.Message);
+            }
         }
         
 
