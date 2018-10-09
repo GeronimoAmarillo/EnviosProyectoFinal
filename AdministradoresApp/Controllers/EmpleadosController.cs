@@ -13,10 +13,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AdministradoresApp.Controllers
 {
-   
+
     public class EmpleadosController : Controller
     {
-       
+
         public static string SESSSION_BAJA = "BajaEmpleado";
         public static string SESSSION_EMPLEADOS = "Empleados";
         public static string SESSION_FILTRADOS = "Filtrados";
@@ -94,15 +94,15 @@ namespace AdministradoresApp.Controllers
         }
         public async Task<ActionResult> ModificarAdmin(int id)
         {
-            //if (ComprobarLogin() == "G")
-            //{
+            if (ComprobarLogin() == "G")
+            {
                 IControladorEmpleado controladorEmpleado = FabricaApps.GetControladorEmpleado();
 
                 Empleado emp = await controladorEmpleado.BuscarEmpleado(id);
 
                 if (emp != null)
                 {
-                    HttpContext.Session.Set<Empleado>(SESSSION_MODIFICAR,emp);
+                    HttpContext.Session.Set<Empleado>(SESSSION_MODIFICAR, emp);
 
                     return View(emp);
                 }
@@ -112,13 +112,13 @@ namespace AdministradoresApp.Controllers
 
                     return RedirectToAction("Index", "Empleados", new { area = "" });
                 }
-            //}
-            //else
-            //{
-            //    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-            //    return RedirectToAction("Index", "Home", new { area = "" });
-            ////}
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
 
         }
 
@@ -127,25 +127,25 @@ namespace AdministradoresApp.Controllers
         {
             try
             {
-                //if (ComprobarLogin() == "G")
-                //{
+                if (ComprobarLogin() == "G")
+                {
 
-                Administrador empModificar = new Administrador();
-
-
-                empModificar.Id = empleado.Id;
-                empModificar.Nombre = empleado.Nombre;
-                empModificar.Sueldo = empleado.Sueldo;
-                empModificar.Telefono = empleado.Telefono;
-                empModificar.Tipo = empleado.Tipo;
-                empModificar.Email = empleado.Email;
-                empModificar.Direccion = empleado.Direccion;
-                empModificar.Contraseña = empleado.Contraseña;
+                    Administrador empModificar = new Administrador();
 
 
+                    empModificar.Id = empleado.Id;
+                    empModificar.Nombre = empleado.Nombre;
+                    empModificar.Sueldo = empleado.Sueldo;
+                    empModificar.Telefono = empleado.Telefono;
+                    empModificar.Tipo = empleado.Tipo;
+                    empModificar.Email = empleado.Email;
+                    empModificar.Direccion = empleado.Direccion;
+                    empModificar.Contraseña = empleado.Contraseña;
 
 
-                IControladorEmpleado controladorEmpleado = FabricaApps.GetControladorEmpleado();
+
+
+                    IControladorEmpleado controladorEmpleado = FabricaApps.GetControladorEmpleado();
 
                     string mensaje = "";
 
@@ -171,13 +171,13 @@ namespace AdministradoresApp.Controllers
 
                     return RedirectToAction("Index");
 
-                //}
-                //else
-                //{
-                //    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-                //    return RedirectToAction("Index", "Home", new { area = "" });
-                //}
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
 
 
             }
@@ -192,44 +192,37 @@ namespace AdministradoresApp.Controllers
         {
             if (ComprobarLogin() == "G")
             {
-            //if (ComprobarLogin() == "G")
-            //{
-                IControladorEmpleado controladorEmpleado = FabricaApps.GetControladorEmpleado();
-             
-                HttpContext.Session.Set<Administrador>(SESSSION_ALTA, controladorEmpleado.GetEmpleadoAdm());
+                if (ComprobarLogin() == "G")
+                {
+                    IControladorEmpleado controladorEmpleado = FabricaApps.GetControladorEmpleado();
 
-                return View();
+                    HttpContext.Session.Set<Administrador>(SESSSION_ALTA, controladorEmpleado.GetEmpleadoAdm());
+
+                    return View();
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+
             }
-            else
+            public ActionResult AltaCadete()
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                if (ComprobarLogin() == "G")
+                {
 
-                return RedirectToAction("Index", "Home", new { area = "" });
+                    return View();
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+
             }
-
-        }
-        public ActionResult AltaCadete()
-        {
-            if (ComprobarLogin() == "G")
-            {
-
-                return View();
-            }
-            else
-            {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
-            HttpContext.Session.Set<Cadete>(SESSSION_ALTA, controladorEmpleado.GetEmpleadoCad());
-
-            return View();
-            //}
-            //else
-            //{
-            //    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
-
-                return RedirectToAction("Index", "Home", new { area = "" });
-            }
-
-        }
         [HttpPost]
         public ActionResult AltaAdministrador([FromForm]Administrador administrador)
         {
@@ -254,7 +247,7 @@ namespace AdministradoresApp.Controllers
                     IControladorEmpleado controladorEmpleado = FabricaApps.GetControladorEmpleado();
 
                     string mensaje = "";
-                    
+
                     bool exito = controladorEmpleado.AltaEmpleadoAdministrador(adm);
 
                     if (exito)
@@ -292,8 +285,8 @@ namespace AdministradoresApp.Controllers
         }
         public ActionResult ListarAdministrador()
         {
-            //if (ComprobarLogin() == "G")
-            //{
+            if (ComprobarLogin() == "G")
+            {
                 List<Empleado> administradores = new List<Empleado>();
                 List<Empleado> empleados = HttpContext.Session.Get<List<Empleado>>(SESSSION_EMPLEADOS);
 
@@ -308,19 +301,19 @@ namespace AdministradoresApp.Controllers
                 HttpContext.Session.Set<List<Empleado>>(SESSION_FILTRADOS, administradores);
 
                 return RedirectToAction("Index", "Empleados", new { area = "" });
-            //}
-            //else
-            //{
-            //    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-            //    return RedirectToAction("Index", "Home", new { area = "" });
-            //}
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
 
         }
         public ActionResult ListarCadete()
         {
-            //if (ComprobarLogin() == "G")
-            //{
+            if (ComprobarLogin() == "G")
+            {
                 List<Empleado> cadetes = new List<Empleado>();
                 List<Empleado> empleados = HttpContext.Session.Get<List<Empleado>>(SESSSION_EMPLEADOS);
 
@@ -335,13 +328,13 @@ namespace AdministradoresApp.Controllers
                 HttpContext.Session.Set<List<Empleado>>(SESSION_FILTRADOS, cadetes);
 
                 return RedirectToAction("Index", "Empleados", new { area = "" });
-            //}
-            //else
-            //{
-            //    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-            //    return RedirectToAction("Index", "Home", new { area = "" });
-            //}
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
 
         }
 
@@ -371,34 +364,34 @@ namespace AdministradoresApp.Controllers
                     IControladorEmpleado controladorEmpleado = FabricaApps.GetControladorEmpleado();
 
                     string mensaje = "";
-                    
+
                     bool exito = controladorEmpleado.AltaEmpleadoCadete(adm);
 
                     if (exito)
                     {
                         controladorEmpleado.SetEmpleado(null);
-                        mensaje = "El empleado se dio de alta con exito!.";
+                        mensaje = "El local se dio de alta con exito!.";
                     }
                     else
                     {
-                        mensaje = "Se produjo un error al dar de alta el empleado!.";
+                        mensaje = "Se produjo un error al dar de alta el local!.";
                     }
-                }
 
-                if (mensaje != "")
+
+                    if (mensaje != "")
+                    {
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                    }
+
+                    return RedirectToAction("Index");
+
+                }
+                else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
                 }
-
-                return RedirectToAction("Index");
-
-                //}
-                //else
-                //{
-                //    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
-
-                //    return RedirectToAction("Index", "Home", new { area = "" });
-                //}
 
 
             }
@@ -412,8 +405,8 @@ namespace AdministradoresApp.Controllers
         {
             EntidadesCompartidasCore.Empleado empleado = new EntidadesCompartidasCore.Empleado();
 
-            //if (ComprobarLogin() == "G")
-            //{
+            if (ComprobarLogin() == "G")
+            {
                 IControladorEmpleado controladorEmpleado = FabricaApps.GetControladorEmpleado();
 
                 empleado = await controladorEmpleado.BuscarEmpleado(id);
@@ -430,26 +423,26 @@ namespace AdministradoresApp.Controllers
 
                     return RedirectToAction("Index", "Empleados", new { area = "" });
                 }
-            //}
-            //else
-            //{
-            //    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-            //    return RedirectToAction("Index", "Home", new { area = "" });
-            //}
-         }
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+        }
 
         [HttpPost, ActionName("EliminarEmpleado")]
         public ActionResult EliminarEmpleadoPost()
         {
             try
             {
-                //    if (ComprobarLogin() == "G")
-                //    {
+                if (ComprobarLogin() == "G")
+                {
 
-                Empleado empEliminar = HttpContext.Session.Get<Empleado>(SESSSION_BAJA);
+                    Empleado empEliminar = HttpContext.Session.Get<Empleado>(SESSSION_BAJA);
 
-                    
+
 
                     IControladorEmpleado controladorEmpleado = FabricaApps.GetControladorEmpleado();
 
@@ -478,11 +471,8 @@ namespace AdministradoresApp.Controllers
                     return RedirectToAction("Index");
 
 
-                //}
-                //else
-                //{
-                //    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
                 }
+
                 else
                 {
                     HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
@@ -497,7 +487,7 @@ namespace AdministradoresApp.Controllers
                 return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
             }
 
-           
+
         }
         public string ComprobarLogin()
         {
@@ -536,5 +526,5 @@ namespace AdministradoresApp.Controllers
             }
         }
     }
-    
+
 }

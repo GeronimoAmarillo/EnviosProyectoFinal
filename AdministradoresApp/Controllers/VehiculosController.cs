@@ -28,8 +28,8 @@ namespace AdministradoresApp.Controllers
         {
             try
             {
-                //if (ComprobarLogin() == "G")
-                //{
+                if (ComprobarLogin() == "G")
+                {
                     IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
 
                     HttpContext.Session.Set<List<Vehiculo>>(SESSSION_VEHICULOS, null);
@@ -59,16 +59,16 @@ namespace AdministradoresApp.Controllers
                     {
                         return View(vehiculos);
                     }
-                //}
-                //else
-                //{
-                //    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-                //    return RedirectToAction("Index", "Home", new { area = "" });
-                //}
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Vehiculos registrados");
 
@@ -88,7 +88,7 @@ namespace AdministradoresApp.Controllers
                 HttpContext.Session.Set<Vehiculo>(SESSION_BAJA, vehiculo);
 
                 return View(vehiculo);
-                
+
             }
             else
             {
@@ -156,8 +156,8 @@ namespace AdministradoresApp.Controllers
 
         public async Task<ActionResult> AltaAuto()
         {
-            //if (ComprobarLogin() == "G")
-            //{
+            if (ComprobarLogin() == "G")
+            {
                 HttpContext.Session.Set<Automobil>(SESSSION_ALTA, new Automobil());
 
                 IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
@@ -170,7 +170,7 @@ namespace AdministradoresApp.Controllers
                 {
                     SelectListItem item = new SelectListItem();
                     item.Text = "Nombre: " + c.Nombre + " - Cedula: " + c.Ci + ".";
-                    item.Value = c.CiCadete.ToString();
+                    item.Value = c.CiEmpleado.ToString();
 
                     items.Add(item);
                 }
@@ -178,13 +178,13 @@ namespace AdministradoresApp.Controllers
                 ViewBag.Cadetes = items;
 
                 return View();
-            //}
-            //else
-            //{
-            //    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-            //    return RedirectToAction("Index", "Home", new { area = "" });
-            //}
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
 
         }
 
@@ -193,24 +193,24 @@ namespace AdministradoresApp.Controllers
         {
             try
             {
-                //if (ComprobarLogin() == "G")
-                //{
+                if (ComprobarLogin() == "G")
+                {
 
                     IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
 
                     string mensaje = "";
 
-                    
-                        bool exito = controladorVehiculo.AltaVehiculo(auto);
 
-                        if (exito)
-                        {
-                            mensaje = "El vehiculo se dio de alta con exito!.";
-                        }
-                        else
-                        {
-                            mensaje = "Se produjo un error al dar de alta el vehiculo!.";
-                        }
+                    bool exito = controladorVehiculo.AltaVehiculo(auto);
+
+                    if (exito)
+                    {
+                        mensaje = "El vehiculo se dio de alta con exito!.";
+                    }
+                    else
+                    {
+                        mensaje = "Se produjo un error al dar de alta el vehiculo!.";
+                    }
 
                     if (mensaje != "")
                     {
@@ -219,13 +219,13 @@ namespace AdministradoresApp.Controllers
 
                     return RedirectToAction("Index");
 
-                //}
-                //else
-                //{
-                //    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-                //    return RedirectToAction("Index", "Home", new { area = "" });
-                //}
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
 
 
             }
@@ -238,18 +238,18 @@ namespace AdministradoresApp.Controllers
 
         public ActionResult AltaCamion()
         {
-            //if (ComprobarLogin() == "G")
-            //{
+            if (ComprobarLogin() == "G")
+            {
                 HttpContext.Session.Set<Camion>(SESSSION_ALTA, new Camion());
 
                 return View();
-            //}
-            //else
-            //{
-            //    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-            //    return RedirectToAction("Index", "Home", new { area = "" });
-            //}
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
 
         }
 
@@ -258,8 +258,8 @@ namespace AdministradoresApp.Controllers
         {
             try
             {
-                //if (ComprobarLogin() == "G")
-                //{
+                if (ComprobarLogin() == "G")
+                {
 
                     IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
 
@@ -286,13 +286,13 @@ namespace AdministradoresApp.Controllers
 
                     return RedirectToAction("Index");
 
-                //}
-                //else
-                //{
-                //    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-                //    return RedirectToAction("Index", "Home", new { area = "" });
-                //}
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
 
 
             }
@@ -305,18 +305,18 @@ namespace AdministradoresApp.Controllers
 
         public ActionResult AltaCamioneta()
         {
-            //if (ComprobarLogin() == "G")
-            //{
+            if (ComprobarLogin() == "G")
+            {
                 HttpContext.Session.Set<Camioneta>(SESSSION_ALTA, new Camioneta());
 
                 return View();
-            //}
-            //else
-            //{
-            //    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-            //    return RedirectToAction("Index", "Home", new { area = "" });
-            //}
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
 
         }
 
@@ -325,8 +325,8 @@ namespace AdministradoresApp.Controllers
         {
             try
             {
-                //if (ComprobarLogin() == "G")
-                //{
+                if (ComprobarLogin() == "G")
+                {
 
                     IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
 
@@ -353,13 +353,13 @@ namespace AdministradoresApp.Controllers
 
                     return RedirectToAction("Index");
 
-                //}
-                //else
-                //{
-                //    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-                //    return RedirectToAction("Index", "Home", new { area = "" });
-                //}
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
 
 
             }
@@ -372,18 +372,18 @@ namespace AdministradoresApp.Controllers
 
         public ActionResult AltaMoto()
         {
-            //if (ComprobarLogin() == "G")
-            //{
+            if (ComprobarLogin() == "G")
+            {
                 HttpContext.Session.Set<Moto>(SESSSION_ALTA, new Moto());
 
                 return View();
-            //}
-            //else
-            //{
-            //    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-            //    return RedirectToAction("Index", "Home", new { area = "" });
-            //}
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
 
         }
 
@@ -451,22 +451,22 @@ namespace AdministradoresApp.Controllers
                     Estado = vehiculo.Estado,
                     Cadete = vehiculo.Cadete
                 };
-                if(vehiculo is Moto)
+                if (vehiculo is Moto)
                 {
                     vehiculoaEditar.Cilindrada = ((Moto)vehiculo).Cilindrada;
                     vehiculoaEditar.Tipo = "Moto";
                 }
-                if(vehiculo is Camioneta)
+                if (vehiculo is Camioneta)
                 {
                     vehiculoaEditar.Cabina = ((Camioneta)vehiculo).Cabina;
                     vehiculoaEditar.Tipo = "Camioneta";
                 }
-                if(vehiculo is Automobil)
+                if (vehiculo is Automobil)
                 {
                     vehiculoaEditar.Puertas = ((Automobil)vehiculo).Puertas;
                     vehiculoaEditar.Tipo = "Automobil";
                 }
-                if(vehiculo is Camion)
+                if (vehiculo is Camion)
                 {
                     vehiculoaEditar.Altura = ((Camion)vehiculo).Altura;
                     vehiculoaEditar.Tipo = "Camion";
@@ -707,8 +707,8 @@ namespace AdministradoresApp.Controllers
 
         public ActionResult ListarAutos()
         {
-            //if (ComprobarLogin() == "G")
-            //{
+            if (ComprobarLogin() == "G")
+            {
                 List<Vehiculo> autos = new List<Vehiculo>();
                 List<Vehiculo> vehiculos = HttpContext.Session.Get<List<Vehiculo>>(SESSSION_VEHICULOS);
 
@@ -723,19 +723,19 @@ namespace AdministradoresApp.Controllers
                 HttpContext.Session.Set<List<Vehiculo>>(SESSION_FILTRADOS, autos);
 
                 return RedirectToAction("Index", "Vehiculos", new { area = "" });
-            //}
-            //else
-            //{
-            //    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-            //    return RedirectToAction("Index", "Home", new { area = "" });
-            //}
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
 
         }
         public ActionResult ListarCamiones()
         {
-            //if (ComprobarLogin() == "G")
-            //{
+            if (ComprobarLogin() == "G")
+            {
                 List<Vehiculo> camiones = new List<Vehiculo>();
                 List<Vehiculo> vehiculos = HttpContext.Session.Get<List<Vehiculo>>(SESSSION_VEHICULOS);
 
@@ -750,13 +750,13 @@ namespace AdministradoresApp.Controllers
                 HttpContext.Session.Set<List<Vehiculo>>(SESSION_FILTRADOS, camiones);
 
                 return RedirectToAction("Index", "Vehiculos", new { area = "" });
-            //}
-            //else
-            //{
-            //    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-            //    return RedirectToAction("Index", "Home", new { area = "" });
-            //}
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
 
         }
 
