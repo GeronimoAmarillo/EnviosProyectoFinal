@@ -67,8 +67,9 @@ namespace EmpleadosApp.Droid
             {
                 entrega.Locales = null;
 
-                entrega.Fecha = DateTime.Now;
+                entrega.Fecha = DateTime.UtcNow;
 
+                entrega.NombreReceptor = "";
                 try
                 {
 
@@ -77,7 +78,9 @@ namespace EmpleadosApp.Droid
 
                         string url = ConexionREST.ConexionEntregas + "/Alta";
 
-                        var content = new StringContent(JsonConvert.SerializeObject(entrega), Encoding.UTF8, "application/json");
+                        string json = JsonConvert.SerializeObject(entrega);
+
+                        var content = new StringContent(json, Encoding.UTF8, "application/json");
 
                         var result = httpClient.PostAsync(url, content).Result;
 
