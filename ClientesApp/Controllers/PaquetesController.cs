@@ -93,7 +93,70 @@ namespace ClientesApp.Controllers
 
         }
 
+        public ActionResult ConsultarEstado()
+        {
+            try
+            {
+                if (ComprobarLogin())
+                {
+                    return View();
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
         
+
+        public async Task<ActionResult> ConsultarEstadoPost(int numReferencia)
+        {
+            try
+            {
+                if (ComprobarLogin())
+                {
+                    IControladorConsultasPaquete controladorPaquete = FabricaApps.GetControladorConsultasPaquete();
+
+                    Paquete paquete = await controladorPaquete.BuscarPaquete(numReferencia);
+
+                    if (paquete != null)
+                    {
+                        return View(paquete);
+                    }
+                    else
+                    {
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "No existe el paquete seleccionado");
+
+                        return RedirectToAction("Index", "Paquetes", new { area = "" });
+                    }
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudo cargar el Paquete");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+
+
         public ActionResult Filtrar(string estado, DateTime fechaSalida, int? local, string criterio)
         {
             try
