@@ -29,6 +29,13 @@ namespace EnviosService.Controllers
             return Json(controladorPaquete.BuscarPaquete(numReferencia), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
+        [Route("api/Paquetes/BuscarIndividual")]
+        [HttpGet("{numReferencia, cliente}")]
+        public JsonResult PaqueteIndividual(int numReferencia, int cliente)
+        {
+            return Json(controladorPaquete.BuscarPaqueteIndividual(numReferencia, cliente), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
         [HttpGet("{nombre}")]
         public JsonResult Local(string nombre)
         {

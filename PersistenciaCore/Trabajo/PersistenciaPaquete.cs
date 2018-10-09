@@ -38,14 +38,71 @@ namespace PersistenciaCore
 
                     paqueteResultado.Cliente = paquete.Cliente;
                     paqueteResultado.Entrega = paquete.Entrega;
-                    paqueteResultado.Entregas = TransfomarEntrega(paquete.Entregas);
-                    paqueteResultado.Entregas1 = TransfomarEntrega(paquete.Entregas1);
+                    if (paqueteResultado.Entregas != null)
+                    {
+                        paqueteResultado.Entregas = TransfomarEntrega(paquete.Entregas);
+                    }
+
+                    if (paqueteResultado.Entregas1 != null)
+                    {
+                        paqueteResultado.Entregas1 = TransfomarEntrega(paquete.Entregas1);
+                    }
+                   
                     paqueteResultado.Estado = paquete.Estado;
                     paqueteResultado.FechaSalida = paquete.FechaSalida;
                     paqueteResultado.NumReferencia = paquete.NumReferencia;
                     paqueteResultado.Ubicacion = paquete.Ubicacion;
 
                     
+                }
+
+                return paqueteResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el Paquete." + ex.Message);
+            }
+        }
+
+        public EntidadesCompartidasCore.Paquete BuscarPaqueteIndividual(int numReferencia, int cliente)
+        {
+            try
+            {
+                Paquetes paquete = new Paquetes();
+
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    paquete = dbConnection.Paquetes.Include("Entregas").Include("Entregas1").Where(x => x.NumReferencia == numReferencia && x.Cliente == cliente).FirstOrDefault();
+                }
+
+                Paquete paqueteResultado = new Paquete();
+
+                if (paquete != null)
+                {
+
+                    paqueteResultado.Cliente = paquete.Cliente;
+                    paqueteResultado.Entrega = paquete.Entrega;
+                    if (paqueteResultado.Entregas != null)
+                    {
+                        paqueteResultado.Entregas = TransfomarEntrega(paquete.Entregas);
+                    }
+
+                    if (paqueteResultado.Entregas1 != null)
+                    {
+                        paqueteResultado.Entregas1 = TransfomarEntrega(paquete.Entregas1);
+                    }
+
+                    paqueteResultado.Estado = paquete.Estado;
+                    paqueteResultado.FechaSalida = paquete.FechaSalida;
+                    paqueteResultado.NumReferencia = paquete.NumReferencia;
+                    paqueteResultado.Ubicacion = paquete.Ubicacion;
+
+
                 }
 
                 return paqueteResultado;

@@ -127,7 +127,10 @@ namespace ClientesApp.Controllers
                 {
                     IControladorConsultasPaquete controladorPaquete = FabricaApps.GetControladorConsultasPaquete();
 
-                    Paquete paquete = await controladorPaquete.BuscarPaquete(numReferencia);
+                    Cliente cliente = HttpContext.Session.Get<Cliente>(LOG_USER);
+
+
+                    Paquete paquete = await controladorPaquete.BuscarPaqueteIndividual(numReferencia, cliente.RUT);
 
                     if (paquete != null)
                     {
@@ -137,7 +140,7 @@ namespace ClientesApp.Controllers
                     {
                         HttpContext.Session.Set<string>(SESSION_MENSAJE, "No existe el paquete seleccionado");
 
-                        return RedirectToAction("Index", "Paquetes", new { area = "" });
+                        return RedirectToAction("ConsultarEstado", "Paquetes", new { area = "" });
                     }
                 }
                 else

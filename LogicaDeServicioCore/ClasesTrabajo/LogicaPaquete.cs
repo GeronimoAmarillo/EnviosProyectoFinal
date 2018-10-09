@@ -30,6 +30,20 @@ namespace LogicaDeServicioCore
             }
         }
 
+        public static Paquete BuscarPaqueteIndividual(int numReferencia, int cliente)
+        {
+            try
+            {
+                Paquete paquete = FabricaPersistencia.GetPersistenciaPaquete().BuscarPaqueteIndividual(numReferencia, cliente);
+
+                return paquete;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el paquete." + ex.Message);
+            }
+        }
+
         public Paquete BuscarPaqueteXcodigo(int codigo)
         {
             Paquete paquete = new Paquete();

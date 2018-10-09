@@ -27,7 +27,20 @@ namespace LogicaDeServicioCore
                 throw new Exception("Error al buscar el paquete." + ex.Message);
             }
         }
-        
+        public Paquete BuscarPaqueteIndividual(int numReferencia, int cliente)
+        {
+            try
+            {
+                Paquete paquete = LogicaPaquete.BuscarPaqueteIndividual(numReferencia, cliente);
+
+                return paquete;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el paquete." + ex.Message);
+            }
+        }
+
         public List<Local> ListarLocales()
         {
             return new List<Local>();

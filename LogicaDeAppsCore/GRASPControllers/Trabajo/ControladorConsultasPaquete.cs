@@ -55,6 +55,27 @@ namespace LogicaDeAppsCore
             }
         }
 
+        public async Task<Paquete> BuscarPaqueteIndividual(int numReferencia, long cliente)
+        {
+            try
+            {
+                //http://localhost:8080/
+
+                var httpClient = new HttpClient();
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionPaquetes + "/BuscarIndividual?numReferencia=" + numReferencia + "&cliente=" + cliente);
+
+                Paquete paquete = null;
+
+                paquete = JsonConvert.DeserializeObject<Paquete>(json);
+
+                return paquete;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el paquete.");
+            }
+        }
+
         public async Task<List<Paquete>> ListarPaquetesEnviadosXCliente(long rut)
         {
             try
