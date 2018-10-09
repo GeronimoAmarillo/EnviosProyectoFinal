@@ -64,10 +64,18 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public List<Paquete> ListarPaquetesRecibidosXcliente(int cedula)
+        public static List<Paquete> ListarPaquetesRecibidosXcliente(int rut)
         {
-            List<Paquete> lista = new List<Paquete>();
-            return lista;
+            try
+            {
+                List<Paquete> lista = FabricaPersistencia.GetPersistenciaPaquete().ListarPaquetesRecibidosXCliente(rut);
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los paquetes." + ex.Message);
+            }
         }
 
         public bool RealizarReclamo(string descripcion)

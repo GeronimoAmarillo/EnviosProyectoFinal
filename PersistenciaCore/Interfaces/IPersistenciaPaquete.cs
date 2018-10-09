@@ -17,6 +17,7 @@ namespace PersistenciaCore
 
         List<EntidadesCompartidasCore.Paquete> ListarPaquetesEnviadosXCliente(int rut);
 
+
         bool RealizarReclamo(string descripcion);
 
         List<EntidadesCompartidasCore.Paquete> ListarPaquetesRecibidosXCliente(int rut);

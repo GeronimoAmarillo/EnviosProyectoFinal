@@ -44,9 +44,16 @@ namespace EnviosService.Controllers
 
         [Route("api/Paquetes/ListarEnviados")]
         [HttpGet("{rut}")]
-        public JsonResult LocaPaquetesles(int rut)
+        public JsonResult Enviados(int rut)
         {
             return Json(controladorPaquete.ListarPaquetesEnviadosXCliente(rut), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
+        [Route("api/Paquetes/ListarRecibidos")]
+        [HttpGet("{rut}")]
+        public JsonResult Recibidos(int rut)
+        {
+            return Json(controladorPaquete.ListarPaquetesRecibidosXCliente(rut), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
         [HttpGet("{tipoLista, cedula}")]

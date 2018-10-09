@@ -155,6 +155,48 @@ namespace PersistenciaCore
             }
         }
 
+        public List<EntidadesCompartidasCore.Paquete> ListarPaquetesRecibidosXCliente(int rut)
+        {
+            try
+            {
+                List<Paquetes> paquetes = new List<Paquetes>();
+
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    paquetes = dbConnection.Paquetes.Include("Entregas").Include("Entregas1").Where(x => x.Entregas.ClienteReceptor == rut || x.Entregas1.ClienteReceptor == rut).ToList();
+                }
+
+                List<Paquete> paquetesResultado = new List<Paquete>();
+
+                foreach (Paquetes p in paquetes)
+                {
+                    Paquete paqueteR = new Paquete();
+
+                    paqueteR.Cliente = p.Cliente;
+                    paqueteR.Entrega = p.Entrega;
+                    paqueteR.Entregas = TransfomarEntrega(p.Entregas);
+                    paqueteR.Entregas1 = TransfomarEntrega(p.Entregas1);
+                    paqueteR.Estado = p.Estado;
+                    paqueteR.FechaSalida = p.FechaSalida;
+                    paqueteR.NumReferencia = p.NumReferencia;
+                    paqueteR.Ubicacion = p.Ubicacion;
+
+                    paquetesResultado.Add(paqueteR);
+                }
+
+                return paquetesResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los Paquetes." + ex.Message);
+            }
+        }
+
         private Entrega TransfomarEntrega(Entregas entrega)
         {
             try
@@ -181,10 +223,6 @@ namespace PersistenciaCore
         {
             return true;
         }
-
-        public List<EntidadesCompartidasCore.Paquete> ListarPaquetesRecibidosXCliente(int rut)
-        {
-            return new List<EntidadesCompartidasCore.Paquete>();
-        }
+        
     }
 }

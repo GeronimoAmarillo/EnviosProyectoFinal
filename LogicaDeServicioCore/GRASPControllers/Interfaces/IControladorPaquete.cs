@@ -19,7 +19,7 @@ namespace LogicaDeServicioCore
 
         List<Paquete> ListarPaquetesEnviadosXCliente(int rut);
 
-        List<Paquete> ListarPaquetesRecibidosXCliente(int cedula);
+        List<Paquete> ListarPaquetesRecibidosXCliente(int rut);
 
         Local BuscarLocal(string nombre);
     }

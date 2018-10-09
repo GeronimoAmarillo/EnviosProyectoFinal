@@ -61,9 +61,18 @@ namespace LogicaDeServicioCore
         }
         
 
-        public List<Paquete> ListarPaquetesRecibidosXCliente(int cedula)
+        public List<Paquete> ListarPaquetesRecibidosXCliente(int rut)
         {
-            return new List<Paquete>();
+            try
+            {
+                List<Paquete> lista = LogicaPaquete.ListarPaquetesRecibidosXcliente(rut);
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los paquetes." + ex.Message);
+            }
         }
 
         public Local BuscarLocal(string nombre)
