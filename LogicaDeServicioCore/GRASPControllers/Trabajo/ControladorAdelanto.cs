@@ -12,17 +12,74 @@ namespace LogicaDeServicioCore
     {
         public List<EntidadesCompartidasCore.Empleado> ListarEmpleados()
         {
-            return new List<EntidadesCompartidasCore.Empleado>();
+            try
+            {
+                return LogicaUsuario.ListarEmpleados();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar listar los empleados." + ex.Message);
+            }
         }
 
         public EntidadesCompartidasCore.Empleado BuscarEmpleado(int cedula)
         {
-            return new EntidadesCompartidasCore.Empleado();
+            try
+            {
+                return LogicaUsuario.BuscarEmpleado(cedula);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar buscar el Empleado." + ex.Message);
+            }
         }
 
         public bool RealizarAdelanto(EntidadesCompartidasCore.Adelanto pAdelanto)
         {
-            return true;
+            try
+            {
+                return LogicaAdelanto.RealizarAdelanto(pAdelanto);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar registrar el adelanto." + ex.Message);
+            }
+        }
+
+        public List<EntidadesCompartidasCore.Adelanto> ListarAdelantos()
+        {
+            try
+            {
+                return LogicaAdelanto.ListarAdelantos();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar listar los adelantos." + ex.Message);
+            }
+        }
+
+        public List<EntidadesCompartidasCore.Adelanto> ListarAdelantosXEmpleado(int cedula)
+        {
+            try
+            {
+                return LogicaAdelanto.ListarAdelantosXEmpleado(cedula);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar listar los adelantos." + ex.Message);
+            }
+        }
+
+        public bool VerificarAdelantoSaldado(int cedula)
+        {
+            try
+            {
+                return LogicaAdelanto.VerificarAdelantoSaldado(cedula);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar determinar si el empleado esta habilitado para solicitar Adelanto." + ex.Message);
+            }
         }
     }
 }

@@ -16,9 +16,11 @@ namespace AdministradoresApp.Controllers
     {
 
         public static string SESSSION_ALTA = "AltaVehiculo";
+        public static string SESSION_BAJA = "BajaVehiculo";
         public static string SESSSION_VEHICULOS = "Vehiculos";
         public static string SESSION_FILTRADOS = "Filtrados";
         public static string SESSSION_MODIFICAR = "ModificarVehiculo";
+        public static string SESSSION_SELECCIONADO = "VehiculoSeleccionado";
         public static string SESSION_MENSAJE = "Mensaje";
         public static string LOG_USER = "UsuarioLogueado";
 
@@ -75,6 +77,82 @@ namespace AdministradoresApp.Controllers
 
         }
 
+        public async Task<ActionResult> BajaVehiculo(string matricula)
+        {
+            if (ComprobarLogin() == "G")
+            {
+                IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
+
+                Vehiculo vehiculo = await controladorVehiculo.BuscarVehiculo(matricula);
+
+                HttpContext.Session.Set<Vehiculo>(SESSION_BAJA, vehiculo);
+
+                return View(vehiculo);
+                
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult BajaVehiculoPost()
+        {
+            try
+            {
+                if (ComprobarLogin() == "G")
+                {
+                    Vehiculo vehiculoBaja = HttpContext.Session.Get<Vehiculo>(SESSION_BAJA);
+
+                    HttpContext.Session.Set<Vehiculo>(SESSION_BAJA, null);
+
+                    IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
+
+                    string mensaje = "";
+
+                    if (ModelState.IsValid)
+                    {
+                        bool exito = controladorVehiculo.EliminarVehiculo(vehiculoBaja);
+
+                        if (exito)
+                        {
+                            mensaje = "El vehiculo se dio de baja con exito!.";
+                        }
+                        else
+                        {
+                            mensaje = "Se produjo un error al dar de baja el vehiculo!.";
+                        }
+                    }
+
+                    if (mensaje != "")
+                    {
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                    }
+
+                    return RedirectToAction("Index");
+
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+
+        }
+
+
 
         public async Task<ActionResult> AltaAuto()
         {
@@ -111,31 +189,19 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult AltaAuto([FromForm]Automobil auto, int cadete)
+        public ActionResult AltaAuto([FromForm]Automobil auto)
         {
             try
             {
                 //if (ComprobarLogin() == "G")
                 //{
 
-                    Automobil autoAlta = HttpContext.Session.Get<Automobil>(SESSSION_ALTA);
-
-                    autoAlta.Matricula = auto.Vehiculos.Matricula;
-                    autoAlta.Marca = auto.Vehiculos.Marca;
-                    autoAlta.Modelo = auto.Vehiculos.Modelo;
-                    autoAlta.Capacidad = auto.Vehiculos.Capacidad;
-                    autoAlta.Cadete = cadete;
-                    autoAlta.Estado = auto.Vehiculos.Estado;
-                    autoAlta.Puertas = auto.Puertas;
-                    autoAlta.MatriculaAuto = auto.MatriculaAuto;
-
                     IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
 
                     string mensaje = "";
 
-                    if (ModelState.IsValid)
-                    {
-                        bool exito = controladorVehiculo.AltaVehiculo(autoAlta);
+                    
+                        bool exito = controladorVehiculo.AltaVehiculo(auto);
 
                         if (exito)
                         {
@@ -145,7 +211,6 @@ namespace AdministradoresApp.Controllers
                         {
                             mensaje = "Se produjo un error al dar de alta el vehiculo!.";
                         }
-                    }
 
                     if (mensaje != "")
                     {
@@ -196,24 +261,13 @@ namespace AdministradoresApp.Controllers
                 //if (ComprobarLogin() == "G")
                 //{
 
-                    Camion camionAlta = HttpContext.Session.Get<Camion>(SESSSION_ALTA);
-
-                    camionAlta.Matricula = camion.Vehiculos.Matricula;
-                    camionAlta.Marca = camion.Vehiculos.Marca;
-                    camionAlta.Modelo = camion.Vehiculos.Modelo;
-                    camionAlta.Capacidad = camion.Vehiculos.Capacidad;
-                    camionAlta.Cadete = camion.Vehiculos.Cadete;
-                    camionAlta.Estado = camion.Vehiculos.Estado;
-                    camionAlta.Altura = camion.Altura;
-                    camionAlta.MatriculaCamion = camion.MatriculaCamion;
-
                     IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
 
                     string mensaje = "";
 
                     if (ModelState.IsValid)
                     {
-                        bool exito = controladorVehiculo.AltaVehiculo(camionAlta);
+                        bool exito = controladorVehiculo.AltaVehiculo(camion);
 
                         if (exito)
                         {
@@ -274,24 +328,13 @@ namespace AdministradoresApp.Controllers
                 //if (ComprobarLogin() == "G")
                 //{
 
-                    Camioneta camionetaAlta = HttpContext.Session.Get<Camioneta>(SESSSION_ALTA);
-
-                    camionetaAlta.Matricula = camioneta.Vehiculos.Matricula;
-                    camionetaAlta.Marca = camioneta.Vehiculos.Marca;
-                    camionetaAlta.Modelo = camioneta.Vehiculos.Modelo;
-                    camionetaAlta.Capacidad = camioneta.Vehiculos.Capacidad;
-                    camionetaAlta.Cadete = camioneta.Vehiculos.Cadete;
-                    camionetaAlta.Estado = camioneta.Vehiculos.Estado;
-                    camionetaAlta.Cabina = camioneta.Cabina;
-                    camionetaAlta.MatriculaCamioneta = camioneta.MatriculaCamioneta;
-
                     IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
 
                     string mensaje = "";
 
                     if (ModelState.IsValid)
                     {
-                        bool exito = controladorVehiculo.AltaVehiculo(camionetaAlta);
+                        bool exito = controladorVehiculo.AltaVehiculo(camioneta);
 
                         if (exito)
                         {
@@ -352,24 +395,13 @@ namespace AdministradoresApp.Controllers
                 if (ComprobarLogin() == "G")
                 {
 
-                    Moto motoAlta = HttpContext.Session.Get<Moto>(SESSSION_ALTA);
-
-                    motoAlta.Matricula = moto.Vehiculos.Matricula;
-                    motoAlta.Marca = moto.Vehiculos.Marca;
-                    motoAlta.Modelo = moto.Vehiculos.Modelo;
-                    motoAlta.Capacidad = moto.Vehiculos.Capacidad;
-                    motoAlta.Cadete = moto.Vehiculos.Cadete;
-                    motoAlta.Estado = moto.Vehiculos.Estado;
-                    motoAlta.Cilindrada = moto.Cilindrada;
-                    motoAlta.MatriculaMoto = moto.MatriculaMoto;
-
                     IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
 
                     string mensaje = "";
 
                     if (ModelState.IsValid)
                     {
-                        bool exito = controladorVehiculo.AltaVehiculo(motoAlta);
+                        bool exito = controladorVehiculo.AltaVehiculo(moto);
 
                         if (exito)
                         {
@@ -397,6 +429,275 @@ namespace AdministradoresApp.Controllers
                 }
 
 
+            }
+            catch (Exception ex)
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+        }
+
+        public ActionResult Modificar(string matricula)
+        {
+            if (ComprobarLogin() == "G")
+            {
+                List<Vehiculo> vehiculos = HttpContext.Session.Get<List<Vehiculo>>(SESSSION_VEHICULOS);
+                Vehiculo vehiculo = vehiculos.FirstOrDefault(x => x.Matricula == matricula);
+                DTVehiculo vehiculoaEditar = new DTVehiculo()
+                {
+                    Matricula = vehiculo.Matricula,
+                    Marca = vehiculo.Marca,
+                    Modelo = vehiculo.Modelo,
+                    Capacidad = vehiculo.Capacidad,
+                    Estado = vehiculo.Estado,
+                    Cadete = vehiculo.Cadete
+                };
+                if(vehiculo is Moto)
+                {
+                    vehiculoaEditar.Cilindrada = ((Moto)vehiculo).Cilindrada;
+                    vehiculoaEditar.Tipo = "Moto";
+                }
+                if(vehiculo is Camioneta)
+                {
+                    vehiculoaEditar.Cabina = ((Camioneta)vehiculo).Cabina;
+                    vehiculoaEditar.Tipo = "Camioneta";
+                }
+                if(vehiculo is Automobil)
+                {
+                    vehiculoaEditar.Puertas = ((Automobil)vehiculo).Puertas;
+                    vehiculoaEditar.Tipo = "Automobil";
+                }
+                if(vehiculo is Camion)
+                {
+                    vehiculoaEditar.Altura = ((Camion)vehiculo).Altura;
+                    vehiculoaEditar.Tipo = "Camion";
+                }
+                return View(vehiculoaEditar);
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult ModificarCamioneta([FromForm]DTVehiculo unVehiculo)
+        {
+            try
+            {
+                string mensaje = "";
+                if (ComprobarLogin() == "G")
+                {
+                    IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
+
+                    if (ModelState.IsValid)
+                    {
+                        Camioneta vehiculoaModificar = new Camioneta()
+                        {
+                            Matricula = unVehiculo.Matricula,
+                            Marca = unVehiculo.Marca,
+                            Modelo = unVehiculo.Modelo,
+                            Capacidad = unVehiculo.Capacidad,
+                            Estado = unVehiculo.Estado,
+                            Cadete = unVehiculo.Cadete,
+                            Cabina = unVehiculo.Cabina
+                        };
+
+                        bool exito = controladorVehiculo.ModificarVehiculo(vehiculoaModificar);
+
+                        if (exito)
+                        {
+                            mensaje = "El vehiculo se modificó con exito!.";
+                        }
+                        else
+                        {
+                            mensaje = "Se produjo un error al modificar el vehiculo!.";
+                        }
+                    }
+
+
+                    if (mensaje != "")
+                    {
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                    }
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult ModificarCamion([FromForm]DTVehiculo unVehiculo)
+        {
+            try
+            {
+                string mensaje = "";
+                if (ComprobarLogin() == "G")
+                {
+                    IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
+
+                    if (ModelState.IsValid)
+                    {
+                        Camion vehiculoaModificar = new Camion()
+                        {
+                            Matricula = unVehiculo.Matricula,
+                            Marca = unVehiculo.Marca,
+                            Modelo = unVehiculo.Modelo,
+                            Capacidad = unVehiculo.Capacidad,
+                            Estado = unVehiculo.Estado,
+                            Cadete = unVehiculo.Cadete,
+                            Altura = unVehiculo.Altura
+                        };
+
+                        bool exito = controladorVehiculo.ModificarVehiculo(vehiculoaModificar);
+
+                        if (exito)
+                        {
+                            mensaje = "El vehiculo se modificó con exito!.";
+                        }
+                        else
+                        {
+                            mensaje = "Se produjo un error al modificar el vehiculo!.";
+                        }
+                    }
+
+
+                    if (mensaje != "")
+                    {
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                    }
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult ModificarMoto([FromForm]DTVehiculo unVehiculo)
+        {
+            try
+            {
+                string mensaje = "";
+                if (ComprobarLogin() == "G")
+                {
+                    IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
+
+                    if (ModelState.IsValid)
+                    {
+                        Moto vehiculoaModificar = new Moto()
+                        {
+                            Matricula = unVehiculo.Matricula,
+                            Marca = unVehiculo.Marca,
+                            Modelo = unVehiculo.Modelo,
+                            Capacidad = unVehiculo.Capacidad,
+                            Estado = unVehiculo.Estado,
+                            Cadete = unVehiculo.Cadete,
+                            Cilindrada = unVehiculo.Cilindrada
+                        };
+
+                        bool exito = controladorVehiculo.ModificarVehiculo(vehiculoaModificar);
+
+                        if (exito)
+                        {
+                            mensaje = "El vehiculo se modificó con exito!.";
+                        }
+                        else
+                        {
+                            mensaje = "Se produjo un error al modificar el vehiculo!.";
+                        }
+                    }
+
+
+                    if (mensaje != "")
+                    {
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                    }
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult ModificarAutomobil([FromForm]DTVehiculo unVehiculo)
+        {
+            try
+            {
+                string mensaje = "";
+                if (ComprobarLogin() == "G")
+                {
+                    IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
+
+                    if (ModelState.IsValid)
+                    {
+                        Automobil vehiculoaModificar = new Automobil()
+                        {
+                            Matricula = unVehiculo.Matricula,
+                            Marca = unVehiculo.Marca,
+                            Modelo = unVehiculo.Modelo,
+                            Capacidad = unVehiculo.Capacidad,
+                            Estado = unVehiculo.Estado,
+                            Cadete = unVehiculo.Cadete,
+                            Puertas = unVehiculo.Puertas
+                        };
+
+                        bool exito = controladorVehiculo.ModificarVehiculo(vehiculoaModificar);
+
+                        if (exito)
+                        {
+                            mensaje = "El vehiculo se modificó con exito!.";
+                        }
+                        else
+                        {
+                            mensaje = "Se produjo un error al modificar el vehiculo!.";
+                        }
+                    }
+
+
+                    if (mensaje != "")
+                    {
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                    }
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
             }
             catch (Exception ex)
             {
@@ -506,6 +807,44 @@ namespace AdministradoresApp.Controllers
                 HttpContext.Session.Set<List<Vehiculo>>(SESSION_FILTRADOS, motos);
 
                 return RedirectToAction("Index", "Vehiculos", new { area = "" });
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+        }
+
+        public ActionResult IrReparaciones(string matricula)
+        {
+            if (ComprobarLogin() == "G")
+            {
+
+                HttpContext.Session.Set<string>(SESSSION_SELECCIONADO, null);
+
+                HttpContext.Session.Set<string>(SESSSION_SELECCIONADO, matricula);
+
+                return RedirectToAction("Index", "Reparaciones", new { area = "" });
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+        }
+
+        public ActionResult IrMultas(string matricula)
+        {
+            if (ComprobarLogin() == "G")
+            {
+
+                HttpContext.Session.Set<string>(SESSSION_SELECCIONADO, null);
+
+                HttpContext.Session.Set<string>(SESSSION_SELECCIONADO, matricula);
+
+                return RedirectToAction("Index", "Multas", new { area = "" });
             }
             else
             {

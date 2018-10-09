@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidasCore;
+using Newtonsoft.Json;
 
 namespace LogicaDeAppsCore
 {
@@ -49,7 +51,33 @@ namespace LogicaDeAppsCore
 
         public bool RegistrarMulta(Multa pMulta)
         {
-            return true;
+            try
+            {
+
+                HttpClient client = new HttpClient();
+
+                string url = ConexionREST.ConexionMultas + "/Alta";
+
+                var content = new StringContent(JsonConvert.SerializeObject(pMulta), Encoding.UTF8, "application/json");
+
+                var result = client.PostAsync(url, content).Result;
+
+                var contentResult = result.Content.ReadAsStringAsync();
+
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("ERROR!: " + ex.Message);
+            }
         }
+
     }
 }

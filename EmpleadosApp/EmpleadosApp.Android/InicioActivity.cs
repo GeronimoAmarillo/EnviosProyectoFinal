@@ -19,6 +19,7 @@ namespace EmpleadosApp.Droid
     public class InicioActivity : Activity
     {
         Button btnIrAltaPalet;
+        Button btnIrBajaPalet;
         Usuario usuarioLogueado;
 
         protected override void OnCreate(Bundle bundle)
@@ -32,14 +33,39 @@ namespace EmpleadosApp.Droid
                 SetupEvents();
 
                 Bundle extras = Intent.Extras;
-                string usuarioL = extras.GetString("UsuarioLogueado");
 
-                ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
-                ISharedPreferencesEditor editor = prefs.Edit();
-                editor.PutString("UsuarioLogueado", JsonConvert.SerializeObject(usuarioL));
-                editor.Apply();
+                string usuarioL = "";
 
-                usuarioLogueado = Newtonsoft.Json.JsonConvert.DeserializeObject<Usuario>(usuarioL);
+                if (extras != null)
+                {
+                    usuarioL = extras.GetString("UsuarioLogueado");
+
+                    ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(Application);
+                    ISharedPreferencesEditor editor = prefs.Edit();
+                    editor.PutString("UsuarioLogueado", usuarioL);
+                    editor.Apply();
+
+                    usuarioLogueado = Newtonsoft.Json.JsonConvert.DeserializeObject<Usuario>(usuarioL);
+                }
+                else
+                {
+                    ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(Application);
+                    string json = prefs.GetString("UsuarioLogueado", "N/L");
+
+                    if (json != "N/L")
+                    {
+                        usuarioLogueado = JsonConvert.DeserializeObject<Usuario>(json);
+
+                        if (usuarioLogueado == null)
+                        {
+                            Toast.MakeText(this, "No hay usuario Logueado, logueese para utilizar esta función", ToastLength.Long).Show();
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+                }
                 
             }
             catch (Exception ex)
@@ -74,22 +100,69 @@ namespace EmpleadosApp.Droid
         private void SetupEvents()
         {
             btnIrAltaPalet.Click += btnIrAltaPalet_Click;
+            btnIrBajaPalet.Click += btnIrBajaPalet_Click;
+        }
+
+        private void btnIrBajaPalet_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(Application);
+                string json = prefs.GetString("UsuarioLogueado", "N/L");
+
+                if (json != "N/L")
+                {
+                    usuarioLogueado = JsonConvert.DeserializeObject<Usuario>(json);
+
+                    if (usuarioLogueado != null)
+                    {
+                        Intent intent = new Intent(this, typeof(ListadoPaletsActivity));
+                        intent.PutExtra("UsuarioLogueado", Newtonsoft.Json.JsonConvert.SerializeObject(usuarioLogueado));
+
+                        StartActivity(intent);
+                    }
+                    else
+                    {
+                        Toast.MakeText(this, "No hay usuario Logueado, logueese para utilizar esta función", ToastLength.Long).Show();
+                    }
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+            catch (Exception ex)
+            {
+                Toast.MakeText(this, "ERROR: " + ex.Message, ToastLength.Long).Show();
+            }
         }
 
         private void btnIrAltaPalet_Click(object sender, EventArgs e)
         {
             try
             {
-                if (usuarioLogueado != null)
-                {
-                    Intent intent = new Intent(this, typeof(ListadoSectoresActivity));
-                    intent.PutExtra("UsuarioLogueado", Newtonsoft.Json.JsonConvert.SerializeObject(usuarioLogueado));
+                ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(Application);
+                string json = prefs.GetString("UsuarioLogueado", "N/L");
 
-                    StartActivity(intent);
+                if (json != "N/L")
+                {
+                    usuarioLogueado = JsonConvert.DeserializeObject<Usuario>(json);
+
+                    if (usuarioLogueado != null)
+                    {
+                        Intent intent = new Intent(this, typeof(ListadoSectoresActivity));
+                        intent.PutExtra("UsuarioLogueado", Newtonsoft.Json.JsonConvert.SerializeObject(usuarioLogueado));
+
+                        StartActivity(intent);
+                    }
+                    else
+                    {
+                        Toast.MakeText(this, "No hay usuario Logueado, logueese para utilizar esta función", ToastLength.Long).Show();
+                    }
                 }
                 else
                 {
-                    Toast.MakeText(this, "No hay usuario Logueado, logueese para utilizar esta función", ToastLength.Long).Show();
+                    throw new Exception();
                 }
             }
             catch (Exception ex)
@@ -103,6 +176,7 @@ namespace EmpleadosApp.Droid
         private void SetupViews()
         {
             btnIrAltaPalet = FindViewById<Button>(Resource.Id.btnIrAltaPalet);
+            btnIrBajaPalet = FindViewById<Button>(Resource.Id.btnIrBajaPalet);
         }
     }
 }

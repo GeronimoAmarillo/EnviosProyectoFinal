@@ -13,6 +13,8 @@ namespace LogicaDeAppsCore
 
         Usuario BuscarUsuario(string mail);
 
+        string CrearContrasenia();
+
         string GetContraseña();
 
         Task<bool> AltaUsuario(Usuario unUsuario);
@@ -29,7 +31,7 @@ namespace LogicaDeAppsCore
 
         Usuario ModificarContraseña(string contraseñaNueva);
 
-        Usuario ModificarEmail(Usuario pUsuario);
+        Task<Usuario> ModificarEmail(Usuario pUsuario);
 
         Usuario GetUsuario();
 

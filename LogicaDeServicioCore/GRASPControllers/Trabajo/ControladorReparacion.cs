@@ -11,17 +11,38 @@ namespace LogicaDeServicioCore
     {
         public bool RegistrarReparacion(Reparacion reparacion)
         {
-            return true;
+            try
+            {
+                return LogicaVehiculo.RegistrarReparacion(reparacion);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar registrar la reparación." + ex.Message);
+            }
         }
 
         public List<Vehiculo> ListarVehiculos()
         {
-            return new List<Vehiculo>();
+            try
+            {
+                return LogicaVehiculo.ListarVehiculos();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al Listar los vehiculos." + ex.Message);
+            }
         }
 
         public Vehiculo SeleccionarVehiculo(string matricula)
         {
-            return new Vehiculo();
+            try
+            {
+                return LogicaVehiculo.BuscarVehiculo(matricula);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el vehiculo.");
+            }
         }
     }
 }

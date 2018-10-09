@@ -32,6 +32,7 @@ namespace EntidadesCompartidasCore
         [Required]
         [MinLength(7)]
         [MaxLength(150)]
+        [EmailAddress]
         public string Email { get; set; }
         
         public List<Cliente> Clientes { get; set; }

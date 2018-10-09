@@ -45,5 +45,17 @@ namespace LogicaDeServicioCore
                 throw new Exception("Error al intentar dar de alta el turno.");
             }
         }
+
+        public List<Turno> ListarTurnos()
+        {
+            try
+            {
+                return LogicaTurno.ListarTurnos();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al Listar los turnos." + ex.Message);
+            }
+        }
     }
 }

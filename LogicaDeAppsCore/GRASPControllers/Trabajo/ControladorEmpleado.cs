@@ -216,13 +216,23 @@ namespace LogicaDeAppsCore
 
                 var result = client.PostAsync(url, content).Result;
 
-                return result.IsSuccessStatusCode;
+                var contentResult = result.Content.ReadAsStringAsync();
+
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception ex)
             {
                 throw new Exception("ERROR!: " + ex.Message);
             }
         }
+
         public bool AltaEmpleadoCadete(Cadete pEmpleado)
         {
             try
@@ -242,7 +252,16 @@ namespace LogicaDeAppsCore
 
                 var result = client.PostAsync(url, content).Result;
 
-                return result.IsSuccessStatusCode;
+                var contentResult = result.Content.ReadAsStringAsync();
+
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception ex)
             {

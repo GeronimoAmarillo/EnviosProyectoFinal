@@ -22,8 +22,29 @@ namespace EnviosService.Controllers
         }
 
         
+        [HttpGet("{matricula}")]
+        [Route("api/Vehiculos/Vehiculo")]
+        public JsonResult Buscar(string matricula)
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+
+            return Json(controladorVehiculo.BuscarVehiculo(matricula), settings);
+        }
+
+        [HttpPost]
+        [Route("api/Vehiculos/Vehiculo/Baja")]
+        public JsonResult Baja([FromBody] Vehiculo vehiculo)
+        {
+            return Json(controladorVehiculo.BajaVehiculo(vehiculo), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
+
         [HttpPost]
         [HttpPut]
+        [HttpDelete]
         [Route("api/Vehiculos/Auto")]
         public JsonResult Auto([FromBody] Automobil vehiculo)
         {
@@ -37,9 +58,10 @@ namespace EnviosService.Controllers
 
             return Json("Accion Http Desconocida", new Newtonsoft.Json.JsonSerializerSettings());
         }
-
+        
         [HttpPost]
         [HttpPut]
+        [HttpDelete]
         [Route("api/Vehiculos/Camion")]
         public JsonResult Camion([FromBody] Camion vehiculo)
         {
@@ -53,8 +75,10 @@ namespace EnviosService.Controllers
 
             return Json("Accion Http Desconocida", new Newtonsoft.Json.JsonSerializerSettings());
         }
+
         [HttpPost]
         [HttpPut]
+        [HttpDelete]
         [Route("api/Vehiculos/Camioneta")]
         public JsonResult Camioneta([FromBody] Camioneta vehiculo)
         {
@@ -70,6 +94,7 @@ namespace EnviosService.Controllers
         }
         [HttpPost]
         [HttpPut]
+        [HttpDelete]
         [Route("api/Vehiculos/Moto")]
         public JsonResult Moto([FromBody] Moto vehiculo)
         {

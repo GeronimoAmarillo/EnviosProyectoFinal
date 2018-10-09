@@ -15,9 +15,9 @@ namespace LogicaDeAppsCore
 
         bool RegistrarReparacion(Reparacion reparacion);
 
-        List<Vehiculo> ListarVehiculos();
+        Task<List<Vehiculo>> ListarVehiculos();
 
-        Vehiculo SeleccionarVehiculo(string matricula);
+        Task<Vehiculo> SeleccionarVehiculo(string matricula);
 
         void IniciarRegistroReparacion();
 

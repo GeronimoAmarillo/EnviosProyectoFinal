@@ -29,6 +29,8 @@ namespace PersistenciaCore
                 camionAgregar.Altura = camion.Altura;
                 camionAgregar.MatriculaCamion = camion.Matricula;
 
+                camionAgregar.Vehiculos = vehiculoAgregar;
+
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
                 optionsBuilder.UseSqlServer(Conexion.ConnectionString);
@@ -36,7 +38,6 @@ namespace PersistenciaCore
 
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    dbConnection.Vehiculos.Add(vehiculoAgregar);
                     dbConnection.Camiones.Add(camionAgregar);
 
                     dbConnection.SaveChanges();
@@ -94,57 +95,144 @@ namespace PersistenciaCore
 
         public bool BajaCamion(string matricula)
         {
-            return true;
+            try
+            {
+                Camiones camion = new Camiones();
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    camion = dbConnection.Camiones.Include("Vehiculos").Where(a => a.MatriculaCamion == matricula).FirstOrDefault();
+
+                    if (camion != null)
+                    {
+                        dbConnection.Camiones.Remove(camion);
+
+                        dbConnection.Vehiculos.Remove(camion.Vehiculos);
+
+                        dbConnection.SaveChanges();
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el camion." + ex.Message);
+            }
         }
 
         public EntidadesCompartidasCore.Camion BuscarCamion(string matricula)
         {
-            return new EntidadesCompartidasCore.Camion();
+            try
+            {
+                Camiones camion = new Camiones();
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    camion = dbConnection.Camiones.Include("Vehiculos.Reparaciones").Include("Vehiculos.Multas").Where(a => a.MatriculaCamion == matricula).FirstOrDefault();
+                }
+
+                Camion camionResultado = null;
+
+                if (camion != null)
+                {
+                    camionResultado = new Camion();
+                    camionResultado.Cadete = camion.Vehiculos.Cadete;
+                    camionResultado.Capacidad = camion.Vehiculos.Capacidad;
+                    camionResultado.Altura = camion.Altura;
+                    camionResultado.Estado = camion.Vehiculos.Estado;
+                    camionResultado.Marca = camion.Vehiculos.Marca;
+                    camionResultado.Matricula = camion.Vehiculos.Matricula;
+                    camionResultado.MatriculaCamion = camion.Vehiculos.Matricula;
+                    camionResultado.Modelo = camion.Vehiculos.Modelo;
+
+                    List<Reparacion> reparaciones = new List<Reparacion>();
+
+                    foreach (Reparaciones r in camion.Vehiculos.Reparaciones)
+                    {
+                        Reparacion nR = new Reparacion();
+
+                        nR.Id = r.Id;
+                        nR.Monto = r.Monto;
+                        nR.Taller = r.Taller;
+                        nR.Vehiculo = r.Vehiculo;
+
+                        reparaciones.Add(nR);
+                    }
+
+                    List<Multa> multas = new List<Multa>();
+
+                    foreach (Multas r in camion.Vehiculos.Multas)
+                    {
+                        Multa nR = new Multa();
+
+                        nR.Id = r.Id;
+                        nR.Fecha = r.Fecha;
+                        nR.Suma = r.Suma;
+                        nR.Motivo = r.Motivo;
+                        nR.Vehiculo = r.Vehiculo;
+
+                        multas.Add(nR);
+                    }
+
+                    camionResultado.Multas = multas;
+
+                    camionResultado.Reparaciones = reparaciones;
+                }
+
+                return camionResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el camion." + ex.Message);
+            }
         }
 
         public bool ModificarCamion(EntidadesCompartidasCore.Camion camion)
         {
-            Mapper.Initialize(cfg =>
+            Vehiculos vehiculoaModificar = new Vehiculos()
             {
-                cfg.CreateMap<Vehiculo, Vehiculos>()
-                    .ForMember(v => v.Matricula, opt => opt.MapFrom(u => u.Matricula))
-                    .ForMember(v => v.Marca, opt => opt.MapFrom(u => u.Marca))
-                    .ForMember(v => v.Modelo, opt => opt.MapFrom(u => u.Modelo))
-                    .ForMember(v => v.Capacidad, opt => opt.MapFrom(u => u.Capacidad))
-                    .ForMember(v => v.Estado, opt => opt.MapFrom(u => u.Estado))
-                    .ForMember(v => v.Cadete, opt => opt.MapFrom(u => u.Cadete))
-                    .ForMember(v => v.Automobiles, opt => opt.MapFrom(u => u.Automobiles))
-                    .ForMember(v => v.Cadetes, opt => opt.MapFrom(u => u.Cadetes))
-                    .ForMember(v => v.Camiones, opt => opt.MapFrom(u => u.Camiones))
-                    .ForMember(v => v.Camionetas, opt => opt.MapFrom(u => u.Camionetas))
-                    .ForMember(v => v.Motos, opt => opt.MapFrom(u => u.Motos))
-                    .ForMember(v => v.Multas, opt => opt.MapFrom(u => u.Multas))
-                    .ForMember(v => v.Reparaciones, opt => opt.MapFrom(u => u.Reparaciones))
-                ;
+                Matricula = camion.Matricula,
+                Marca = camion.Marca,
+                Modelo = camion.Modelo,
+                Capacidad = camion.Capacidad,
+                Estado = camion.Estado,
+                Cadete = camion.Cadete
+            };
 
-                cfg.CreateMap<Camion, Camiones>()
-                    .ForMember(c => c.Altura, opt => opt.MapFrom(u => u.Altura))
-                    .ForMember(c => c.MatriculaCamion, opt => opt.MapFrom(u => u.MatriculaCamion))
-                    .ForMember(c => c.Vehiculos, opt => opt.MapFrom(u => u.Vehiculos))
-                ;
-            });
-
+            Camiones camionaModificar = new Camiones()
+            {
+                Altura = camion.Altura,
+                MatriculaCamion = camion.Matricula,
+                Vehiculos = vehiculoaModificar
+            };
             var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
             optionsBuilder.UseSqlServer(Conexion.ConnectionString);
 
             try
             {
-                Vehiculos vehiculoaModificar = Mapper.Map<Vehiculos>(camion);
-                Camiones camionaModificar = Mapper.Map<Camiones>(camion);
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    Vehiculos vehiculoDesdeDB = dbConnection.Vehiculos.FirstOrDefault(x => x.Matricula == camion.Matricula);
-                    Camiones camionDesdeDb = dbConnection.Camiones.FirstOrDefault(x => x.MatriculaCamion == camion.Matricula);
-                    if (vehiculoDesdeDB != null && camionDesdeDb != null)
+                    int vehiculoDesdeDB = (dbConnection.Vehiculos.Where(x => x.Matricula == camion.Matricula)).Count();
+                    int camionDesdeDb = (dbConnection.Camiones.Where(x => x.MatriculaCamion == camion.Matricula)).Count();
+
+                    if (vehiculoDesdeDB == 1 && camionDesdeDb == 1)
                     {
-                        dbConnection.Update(vehiculoaModificar);
-                        dbConnection.Update(camionaModificar);
+                        dbConnection.Camiones.Update(camionaModificar);
+
                         dbConnection.SaveChanges();
                         return true;
                     }

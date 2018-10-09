@@ -608,7 +608,8 @@ namespace PersistenciaCore.Migrations
                 name: "Reparaciones",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Descripcion = table.Column<string>(maxLength: 150, nullable: false),
                     Taller = table.Column<string>(maxLength: 25, nullable: false),
                     Monto = table.Column<decimal>(type: "decimal(19, 4)", nullable: false),

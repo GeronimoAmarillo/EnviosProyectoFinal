@@ -34,6 +34,8 @@ namespace PersistenciaCore.Migrations
                     b.Property<decimal>("Suma")
                         .HasColumnType("decimal(19,4)");
 
+                    b.Property<DateTime>("fechaExpedido");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Empleado");

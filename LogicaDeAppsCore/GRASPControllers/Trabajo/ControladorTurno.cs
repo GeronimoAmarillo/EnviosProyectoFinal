@@ -88,5 +88,28 @@ namespace LogicaDeAppsCore
                 throw new Exception("ERROR!: " + ex.Message);
             }
         }
+
+
+        public async Task<List<Turno>> ListarTurnos()
+        {
+            try
+            {
+                //http://localhost:8080/
+
+                var httpClient = new HttpClient();
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionTurnos + "/Turnos");
+
+                List<Turno> turnos = null;
+
+                turnos = JsonConvert.DeserializeObject<List<Turno>>(json);
+
+                return turnos;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Se produjo un error al intentar listar los turnos.");
+            }
+        }
     }
 }

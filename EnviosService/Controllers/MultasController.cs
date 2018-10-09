@@ -10,7 +10,7 @@ using LogicaDeServicioCore;
 namespace EnviosService.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Multas")]
+    
     public class MultasController : Controller
     {
         private IControladorMulta controladorMulta;
@@ -22,13 +22,15 @@ namespace EnviosService.Controllers
 
 
         [HttpGet]
+        [Route("api/Multas/Vehiculos")]
         public JsonResult Vehiculos(int ci)
         {
             return Json(controladorMulta.ListarVehiculos(), new Newtonsoft.Json.JsonSerializerSettings());
         }
         
         [HttpPost]
-        public JsonResult Empleado([FromBody] Multa item)
+        [Route("api/Multas/Alta")]
+        public JsonResult Multas([FromBody] Multa item)
         {
             return Json(controladorMulta.RegistrarMulta(item), new Newtonsoft.Json.JsonSerializerSettings());
         }

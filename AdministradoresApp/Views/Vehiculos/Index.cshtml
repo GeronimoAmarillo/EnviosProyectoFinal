@@ -107,9 +107,11 @@
             </td>
             
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Modificar", "Modificar", new { matricula = item.Matricula }) |
+                @Html.ActionLink("Eliminar", "BajaVehiculo", new { matricula = item.Matricula }) |
+                @Html.ActionLink("Reparaciones", "IrReparaciones", new { matricula = item.Matricula }) |
+                @Html.ActionLink("Multas", "IrMultas", new { matricula = item.Matricula })
+
             </td>
         </tr>
         

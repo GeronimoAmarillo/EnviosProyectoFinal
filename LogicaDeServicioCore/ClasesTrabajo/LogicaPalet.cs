@@ -24,8 +24,14 @@ namespace LogicaDeServicioCore
 
         public static bool BajaPalet(int id)
         {
-            bool exito = false;
-            return exito;
+            try
+            {
+                return FabricaPersistencia.GetPersistenciaPalet().BajaPalet(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar dar de baja el Palet." + ex.Message);
+            }
         }
 
         public static Galpon BuscarGalpon(int id)
@@ -39,6 +45,34 @@ namespace LogicaDeServicioCore
             catch (Exception ex)
             {
                 throw new Exception("Error al buscar el galpon." + ex.Message);
+            }
+        }
+
+        public static Palet BuscarPalet(int id)
+        {
+            try
+            {
+
+                return FabricaPersistencia.GetPersistenciaPalet().BuscarPalet(id);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el palet." + ex.Message);
+            }
+        }
+
+        public static List<Palet> ListarPalets()
+        {
+            try
+            {
+
+                return FabricaPersistencia.GetPersistenciaPalet().ListarPalets();
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los palets." + ex.Message);
             }
         }
     }

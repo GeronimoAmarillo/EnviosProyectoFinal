@@ -11,7 +11,7 @@ namespace LogicaDeAppsCore
     {
         void IniciarRegistroAdelanto();
 
-        List<Empleado> ListarEmpleados();
+        Task<List<Empleado>> ListarEmpleados();
 
         void SetAdelanto(Adelanto pAdelanto);
 
@@ -19,9 +19,15 @@ namespace LogicaDeAppsCore
 
         Empleado GetEmpleado();
 
-        Empleado SeleccionarEmpleado(int cedula);
+        Task<Empleado> SeleccionarEmpleado(int cedula);
 
         bool RealizarAdelanto(Adelanto pAdelanto);
 
+        Task<List<Adelanto>> ListarAdelantos();
+
+        Task<List<Adelanto>> ListarAdelantosXEmpleado(int cedula);
+
+        Task<bool> verificarAdelantoSaldado(int cedula);
+        
     }
 }
