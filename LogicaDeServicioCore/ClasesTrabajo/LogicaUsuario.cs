@@ -275,8 +275,7 @@ namespace LogicaDeServicioCore
                 throw new Exception("Error al intentar comprobar la existencia del Local con los datos ingresados." + ex.Message);
             }
         }
-
-        public static EntidadesCompartidasCore.Usuario BuscarUsuario(int Id)
+        public static EntidadesCompartidasCore.Empleado BuscarEmpleado(int cedula)
         {
             Empleado empleado;
 
@@ -296,17 +295,25 @@ namespace LogicaDeServicioCore
                 throw new Exception("Error al buscar el Empleado" + ex.Message);
             }
         }
-            EntidadesCompartidasCore.Empleado empleado = new EntidadesCompartidasCore.Empleado();
+        public static EntidadesCompartidasCore.Usuario BuscarUsuario(int cedula)
+        {
+            Empleado empleado;
 
-            empleado = FabricaPersistencia.GetPersistenciaAdministrador().BusxarAdministrador(Id);
-
-            if (empleado == null)
+            try
             {
-                empleado = FabricaPersistencia.GetPersistenciaCadete().BuscarCadete(Id);
+                empleado = FabricaPersistencia.GetPersistenciaAdministrador().BuscarAdministrador(cedula);
+
+                if (empleado == null)
+                {
+                    empleado = FabricaPersistencia.GetPersistenciaCadete().BuscarCadete(cedula);
+                }
+
+                return empleado;
             }
-
-
-            return empleado;
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el Empleado" + ex.Message);
+            }
         }
 
         public static string CrearContrasenia()

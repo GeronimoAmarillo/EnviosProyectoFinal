@@ -34,45 +34,27 @@ namespace AdministradoresApp.Controllers
                 {
                     IControladorEmpleado controladorEmpleado = FabricaApps.GetControladorEmpleado();
 
-                HttpContext.Session.Set<List<Empleado>>(SESSSION_EMPLEADOS, null);
+                    List<Empleado> empleados = await controladorEmpleado.ListarEmpleados();
 
-                List<Empleado> empleados = await controladorEmpleado.ListarEmpleados();
+                    string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
 
-                HttpContext.Session.Set<List<Empleado>>(SESSSION_EMPLEADOS, empleados);
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, null);
 
-                string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
+                    if (mensaje != null && mensaje != "")
+                    {
+                        ViewBag.Message = mensaje;
+                    }
 
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, null);
-
-                if (mensaje != null && mensaje != "")
-                {
-                    ViewBag.Message = mensaje;
+                    return View(empleados);
                 }
-                List<Empleado> filtrados = HttpContext.Session.Get<List<Empleado>>(SESSION_FILTRADOS);
-
-                if ( filtrados != null)
-                {
-                    if (filtrados.Count >= 0)
-                    {
-                        HttpContext.Session.Set<List<Empleado>>(SESSION_FILTRADOS, null);
-
-                        return View(filtrados);
-                    }
-                    else
-                    {
-                        return View(empleados);
-                    }
-
-                return View(empleados);
-            }
                 else
                 {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-                return RedirectToAction("Index", "Home", new { area = "" });
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+
             }
-
-        }
             catch
             {
                 HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Locales registrados");
@@ -101,18 +83,13 @@ namespace AdministradoresApp.Controllers
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
 
-        }
-        catch
-        {
-            HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Locales registrados");
             }
             catch
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Empleados" +
-                    " registrados");
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Locales registrados");
 
-            return RedirectToAction("Index", "Home", new { area = "" });
-        }
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
 
         }
         public async Task<ActionResult> ModificarAdmin(int id)

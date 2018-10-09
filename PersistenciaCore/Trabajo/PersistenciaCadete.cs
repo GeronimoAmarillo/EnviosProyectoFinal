@@ -100,9 +100,9 @@ namespace PersistenciaCore
                 List<Cadete> cadetesResultado = new List<Cadete>();
 
 
-                List<Cadete> empresult = new List<Cadete>();
+               
 
-                    foreach (var a in emp)
+                    foreach (var a in cadetes)
                     {
                         Cadete cad = new Cadete();
 
@@ -119,10 +119,10 @@ namespace PersistenciaCore
                         cad.IdTelefono = a.IdTelefono;
                         
 
-                    cadetesResultado.Add(cadeteR);
+                    cadetesResultado.Add(cad);
                 }
 
-                    return empresult;
+                    return cadetesResultado;
                 
             }
             catch (Exception ex)
@@ -368,50 +368,6 @@ namespace PersistenciaCore
 
         public EntidadesCompartidasCore.Cadete BuscarCadete(int ci)
         {
-            Cadete cadResult = null;
-
-            var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
-
-            optionsBuilder.UseSqlServer(Conexion.ConnectionString);
-
-            try
-            {
-                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
-                {
-                    var cadEncontrado = dbConnection.Cadetes.Where(c => c.Empleados.Ci == ci).Select(c => new
-                    {
-                        Cadete = c,
-                        Empleado = c.Empleados,
-                        Usuario = c.Empleados.Usuarios
-                    }).FirstOrDefault();
-
-                    if (cadEncontrado != null)
-                    {
-                        if (cadEncontrado.Usuario != null && cadEncontrado.Empleado != null && cadEncontrado.Cadete != null)
-                        {
-                            cadResult = new Cadete();
-
-                            cadResult.Contraseña = cadEncontrado.Usuario.Contraseña;
-                            cadResult.Direccion = cadEncontrado.Usuario.Direccion;
-                            cadResult.Email = cadEncontrado.Usuario.Email;
-                            cadResult.Id = cadEncontrado.Usuario.Id;
-                            cadResult.Ci = cadEncontrado.Empleado.Ci;
-                            cadResult.Nombre = cadEncontrado.Usuario.Nombre;
-                            cadResult.NombreUsuario = cadEncontrado.Usuario.NombreUsuario;
-                            cadResult.Sueldo = cadEncontrado.Empleado.Sueldo;
-                            cadResult.Telefono = cadEncontrado.Usuario.Telefono;
-                            cadResult.TipoLibreta = cadEncontrado.Cadete.TipoLibreta;
-                            cadResult.IdTelefono = cadEncontrado.Cadete.IdTelefono;
-                        }
-
-                    }
-                }
-                return cadResult;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al intentar buscar el Cadete" + ex.Message);
-            }
             try
             {
                 Cadetes cadete = new Cadetes();
@@ -428,7 +384,7 @@ namespace PersistenciaCore
 
                 Cadete cadeteResultado = new Cadete();
 
-                if(cadete != null)
+                if (cadete != null)
                 {
 
                     cadeteResultado.Ci = cadete.CiEmpleado;
@@ -449,6 +405,7 @@ namespace PersistenciaCore
             {
                 throw new Exception("Error al buscar el cadete." + ex.Message);
             }
+
         }
     
     }

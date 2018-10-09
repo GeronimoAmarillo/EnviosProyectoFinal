@@ -163,9 +163,6 @@ namespace PersistenciaCore
 
         }
 
-
-                List<Administrador> empresult = new List<Administrador>();
-
         public List<EntidadesCompartidasCore.Administrador> ListarAdministradores()
         {
             try
@@ -175,16 +172,7 @@ namespace PersistenciaCore
 
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
-                        empr.Ci = a.CiEmpleado;
-                        empr.Contraseña = a.Empleados.Usuarios.Contraseña;
-                        empr.Direccion = a.Empleados.Usuarios.Direccion;
-                        empr.Email = a.Empleados.Usuarios.Email;
-                        empr.Id = a.Empleados.IdUsuario;
-                        empr.Nombre = a.Empleados.Usuarios.Nombre;
-                        empr.NombreUsuario = a.Empleados.Usuarios.NombreUsuario;
-                        empr.Sueldo = a.Empleados.Sueldo;
-                        empr.Telefono = a.Empleados.Usuarios.Telefono;
-                        empr.Tipo = a.Tipo;
+                       
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
@@ -399,53 +387,6 @@ namespace PersistenciaCore
                 throw new Exception("Error al dar de baja el administrador");
             }
 
-        }
-
-        public EntidadesCompartidasCore.Administrador BusxarAdministrador(int Id)
-        {
-            Administrador administradorResultado = null;
-
-            var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
-
-            optionsBuilder.UseSqlServer(Conexion.ConnectionString);
-
-            try
-            {
-                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
-                {
-                    var adminEncontrado = dbConnection.Administradores.Where(c => c.Empleados.IdUsuario == Id).Select(c => new
-                    {
-                        Administrador = c,
-                        Empleado = c.Empleados,
-                        Usuario = c.Empleados.Usuarios
-                    }).FirstOrDefault();
-
-                    if (adminEncontrado != null)
-                    {
-                        if (adminEncontrado.Usuario != null && adminEncontrado.Empleado != null && adminEncontrado.Administrador != null)
-                        {
-                            administradorResultado = new Administrador();
-
-                            administradorResultado.Contraseña = adminEncontrado.Usuario.Contraseña;
-                            administradorResultado.Direccion = adminEncontrado.Usuario.Direccion;
-                            administradorResultado.Email = adminEncontrado.Usuario.Email;
-                            administradorResultado.Id = adminEncontrado.Usuario.Id;
-                            administradorResultado.Ci = adminEncontrado.Empleado.Ci;
-                            administradorResultado.Nombre = adminEncontrado.Usuario.Nombre;
-                            administradorResultado.NombreUsuario = adminEncontrado.Usuario.NombreUsuario;
-                            administradorResultado.Sueldo = adminEncontrado.Empleado.Sueldo;
-                            administradorResultado.Telefono = adminEncontrado.Usuario.Telefono;
-                            administradorResultado.Tipo = adminEncontrado.Administrador.Tipo;
-                        }
-
-                    }
-                }
-                return administradorResultado;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al intentar buscar el Administrador" + ex.Message);
-            }
         }
     }         
 }
