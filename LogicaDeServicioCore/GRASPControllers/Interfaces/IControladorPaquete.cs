@@ -11,11 +11,11 @@ namespace LogicaDeServicioCore
     {
         bool RealizarReclamo(string descripcion);
 
-        Paquete BuscarPaquete(int codigo);
+        Paquete BuscarPaquete(int numReferencia);
 
         List<Local> ListarLocales();
 
-        List<Paquete> ListarPaquetesEnviadosXCliente(int cedula);
+        List<Paquete> ListarPaquetesEnviadosXCliente(int rut);
 
         List<Paquete> ListarPaquetesRecibidosXCliente(int cedula);
 

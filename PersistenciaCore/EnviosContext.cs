@@ -42,7 +42,6 @@ namespace PersistenciaCore
         public virtual DbSet<Usuarios> Usuarios { get; set; }
         public virtual DbSet<Vehiculos> Vehiculos { get; set; }
         public virtual DbSet<Administradores> Administradores { get; set; }
-        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -91,12 +90,12 @@ namespace PersistenciaCore
 
             modelBuilder.Entity<Clientes>()
                 .HasMany(e => e.Entregas)
-                .WithOne(e => e.Clientes).IsRequired()
+                .WithOne(e => e.Clientes)
                 .HasForeignKey(e => e.ClienteEmisor).OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Clientes>()
                 .HasMany(e => e.Entregas1)
-                .WithOne(e => e.Clientes1).IsRequired()
+                .WithOne(e => e.Clientes1)
                 .HasForeignKey(e => e.ClienteReceptor).OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Clientes>()
@@ -176,13 +175,13 @@ namespace PersistenciaCore
 
             modelBuilder.Entity<Locales>()
                 .HasMany(e => e.Entregas)
-                .WithOne(e => e.Locales).IsRequired()
+                .WithOne(e => e.Locales)
                 .HasForeignKey(e => e.LocalEmisor)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Locales>()
                 .HasMany(e => e.Entregas1)
-                .WithOne(e => e.Locales1).IsRequired()
+                .WithOne(e => e.Locales1)
                 .HasForeignKey(e => e.LocalReceptor).
                 OnDelete(DeleteBehavior.Restrict);
 

@@ -14,5 +14,7 @@ namespace PersistenciaCore
         List<EntidadesCompartidasCore.Entrega> ListarEntregas();
 
         bool AltaEntrega(EntidadesCompartidasCore.Entrega entrega);
+
+        Entrega BuscarEntrega(int codigo);
     }
 }

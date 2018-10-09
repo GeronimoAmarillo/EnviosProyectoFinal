@@ -11,6 +11,10 @@ namespace PersistenciaCore
     {
         bool ExisteAdmin(int ci);
 
+        bool VerificarCodigoContraseña(string email, string codigo);
+
+        bool VerificarCodigoEmail(string email, string codigo);
+
         bool AltaAdministrador(Administrador administrador);
 
         bool ComprobarUser(string user);
@@ -24,5 +28,9 @@ namespace PersistenciaCore
         bool BajaAdministrador(int ci);
 
         Administrador BuscarAdministrador(int ci);
+
+        bool SetearCodigoRecuperacionContraseña(Administrador admin);
+
+        bool SetearCodigoModificarEmail(Administrador admin);
     }
 }

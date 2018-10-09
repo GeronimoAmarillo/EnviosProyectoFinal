@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidasCore;
+using PersistenciaCore;
 
 namespace LogicaDeServicioCore
 {
@@ -21,10 +22,28 @@ namespace LogicaDeServicioCore
             return entregas;
         }
 
-        public bool AltaEntega(Entrega unaEntrega)
+        public static Entrega BuscarEntrega(int codigo)
         {
-            bool exito = false;
-            return exito;
+            try
+            {
+                return FabricaPersistencia.GetPersistenciaEntrega().BuscarEntrega(codigo);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar la entrega." + ex.Message);
+            }
+        }
+
+        public static bool AltaEntega(Entrega unaEntrega)
+        {
+            try
+            {
+                return FabricaPersistencia.GetPersistenciaEntrega().AltaEntrega(unaEntrega);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar dar de alta la entrega." + ex);
+            }
         }
     }
 }

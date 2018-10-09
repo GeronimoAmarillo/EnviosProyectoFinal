@@ -34,25 +34,25 @@ VALUES('User9', '123456789', 'Nombre9', 'Direccion9', '12345678', 'user9@dominio
 
 
 INSERT INTO Empleados (Sueldo, IdUsuario, Ci)
-VALUES(15000, 10, 11111111)
+VALUES(15000, 1, 11111111)
 
 INSERT INTO Empleados (Sueldo, IdUsuario, Ci)
-VALUES(15000, 11, 22222222)
+VALUES(15000, 2, 22222222)
 
 INSERT INTO Empleados (Sueldo, IdUsuario, Ci)
-VALUES(15000, 12, 33333333)
+VALUES(15000, 3, 33333333)
 
 INSERT INTO Empleados (Sueldo, IdUsuario, Ci)
-VALUES(15000, 13, 44444444)
+VALUES(15000, 4, 44444444)
 
 INSERT INTO Empleados (Sueldo, IdUsuario, Ci)
-VALUES(15000, 14, 55555555)
+VALUES(15000, 5, 55555555)
 
 INSERT INTO Empleados (Sueldo, IdUsuario, Ci)
-VALUES(15000, 15, 88888888)
+VALUES(15000, 6, 88888888)
 
 INSERT INTO Empleados (Sueldo, IdUsuario, Ci)
-VALUES(15000, 16, 99999999)
+VALUES(15000, 7, 99999999)
 
 
 
@@ -88,10 +88,10 @@ VALUES('E', 321321321, 99999999)
 
 
 INSERT INTO Clientes(RUT, IdUsuario, Mensualidad)
-VALUES(66666666, 17, 45000)
+VALUES(66666666, 8, 45000)
 
 INSERT INTO Clientes(RUT, IdUsuario, Mensualidad)
-VALUES(77777777, 18, 45000)
+VALUES(77777777, 9, 45000)
 
 
 INSERT INTO Locales(Nombre, Direccion)
@@ -113,13 +113,13 @@ VALUES(20, 1000)
 
 
 INSERT INTO Sectores(Codigo, Superficie, Temperatura, Galpon)
-VALUES(11, 250, 25, 4)
+VALUES(11, 250, 25, 1)
 INSERT INTO Sectores(Codigo, Superficie, Temperatura, Galpon)
-VALUES(12, 250, 20, 4)
+VALUES(12, 250, 20, 1)
 INSERT INTO Sectores(Codigo, Superficie, Temperatura, Galpon)
-VALUES(13, 250, 10, 4)
+VALUES(13, 250, 10, 1)
 INSERT INTO Sectores(Codigo, Superficie, Temperatura, Galpon)
-VALUES(14, 250, 5, 4)
+VALUES(14, 250, 5, 1)
 
 INSERT INTO Racks(Codigo, Altura, Superficie, Sector)
 VALUES(111, 5, 40, 11)
@@ -310,3 +310,35 @@ VALUES('EEE5555', 2.7)
 
 INSERT INTO Camiones(MatriculaCamion, Altura)
 VALUES('FFF6666', 2.5)
+
+INSERT INTO Turnos(Codigo, Dia, Hora)
+VALUES('LUN0600', 'Lunes', 0600)
+
+INSERT INTO Turnos(Codigo, Dia, Hora)
+VALUES('MAR1000', 'Martes', 1000)
+
+INSERT INTO Turnos(Codigo, Dia, Hora)
+VALUES('MIE1500', 'Miercoles', 1500)
+
+INSERT INTO Turnos(Codigo, Dia, Hora)
+VALUES('JUE2000', 'Jueves', 2000)
+
+INSERT INTO Entregas(ClienteEmisor, ClienteReceptor, Fecha, LocalEmisor, LocalReceptor, NombreReceptor, Turno)
+VALUES(null, 66666666, '2018-09-10 06:00:00.000', 1, null, 'Damian Martinez', 'LUN0600')
+
+INSERT INTO Entregas(ClienteEmisor, ClienteReceptor, Fecha, LocalEmisor, LocalReceptor, NombreReceptor, Turno)
+VALUES(null, 66666666, '2018-09-11 10:00:00.000', 2, null, 'Diego Torres', 'MAR1000')
+
+INSERT INTO Paquetes(Cliente, ClientesRUT, Entrega, EntregasCodigo, Estado, FechaSalida, NumReferencia, Ubicacion)
+values(66666666, 66666666, 3, 3, 'Levantado', '2018-09-10 06:00:00.000', 12341234, 'Optica 1')
+INSERT INTO Paquetes(Cliente, ClientesRUT, Entrega, EntregasCodigo, Estado, FechaSalida, NumReferencia, Ubicacion)
+values(66666666, 66666666, 3, 3, 'Levantado', '2018-09-10 06:00:00.000', 12344321, 'Optica 1')
+INSERT INTO Paquetes(Cliente, ClientesRUT, Entrega, EntregasCodigo, Estado, FechaSalida, NumReferencia, Ubicacion)
+values(66666666, 66666666, 3, 3, 'Levantado', '2018-09-10 06:00:00.000', 12345678, 'Optica 1')
+
+INSERT INTO Paquetes(Cliente, ClientesRUT, Entrega, EntregasCodigo, Estado, FechaSalida, NumReferencia, Ubicacion)
+values(66666666, 66666666, 3, 3, 'Levantado', '2018-09-11 10:00:00.000', 23452345, 'Optica 2')
+INSERT INTO Paquetes(Cliente, ClientesRUT, Entrega, EntregasCodigo, Estado, FechaSalida, NumReferencia, Ubicacion)
+values(66666666, 66666666, 3, 3, 'Levantado', '2018-09-11 10:00:00.000', 23455432, 'Optica 2')
+INSERT INTO Paquetes(Cliente, ClientesRUT, Entrega, EntregasCodigo, Estado, FechaSalida, NumReferencia, Ubicacion)
+values(66666666, 66666666, 3, 3, 'Levantado', '2018-09-11 10:00:00.000', 23456789, 'Optica 2')

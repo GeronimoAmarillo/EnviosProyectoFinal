@@ -17,7 +17,9 @@ namespace LogicaDeAppsCore
 
         List<Local> ListarLocales();
 
-        List<Paquete> ListarPaquetesEnviadosXCliente(int cedula);
+        Task<Paquete> BuscarPaquete(int numReferencia);
+
+        Task<List<Paquete>> ListarPaquetesEnviadosXCliente(long rut);
 
         void SetPaquetes(List<Paquete> pPaquetes);
 

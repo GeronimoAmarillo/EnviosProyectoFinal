@@ -10,6 +10,10 @@ namespace PersistenciaCore
     {
         bool AltaCadete(EntidadesCompartidasCore.Cadete cadete);
 
+        bool VerificarCodigoContraseña(string email, string codigo);
+
+        bool VerificarCodigoEmail(string email, string codigo);
+
         bool ExisteCadete(int ci);
 
         List<EntidadesCompartidasCore.Cadete> ListarCadetes();
@@ -23,6 +27,10 @@ namespace PersistenciaCore
         bool BajaCadete(int ci);
 
         bool ComprobarUser(string user);
+
+        bool SetearCodigoRecuperacionContraseña(Cadete cadete);
+
+        bool SetearCodigoModificarEmail(Cadete cadete);
 
         EntidadesCompartidasCore.Cadete BuscarCadete(int ci);
     }

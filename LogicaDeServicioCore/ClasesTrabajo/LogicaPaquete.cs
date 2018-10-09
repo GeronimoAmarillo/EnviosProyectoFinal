@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidasCore;
+using PersistenciaCore;
 
 namespace LogicaDeServicioCore
 {
@@ -15,10 +16,18 @@ namespace LogicaDeServicioCore
             return exito;
         }
 
-        public Paquete BuscarPaqueteXreferencia(int numeroReferencia)
+        public static Paquete BuscarPaqueteXreferencia(int numeroReferencia)
         {
-            Paquete paquete = new Paquete();
-            return paquete;
+            try
+            {
+                Paquete paquete = FabricaPersistencia.GetPersistenciaPaquete().BuscarPaquete(numeroReferencia);
+
+                return paquete;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el paquete." + ex.Message);
+            }
         }
 
         public Paquete BuscarPaqueteXcodigo(int codigo)
@@ -27,10 +36,18 @@ namespace LogicaDeServicioCore
             return paquete;
         }
 
-        public List<Paquete> ListarPaquetesEnviadosXcliente(int cedula)
+        public static List<Paquete> ListarPaquetesEnviadosXcliente(int rut)
         {
-            List<Paquete> lista = new List<Paquete>();
-            return lista;
+            try
+            {
+                List<Paquete> lista = FabricaPersistencia.GetPersistenciaPaquete().ListarPaquetesEnviadosXCliente(rut);
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los paquetes." + ex.Message);
+            }
         }
 
         public List<Paquete> ListarPaquetesRecibidosXcliente(int cedula)

@@ -14,6 +14,10 @@ namespace PersistenciaCore
 
         bool ExisteCliente(long rut);
 
+        bool VerificarCodigoContraseña(string email, string codigo);
+
+        bool VerificarCodigoEmail(string email, string codigo);
+
         bool ModificarCliente(EntidadesCompartidasCore.Cliente unCliente);
 
         bool ComprobarUser(string user);
@@ -27,5 +31,9 @@ namespace PersistenciaCore
         bool BajaCliente(int ci);
 
         bool ExisteClienteXEmail(string email);
+
+        bool SetearCodigoRecuperacionContraseña(Cliente cliente);
+
+        bool SetearCodigoModificarEmail(Cliente cliente);
     }
 }
