@@ -120,41 +120,39 @@ namespace PersistenciaCore
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    var resultado = dbConnection.Cadetes.Select(c => new
-                    {
-                        Administrador = c,
-                        Empleado = c.Empleados,
-                        Usuario = c.Empleados.Usuarios
-                    }).ToList();
+                    emp = dbConnection.Cadetes.Include("Empleados.Usuarios").ToList();
+                }
 
 
-                    List<Cadete> empresult = new List<Cadete>();
 
-                    foreach (var a in resultado)
+                List<Cadete> empresult = new List<Cadete>();
+
+                    foreach (var a in emp)
                     {
                         Cadete cad = new Cadete();
 
-                        cad.Ci = a.Empleado.Ci;
-                        cad.Contraseña = a.Usuario.Contraseña;
-                        cad.Direccion = a.Usuario.Direccion;
-                        cad.Email = a.Usuario.Email;
-                        cad.Id = a.Usuario.Id;
-                        cad.Nombre = a.Usuario.Nombre;
-                        cad.NombreUsuario = a.Usuario.NombreUsuario;
-                        cad.Sueldo = a.Empleado.Sueldo;
-                        cad.Telefono = a.Usuario.Telefono;
-                        cad.TipoLibreta = a.Empleado.Cadetes.TipoLibreta;
+                        cad.Ci = a.CiEmpleado;
+                        cad.Contraseña = a.Empleados.Usuarios.Contraseña;
+                        cad.Direccion = a.Empleados.Usuarios.Direccion;
+                        cad.Email = a.Empleados.Usuarios.Email;
+                        cad.Id = a.Empleados.IdUsuario;
+                        cad.Nombre = a.Empleados.Usuarios.Nombre;
+                        cad.NombreUsuario = a.Empleados.Usuarios.NombreUsuario;
+                        cad.Sueldo = a.Empleados.Sueldo;
+                        cad.Telefono = a.Empleados.Usuarios.Telefono;
+                        cad.TipoLibreta = a.TipoLibreta;
+                        cad.IdTelefono = a.IdTelefono;
                         
 
                         empresult.Add(cad);
                     }
 
                     return empresult;
-                }
+                
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al listar los empleados." + ex.Message);
+                throw new Exception("Error al listar los Cadetes." + ex.Message);
             }
 
         }
@@ -215,7 +213,67 @@ namespace PersistenciaCore
 
         public bool ModificarCadete(EntidadesCompartidasCore.Cadete cadete)
         {
-            return true;
+            try
+            {
+                PersistenciaCore.Usuarios usuNuevo = new PersistenciaCore.Usuarios();
+
+                usuNuevo.Id = cadete.Id;
+                usuNuevo.Nombre = cadete.Nombre;
+                usuNuevo.NombreUsuario = cadete.NombreUsuario;
+                usuNuevo.Contraseña = cadete.Contraseña;
+                usuNuevo.Direccion = cadete.Direccion;
+                usuNuevo.Telefono = cadete.Telefono;
+                usuNuevo.Email = cadete.Email;
+
+                PersistenciaCore.Empleados empNuevo = new PersistenciaCore.Empleados();
+
+                empNuevo.IdUsuario = usuNuevo.Id;
+                empNuevo.Sueldo = cadete.Sueldo;
+                empNuevo.Ci = cadete.Ci;
+
+                PersistenciaCore.Cadetes cadeteNuevo = new PersistenciaCore.Cadetes();
+
+                cadeteNuevo.CiEmpleado = cadete.Ci;
+                cadeteNuevo.IdTelefono = cadete.IdTelefono;
+                cadeteNuevo.TipoLibreta = cadete.TipoLibreta;
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+
+                using (EnviosContext context = new EnviosContext(optionsBuilder.Options))
+                {
+                    using (var dbContextTransaction = context.Database.BeginTransaction())
+                    {
+                        try
+                        {
+
+                            context.Usuarios.Update(usuNuevo);
+                            context.Empleados.Update(empNuevo);
+                            context.Cadetes.Update(cadeteNuevo);
+
+
+                            context.SaveChanges();
+
+                            dbContextTransaction.Commit();
+
+                        }
+                        catch (Exception ex)
+                        {
+                            dbContextTransaction.Rollback();
+                        }
+                    }
+
+                    return true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al modificar el cadete.");
+            }
+
         }
 
         public List<EntidadesCompartidasCore.Cadete> ListarCadetesDisponibles()
@@ -265,17 +323,122 @@ namespace PersistenciaCore
 
         public bool BajaCadete(int ci)
         {
-            return true;
-        }
+            try
+            {
+                EntidadesCompartidasCore.Cadete cadete = FabricaPersistencia.GetPersistenciaCadete().BuscarCadete(ci);
+                PersistenciaCore.Usuarios usuNuevo = new PersistenciaCore.Usuarios();
 
-        public bool ComprobarUser(string user)
+                usuNuevo.Id = cadete.Id;
+                usuNuevo.Nombre = cadete.Nombre;
+                usuNuevo.NombreUsuario = cadete.NombreUsuario;
+                usuNuevo.Contraseña = cadete.Contraseña;
+                usuNuevo.Direccion = cadete.Direccion;
+                usuNuevo.Telefono = cadete.Telefono;
+                usuNuevo.Email = cadete.Email;
+
+                PersistenciaCore.Empleados empNuevo = new PersistenciaCore.Empleados();
+
+                empNuevo.IdUsuario = usuNuevo.Id;
+                empNuevo.Sueldo = cadete.Sueldo;
+                empNuevo.Ci = cadete.Ci;
+
+                PersistenciaCore.Cadetes cadNuevo = new PersistenciaCore.Cadetes();
+
+                cadNuevo.CiEmpleado = cadete.Ci;
+                cadNuevo.TipoLibreta = cadete.TipoLibreta;
+                cadNuevo.IdTelefono = cadete.IdTelefono;
+
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+
+                using (EnviosContext context = new EnviosContext(optionsBuilder.Options))
+                {
+                    using (var dbContextTransaction = context.Database.BeginTransaction())
+                    {
+                        try
+                        {
+
+                            context.Cadetes.Remove(cadNuevo);
+                            context.Empleados.Remove(empNuevo);
+                            context.Usuarios.Remove(usuNuevo);
+
+
+                            context.SaveChanges();
+
+                            dbContextTransaction.Commit();
+
+                        }
+                        catch (Exception ex)
+                        {
+                            dbContextTransaction.Rollback();
+                        }
+                    }
+
+                    return true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al dar de baja el cadete");
+            }
+
+        }
+    public bool ComprobarUser(string user)
         {
             return true;
         }
 
         public EntidadesCompartidasCore.Cadete BuscarCadete(int ci)
         {
-            return new EntidadesCompartidasCore.Cadete();
+            Cadete cadResult = null;
+
+            var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+            optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+            try
+            {
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    var cadEncontrado = dbConnection.Cadetes.Where(c => c.Empleados.Ci == ci).Select(c => new
+                    {
+                        Cadete = c,
+                        Empleado = c.Empleados,
+                        Usuario = c.Empleados.Usuarios
+                    }).FirstOrDefault();
+
+                    if (cadEncontrado != null)
+                    {
+                        if (cadEncontrado.Usuario != null && cadEncontrado.Empleado != null && cadEncontrado.Cadete != null)
+                        {
+                            cadResult = new Cadete();
+
+                            cadResult.Contraseña = cadEncontrado.Usuario.Contraseña;
+                            cadResult.Direccion = cadEncontrado.Usuario.Direccion;
+                            cadResult.Email = cadEncontrado.Usuario.Email;
+                            cadResult.Id = cadEncontrado.Usuario.Id;
+                            cadResult.Ci = cadEncontrado.Empleado.Ci;
+                            cadResult.Nombre = cadEncontrado.Usuario.Nombre;
+                            cadResult.NombreUsuario = cadEncontrado.Usuario.NombreUsuario;
+                            cadResult.Sueldo = cadEncontrado.Empleado.Sueldo;
+                            cadResult.Telefono = cadEncontrado.Usuario.Telefono;
+                            cadResult.TipoLibreta = cadEncontrado.Cadete.TipoLibreta;
+                            cadResult.IdTelefono = cadEncontrado.Cadete.IdTelefono;
+                        }
+
+                    }
+                }
+                return cadResult;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar buscar el Cadete" + ex.Message);
+            }
         }
+    
     }
 }

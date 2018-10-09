@@ -10,6 +10,7 @@ namespace EntidadesCompartidasCore
     {
         [Required]
         public decimal Sueldo { get; set; }
+
         public int IdUsuario { get; set; }
         [Required]
         public int Ci { get; set; }

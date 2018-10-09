@@ -99,6 +99,16 @@ namespace LogicaDeServicioCore
                 exito = FabricaPersistencia.GetPersistenciaCliente().ModificarCliente((Cliente)unUsuario);
                 return exito;
             }
+            if (unUsuario is Administrador)
+            {
+                exito = FabricaPersistencia.GetPersistenciaAdministrador().ModificarAdmin((Administrador)unUsuario);
+                return exito;
+            }
+            if (unUsuario is Cadete)
+            {
+                exito = FabricaPersistencia.GetPersistenciaCadete().ModificarCadete((Cadete)unUsuario);
+                return exito;
+            }
             return exito;
         }
 
@@ -214,9 +224,18 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public static EntidadesCompartidasCore.Usuario BuscarUsuario(int cedula)
+        public static EntidadesCompartidasCore.Usuario BuscarUsuario(int Id)
         {
             EntidadesCompartidasCore.Empleado empleado = new EntidadesCompartidasCore.Empleado();
+
+            empleado = FabricaPersistencia.GetPersistenciaAdministrador().BusxarAdministrador(Id);
+
+            if (empleado == null)
+            {
+                empleado = FabricaPersistencia.GetPersistenciaCadete().BuscarCadete(Id);
+            }
+
+
             return empleado;
         }
 

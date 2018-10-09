@@ -13,13 +13,19 @@ namespace LogicaDeAppsCore
 
         Empleado GetEmpleado();
 
+        Cadete GetEmpleadoCad();
+
+        Administrador GetEmpleadoAdm();
+
         void SetEmpleado(Empleado pEmpleado);
 
-        Empleado BuscarEmpleado(int ci);
+        Task <Empleado> BuscarEmpleado(int ci);
 
-        bool ModificarEmpleado(Empleado pEmpleado);
+        bool ModificarAdmnistrador(Administrador pEmpleado);
 
-        bool EliminarEmpleado(Empleado pEmpleado);
+        bool ModificarCadete(Cadete pEmpleado);
+
+        bool EliminarEmpleado(Empleado emp);
 
         bool AltaEmpleadoAdministrador(Administrador pEmpleado);
 

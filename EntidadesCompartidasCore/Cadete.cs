@@ -15,7 +15,7 @@ namespace EntidadesCompartidasCore
         [Required]
         public long IdTelefono { get; set; }
         [Required]
-        public int CiEmpleado { get; set; }
+        public int CiCadete { get; set; }
 
         public  Empleado Empleados { get; set; }
         

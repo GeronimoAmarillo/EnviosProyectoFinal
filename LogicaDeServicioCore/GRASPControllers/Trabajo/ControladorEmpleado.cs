@@ -23,17 +23,41 @@ namespace LogicaDeServicioCore
 
         public EntidadesCompartidasCore.Empleado BuscarEmpleado(int ci)
         {
-            return new EntidadesCompartidasCore.Empleado();
+            try
+            {
+                EntidadesCompartidasCore.Empleado usu= (Empleado)LogicaUsuario.BuscarUsuario(ci);
+
+                return usu;
+            }
+            catch
+            {
+                throw new Exception("Error al buscar el empleado.");
+            }
+            
         }
 
         public bool ModificarEmpleado(EntidadesCompartidasCore.Empleado pEmpleado)
         {
-            return true;
+            try
+            {
+                return LogicaUsuario.ModificarUsuario(pEmpleado);
+            }
+            catch
+            {
+                throw new Exception("Error al intentar dar de alta el Local.");
+            }
         }
 
-        public bool BajaEmpleado(EntidadesCompartidasCore.Empleado pEmpleado)
+        public bool BajaEmpleado(int ci)
         {
-            return true;
+            try
+            {
+                return LogicaUsuario.BajaUsuario(ci);
+            }
+            catch
+            {
+                throw new Exception("Error al intentar dar de alta el Local.");
+            }
         }
 
         public bool AltaEmpleado(EntidadesCompartidasCore.Empleado pEmpleado)
@@ -55,7 +79,7 @@ namespace LogicaDeServicioCore
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al Listar los locales." + ex.Message);
+                throw new Exception("Error al Listar los Empleados." + ex.Message);
             }
         }
     }
