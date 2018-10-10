@@ -118,9 +118,26 @@ namespace LogicaDeAppsCore
             return paquetes;
         }
 
-        public List<Paquete> ListarPaquetesRecibidosXCliente(int cedula)
+        public async Task<List<Paquete>> ListarPaquetesRecibidosXCliente(long rut)
         {
-            return new List<Paquete>();
+            try
+            {
+                //http://localhost:8080/
+
+                var httpClient = new HttpClient();
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionPaquetes + "/ListarRecibidos?rut=" + rut);
+
+                List<Paquete> paquetes = null;
+
+                paquetes = JsonConvert.DeserializeObject<List<Paquete>>(json);
+
+                return paquetes;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Se produjo un error al intentar listar los paquetes.");
+            }
         }
 
         public Paquete ConsultarEstado(int numReferencia)

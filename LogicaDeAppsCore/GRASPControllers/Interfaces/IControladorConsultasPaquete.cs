@@ -31,7 +31,7 @@ namespace LogicaDeAppsCore
 
         List<Paquete> GetPaquetes();
 
-        List<Paquete> ListarPaquetesRecibidosXCliente(int cedula);
+        Task<List<Paquete>> ListarPaquetesRecibidosXCliente(long rut);
 
 
         Paquete ConsultarEstado(int numReferencia);

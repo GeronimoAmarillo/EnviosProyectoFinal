@@ -137,8 +137,17 @@ namespace PersistenciaCore
 
                     paqueteR.Cliente = p.Cliente;
                     paqueteR.Entrega = p.Entrega;
-                    paqueteR.Entregas = TransfomarEntrega(p.Entregas);
-                    paqueteR.Entregas1 = TransfomarEntrega(p.Entregas1);
+                    if (p.Entregas != null)
+                    {
+                        paqueteR.Entregas = TransfomarEntrega(p.Entregas);
+                    }
+
+                    if (p.Entregas1 != null)
+                    {
+                        paqueteR.Entregas1 = TransfomarEntrega(p.Entregas1);
+                    }
+                    
+                    
                     paqueteR.Estado = p.Estado;
                     paqueteR.FechaSalida = p.FechaSalida;
                     paqueteR.NumReferencia = p.NumReferencia;
@@ -179,8 +188,16 @@ namespace PersistenciaCore
 
                     paqueteR.Cliente = p.Cliente;
                     paqueteR.Entrega = p.Entrega;
-                    paqueteR.Entregas = TransfomarEntrega(p.Entregas);
-                    paqueteR.Entregas1 = TransfomarEntrega(p.Entregas1);
+                    if (p.Entregas != null)
+                    {
+                        paqueteR.Entregas = TransfomarEntrega(p.Entregas);
+                    }
+
+                    if (p.Entregas1 != null)
+                    {
+                        paqueteR.Entregas1 = TransfomarEntrega(p.Entregas1);
+                    }
+
                     paqueteR.Estado = p.Estado;
                     paqueteR.FechaSalida = p.FechaSalida;
                     paqueteR.NumReferencia = p.NumReferencia;
