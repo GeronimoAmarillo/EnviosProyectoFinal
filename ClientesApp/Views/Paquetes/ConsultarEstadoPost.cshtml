@@ -1,0 +1,62 @@
+﻿@model EntidadesCompartidasCore.Paquete
+
+@{
+    ViewData["Title"] = "ConsultarEstadoPost";
+}
+
+<h2>ConsultarEstadoPost</h2>
+
+@if (Model != null)
+{
+
+    <div>
+        <h4>Paquete</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.NumReferencia)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NumReferencia)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.FechaSalida)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.FechaSalida)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Estado)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Estado)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Ubicacion)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Ubicacion)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Entrega)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Entrega)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Cliente)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Cliente)
+            </dd>
+        </dl>
+    </div>
+}
+else
+{
+    <h4 class="danger">No existe en el sistema un paquete con el numero de referencia, verifique que el numero sea correcto.</h4>
+}
+
+<div>
+    <a asp-action="ConsultarEstado" asp-controller="Paquetes">Volver a intentar</a>
+</div>

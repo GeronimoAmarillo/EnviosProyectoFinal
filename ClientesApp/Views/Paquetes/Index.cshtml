@@ -72,10 +72,6 @@
 }
 
     
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -123,7 +119,7 @@
                     @Html.DisplayFor(modelItem => item.Cliente)
                 </td>
                 <td>
-                    @Html.ActionLink("Detalles", "Detalles", new { numReferencia=item.NumReferencia }) 
+                    @Html.ActionLink("Detalles", "Detalles", new { numReferencia=item.NumReferencia, accion="Enviados" }) 
                 </td>
             </tr>
         }

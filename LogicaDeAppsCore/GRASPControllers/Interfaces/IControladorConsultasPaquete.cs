@@ -19,6 +19,8 @@ namespace LogicaDeAppsCore
 
         Task<Paquete> BuscarPaquete(int numReferencia);
 
+        Task<Paquete> BuscarPaqueteIndividual(int numReferencia, long cliente);
+
         Task<List<Paquete>> ListarPaquetesEnviadosXCliente(long rut);
 
         void SetPaquetes(List<Paquete> pPaquetes);
@@ -29,7 +31,7 @@ namespace LogicaDeAppsCore
 
         List<Paquete> GetPaquetes();
 
-        List<Paquete> ListarPaquetesRecibidosXCliente(int cedula);
+        Task<List<Paquete>> ListarPaquetesRecibidosXCliente(long rut);
 
 
         Paquete ConsultarEstado(int numReferencia);

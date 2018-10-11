@@ -29,6 +29,13 @@ namespace EnviosService.Controllers
             return Json(controladorPaquete.BuscarPaquete(numReferencia), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
+        [Route("api/Paquetes/BuscarIndividual")]
+        [HttpGet("{numReferencia, cliente}")]
+        public JsonResult PaqueteIndividual(int numReferencia, int cliente)
+        {
+            return Json(controladorPaquete.BuscarPaqueteIndividual(numReferencia, cliente), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
         [HttpGet("{nombre}")]
         public JsonResult Local(string nombre)
         {
@@ -37,9 +44,16 @@ namespace EnviosService.Controllers
 
         [Route("api/Paquetes/ListarEnviados")]
         [HttpGet("{rut}")]
-        public JsonResult LocaPaquetesles(int rut)
+        public JsonResult Enviados(int rut)
         {
             return Json(controladorPaquete.ListarPaquetesEnviadosXCliente(rut), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
+        [Route("api/Paquetes/ListarRecibidos")]
+        [HttpGet("{rut}")]
+        public JsonResult Recibidos(int rut)
+        {
+            return Json(controladorPaquete.ListarPaquetesRecibidosXCliente(rut), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
         [HttpGet("{tipoLista, cedula}")]
@@ -55,9 +69,10 @@ namespace EnviosService.Controllers
 
             return Json("Accion Http Desconocida", new Newtonsoft.Json.JsonSerializerSettings());
         }
-        
+
+        [Route("api/Paquetes/Reclamo")]
         [HttpPost]
-        public JsonResult Reclamo([FromBody] string item)
+        public JsonResult Reclamo([FromBody] EntidadesCompartidasCore.Reclamo item)
         {
             return Json(controladorPaquete.RealizarReclamo(item));
         }
