@@ -56,137 +56,137 @@ namespace PersistenciaCore
 
         }
 
-        public bool VerificarCodigoContraseña(string email, string codigo)
-        {
-            try
-            {
-                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+        //public bool VerificarCodigoContraseña(string email, string codigo)
+        //{
+        //    try
+        //    {
+        //        var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
-                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+        //        optionsBuilder.UseSqlServer(Conexion.ConnectionString);
 
-                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
-                {
-                    var cadeteEncontrado = dbConnection.Cadetes.Include("Empleados.Usuarios").Where(x => x.Empleados.Usuarios.Email == email && x.Empleados.Usuarios.CodigoRecuperacionContraseña == codigo).FirstOrDefault();
+        //        using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+        //        {
+        //            var cadeteEncontrado = dbConnection.Cadetes.Include("Empleados.Usuarios").Where(x => x.Empleados.Usuarios.Email == email && x.Empleados.Usuarios.CodigoRecuperacionContraseña == codigo).FirstOrDefault();
 
-                    if (cadeteEncontrado != null)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al buscar el cliente." + ex.Message);
-            }
-        }
+        //            if (cadeteEncontrado != null)
+        //            {
+        //                return true;
+        //            }
+        //            else
+        //            {
+        //                return false;
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("Error al buscar el cliente." + ex.Message);
+        //    }
+        //}
 
-        public bool VerificarCodigoEmail(string email, string codigo)
-        {
-            try
-            {
-                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+        //public bool VerificarCodigoEmail(string email, string codigo)
+        //{
+        //    try
+        //    {
+        //        var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
-                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+        //        optionsBuilder.UseSqlServer(Conexion.ConnectionString);
 
-                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
-                {
-                    var cadeteEncontrado = dbConnection.Cadetes.Include("Empleados.Usuarios").Where(x => x.Empleados.Usuarios.Email == email && x.Empleados.Usuarios.CodigoModificarEmail == codigo).FirstOrDefault();
+        //        using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+        //        {
+        //            var cadeteEncontrado = dbConnection.Cadetes.Include("Empleados.Usuarios").Where(x => x.Empleados.Usuarios.Email == email && x.Empleados.Usuarios.CodigoModificarEmail == codigo).FirstOrDefault();
 
-                    if (cadeteEncontrado != null)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al buscar el cliente." + ex.Message);
-            }
-        }
+        //            if (cadeteEncontrado != null)
+        //            {
+        //                return true;
+        //            }
+        //            else
+        //            {
+        //                return false;
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("Error al buscar el cliente." + ex.Message);
+        //    }
+        //}
 
-        public bool SetearCodigoRecuperacionContraseña(Cadete cadete)
-        {
-            try
+        //public bool SetearCodigoRecuperacionContraseña(Cadete cadete)
+        //{
+        //    try
 
-            {
-                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+        //    {
+        //        var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
-                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
-
-
-                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
-                {
-
-                    Cadetes cadeteDesdeBd = dbConnection.Cadetes.Include("Empleados.Usuarios").Where(x => x.CiEmpleado == cadete.Ci).FirstOrDefault();
+        //        optionsBuilder.UseSqlServer(Conexion.ConnectionString);
 
 
-                    if (cadeteDesdeBd != null)
-                    {
-                        cadeteDesdeBd.Empleados.Usuarios.CodigoRecuperacionContraseña = cadete.CodigoRecuperacionContraseña;
+        //        using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+        //        {
 
-                        dbConnection.Cadetes.Update(cadeteDesdeBd);
-
-                        dbConnection.SaveChanges();
-
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al intentar modificar el Cadete" + ex.Message);
-            }
-        }
-
-        public bool SetearCodigoModificarEmail(Cadete cadete)
-        {
-            try
-
-            {
-                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
-
-                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+        //            Cadetes cadeteDesdeBd = dbConnection.Cadetes.Include("Empleados.Usuarios").Where(x => x.CiEmpleado == cadete.Ci).FirstOrDefault();
 
 
-                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
-                {
+        //            if (cadeteDesdeBd != null)
+        //            {
+        //                cadeteDesdeBd.Empleados.Usuarios.CodigoRecuperacionContraseña = cadete.CodigoRecuperacionContraseña;
 
-                    Cadetes cadeteDesdeBd = dbConnection.Cadetes.Include("Empleados.Usuarios").Where(x => x.CiEmpleado == cadete.Ci).FirstOrDefault();
+        //                dbConnection.Cadetes.Update(cadeteDesdeBd);
+
+        //                dbConnection.SaveChanges();
+
+        //                return true;
+        //            }
+        //            else
+        //            {
+        //                return false;
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("Error al intentar modificar el Cadete" + ex.Message);
+        //    }
+        //}
+
+        //public bool SetearCodigoModificarEmail(Cadete cadete)
+        //{
+        //    try
+
+        //    {
+        //        var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+        //        optionsBuilder.UseSqlServer(Conexion.ConnectionString);
 
 
-                    if (cadeteDesdeBd != null)
-                    {
-                        cadeteDesdeBd.Empleados.Usuarios.CodigoModificarEmail = cadete.CodigoModificarEmail;
+        //        using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+        //        {
 
-                        dbConnection.Cadetes.Update(cadeteDesdeBd);
+        //            Cadetes cadeteDesdeBd = dbConnection.Cadetes.Include("Empleados.Usuarios").Where(x => x.CiEmpleado == cadete.Ci).FirstOrDefault();
 
-                        dbConnection.SaveChanges();
 
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al intentar modificar el Cadete" + ex.Message);
-            }
-        }
+        //            if (cadeteDesdeBd != null)
+        //            {
+        //                cadeteDesdeBd.Empleados.Usuarios.CodigoModificarEmail = cadete.CodigoModificarEmail;
+
+        //                dbConnection.Cadetes.Update(cadeteDesdeBd);
+
+        //                dbConnection.SaveChanges();
+
+        //                return true;
+        //            }
+        //            else
+        //            {
+        //                return false;
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("Error al intentar modificar el Cadete" + ex.Message);
+        //    }
+        //}
 
         public bool ExisteCadete(int ci)
         {
@@ -246,8 +246,8 @@ namespace PersistenciaCore
                     cadeteR.Telefono = a.Empleados.Usuarios.Telefono;
                     cadeteR.IdTelefono = a.IdTelefono;
                     cadeteR.TipoLibreta = a.TipoLibreta;
-                    cadeteR.CodigoRecuperacionContraseña = a.Empleados.Usuarios.CodigoRecuperacionContraseña;
-                    cadeteR.CodigoModificarEmail = a.Empleados.Usuarios.CodigoModificarEmail;
+                    //cadeteR.CodigoRecuperacionContraseña = a.Empleados.Usuarios.CodigoRecuperacionContraseña;
+                    //cadeteR.CodigoModificarEmail = a.Empleados.Usuarios.CodigoModificarEmail;
 
                     cadetesResultado.Add(cadeteR);
                 }
@@ -294,8 +294,8 @@ namespace PersistenciaCore
                             cadeteResultado.Sueldo = cadeteEncontrado.Empleado.Sueldo;
                             cadeteResultado.Telefono = cadeteEncontrado.Usuario.Telefono;
                             cadeteResultado.TipoLibreta = cadeteEncontrado.Cadete.TipoLibreta;
-                            cadeteResultado.CodigoRecuperacionContraseña = cadeteEncontrado.Cadete.Empleados.Usuarios.CodigoRecuperacionContraseña;
-                            cadeteResultado.CodigoModificarEmail = cadeteEncontrado.Cadete.Empleados.Usuarios.CodigoModificarEmail;
+                            //cadeteResultado.CodigoRecuperacionContraseña = cadeteEncontrado.Cadete.Empleados.Usuarios.CodigoRecuperacionContraseña;
+                            //cadeteResultado.CodigoModificarEmail = cadeteEncontrado.Cadete.Empleados.Usuarios.CodigoModificarEmail;
                         }
                         
                     
@@ -354,8 +354,8 @@ namespace PersistenciaCore
                     cadeteR.Sueldo = l.Empleados.Sueldo;
                     cadeteR.Telefono = l.Empleados.Usuarios.Telefono;
                     cadeteR.TipoLibreta = l.TipoLibreta;
-                    cadeteR.CodigoRecuperacionContraseña = l.Empleados.Usuarios.CodigoRecuperacionContraseña;
-                    cadeteR.CodigoModificarEmail = l.Empleados.Usuarios.CodigoModificarEmail;
+                    //cadeteR.CodigoRecuperacionContraseña = l.Empleados.Usuarios.CodigoRecuperacionContraseña;
+                    //cadeteR.CodigoModificarEmail = l.Empleados.Usuarios.CodigoModificarEmail;
 
                     cadetesResultado.Add(cadeteR);
                 }
@@ -409,8 +409,8 @@ namespace PersistenciaCore
                     cadeteResultado.Sueldo = cadete.Empleados.Sueldo;
                     cadeteResultado.Telefono = cadete.Empleados.Usuarios.Telefono;
                     cadeteResultado.IdTelefono = cadete.IdTelefono;
-                    cadeteResultado.CodigoRecuperacionContraseña = cadete.Empleados.Usuarios.CodigoRecuperacionContraseña;
-                    cadeteResultado.CodigoModificarEmail = cadete.Empleados.Usuarios.CodigoModificarEmail;
+                    //cadeteResultado.CodigoRecuperacionContraseña = cadete.Empleados.Usuarios.CodigoRecuperacionContraseña;
+                    //cadeteResultado.CodigoModificarEmail = cadete.Empleados.Usuarios.CodigoModificarEmail;
                 }
 
                 return cadeteResultado;

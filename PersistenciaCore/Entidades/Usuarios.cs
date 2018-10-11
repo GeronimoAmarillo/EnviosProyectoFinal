@@ -33,12 +33,6 @@ namespace PersistenciaCore
         [StringLength(150)]
         public string Direccion { get; set; }
 
-        [StringLength(5)]
-        public string CodigoRecuperacionContraseña { get; set; }
-
-        [StringLength(5)]
-        public string CodigoModificarEmail { get; set; }
-
         [Required]
         [StringLength(25)]
         public string Telefono { get; set; }

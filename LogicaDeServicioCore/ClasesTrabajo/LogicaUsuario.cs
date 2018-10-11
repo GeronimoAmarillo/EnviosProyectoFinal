@@ -11,41 +11,41 @@ namespace LogicaDeServicioCore
     public class LogicaUsuario
     {
 
-        public static bool VerificarCodigoContraseña(string email, string codigo)
-        {
-            try
-            {
-                bool correcto = false;
+        //public static bool VerificarCodigoContraseña(string email, string codigo)
+        //{
+        //    try
+        //    {
+        //        bool correcto = false;
 
-                correcto = FabricaPersistencia.GetPersistenciaCliente().VerificarCodigoContraseña(email, codigo);
+        //        correcto = FabricaPersistencia.GetPersistenciaCliente().VerificarCodigoContraseña(email, codigo);
 
-                return correcto;
+        //        return correcto;
            
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception(ex.Message);
+        //    }
 
-        }
+        //}
 
-        public static bool VerificarCodigoEmail(string email, string codigo)
-        {
-            try
-            {
-                bool correcto = false;
+        //public static bool VerificarCodigoEmail(string email, string codigo)
+        //{
+        //    try
+        //    {
+        //        bool correcto = false;
 
-                correcto = FabricaPersistencia.GetPersistenciaCliente().VerificarCodigoEmail(email, codigo);
+        //        correcto = FabricaPersistencia.GetPersistenciaCliente().VerificarCodigoEmail(email, codigo);
 
-                return correcto;
+        //        return correcto;
 
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception(ex.Message);
+        //    }
 
-        }
+        //}
 
 
         public static bool AltaUsuario(Usuario unUsuario)
@@ -94,128 +94,128 @@ namespace LogicaDeServicioCore
 
         }
 
-        public static bool SetearCodigoRecuperarContraseña(Usuario unUsuario)
-        {
-            bool exito = false;
+        //public static bool SetearCodigoRecuperarContraseña(Usuario unUsuario)
+        //{
+        //    bool exito = false;
 
-            try
-            {
-                if (unUsuario is Cliente)
-                {
-                    if (ExisteCliente(((Cliente)unUsuario).RUT))
-                    {
-                        if (unUsuario.CodigoRecuperacionContraseña == null || unUsuario.CodigoRecuperacionContraseña.Length == 0)
-                        {
-                            unUsuario.CodigoRecuperacionContraseña = GenerarCodigo();
-                        }
-                        else
-                        {
-                            unUsuario.CodigoRecuperacionContraseña = null;
-                        }
+        //    try
+        //    {
+        //        if (unUsuario is Cliente)
+        //        {
+        //            if (ExisteCliente(((Cliente)unUsuario).RUT))
+        //            {
+        //                if (unUsuario.CodigoRecuperacionContraseña == null || unUsuario.CodigoRecuperacionContraseña.Length == 0)
+        //                {
+        //                    unUsuario.CodigoRecuperacionContraseña = GenerarCodigo();
+        //                }
+        //                else
+        //                {
+        //                    unUsuario.CodigoRecuperacionContraseña = null;
+        //                }
                         
-                        exito = FabricaPersistencia.GetPersistenciaCliente().SetearCodigoRecuperacionContraseña((Cliente)unUsuario);
-                        return exito;
-                    }
+        //                exito = FabricaPersistencia.GetPersistenciaCliente().SetearCodigoRecuperacionContraseña((Cliente)unUsuario);
+        //                return exito;
+        //            }
 
-                }
-                if (unUsuario is Administrador)
-                {
-                    if (ExisteEmpleado(((Administrador)unUsuario).Ci))
-                    {
-                        if (unUsuario.CodigoRecuperacionContraseña == null)
-                        {
-                            unUsuario.CodigoRecuperacionContraseña = GenerarCodigo();
-                        }
+        //        }
+        //        if (unUsuario is Administrador)
+        //        {
+        //            if (ExisteEmpleado(((Administrador)unUsuario).Ci))
+        //            {
+        //                if (unUsuario.CodigoRecuperacionContraseña == null)
+        //                {
+        //                    unUsuario.CodigoRecuperacionContraseña = GenerarCodigo();
+        //                }
 
-                        exito = FabricaPersistencia.GetPersistenciaAdministrador().SetearCodigoRecuperacionContraseña((Administrador)unUsuario);
-                        return exito;
-                    }
+        //                exito = FabricaPersistencia.GetPersistenciaAdministrador().SetearCodigoRecuperacionContraseña((Administrador)unUsuario);
+        //                return exito;
+        //            }
 
-                }
-                if (unUsuario is Cadete)
-                {
-                    if (ExisteEmpleado(((Cadete)unUsuario).Ci))
-                    {
-                        if (unUsuario.CodigoRecuperacionContraseña == null)
-                        {
-                            unUsuario.CodigoRecuperacionContraseña = GenerarCodigo();
-                        }
+        //        }
+        //        if (unUsuario is Cadete)
+        //        {
+        //            if (ExisteEmpleado(((Cadete)unUsuario).Ci))
+        //            {
+        //                if (unUsuario.CodigoRecuperacionContraseña == null)
+        //                {
+        //                    unUsuario.CodigoRecuperacionContraseña = GenerarCodigo();
+        //                }
 
-                        exito = FabricaPersistencia.GetPersistenciaCadete().SetearCodigoRecuperacionContraseña((Cadete)unUsuario);
-                        return exito;
-                    }
+        //                exito = FabricaPersistencia.GetPersistenciaCadete().SetearCodigoRecuperacionContraseña((Cadete)unUsuario);
+        //                return exito;
+        //            }
 
-                }
-                return exito;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+        //        }
+        //        return exito;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception(ex.Message);
+        //    }
 
-        }
+        //}
 
 
-        public static bool SetearCodigoModificarEmail(Usuario unUsuario)
-        {
-            bool exito = false;
+        //public static bool SetearCodigoModificarEmail(Usuario unUsuario)
+        //{
+        //    bool exito = false;
 
-            try
-            {
-                if (unUsuario is Cliente)
-                {
-                    if (ExisteCliente(((Cliente)unUsuario).RUT))
-                    {
-                        if (unUsuario.CodigoModificarEmail == null || unUsuario.CodigoModificarEmail.Length == 0)
-                        {
-                            unUsuario.CodigoModificarEmail = GenerarCodigo();
-                        }
-                        else
-                        {
-                            unUsuario.CodigoModificarEmail = null;
-                        }
+        //    try
+        //    {
+        //        if (unUsuario is Cliente)
+        //        {
+        //            if (ExisteCliente(((Cliente)unUsuario).RUT))
+        //            {
+        //                if (unUsuario.CodigoModificarEmail == null || unUsuario.CodigoModificarEmail.Length == 0)
+        //                {
+        //                    unUsuario.CodigoModificarEmail = GenerarCodigo();
+        //                }
+        //                else
+        //                {
+        //                    unUsuario.CodigoModificarEmail = null;
+        //                }
 
-                        exito = FabricaPersistencia.GetPersistenciaCliente().SetearCodigoModificarEmail((Cliente)unUsuario);
-                        return exito;
-                    }
+        //                exito = FabricaPersistencia.GetPersistenciaCliente().SetearCodigoModificarEmail((Cliente)unUsuario);
+        //                return exito;
+        //            }
 
-                }
-                if (unUsuario is Administrador)
-                {
-                    if (ExisteEmpleado(((Administrador)unUsuario).Ci))
-                    {
-                        if (unUsuario.CodigoModificarEmail == null)
-                        {
-                            unUsuario.CodigoModificarEmail = GenerarCodigo();
-                        }
+        //        }
+        //        if (unUsuario is Administrador)
+        //        {
+        //            if (ExisteEmpleado(((Administrador)unUsuario).Ci))
+        //            {
+        //                if (unUsuario.CodigoModificarEmail == null)
+        //                {
+        //                    unUsuario.CodigoModificarEmail = GenerarCodigo();
+        //                }
 
-                        exito = FabricaPersistencia.GetPersistenciaAdministrador().SetearCodigoModificarEmail((Administrador)unUsuario);
-                        return exito;
-                    }
+        //                exito = FabricaPersistencia.GetPersistenciaAdministrador().SetearCodigoModificarEmail((Administrador)unUsuario);
+        //                return exito;
+        //            }
 
-                }
-                if (unUsuario is Cadete)
-                {
-                    if (ExisteEmpleado(((Cadete)unUsuario).Ci))
-                    {
-                        if (unUsuario.CodigoModificarEmail == null)
-                        {
-                            unUsuario.CodigoModificarEmail = GenerarCodigo();
-                        }
+        //        }
+        //        if (unUsuario is Cadete)
+        //        {
+        //            if (ExisteEmpleado(((Cadete)unUsuario).Ci))
+        //            {
+        //                if (unUsuario.CodigoModificarEmail == null)
+        //                {
+        //                    unUsuario.CodigoModificarEmail = GenerarCodigo();
+        //                }
 
-                        exito = FabricaPersistencia.GetPersistenciaCadete().SetearCodigoModificarEmail((Cadete)unUsuario);
-                        return exito;
-                    }
+        //                exito = FabricaPersistencia.GetPersistenciaCadete().SetearCodigoModificarEmail((Cadete)unUsuario);
+        //                return exito;
+        //            }
 
-                }
-                return exito;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+        //        }
+        //        return exito;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception(ex.Message);
+        //    }
 
-        }
+        //}
 
         public static bool ExisteCliente(long rut)
         {

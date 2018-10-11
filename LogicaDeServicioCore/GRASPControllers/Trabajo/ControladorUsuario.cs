@@ -21,65 +21,65 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public bool SetearCodigoRecuperarContraseña(Usuario unUsuario)
-        {
-            try
-            {
-                return LogicaUsuario.SetearCodigoRecuperarContraseña(unUsuario);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
+        //public bool SetearCodigoRecuperarContraseña(Usuario unUsuario)
+        //{
+        //    try
+        //    {
+        //        return LogicaUsuario.SetearCodigoRecuperarContraseña(unUsuario);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception(ex.Message);
+        //    }
+        //}
 
-        public bool SetearCodigoModificarEmail(Usuario unUsuario)
-        {
-            try
-            {
-                return LogicaUsuario.SetearCodigoModificarEmail(unUsuario);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
+        //public bool SetearCodigoModificarEmail(Usuario unUsuario)
+        //{
+        //    try
+        //    {
+        //        return LogicaUsuario.SetearCodigoModificarEmail(unUsuario);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception(ex.Message);
+        //    }
+        //}
 
-        public bool VerificarCodigoContraseña(string email, string codigo)
-        {
-            try
-            {
-                bool correcto = false;
+        //public bool VerificarCodigoContraseña(string email, string codigo)
+        //{
+        //    try
+        //    {
+        //        bool correcto = false;
 
-                correcto = LogicaUsuario.VerificarCodigoContraseña(email, codigo);
+        //        correcto = LogicaUsuario.VerificarCodigoContraseña(email, codigo);
 
-                return correcto;
+        //        return correcto;
 
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception(ex.Message);
+        //    }
 
-        }
+        //}
 
-        public bool VerificarCodigoEmail(string email, string codigo)
-        {
-            try
-            {
-                bool correcto = false;
+        //public bool VerificarCodigoEmail(string email, string codigo)
+        //{
+        //    try
+        //    {
+        //        bool correcto = false;
 
-                correcto = LogicaUsuario.VerificarCodigoEmail(email, codigo);
+        //        correcto = LogicaUsuario.VerificarCodigoEmail(email, codigo);
 
-                return correcto;
+        //        return correcto;
 
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception(ex.Message);
+        //    }
 
-        }
+        //}
 
         public bool EnviarMail(Usuario usuario)
         {
