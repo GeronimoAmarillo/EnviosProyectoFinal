@@ -13,7 +13,7 @@ namespace PersistenciaCore
         Cliente BuscarClienteXEmail(string email);
 
         bool ExisteCliente(long rut);
-
+        
         bool VerificarCodigoContraseña(string email, string codigo);
 
         bool VerificarCodigoEmail(string email, string codigo);

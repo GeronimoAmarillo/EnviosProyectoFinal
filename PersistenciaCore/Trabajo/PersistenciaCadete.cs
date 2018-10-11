@@ -199,7 +199,8 @@ namespace PersistenciaCore
 
             using (var dbConnection = new EnviosContext(optionsBuilder.Options))
             {
-                var cadete = dbConnection.Cadetes.Where(a => a.CiEmpleado == ci).Select(c => new {
+                var cadete = dbConnection.Cadetes.Where(a => a.CiEmpleado == ci).Select(c => new
+                {
                     Cadete = c
                 }).FirstOrDefault();
 
@@ -273,10 +274,12 @@ namespace PersistenciaCore
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
 
-                    var cadeteEncontrado = dbConnection.Cadetes.Where(c => c.Empleados.Usuarios.NombreUsuario == user && c.Empleados.Usuarios.Contraseña == contraseña).Select(c => new {
+                    var cadeteEncontrado = dbConnection.Cadetes.Where(c => c.Empleados.Usuarios.NombreUsuario == user && c.Empleados.Usuarios.Contraseña == contraseña).Select(c => new
+                    {
                         Cadete = c,
                         Empleado = c.Empleados,
-                        Usuario = c.Empleados.Usuarios }).FirstOrDefault();
+                        Usuario = c.Empleados.Usuarios
+                    }).FirstOrDefault();
 
                     if (cadeteEncontrado != null)
                     {
@@ -297,8 +300,8 @@ namespace PersistenciaCore
                             cadeteResultado.CodigoRecuperacionContraseña = cadeteEncontrado.Cadete.Empleados.Usuarios.CodigoRecuperacionContraseña;
                             cadeteResultado.CodigoModificarEmail = cadeteEncontrado.Cadete.Empleados.Usuarios.CodigoModificarEmail;
                         }
-                        
-                    
+
+
                         //Tal vez corresponde tambien asignarle el vehiculo, esto va a necesitar de un cambio en el script de la base de datos, debido a que el 
                         //cadete de momento puede tener varios vehiculos, y me parece que eso no representa la realidad, no lo recuerdo.
                     }
@@ -396,7 +399,7 @@ namespace PersistenciaCore
 
                 Cadete cadeteResultado = new Cadete();
 
-                if(cadete != null)
+                if (cadete != null)
                 {
 
                     cadeteResultado.Ci = cadete.CiEmpleado;

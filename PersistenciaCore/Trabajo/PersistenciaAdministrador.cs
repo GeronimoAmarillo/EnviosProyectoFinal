@@ -467,5 +467,5 @@ namespace PersistenciaCore
             }
 
         }
-    }         
+    }
 }

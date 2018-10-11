@@ -20,7 +20,7 @@ namespace LogicaDeServicioCore
                 correcto = FabricaPersistencia.GetPersistenciaCliente().VerificarCodigoContraseña(email, codigo);
 
                 return correcto;
-           
+
             }
             catch (Exception ex)
             {
@@ -112,7 +112,7 @@ namespace LogicaDeServicioCore
                         {
                             unUsuario.CodigoRecuperacionContraseña = null;
                         }
-                        
+
                         exito = FabricaPersistencia.GetPersistenciaCliente().SetearCodigoRecuperacionContraseña((Cliente)unUsuario);
                         return exito;
                     }
@@ -248,10 +248,10 @@ namespace LogicaDeServicioCore
             {
                 existe = FabricaPersistencia.GetPersistenciaAdministrador().ExisteAdmin(cedula);
 
-                if (existe==false)
-                    
+                if (existe == false)
+
                 {
-                  existe=FabricaPersistencia.GetPersistenciaCadete().ExisteCadete(cedula);
+                    existe = FabricaPersistencia.GetPersistenciaCadete().ExisteCadete(cedula);
                 }
 
                 return existe;
@@ -286,7 +286,7 @@ namespace LogicaDeServicioCore
             {
                 throw new Exception("Error al intentar modificar el Usuario." + ex.Message);
             }
-            
+
         }
 
         public static EntidadesCompartidasCore.Cliente BuscarCliente(int rut)
@@ -296,7 +296,7 @@ namespace LogicaDeServicioCore
             try
             {
                 cliente = FabricaPersistencia.GetPersistenciaCliente().BuscarCliente(rut);
-                
+
                 return cliente;
             }
             catch (Exception ex)
@@ -413,7 +413,7 @@ namespace LogicaDeServicioCore
 
                 return usuarioLogueado;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception("Error al loguear el Usuario" + ex.Message);
             }
@@ -422,14 +422,14 @@ namespace LogicaDeServicioCore
 
         public static bool ComprobarUser(string user)
         {
-            bool exito=false;
+            bool exito = false;
             try
             {
-              
-                    exito = FabricaPersistencia.GetPersistenciaAdministrador().ComprobarUser(user);
-                
-                    return exito;
-             
+
+                exito = FabricaPersistencia.GetPersistenciaAdministrador().ComprobarUser(user);
+
+                return exito;
+
             }
             catch (Exception ex)
             {
