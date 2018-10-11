@@ -10,7 +10,6 @@ using LogicaDeServicioCore;
 namespace EnviosService.Controllers
 {
     [Produces("application/json")]
-    //[Route("api/Usuarios")]
     public class UsuariosController : Controller
     {
         private IControladorUsuario controladorUsuario;
@@ -20,7 +19,7 @@ namespace EnviosService.Controllers
             controladorUsuario = FabricaServicio.GetControladorUsuario();
         }
 
-        
+
         [HttpPost]
         [Route("Api/Usuarios/AltaUsuario")]
         public JsonResult AltaUsuario([FromBody] Usuario unUsuario)
@@ -28,49 +27,49 @@ namespace EnviosService.Controllers
             return Json(controladorUsuario.AltaUsuario(unUsuario), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
-        //[HttpPost]
-        //[Route("Api/Usuarios/RecuperacionContrasenia")]
-        //public JsonResult CodigoContraseña([FromBody] Cliente unUsuario)
-        //{
-        //    return Json(controladorUsuario.SetearCodigoRecuperarContraseña(unUsuario), new Newtonsoft.Json.JsonSerializerSettings());
-        //}
+        [HttpPost]
+        [Route("Api/Usuarios/RecuperacionContrasenia")]
+        public JsonResult CodigoContraseña([FromBody] Cliente unUsuario)
+        {
+            return Json(controladorUsuario.SetearCodigoRecuperarContraseña(unUsuario), new Newtonsoft.Json.JsonSerializerSettings());
+        }
 
-        //[HttpPost]
-        //[Route("Api/Usuarios/RecuperacionEmail")]
-        //public JsonResult CodigoEmail([FromBody] Cliente unUsuario)
-        //{
-        //    return Json(controladorUsuario.SetearCodigoModificarEmail(unUsuario), new Newtonsoft.Json.JsonSerializerSettings());
-        //}
+        [HttpPost]
+        [Route("Api/Usuarios/RecuperacionEmail")]
+        public JsonResult CodigoEmail([FromBody] Cliente unUsuario)
+        {
+            return Json(controladorUsuario.SetearCodigoModificarEmail(unUsuario), new Newtonsoft.Json.JsonSerializerSettings());
+        }
 
-        //[HttpPost]
-        //[Route("Api/Usuarios/VerificarCodigoContrasenia")]
-        //public JsonResult VerificarCodigoContraseña([FromBody] List<string> valores)
-        //{
-        //    if (valores != null)
-        //    {
-        //        return Json(controladorUsuario.VerificarCodigoContraseña(valores[0], valores[1]), new Newtonsoft.Json.JsonSerializerSettings());
-        //    }
-        //    else
-        //    {
-        //        return Json(null, new Newtonsoft.Json.JsonSerializerSettings());
-        //    }
+        [HttpPost]
+        [Route("Api/Usuarios/VerificarCodigoContrasenia")]
+        public JsonResult VerificarCodigoContraseña([FromBody] List<string> valores)
+        {
+            if (valores != null)
+            {
+                return Json(controladorUsuario.VerificarCodigoContraseña(valores[0], valores[1]), new Newtonsoft.Json.JsonSerializerSettings());
+            }
+            else
+            {
+                return Json(null, new Newtonsoft.Json.JsonSerializerSettings());
+            }
 
-        //}
+        }
 
-        //[HttpPost]
-        //[Route("Api/Usuarios/VerificarCodigoEmail")]
-        //public JsonResult VerificarCodigoEmail([FromBody] List<string> valores)
-        //{
-        //    if (valores != null)
-        //    {
-        //        return Json(controladorUsuario.VerificarCodigoEmail(valores[0], valores[1]), new Newtonsoft.Json.JsonSerializerSettings());
-        //    }
-        //    else
-        //    {
-        //        return Json(null, new Newtonsoft.Json.JsonSerializerSettings());
-        //    }
+        [HttpPost]
+        [Route("Api/Usuarios/VerificarCodigoEmail")]
+        public JsonResult VerificarCodigoEmail([FromBody] List<string> valores)
+        {
+            if (valores != null)
+            {
+                return Json(controladorUsuario.VerificarCodigoEmail(valores[0], valores[1]), new Newtonsoft.Json.JsonSerializerSettings());
+            }
+            else
+            {
+                return Json(null, new Newtonsoft.Json.JsonSerializerSettings());
+            }
 
-        //}
+        }
 
         [HttpGet("{usuario, contrasenia}")]
         [Route("api/Usuarios/Login")]

@@ -44,7 +44,7 @@ namespace PersistenciaCore
             }
         }
 
-        /*public bool VerificarCodigoContraseña(string email, string codigo)
+        public bool VerificarCodigoContraseña(string email, string codigo)
         {
             try
             {
@@ -98,7 +98,7 @@ namespace PersistenciaCore
             {
                 throw new Exception("Error al buscar el cliente." + ex.Message);
             }
-        }*/
+        }
 
         public bool AltaAdministrador(EntidadesCompartidasCore.Administrador administrador)
         {
@@ -208,8 +208,8 @@ namespace PersistenciaCore
                     adminResultado.Sueldo = administrador.Empleados.Sueldo;
                     adminResultado.Telefono = administrador.Empleados.Usuarios.Telefono;
                     adminResultado.Tipo = administrador.Tipo;
-                    /*adminResultado.CodigoRecuperacionContraseña = administrador.Empleados.Usuarios.CodigoRecuperacionContraseña;
-                    adminResultado.CodigoModificarEmail = administrador.Empleados.Usuarios.CodigoModificarEmail;*/
+                    adminResultado.CodigoRecuperacionContraseña = administrador.Empleados.Usuarios.CodigoRecuperacionContraseña;
+                    adminResultado.CodigoModificarEmail = administrador.Empleados.Usuarios.CodigoModificarEmail;
                 }
 
                 return adminResultado;
@@ -255,8 +255,8 @@ namespace PersistenciaCore
                     adminR.Sueldo = a.Empleados.Sueldo;
                     adminR.Telefono = a.Empleados.Usuarios.Telefono;
                     adminR.Tipo = a.Tipo;
-                    /*adminR.CodigoRecuperacionContraseña = a.Empleados.Usuarios.CodigoRecuperacionContraseña;
-                    adminR.CodigoModificarEmail = a.Empleados.Usuarios.CodigoModificarEmail;*/
+                    adminR.CodigoRecuperacionContraseña = a.Empleados.Usuarios.CodigoRecuperacionContraseña;
+                    adminR.CodigoModificarEmail = a.Empleados.Usuarios.CodigoModificarEmail;
 
                     adminsResultado.Add(adminR);
                 }
@@ -269,81 +269,81 @@ namespace PersistenciaCore
             }
         }
 
-        //public bool SetearCodigoRecuperacionContraseña(Administrador admin)
-        //{
-        //    try
+        public bool SetearCodigoRecuperacionContraseña(Administrador admin)
+        {
+            try
 
-        //    {
-        //        var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
-        //        optionsBuilder.UseSqlServer(Conexion.ConnectionString);
-
-
-        //        using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
-        //        {
-
-        //            Administradores adminDesdeBd = dbConnection.Administradores.Include("Empleados.Usuarios").Where(x => x.CiEmpleado == admin.Ci).FirstOrDefault();
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
 
 
-        //            if (adminDesdeBd != null)
-        //            {
-        //                adminDesdeBd.Empleados.Usuarios.CodigoRecuperacionContraseña = admin.CodigoRecuperacionContraseña;
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
 
-        //                dbConnection.Administradores.Update(adminDesdeBd);
-
-        //                dbConnection.SaveChanges();
-
-        //                return true;
-        //            }
-        //            else
-        //            {
-        //                return false;
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Error al intentar modificar el Administrador" + ex.Message);
-        //    }
-        //}
-
-        //public bool SetearCodigoModificarEmail(Administrador admin)
-        //{
-        //    try
-
-        //    {
-        //        var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
-
-        //        optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+                    Administradores adminDesdeBd = dbConnection.Administradores.Include("Empleados.Usuarios").Where(x => x.CiEmpleado == admin.Ci).FirstOrDefault();
 
 
-        //        using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
-        //        {
+                    if (adminDesdeBd != null)
+                    {
+                        adminDesdeBd.Empleados.Usuarios.CodigoRecuperacionContraseña = admin.CodigoRecuperacionContraseña;
 
-        //            Administradores adminDesdeBd = dbConnection.Administradores.Include("Empleados.Usuarios").Where(x => x.CiEmpleado == admin.Ci).FirstOrDefault();
+                        dbConnection.Administradores.Update(adminDesdeBd);
+
+                        dbConnection.SaveChanges();
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar modificar el Administrador" + ex.Message);
+            }
+        }
+
+        public bool SetearCodigoModificarEmail(Administrador admin)
+        {
+            try
+
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
 
 
-        //            if (adminDesdeBd != null)
-        //            {
-        //                adminDesdeBd.Empleados.Usuarios.CodigoModificarEmail = admin.CodigoModificarEmail;
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
 
-        //                dbConnection.Administradores.Update(adminDesdeBd);
+                    Administradores adminDesdeBd = dbConnection.Administradores.Include("Empleados.Usuarios").Where(x => x.CiEmpleado == admin.Ci).FirstOrDefault();
 
-        //                dbConnection.SaveChanges();
 
-        //                return true;
-        //            }
-        //            else
-        //            {
-        //                return false;
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("Error al intentar modificar el Administrador" + ex.Message);
-        //    }
-        //}
+                    if (adminDesdeBd != null)
+                    {
+                        adminDesdeBd.Empleados.Usuarios.CodigoModificarEmail = admin.CodigoModificarEmail;
+
+                        dbConnection.Administradores.Update(adminDesdeBd);
+
+                        dbConnection.SaveChanges();
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar modificar el Administrador" + ex.Message);
+            }
+        }
 
 
 
@@ -467,5 +467,5 @@ namespace PersistenciaCore
             }
 
         }
-    }         
+    }
 }

@@ -11,7 +11,7 @@ namespace PersistenciaCore
 {
     class PersistenciaCliente:IPersistenciaCliente
     {
-        /*public PersistenciaCliente()
+        public PersistenciaCliente()
         {
             Mapper.Initialize(cfg =>
             {
@@ -33,7 +33,7 @@ namespace PersistenciaCore
                     .ForMember(d => d.Email, opt => opt.MapFrom(u => u.Email))
                 ;
             });
-        }*/
+        }
 
         public Cliente BuscarCliente(int rut)
         {
@@ -61,8 +61,8 @@ namespace PersistenciaCore
                         clienteResultado.NombreUsuario = clienteEncontrado.Usuarios.NombreUsuario;
                         clienteResultado.RUT = clienteEncontrado.RUT;
                         clienteResultado.Telefono = clienteEncontrado.Usuarios.Telefono;
-                        /*clienteResultado.CodigoRecuperacionContraseña = clienteEncontrado.Usuarios.CodigoRecuperacionContraseña;
-                        clienteResultado.CodigoModificarEmail = clienteEncontrado.Usuarios.CodigoModificarEmail;*/
+                        clienteResultado.CodigoRecuperacionContraseña = clienteEncontrado.Usuarios.CodigoRecuperacionContraseña;
+                        clienteResultado.CodigoModificarEmail = clienteEncontrado.Usuarios.CodigoModificarEmail;
                     }
                 }
                 return clienteResultado;
@@ -72,7 +72,7 @@ namespace PersistenciaCore
                 throw new Exception("Error al buscar el cliente." + ex.Message);
             }
         }
-        /*
+        
         public bool SetearCodigoRecuperacionContraseña(Cliente cliente)
         {
             try
@@ -147,7 +147,7 @@ namespace PersistenciaCore
             {
                 throw new Exception("Error al intentar modificar el Cliente" + ex.Message);
             }
-        }*/
+        }
 
         public Cliente BuscarClienteXEmail(string email)
         {
@@ -175,8 +175,8 @@ namespace PersistenciaCore
                         clienteResultado.NombreUsuario = clienteEncontrado.Usuarios.NombreUsuario;
                         clienteResultado.RUT = clienteEncontrado.RUT;
                         clienteResultado.Telefono = clienteEncontrado.Usuarios.Telefono;
-                        /*clienteResultado.CodigoRecuperacionContraseña = clienteEncontrado.Usuarios.CodigoRecuperacionContraseña;
-                        clienteResultado.CodigoModificarEmail = clienteEncontrado.Usuarios.CodigoModificarEmail;*/
+                        clienteResultado.CodigoRecuperacionContraseña = clienteEncontrado.Usuarios.CodigoRecuperacionContraseña;
+                        clienteResultado.CodigoModificarEmail = clienteEncontrado.Usuarios.CodigoModificarEmail;
                     }
                 }
                 return clienteResultado;
@@ -186,7 +186,7 @@ namespace PersistenciaCore
                 throw new Exception("Error al buscar el cliente." + ex.Message);
             }
         }
-        /*
+        
         public bool VerificarCodigoContraseña(string email, string codigo)
         {
             try
@@ -241,7 +241,7 @@ namespace PersistenciaCore
             {
                 throw new Exception("Error al buscar el cliente." + ex.Message);
             }
-        }*/
+        }
 
         public bool ExisteClienteXEmail(string email)
         {
@@ -419,8 +419,8 @@ namespace PersistenciaCore
                         clienteR.NombreUsuario = c.Usuario.NombreUsuario;
                         clienteR.RUT = c.Cliente.RUT;
                         clienteR.Telefono = c.Usuario.Telefono;
-                        /*clienteR.CodigoRecuperacionContraseña = c.Usuario.CodigoRecuperacionContraseña;
-                        clienteR.CodigoModificarEmail = c.Usuario.CodigoModificarEmail;*/
+                        clienteR.CodigoRecuperacionContraseña = c.Usuario.CodigoRecuperacionContraseña;
+                        clienteR.CodigoModificarEmail = c.Usuario.CodigoModificarEmail;
 
                         clientesResultado.Add(clienteR);
                     }
