@@ -9,9 +9,16 @@ namespace LogicaDeServicioCore
 {
     class ControladorPaquete:IControladorPaquete
     {
-        public bool RealizarReclamo(string descripcion)
+        public bool RealizarReclamo(EntidadesCompartidasCore.Reclamo reclamo)
         {
-            return true;
+            try
+            {
+                return LogicaPaquete.RealizarReclamo(reclamo);
+            }
+            catch
+            {
+                throw new Exception("Error al intentar dar de alta el Reclamo.");
+            }
         }
       
         public Paquete BuscarPaquete(int numReferencia)

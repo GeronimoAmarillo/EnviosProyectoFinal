@@ -330,15 +330,25 @@ INSERT INTO Entregas(ClienteEmisor, ClienteReceptor, Fecha, LocalEmisor, LocalRe
 VALUES(null, 66666666, '2018-09-11 10:00:00.000', 2, null, 'Diego Torres', 'MAR1000')
 
 INSERT INTO Paquetes(Cliente, ClientesRUT, Entrega, EntregasCodigo, Estado, FechaSalida, NumReferencia, Ubicacion)
-values(66666666, 66666666, 3, 3, 'Levantado', '2018-09-10 06:00:00.000', 12341234, 'Optica 1')
+values(66666666, 66666666, 1, 1, 'Levantado', '2018-09-10 06:00:00.000', 12341234, 'Optica 1')
 INSERT INTO Paquetes(Cliente, ClientesRUT, Entrega, EntregasCodigo, Estado, FechaSalida, NumReferencia, Ubicacion)
-values(66666666, 66666666, 3, 3, 'Levantado', '2018-09-10 06:00:00.000', 12344321, 'Optica 1')
+values(66666666, 66666666, 1, 1, 'Levantado', '2018-09-10 06:00:00.000', 12344321, 'Optica 1')
 INSERT INTO Paquetes(Cliente, ClientesRUT, Entrega, EntregasCodigo, Estado, FechaSalida, NumReferencia, Ubicacion)
-values(66666666, 66666666, 3, 3, 'Levantado', '2018-09-10 06:00:00.000', 12345678, 'Optica 1')
+values(66666666, 66666666, 1, 1, 'Levantado', '2018-09-10 06:00:00.000', 12345678, 'Optica 1')
 
 INSERT INTO Paquetes(Cliente, ClientesRUT, Entrega, EntregasCodigo, Estado, FechaSalida, NumReferencia, Ubicacion)
-values(66666666, 66666666, 3, 3, 'Levantado', '2018-09-11 10:00:00.000', 23452345, 'Optica 2')
+values(66666666, 66666666, 2, 2, 'Levantado', '2018-09-11 10:00:00.000', 23452345, 'Optica 2')
 INSERT INTO Paquetes(Cliente, ClientesRUT, Entrega, EntregasCodigo, Estado, FechaSalida, NumReferencia, Ubicacion)
-values(66666666, 66666666, 3, 3, 'Levantado', '2018-09-11 10:00:00.000', 23455432, 'Optica 2')
+values(66666666, 66666666, 2, 2, 'Levantado', '2018-09-11 10:00:00.000', 23455432, 'Optica 2')
 INSERT INTO Paquetes(Cliente, ClientesRUT, Entrega, EntregasCodigo, Estado, FechaSalida, NumReferencia, Ubicacion)
-values(66666666, 66666666, 3, 3, 'Levantado', '2018-09-11 10:00:00.000', 23456789, 'Optica 2')
+values(66666666, 66666666, 2, 2, 'Levantado', '2018-09-11 10:00:00.000', 23456789, 'Optica 2')
+
+INSERT INTO Reclamo(Id, Paquete, Comentario)
+VALUES(1, 12341234, 'El paquete vino todo roto')
+
+INSERT INTO Reclamo(Id, Paquete, Comentario)
+VALUES(1, 12344321, 'El paquete se extravio')
+
+INSERT INTO Reclamo(Id, Paquete, Comentario)
+VALUES(1, 23455432, 'El paquete quedo en el local, nadie lo trajo')
+

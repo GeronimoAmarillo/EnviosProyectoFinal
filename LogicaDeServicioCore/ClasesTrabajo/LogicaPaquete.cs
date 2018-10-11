@@ -78,10 +78,16 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public bool RealizarReclamo(string descripcion)
+        public static bool RealizarReclamo(EntidadesCompartidasCore.Reclamo reclamo)
         {
-            bool exito = false;
-            return exito;
+            try
+            {
+                return FabricaPersistencia.GetPersistenciaPaquete().RealizarReclamo(reclamo);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar dar de alta el Reclamo." + ex.Message);
+            }
         }
     }
 }

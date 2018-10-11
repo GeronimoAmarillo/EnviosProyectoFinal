@@ -9,7 +9,7 @@ namespace LogicaDeServicioCore
 {
     public interface IControladorPaquete
     {
-        bool RealizarReclamo(string descripcion);
+        bool RealizarReclamo(EntidadesCompartidasCore.Reclamo reclamo);
 
         Paquete BuscarPaquete(int numReferencia);
 

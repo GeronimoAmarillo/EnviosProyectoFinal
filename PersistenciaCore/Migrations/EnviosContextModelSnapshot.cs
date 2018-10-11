@@ -829,7 +829,7 @@ namespace PersistenciaCore.Migrations
                     b.HasOne("PersistenciaCore.Paquetes", "Paquetes1")
                         .WithMany("Reclamo1")
                         .HasForeignKey("Paquete")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("PersistenciaCore.Registros", b =>

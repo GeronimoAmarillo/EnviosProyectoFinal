@@ -69,9 +69,10 @@ namespace EnviosService.Controllers
 
             return Json("Accion Http Desconocida", new Newtonsoft.Json.JsonSerializerSettings());
         }
-        
+
+        [Route("api/Paquetes/Reclamo")]
         [HttpPost]
-        public JsonResult Reclamo([FromBody] string item)
+        public JsonResult Reclamo([FromBody] EntidadesCompartidasCore.Reclamo item)
         {
             return Json(controladorPaquete.RealizarReclamo(item));
         }

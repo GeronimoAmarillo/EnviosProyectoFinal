@@ -236,9 +236,51 @@ namespace PersistenciaCore
             }
         }
 
-        public bool RealizarReclamo(string descripcion)
+        public bool RealizarReclamo(EntidadesCompartidasCore.Reclamo reclamo)
         {
-            return true;
+
+            try
+            {
+                PersistenciaCore.Reclamo reclamoAgregar = new PersistenciaCore.Reclamo();
+
+                reclamoAgregar.Comentario = reclamo.Comentario;
+                reclamoAgregar.Paquete = reclamo.Paquete;
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    int id = 0;
+
+                    List<Reclamo> reclamosPaquete = dbConnection.Reclamo.Where(x => x.Paquete == reclamo.Paquete).ToList();
+
+                    if (reclamosPaquete != null && reclamosPaquete.Count > 0)
+                    {
+                        id = reclamosPaquete.OrderByDescending(x => x.Id).FirstOrDefault().Id + 1;
+
+                    }
+                    else
+                    {
+                        id = 1;
+                    }
+
+                    reclamoAgregar.Id = id;
+
+
+                    dbConnection.Reclamo.Add(reclamoAgregar);
+                    dbConnection.SaveChanges();
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al dar de alta el Local.");
+            }
+
         }
         
     }
