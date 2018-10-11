@@ -34,7 +34,11 @@ namespace AdministradoresApp.Controllers
                 {
                     IControladorEmpleado controladorEmpleado = FabricaApps.GetControladorEmpleado();
 
+                    HttpContext.Session.Set<List<Empleado>>(SESSSION_EMPLEADOS, null);
+
                     List<Empleado> empleados = await controladorEmpleado.ListarEmpleados();
+
+                    HttpContext.Session.Set<List<Empleado>>(SESSSION_EMPLEADOS, empleados);
 
                     string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
 
@@ -44,8 +48,18 @@ namespace AdministradoresApp.Controllers
                     {
                         ViewBag.Message = mensaje;
                     }
+                    List<Empleado> filtrados = HttpContext.Session.Get<List<Empleado>>(SESSION_FILTRADOS);
 
-                    return View(empleados);
+                    if (filtrados != null)
+                    {
+                        HttpContext.Session.Set<List<Empleado>>(SESSION_FILTRADOS, null);
+
+                        return View(filtrados);
+                    }
+                    else
+                    {
+                        return View(empleados);
+                    }
                 }
                 else
                 {
@@ -92,16 +106,36 @@ namespace AdministradoresApp.Controllers
             }
 
         }
-        public async Task<ActionResult> ModificarAdmin(int id)
+        public ActionResult Modificar(int ci)
         {
             if (ComprobarLogin() == "G")
             {
                 IControladorEmpleado controladorEmpleado = FabricaApps.GetControladorEmpleado();
 
-                Empleado emp = await controladorEmpleado.BuscarEmpleado(id);
+                List<Empleado> empleados = HttpContext.Session.Get<List<Empleado>>(SESSSION_EMPLEADOS);
+
+                Empleado emp = empleados.FirstOrDefault(x => x.Ci == ci);
 
                 if (emp != null)
                 {
+                    DTEmpleado empleadoEditar = new DTEmpleado()
+                    {
+                        Sueldo = emp.Sueldo,
+                          Ci = emp.Ci
+                    };
+
+                    if (emp is Administrador)
+                    {
+                       empleadoEditar.TipoAdministrador= ((Administrador)emp).Tipo;
+                        empleadoEditar.Tipo = "administrador";
+                    }
+                    if (emp is Cadete)
+                    {
+                        empleadoEditar.TipoLibreta = ((Cadete)emp).TipoLibreta;
+                        empleadoEditar.IdTelefono = ((Cadete)emp).IdTelefono;
+                        empleadoEditar.Tipo = "cadete";
+                    }
+
                     HttpContext.Session.Set<Empleado>(SESSSION_MODIFICAR, emp);
 
                     return View(emp);
@@ -190,8 +224,7 @@ namespace AdministradoresApp.Controllers
 
         public ActionResult AltaAdministrador()
         {
-            if (ComprobarLogin() == "G")
-            {
+            
                 if (ComprobarLogin() == "G")
                 {
                     IControladorEmpleado controladorEmpleado = FabricaApps.GetControladorEmpleado();
@@ -207,22 +240,8 @@ namespace AdministradoresApp.Controllers
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
 
-            }
-            public ActionResult AltaCadete()
-            {
-                if (ComprobarLogin() == "G")
-                {
-
-                    return View();
-                }
-                else
-                {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
-
-                    return RedirectToAction("Index", "Home", new { area = "" });
-                }
-
-            }
+           
+        }    
         [HttpPost]
         public ActionResult AltaAdministrador([FromForm]Administrador administrador)
         {
@@ -280,6 +299,21 @@ namespace AdministradoresApp.Controllers
             catch (Exception ex)
             {
                 return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+
+        }
+        public ActionResult AltaCadete()
+        {
+            if (ComprobarLogin() == "G")
+            {
+
+                return View();
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
 
         }

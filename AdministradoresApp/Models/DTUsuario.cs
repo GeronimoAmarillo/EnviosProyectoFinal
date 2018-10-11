@@ -15,6 +15,11 @@ namespace AdministradoresApp.Models
         public string Direccion { get; set; }
         public string Telefono { get; set; }
         public string Email { get; set; }
-        
+        public decimal Sueldo { get; set; }
+        public int Ci { get; set; }
+        public string TipoAdministrador { get; set; }
+        public string TipoLibreta { get; set; }
+        public long IdTelefono { get; set; }
+
     }
 }

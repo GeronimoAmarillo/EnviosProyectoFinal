@@ -231,12 +231,9 @@ namespace PersistenciaCore
 
                 List<Cadete> cadetesResultado = new List<Cadete>();
 
-
-               
-
-                    foreach (var a in cadetes)
-                    {
-                        Cadete cad = new Cadete();
+                foreach (Cadetes a in cadetes)
+                {
+                    Cadete cadeteR = new Cadete();
 
                     cadeteR.Ci = a.CiEmpleado;
                     cadeteR.CiEmpleado = a.CiEmpleado;
@@ -255,12 +252,11 @@ namespace PersistenciaCore
                     cadetesResultado.Add(cadeteR);
                 }
 
-                    return cadetesResultado;
-                
+                return cadetesResultado;
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al listar los Cadetes." + ex.Message);
+                throw new Exception("Error al listar los cadetes." + ex.Message);
             }
         }
 
