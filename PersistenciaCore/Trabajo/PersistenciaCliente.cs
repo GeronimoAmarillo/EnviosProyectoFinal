@@ -11,7 +11,7 @@ namespace PersistenciaCore
 {
     class PersistenciaCliente:IPersistenciaCliente
     {
-        /*public PersistenciaCliente()
+        public PersistenciaCliente()
         {
             Mapper.Initialize(cfg =>
             {
@@ -33,7 +33,7 @@ namespace PersistenciaCore
                     .ForMember(d => d.Email, opt => opt.MapFrom(u => u.Email))
                 ;
             });
-        }*/
+        }
 
         public Cliente BuscarCliente(int rut)
         {
@@ -72,7 +72,7 @@ namespace PersistenciaCore
                 throw new Exception("Error al buscar el cliente." + ex.Message);
             }
         }
-
+        
         public bool SetearCodigoRecuperacionContraseña(Cliente cliente)
         {
             try
@@ -186,7 +186,7 @@ namespace PersistenciaCore
                 throw new Exception("Error al buscar el cliente." + ex.Message);
             }
         }
-
+        
         public bool VerificarCodigoContraseña(string email, string codigo)
         {
             try

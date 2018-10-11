@@ -10,7 +10,6 @@ using LogicaDeServicioCore;
 namespace EnviosService.Controllers
 {
     [Produces("application/json")]
-    //[Route("api/Usuarios")]
     public class UsuariosController : Controller
     {
         private IControladorUsuario controladorUsuario;
@@ -20,7 +19,7 @@ namespace EnviosService.Controllers
             controladorUsuario = FabricaServicio.GetControladorUsuario();
         }
 
-        
+
         [HttpPost]
         [Route("Api/Usuarios/AltaUsuario")]
         public JsonResult AltaUsuario([FromBody] Usuario unUsuario)
@@ -54,7 +53,7 @@ namespace EnviosService.Controllers
             {
                 return Json(null, new Newtonsoft.Json.JsonSerializerSettings());
             }
-            
+
         }
 
         [HttpPost]
@@ -69,7 +68,7 @@ namespace EnviosService.Controllers
             {
                 return Json(null, new Newtonsoft.Json.JsonSerializerSettings());
             }
-           
+
         }
 
         [HttpGet("{usuario, contrasenia}")]

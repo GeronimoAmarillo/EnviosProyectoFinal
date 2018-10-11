@@ -33,6 +33,7 @@ namespace PersistenciaCore
         [StringLength(150)]
         public string Direccion { get; set; }
 
+
         [StringLength(5)]
         public string CodigoRecuperacionContraseña { get; set; }
 

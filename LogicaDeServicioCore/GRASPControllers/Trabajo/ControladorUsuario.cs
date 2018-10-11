@@ -7,7 +7,7 @@ using EntidadesCompartidasCore;
 
 namespace LogicaDeServicioCore
 {
-    class ControladorUsuario:IControladorUsuario
+    class ControladorUsuario : IControladorUsuario
     {
         public bool AltaUsuario(Usuario unUsuario)
         {
@@ -101,7 +101,7 @@ namespace LogicaDeServicioCore
         {
             return new Usuario();
         }
-        
+
         public Usuario Login(string user, string pass)
         {
             Usuario usuarioLogueado = new Usuario();
@@ -111,7 +111,7 @@ namespace LogicaDeServicioCore
 
                 return usuarioLogueado;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception("Error al loguear el Usuario" + ex.Message);
             }
@@ -137,7 +137,7 @@ namespace LogicaDeServicioCore
         {
             return true;
         }
-        
+
         public bool ModificarUsuario(Usuario pUsuario)
         {
             try

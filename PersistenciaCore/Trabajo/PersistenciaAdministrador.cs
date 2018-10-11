@@ -524,5 +524,5 @@ namespace PersistenciaCore
             }
 
         }
-    }         
+    }
 }
