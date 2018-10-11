@@ -586,6 +586,12 @@ namespace PersistenciaCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CodigoModificarEmail")
+                        .HasMaxLength(5);
+
+                    b.Property<string>("CodigoRecuperacionContraseña")
+                        .HasMaxLength(5);
+
                     b.Property<string>("Contraseña")
                         .IsRequired()
                         .HasMaxLength(25);
