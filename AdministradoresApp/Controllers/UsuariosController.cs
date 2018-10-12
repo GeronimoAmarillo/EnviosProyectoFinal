@@ -118,22 +118,25 @@ namespace AdministradoresApp.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    
-                    Administrador adminLogueado = HttpContext.Session.Get<Administrador>(LOG_USER);
-                    if (adminLogueado.Contraseña==datadelForm.Contraseña)
-                        adminLogueado.Contraseña = datadelForm.NuevaContrasenia;
+                    if (!string.IsNullOrEmpty(datadelForm.NuevaContrasenia) && !string.IsNullOrEmpty(datadelForm.NuevoNombreUsuario))
+                    {
+                        Administrador adminLogueado = HttpContext.Session.Get<Administrador>(LOG_USER);
+                        if (adminLogueado.Contraseña == datadelForm.Contraseña)
+                            adminLogueado.Contraseña = datadelForm.NuevaContrasenia;
 
-                    IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
-                    if(await controladorUsuario.ModificarContraseña(adminLogueado))
-                    {
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "Contraseña modificada exitosamente!.");
-                        return RedirectToAction("Index", "Home", new { area = "" });
+                        IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
+                        if (await controladorUsuario.ModificarContraseña(adminLogueado))
+                        {
+                            HttpContext.Session.Set<string>(SESSION_MENSAJE, "Contraseña modificada exitosamente!.");
+                            return RedirectToAction("Index", "Home", new { area = "" });
+                        }
+                        else
+                        {
+                            HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar modificar la contraseña.");
+                            return RedirectToAction("Index", "Home", new { area = "" });
+                        }
                     }
-                    else
-                    {
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar modificar la contraseña.");
-                        return RedirectToAction("Index", "Home", new { area = "" });
-                    }
+                    
                         
                 }
                 else
