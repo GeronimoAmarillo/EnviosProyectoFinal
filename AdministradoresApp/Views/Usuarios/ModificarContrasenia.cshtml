@@ -1,10 +1,10 @@
 ﻿@model DTUsuario
 
 @{
-    ViewData["Title"] = "Modificar Contraseña";
+    ViewData["Title"] = "Modificar Nombre de Usuario y/o Contraseña";
 }
 
-<h2>Modificar Contraseña</h2>
+<h2>Modificar Nombre de Usuario y/o Contraseña</h2>
 
 <p></p>
 <p></p>
@@ -27,6 +27,16 @@
     <div class="col-md-4">
         <form asp-controller="Usuarios" asp-action="ModificarContrasenia" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NombreUsuario" class="control-label"></label>
+                <input asp-for="NombreUsuario" class="form-control" />
+                <span asp-validation-for="NombreUsuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NuevoNombreUsuario" class="control-label"></label>
+                <input asp-for="NuevoNombreUsuario" class="form-control" />
+                <span asp-validation-for="NuevoNombreUsuario" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Contraseña" class="control-label"></label>
                 <input asp-for="Contraseña" class="form-control" />

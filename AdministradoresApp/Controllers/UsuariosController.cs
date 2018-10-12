@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using LogicaDeAppsCore;
 using AdministradoresApp.Models;
+using Microsoft.Extensions.Primitives;
 
 namespace AdministradoresApp.Controllers
 {
@@ -117,6 +118,7 @@ namespace AdministradoresApp.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    
                     Administrador adminLogueado = HttpContext.Session.Get<Administrador>(LOG_USER);
                     if (adminLogueado.Contraseña==datadelForm.Contraseña)
                         adminLogueado.Contraseña = datadelForm.NuevaContrasenia;
