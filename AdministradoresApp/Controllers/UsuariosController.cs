@@ -136,8 +136,13 @@ namespace AdministradoresApp.Controllers
                             return RedirectToAction("Index", "Home", new { area = "" });
                         }
                     }
-                    
-                        
+                    else
+                    {
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error o datos de contraseña invalidos.");
+                        return RedirectToAction("Index", "Home", new { area = "" });
+                    }
+
+
                 }
                 else
                 {

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.
 
 namespace AdministradoresApp.Models
 {
@@ -11,12 +10,12 @@ namespace AdministradoresApp.Models
 
         public int Id { get; set; }
 
-        [Required]
+        
         public string NombreUsuario { get; set; }
 
         public string NuevoNombreUsuario { get; set; }
 
-        [Required]
+        
         public string Contraseña { get; set; }
 
         public string NuevaContrasenia { get; set; }
