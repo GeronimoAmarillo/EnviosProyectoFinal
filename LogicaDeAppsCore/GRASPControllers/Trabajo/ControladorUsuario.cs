@@ -148,16 +148,21 @@ namespace LogicaDeAppsCore
         {
             try
             {
-                bool exito = false;
                 var httpClient = new HttpClient();
                 var EnvioJson = JsonConvert.SerializeObject(pAdmin);
 
-                HttpResponseMessage retorno = await httpClient.PutAsync("http://localhost:8080/Api/Usuarios/ModificarContrasenia", new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
-                string resultado = await retorno.Content.ReadAsStringAsync();
+                var retorno = await httpClient.PutAsync("http://localhost:8080/Api/Usuarios/ModificarContrasenia", new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
+                var contentResult = retorno.Content.ReadAsStringAsync();
 
-                if (retorno.IsSuccessStatusCode && resultado == "true")
-                    exito = true;
-                return exito;
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
             }
             catch (Exception ex)
             {

@@ -355,14 +355,14 @@ namespace PersistenciaCore
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
 
-                    Administradores usuDesdeBd = dbConnection.Administradores.Include("Usuarios").Where(x => x.CiEmpleado == unAdmin.Ci).FirstOrDefault();
+                    Usuarios usuDesdeBd = dbConnection.Usuarios.Where(x => x.Id == unAdmin.Id).FirstOrDefault();
 
 
                     if (usuDesdeBd != null)
                     {
-                        usuDesdeBd.Empleados.Usuarios.Contraseña = unAdmin.Contraseña;
-                        usuDesdeBd.Empleados.Usuarios.NombreUsuario = unAdmin.NombreUsuario;
-                        dbConnection.Administradores.Update(usuDesdeBd);
+                        usuDesdeBd.Contraseña = unAdmin.Contraseña;
+                        usuDesdeBd.NombreUsuario = unAdmin.NombreUsuario;
+                        dbConnection.Usuarios.Update(usuDesdeBd);
                         dbConnection.SaveChanges();
                         return true;
                     }
@@ -374,7 +374,7 @@ namespace PersistenciaCore
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al intentar modificar el Cliente" + ex.Message);
+                throw new Exception("Error al intentar modificar nombre de usuario o contraseña" + ex.Message);
             }
         }
 

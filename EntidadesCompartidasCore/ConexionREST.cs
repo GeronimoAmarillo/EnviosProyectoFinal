@@ -18,6 +18,7 @@ namespace EntidadesCompartidasCore
         static string conexionReparaciones = "http://localhost:8080/api/Reparaciones";
         static string conexionTurnos = "http://localhost:8080/api/Turnos";
         static string conexionPaquetes = "http://localhost:8080/api/Paquetes";
+        
 
         /*static string conexionRaiz = "https://enviosservice.azurewebsites.net/api/";
         static string conexionLocales = "https://enviosservice.azurewebsites.net/api/Locales";
