@@ -10,6 +10,10 @@ namespace PersistenciaCore
     public interface IPersistenciaAdministrador
     {
         bool ExisteAdmin(int ci);
+        
+        bool VerificarCodigoContraseña(string email, string codigo);
+
+        bool VerificarCodigoEmail(string email, string codigo);
 
         bool AltaAdministrador(Administrador administrador);
 
@@ -24,6 +28,10 @@ namespace PersistenciaCore
         bool BajaAdministrador(int ci);
 
         Administrador BuscarAdministrador(int ci);
+        
+        bool SetearCodigoRecuperacionContraseña(Administrador admin);
+
+        bool SetearCodigoModificarEmail(Administrador admin);
 
         bool ModificarContrasenia(Administrador unAdmin);
     }

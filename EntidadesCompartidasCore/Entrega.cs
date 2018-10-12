@@ -13,14 +13,10 @@ namespace EntidadesCompartidasCore
         [Required]
         [MinLength(2)]
         public string NombreReceptor { get; set; }
-        [Required]
-        public long ClienteReceptor { get; set; }
-        [Required]
-        public long ClienteEmisor { get; set; }
-        [Required]
-        public int LocalReceptor { get; set; }
-        [Required]
-        public int LocalEmisor { get; set; }
+        public long? ClienteReceptor { get; set; }
+        public long? ClienteEmisor { get; set; }
+        public int? LocalReceptor { get; set; }
+        public int? LocalEmisor { get; set; }
         [Required]
         public string Turno { get; set; }
 

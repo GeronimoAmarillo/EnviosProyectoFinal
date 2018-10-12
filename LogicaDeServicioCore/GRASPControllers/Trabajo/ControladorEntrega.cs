@@ -23,7 +23,14 @@ namespace LogicaDeServicioCore
 
         public List<EntidadesCompartidasCore.Cliente> ListarClientes()
         {
-            return new List<EntidadesCompartidasCore.Cliente>();
+            try
+            {
+                return LogicaUsuario.ListarClientes();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al Listar los clientes." + ex.Message);
+            }
         }
 
         public List<EntidadesCompartidasCore.Cadete> ListarCadetesDisponibles()
@@ -38,12 +45,38 @@ namespace LogicaDeServicioCore
 
         public List<EntidadesCompartidasCore.Local> ListarLocales()
         {
-            return new List<EntidadesCompartidasCore.Local>();
+            try
+            {
+                return LogicaLocal.ListarLocales();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al Listar los locales." + ex.Message);
+            }
+        }
+
+        public Entrega BuscarEntrega(int codigo)
+        {
+            try
+            {
+                return LogicaEntrega.BuscarEntrega(codigo);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar la entrega." + ex.Message);
+            }
         }
 
         public bool AltaEntrega(EntidadesCompartidasCore.Entrega pEntrega)
         {
-            return true;
+            try
+            {
+                return LogicaEntrega.AltaEntega(pEntrega);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Error al intentar dar de alta la entrega." + ex);
+            }
         }
     }
 }

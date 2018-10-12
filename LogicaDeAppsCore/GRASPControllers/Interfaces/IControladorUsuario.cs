@@ -13,7 +13,15 @@ namespace LogicaDeAppsCore
 
         Usuario BuscarUsuario(string mail);
 
+        Task<bool> VerificarCodigoContraseña(string codigo, string email);
+
+        Task<bool> VerificarCodigoEmail(string codigo, string email);
+
         string CrearContrasenia();
+
+        Task<bool> SetearCodigoEmail(Usuario unUsuario);
+
+        Task<bool> SetearCodigoContraseña(Usuario unUsuario);
 
         string GetContraseña();
 

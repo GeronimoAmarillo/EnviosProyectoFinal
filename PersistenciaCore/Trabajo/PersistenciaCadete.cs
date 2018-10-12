@@ -56,6 +56,138 @@ namespace PersistenciaCore
 
         }
 
+        public bool VerificarCodigoContraseña(string email, string codigo)
+        {
+            try
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    var cadeteEncontrado = dbConnection.Cadetes.Include("Empleados.Usuarios").Where(x => x.Empleados.Usuarios.Email == email && x.Empleados.Usuarios.CodigoRecuperacionContraseña == codigo).FirstOrDefault();
+
+                    if (cadeteEncontrado != null)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el cliente." + ex.Message);
+            }
+        }
+
+        public bool VerificarCodigoEmail(string email, string codigo)
+        {
+            try
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    var cadeteEncontrado = dbConnection.Cadetes.Include("Empleados.Usuarios").Where(x => x.Empleados.Usuarios.Email == email && x.Empleados.Usuarios.CodigoModificarEmail == codigo).FirstOrDefault();
+
+                    if (cadeteEncontrado != null)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el cliente." + ex.Message);
+            }
+        }
+
+        public bool SetearCodigoRecuperacionContraseña(Cadete cadete)
+        {
+            try
+
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+
+                    Cadetes cadeteDesdeBd = dbConnection.Cadetes.Include("Empleados.Usuarios").Where(x => x.CiEmpleado == cadete.Ci).FirstOrDefault();
+
+
+                    if (cadeteDesdeBd != null)
+                    {
+                        cadeteDesdeBd.Empleados.Usuarios.CodigoRecuperacionContraseña = cadete.CodigoRecuperacionContraseña;
+
+                        dbConnection.Cadetes.Update(cadeteDesdeBd);
+
+                        dbConnection.SaveChanges();
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar modificar el Cadete" + ex.Message);
+            }
+        }
+
+        public bool SetearCodigoModificarEmail(Cadete cadete)
+        {
+            try
+
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+
+                    Cadetes cadeteDesdeBd = dbConnection.Cadetes.Include("Empleados.Usuarios").Where(x => x.CiEmpleado == cadete.Ci).FirstOrDefault();
+
+
+                    if (cadeteDesdeBd != null)
+                    {
+                        cadeteDesdeBd.Empleados.Usuarios.CodigoModificarEmail = cadete.CodigoModificarEmail;
+
+                        dbConnection.Cadetes.Update(cadeteDesdeBd);
+
+                        dbConnection.SaveChanges();
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar modificar el Cadete" + ex.Message);
+            }
+        }
+
         public bool ExisteCadete(int ci)
         {
             bool existe = false;
@@ -67,7 +199,8 @@ namespace PersistenciaCore
 
             using (var dbConnection = new EnviosContext(optionsBuilder.Options))
             {
-                var cadete = dbConnection.Cadetes.Where(a => a.CiEmpleado == ci).Select(c => new {
+                var cadete = dbConnection.Cadetes.Where(a => a.CiEmpleado == ci).Select(c => new
+                {
                     Cadete = c
                 }).FirstOrDefault();
 
@@ -114,6 +247,8 @@ namespace PersistenciaCore
                     cadeteR.Telefono = a.Empleados.Usuarios.Telefono;
                     cadeteR.IdTelefono = a.IdTelefono;
                     cadeteR.TipoLibreta = a.TipoLibreta;
+                    cadeteR.CodigoRecuperacionContraseña = a.Empleados.Usuarios.CodigoRecuperacionContraseña;
+                    cadeteR.CodigoModificarEmail = a.Empleados.Usuarios.CodigoModificarEmail;
 
                     cadetesResultado.Add(cadeteR);
                 }
@@ -139,10 +274,12 @@ namespace PersistenciaCore
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
 
-                    var cadeteEncontrado = dbConnection.Cadetes.Where(c => c.Empleados.Usuarios.NombreUsuario == user && c.Empleados.Usuarios.Contraseña == contraseña).Select(c => new {
+                    var cadeteEncontrado = dbConnection.Cadetes.Where(c => c.Empleados.Usuarios.NombreUsuario == user && c.Empleados.Usuarios.Contraseña == contraseña).Select(c => new
+                    {
                         Cadete = c,
                         Empleado = c.Empleados,
-                        Usuario = c.Empleados.Usuarios }).FirstOrDefault();
+                        Usuario = c.Empleados.Usuarios
+                    }).FirstOrDefault();
 
                     if (cadeteEncontrado != null)
                     {
@@ -160,9 +297,11 @@ namespace PersistenciaCore
                             cadeteResultado.Sueldo = cadeteEncontrado.Empleado.Sueldo;
                             cadeteResultado.Telefono = cadeteEncontrado.Usuario.Telefono;
                             cadeteResultado.TipoLibreta = cadeteEncontrado.Cadete.TipoLibreta;
+                            cadeteResultado.CodigoRecuperacionContraseña = cadeteEncontrado.Cadete.Empleados.Usuarios.CodigoRecuperacionContraseña;
+                            cadeteResultado.CodigoModificarEmail = cadeteEncontrado.Cadete.Empleados.Usuarios.CodigoModificarEmail;
                         }
-                        
-                    
+
+
                         //Tal vez corresponde tambien asignarle el vehiculo, esto va a necesitar de un cambio en el script de la base de datos, debido a que el 
                         //cadete de momento puede tener varios vehiculos, y me parece que eso no representa la realidad, no lo recuerdo.
                     }
@@ -218,6 +357,8 @@ namespace PersistenciaCore
                     cadeteR.Sueldo = l.Empleados.Sueldo;
                     cadeteR.Telefono = l.Empleados.Usuarios.Telefono;
                     cadeteR.TipoLibreta = l.TipoLibreta;
+                    cadeteR.CodigoRecuperacionContraseña = l.Empleados.Usuarios.CodigoRecuperacionContraseña;
+                    cadeteR.CodigoModificarEmail = l.Empleados.Usuarios.CodigoModificarEmail;
 
                     cadetesResultado.Add(cadeteR);
                 }
@@ -258,7 +399,7 @@ namespace PersistenciaCore
 
                 Cadete cadeteResultado = new Cadete();
 
-                if(cadete != null)
+                if (cadete != null)
                 {
 
                     cadeteResultado.Ci = cadete.CiEmpleado;
@@ -271,6 +412,8 @@ namespace PersistenciaCore
                     cadeteResultado.Sueldo = cadete.Empleados.Sueldo;
                     cadeteResultado.Telefono = cadete.Empleados.Usuarios.Telefono;
                     cadeteResultado.IdTelefono = cadete.IdTelefono;
+                    cadeteResultado.CodigoRecuperacionContraseña = cadete.Empleados.Usuarios.CodigoRecuperacionContraseña;
+                    cadeteResultado.CodigoModificarEmail = cadete.Empleados.Usuarios.CodigoModificarEmail;
                 }
 
                 return cadeteResultado;

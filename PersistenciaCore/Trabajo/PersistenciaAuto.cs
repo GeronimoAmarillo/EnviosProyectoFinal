@@ -28,6 +28,7 @@ namespace PersistenciaCore
 
                 autoAgregar.Puertas = automobiles.Puertas;
                 autoAgregar.MatriculaAuto = automobiles.Matricula;
+                autoAgregar.Vehiculos = vehiculoAgregar;
 
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
@@ -36,7 +37,6 @@ namespace PersistenciaCore
 
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    dbConnection.Vehiculos.Add(vehiculoAgregar);
                     dbConnection.Automobiles.Add(autoAgregar);
 
                     dbConnection.SaveChanges();
@@ -156,7 +156,7 @@ namespace PersistenciaCore
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
                     int vehiculoDesdeDB = (dbConnection.Vehiculos.Where(x => x.Matricula == auto.Matricula)).Count();
-                    int autoDesdeDb = (dbConnection.Camionetas.Where(x => x.MatriculaCamioneta == auto.Matricula)).Count();
+                    int autoDesdeDb = (dbConnection.Automobiles.Where(x => x.MatriculaAuto == auto.Matricula)).Count();
                     if (vehiculoDesdeDB == 1 && autoDesdeDb == 1)
                     {
                         dbConnection.Automobiles.Update(autoaModificar);
@@ -189,7 +189,7 @@ namespace PersistenciaCore
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    auto = dbConnection.Automobiles.Include("Vehiculos.Reparaciones").Where(a => a.MatriculaAuto == matricula).FirstOrDefault();
+                    auto = dbConnection.Automobiles.Include("Vehiculos.Reparaciones").Include("Vehiculos.Multas").Where(a => a.MatriculaAuto == matricula).FirstOrDefault();
                 }
 
                 Automobil autoResultado = null;
@@ -221,7 +221,23 @@ namespace PersistenciaCore
                         reparaciones.Add(nR);
                     }
 
+                    List<Multa> multas = new List<Multa>();
+
+                    foreach (Multas r in auto.Vehiculos.Multas)
+                    {
+                        Multa nR = new Multa();
+
+                        nR.Id = r.Id;
+                        nR.Fecha = r.Fecha;
+                        nR.Suma = r.Suma;
+                        nR.Motivo = r.Motivo;
+                        nR.Vehiculo = r.Vehiculo;
+
+                        multas.Add(nR);
+                    }
+
                     autoResultado.Reparaciones = reparaciones;
+                    autoResultado.Multas = multas;
                 }
 
                 return autoResultado;

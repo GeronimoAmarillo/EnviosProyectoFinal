@@ -29,6 +29,8 @@ namespace PersistenciaCore
                 motoAgregar.Cilindrada = moto.Cilindrada;
                 motoAgregar.MatriculaMoto = moto.Matricula;
 
+                motoAgregar.Vehiculos = vehiculoAgregar;
+
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
                 optionsBuilder.UseSqlServer(Conexion.ConnectionString);
@@ -36,7 +38,6 @@ namespace PersistenciaCore
 
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    dbConnection.Vehiculos.Add(vehiculoAgregar);
                     dbConnection.Motos.Add(motoAgregar);
 
                     dbConnection.SaveChanges();
@@ -94,7 +95,7 @@ namespace PersistenciaCore
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    moto = dbConnection.Motos.Include("Vehiculos.Reparaciones").Where(a => a.MatriculaMoto == matricula).FirstOrDefault();
+                    moto = dbConnection.Motos.Include("Vehiculos.Reparaciones").Include("Vehiculos.Multas").Where(a => a.MatriculaMoto == matricula).FirstOrDefault();
                 }
 
                 Moto motoResultado = null;
@@ -126,6 +127,24 @@ namespace PersistenciaCore
 
                         reparaciones.Add(nR);
                     }
+
+
+                    List<Multa> multas = new List<Multa>();
+
+                    foreach (Multas r in moto.Vehiculos.Multas)
+                    {
+                        Multa nR = new Multa();
+
+                        nR.Id = r.Id;
+                        nR.Fecha = r.Fecha;
+                        nR.Suma = r.Suma;
+                        nR.Motivo = r.Motivo;
+                        nR.Vehiculo = r.Vehiculo;
+
+                        multas.Add(nR);
+                    }
+
+                    motoResultado.Multas = multas;
 
                     motoResultado.Reparaciones = reparaciones;
                 }
@@ -246,10 +265,11 @@ namespace PersistenciaCore
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
                     int vehiculoDesdeDB = (dbConnection.Vehiculos.Where(x => x.Matricula == moto.Matricula)).Count();
-                    int motoDesdeDb = (dbConnection.Camionetas.Where(x => x.MatriculaCamioneta == moto.Matricula)).Count();
+                    int motoDesdeDb = (dbConnection.Motos.Where(x => x.MatriculaMoto == moto.Matricula)).Count();
                     if (vehiculoDesdeDB == 1 && motoDesdeDb == 1)
                     {
                         dbConnection.Motos.Update(motoaModificar);
+
                         dbConnection.SaveChanges();
                         return true;
                     }

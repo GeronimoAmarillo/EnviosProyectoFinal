@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidasCore;
+using Newtonsoft.Json;
 
 namespace LogicaDeAppsCore
 {
@@ -32,9 +34,68 @@ namespace LogicaDeAppsCore
             return new List<Local>();
         }
 
-        public List<Paquete> ListarPaquetesEnviadosXCliente(int cedula)
+        public async Task<Paquete> BuscarPaquete(int numReferencia)
         {
-            return new List<Paquete>();
+            try
+            {
+                //http://localhost:8080/
+
+                var httpClient = new HttpClient();
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionPaquetes + "/Buscar?numReferencia=" + numReferencia);
+
+                Paquete paquete = null;
+
+                paquete = JsonConvert.DeserializeObject<Paquete>(json);
+
+                return paquete;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el paquete.");
+            }
+        }
+
+        public async Task<Paquete> BuscarPaqueteIndividual(int numReferencia, long cliente)
+        {
+            try
+            {
+                //http://localhost:8080/
+
+                var httpClient = new HttpClient();
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionPaquetes + "/BuscarIndividual?numReferencia=" + numReferencia + "&cliente=" + cliente);
+
+                Paquete paquete = null;
+
+                paquete = JsonConvert.DeserializeObject<Paquete>(json);
+
+                return paquete;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el paquete.");
+            }
+        }
+
+        public async Task<List<Paquete>> ListarPaquetesEnviadosXCliente(long rut)
+        {
+            try
+            {
+                //http://localhost:8080/
+
+                var httpClient = new HttpClient();
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionPaquetes + "/ListarEnviados?rut=" + rut);
+
+                List<Paquete> paquetes = null;
+
+                paquetes = JsonConvert.DeserializeObject<List<Paquete>>(json);
+
+                return paquetes;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Se produjo un error al intentar listar los paquetes.");
+            }
         }
 
         public void SetPaquetes(List<Paquete> pPaquetes)
@@ -57,9 +118,26 @@ namespace LogicaDeAppsCore
             return paquetes;
         }
 
-        public List<Paquete> ListarPaquetesRecibidosXCliente(int cedula)
+        public async Task<List<Paquete>> ListarPaquetesRecibidosXCliente(long rut)
         {
-            return new List<Paquete>();
+            try
+            {
+                //http://localhost:8080/
+
+                var httpClient = new HttpClient();
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionPaquetes + "/ListarRecibidos?rut=" + rut);
+
+                List<Paquete> paquetes = null;
+
+                paquetes = JsonConvert.DeserializeObject<List<Paquete>>(json);
+
+                return paquetes;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Se produjo un error al intentar listar los paquetes.");
+            }
         }
 
         public Paquete ConsultarEstado(int numReferencia)

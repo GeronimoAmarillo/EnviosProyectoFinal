@@ -11,29 +11,29 @@ namespace PersistenciaCore
 {
     class PersistenciaCliente:IPersistenciaCliente
     {
-        /*public PersistenciaCliente()
-        {
-            Mapper.Initialize(cfg =>
-            {
-                cfg.CreateMap<Cliente, Clientes>()
-                    .ForMember(d => d.RUT, opt => opt.MapFrom(u => u.RUT))
-                    .ForMember(d => d.Mensualidad, opt => opt.MapFrom(u => u.Mensualidad))
-                    .ForMember(d => d.Palets, opt => opt.MapFrom(u => u.Palets))
-                    .ForMember(d => d.Usuarios, opt => opt.MapFrom(u => u.Usuarios))
-                    .ForMember(d => d.Paquetes, opt => opt.MapFrom(u => u.Paquetes))
-                    .ForMember(d => d.Calificaciones, opt => opt.MapFrom(u => u.Calificaciones))
-                ;
+        //public PersistenciaCliente()
+        //{
+        //    Mapper.Initialize(cfg =>
+        //    {
+        //        cfg.CreateMap<Cliente, Clientes>()
+        //            .ForMember(d => d.RUT, opt => opt.MapFrom(u => u.RUT))
+        //            .ForMember(d => d.Mensualidad, opt => opt.MapFrom(u => u.Mensualidad))
+        //            .ForMember(d => d.Palets, opt => opt.MapFrom(u => u.Palets))
+        //            .ForMember(d => d.Usuarios, opt => opt.MapFrom(u => u.Usuarios))
+        //            .ForMember(d => d.Paquetes, opt => opt.MapFrom(u => u.Paquetes))
+        //            .ForMember(d => d.Calificaciones, opt => opt.MapFrom(u => u.Calificaciones))
+        //        ;
 
-                cfg.CreateMap<Usuario, Usuarios>()
-                    .ForMember(d => d.Nombre, opt => opt.MapFrom(u => u.Nombre))
-                    .ForMember(d => d.NombreUsuario, opt => opt.MapFrom(u => u.NombreUsuario))
-                    .ForMember(d => d.Telefono, opt => opt.MapFrom(u => u.Telefono))
-                    .ForMember(d => d.Contraseña, opt => opt.MapFrom(u => u.Contraseña))
-                    .ForMember(d => d.Direccion, opt => opt.MapFrom(u => u.Direccion))
-                    .ForMember(d => d.Email, opt => opt.MapFrom(u => u.Email))
-                ;
-            });
-        }*/
+        //        cfg.CreateMap<Usuario, Usuarios>()
+        //            .ForMember(d => d.Nombre, opt => opt.MapFrom(u => u.Nombre))
+        //            .ForMember(d => d.NombreUsuario, opt => opt.MapFrom(u => u.NombreUsuario))
+        //            .ForMember(d => d.Telefono, opt => opt.MapFrom(u => u.Telefono))
+        //            .ForMember(d => d.Contraseña, opt => opt.MapFrom(u => u.Contraseña))
+        //            .ForMember(d => d.Direccion, opt => opt.MapFrom(u => u.Direccion))
+        //            .ForMember(d => d.Email, opt => opt.MapFrom(u => u.Email))
+        //        ;
+        //    });
+        //}
 
         public Cliente BuscarCliente(int rut)
         {
@@ -61,6 +61,8 @@ namespace PersistenciaCore
                         clienteResultado.NombreUsuario = clienteEncontrado.Usuarios.NombreUsuario;
                         clienteResultado.RUT = clienteEncontrado.RUT;
                         clienteResultado.Telefono = clienteEncontrado.Usuarios.Telefono;
+                        clienteResultado.CodigoRecuperacionContraseña = clienteEncontrado.Usuarios.CodigoRecuperacionContraseña;
+                        clienteResultado.CodigoModificarEmail = clienteEncontrado.Usuarios.CodigoModificarEmail;
                     }
                 }
                 return clienteResultado;
@@ -68,6 +70,82 @@ namespace PersistenciaCore
             catch (Exception ex)
             {
                 throw new Exception("Error al buscar el cliente." + ex.Message);
+            }
+        }
+        
+        public bool SetearCodigoRecuperacionContraseña(Cliente cliente)
+        {
+            try
+
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+            
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+
+                    Clientes clienteDesdeBd = dbConnection.Clientes.Include("Usuarios").Where(x => x.RUT == cliente.RUT).FirstOrDefault();
+
+
+                    if (clienteDesdeBd != null)
+                    {
+                        clienteDesdeBd.Usuarios.CodigoRecuperacionContraseña = cliente.CodigoRecuperacionContraseña;
+
+                        dbConnection.Clientes.Update(clienteDesdeBd);
+
+                        dbConnection.SaveChanges();
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar modificar el Cliente" + ex.Message);
+            }
+        }
+
+        public bool SetearCodigoModificarEmail(Cliente cliente)
+        {
+            try
+
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+
+                    Clientes clienteDesdeBd = dbConnection.Clientes.Include("Usuarios").Where(x => x.RUT == cliente.RUT).FirstOrDefault();
+
+
+                    if (clienteDesdeBd != null)
+                    {
+                        clienteDesdeBd.Usuarios.CodigoModificarEmail = cliente.CodigoModificarEmail;
+
+                        dbConnection.Clientes.Update(clienteDesdeBd);
+
+                        dbConnection.SaveChanges();
+
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar modificar el Cliente" + ex.Message);
             }
         }
 
@@ -97,9 +175,67 @@ namespace PersistenciaCore
                         clienteResultado.NombreUsuario = clienteEncontrado.Usuarios.NombreUsuario;
                         clienteResultado.RUT = clienteEncontrado.RUT;
                         clienteResultado.Telefono = clienteEncontrado.Usuarios.Telefono;
+                        clienteResultado.CodigoRecuperacionContraseña = clienteEncontrado.Usuarios.CodigoRecuperacionContraseña;
+                        clienteResultado.CodigoModificarEmail = clienteEncontrado.Usuarios.CodigoModificarEmail;
                     }
                 }
                 return clienteResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el cliente." + ex.Message);
+            }
+        }
+        
+        public bool VerificarCodigoContraseña(string email, string codigo)
+        {
+            try
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+                
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    var clienteEncontrado = dbConnection.Clientes.Include("Usuarios").Where(x => x.Usuarios.Email == email && x.Usuarios.CodigoRecuperacionContraseña == codigo).FirstOrDefault();
+
+                    if (clienteEncontrado != null)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el cliente." + ex.Message);
+            }
+        }
+
+        public bool VerificarCodigoEmail(string email, string codigo)
+        {
+            try
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    var clienteEncontrado = dbConnection.Clientes.Include("Usuarios").Where(x => x.Usuarios.Email == email && x.Usuarios.CodigoModificarEmail == codigo).FirstOrDefault();
+
+                    if (clienteEncontrado != null)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -283,6 +419,8 @@ namespace PersistenciaCore
                         clienteR.NombreUsuario = c.Usuario.NombreUsuario;
                         clienteR.RUT = c.Cliente.RUT;
                         clienteR.Telefono = c.Usuario.Telefono;
+                        clienteR.CodigoRecuperacionContraseña = c.Usuario.CodigoRecuperacionContraseña;
+                        clienteR.CodigoModificarEmail = c.Usuario.CodigoModificarEmail;
 
                         clientesResultado.Add(clienteR);
                     }

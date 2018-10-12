@@ -10,6 +10,44 @@ namespace LogicaDeServicioCore
 {
     public class LogicaUsuario
     {
+
+        public static bool VerificarCodigoContraseña(string email, string codigo)
+        {
+            try
+            {
+                bool correcto = false;
+
+                correcto = FabricaPersistencia.GetPersistenciaCliente().VerificarCodigoContraseña(email, codigo);
+
+                return correcto;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
+        public static bool VerificarCodigoEmail(string email, string codigo)
+        {
+            try
+            {
+                bool correcto = false;
+
+                correcto = FabricaPersistencia.GetPersistenciaCliente().VerificarCodigoEmail(email, codigo);
+
+                return correcto;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
+
         public static bool AltaUsuario(Usuario unUsuario)
         {
             bool exito = false;
@@ -56,6 +94,129 @@ namespace LogicaDeServicioCore
 
         }
 
+        public static bool SetearCodigoRecuperarContraseña(Usuario unUsuario)
+        {
+            bool exito = false;
+
+            try
+            {
+                if (unUsuario is Cliente)
+                {
+                    if (ExisteCliente(((Cliente)unUsuario).RUT))
+                    {
+                        if (unUsuario.CodigoRecuperacionContraseña == null || unUsuario.CodigoRecuperacionContraseña.Length == 0)
+                        {
+                            unUsuario.CodigoRecuperacionContraseña = GenerarCodigo();
+                        }
+                        else
+                        {
+                            unUsuario.CodigoRecuperacionContraseña = null;
+                        }
+
+                        exito = FabricaPersistencia.GetPersistenciaCliente().SetearCodigoRecuperacionContraseña((Cliente)unUsuario);
+                        return exito;
+                    }
+
+                }
+                if (unUsuario is Administrador)
+                {
+                    if (ExisteEmpleado(((Administrador)unUsuario).Ci))
+                    {
+                        if (unUsuario.CodigoRecuperacionContraseña == null)
+                        {
+                            unUsuario.CodigoRecuperacionContraseña = GenerarCodigo();
+                        }
+
+                        exito = FabricaPersistencia.GetPersistenciaAdministrador().SetearCodigoRecuperacionContraseña((Administrador)unUsuario);
+                        return exito;
+                    }
+
+                }
+                if (unUsuario is Cadete)
+                {
+                    if (ExisteEmpleado(((Cadete)unUsuario).Ci))
+                    {
+                        if (unUsuario.CodigoRecuperacionContraseña == null)
+                        {
+                            unUsuario.CodigoRecuperacionContraseña = GenerarCodigo();
+                        }
+
+                        exito = FabricaPersistencia.GetPersistenciaCadete().SetearCodigoRecuperacionContraseña((Cadete)unUsuario);
+                        return exito;
+                    }
+
+                }
+                return exito;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
+
+        public static bool SetearCodigoModificarEmail(Usuario unUsuario)
+        {
+            bool exito = false;
+
+            try
+            {
+                if (unUsuario is Cliente)
+                {
+                    if (ExisteCliente(((Cliente)unUsuario).RUT))
+                    {
+                        if (unUsuario.CodigoModificarEmail == null || unUsuario.CodigoModificarEmail.Length == 0)
+                        {
+                            unUsuario.CodigoModificarEmail = GenerarCodigo();
+                        }
+                        else
+                        {
+                            unUsuario.CodigoModificarEmail = null;
+                        }
+
+                        exito = FabricaPersistencia.GetPersistenciaCliente().SetearCodigoModificarEmail((Cliente)unUsuario);
+                        return exito;
+                    }
+
+                }
+                if (unUsuario is Administrador)
+                {
+                    if (ExisteEmpleado(((Administrador)unUsuario).Ci))
+                    {
+                        if (unUsuario.CodigoModificarEmail == null)
+                        {
+                            unUsuario.CodigoModificarEmail = GenerarCodigo();
+                        }
+
+                        exito = FabricaPersistencia.GetPersistenciaAdministrador().SetearCodigoModificarEmail((Administrador)unUsuario);
+                        return exito;
+                    }
+
+                }
+                if (unUsuario is Cadete)
+                {
+                    if (ExisteEmpleado(((Cadete)unUsuario).Ci))
+                    {
+                        if (unUsuario.CodigoModificarEmail == null)
+                        {
+                            unUsuario.CodigoModificarEmail = GenerarCodigo();
+                        }
+
+                        exito = FabricaPersistencia.GetPersistenciaCadete().SetearCodigoModificarEmail((Cadete)unUsuario);
+                        return exito;
+                    }
+
+                }
+                return exito;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
         public static bool ExisteCliente(long rut)
         {
             try
@@ -87,10 +248,10 @@ namespace LogicaDeServicioCore
             {
                 existe = FabricaPersistencia.GetPersistenciaAdministrador().ExisteAdmin(cedula);
 
-                if (existe==false)
-                    
+                if (existe == false)
+
                 {
-                  existe=FabricaPersistencia.GetPersistenciaCadete().ExisteCadete(cedula);
+                    existe = FabricaPersistencia.GetPersistenciaCadete().ExisteCadete(cedula);
                 }
 
                 return existe;
@@ -125,7 +286,7 @@ namespace LogicaDeServicioCore
             {
                 throw new Exception("Error al intentar modificar el Usuario." + ex.Message);
             }
-            
+
         }
 
         public static bool ModificarContrasenia(Administrador unAdmin)
@@ -147,7 +308,7 @@ namespace LogicaDeServicioCore
             try
             {
                 cliente = FabricaPersistencia.GetPersistenciaCliente().BuscarCliente(rut);
-                
+
                 return cliente;
             }
             catch (Exception ex)
@@ -264,7 +425,7 @@ namespace LogicaDeServicioCore
 
                 return usuarioLogueado;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception("Error al loguear el Usuario" + ex.Message);
             }
@@ -273,14 +434,14 @@ namespace LogicaDeServicioCore
 
         public static bool ComprobarUser(string user)
         {
-            bool exito=false;
+            bool exito = false;
             try
             {
-              
-                    exito = FabricaPersistencia.GetPersistenciaAdministrador().ComprobarUser(user);
-                
-                    return exito;
-             
+
+                exito = FabricaPersistencia.GetPersistenciaAdministrador().ComprobarUser(user);
+
+                return exito;
+
             }
             catch (Exception ex)
             {
@@ -316,6 +477,20 @@ namespace LogicaDeServicioCore
             Random rnd = new Random();
             int charNum = 1;
             while (charNum < 25)
+            {
+                res.Append(valid[rnd.Next(valid.Length)]);
+                charNum++;
+            }
+            return res.ToString();
+        }
+
+        public static string GenerarCodigo()
+        {
+            const string valid = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            StringBuilder res = new StringBuilder();
+            Random rnd = new Random();
+            int charNum = 1;
+            while (charNum < 6)
             {
                 res.Append(valid[rnd.Next(valid.Length)]);
                 charNum++;

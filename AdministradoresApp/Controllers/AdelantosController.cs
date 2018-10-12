@@ -60,6 +60,8 @@ namespace AdministradoresApp.Controllers
                         ViewBag.Message = mensaje;
                     }
 
+
+
                     return View(adelantos);
                 }
                 else
@@ -82,6 +84,10 @@ namespace AdministradoresApp.Controllers
         {
             if (ComprobarLogin() == "G")
             {
+                int ci = HttpContext.Session.Get<int>(EMPLEADO_SELECCIONADO);
+
+                ViewBag.Empleado = ci;
+
                 return View();
             }
             else
