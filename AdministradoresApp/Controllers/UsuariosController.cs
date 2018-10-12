@@ -116,33 +116,26 @@ namespace AdministradoresApp.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                if (ModelState.IsValid && (!string.IsNullOrEmpty(datadelForm.NuevaContrasenia) || !string.IsNullOrEmpty(datadelForm.NuevoNombreUsuario)))
                 {
-                    if (!string.IsNullOrEmpty(datadelForm.NuevaContrasenia) && !string.IsNullOrEmpty(datadelForm.NuevoNombreUsuario))
-                    {
-                        Administrador adminLogueado = HttpContext.Session.Get<Administrador>(LOG_USER);
-                        if (adminLogueado.Contraseña == datadelForm.Contraseña)
-                            adminLogueado.Contraseña = datadelForm.NuevaContrasenia;
 
-                        IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
-                        if (await controladorUsuario.ModificarContraseña(adminLogueado))
-                        {
-                            HttpContext.Session.Set<string>(SESSION_MENSAJE, "Contraseña modificada exitosamente!.");
-                            return RedirectToAction("Index", "Home", new { area = "" });
-                        }
-                        else
-                        {
-                            HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar modificar la contraseña.");
-                            return RedirectToAction("Index", "Home", new { area = "" });
-                        }
+                    Administrador adminLogueado = HttpContext.Session.Get<Administrador>(LOG_USER);
+                    if (adminLogueado.Contraseña == datadelForm.Contraseña && adminLogueado.NombreUsuario == datadelForm.NombreUsuario)
+                    {
+                        adminLogueado.Contraseña = string.IsNullOrEmpty(datadelForm.NuevaContrasenia) ? adminLogueado.Contraseña : datadelForm.NuevaContrasenia;
+                        adminLogueado.NombreUsuario = string.IsNullOrEmpty(datadelForm.NuevoNombreUsuario) ? adminLogueado.NombreUsuario : datadelForm.NuevoNombreUsuario;
+                    }
+                    IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
+                    if (await controladorUsuario.ModificarContraseña(adminLogueado))
+                    {
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "Contraseña modificada exitosamente!.");
+                        return RedirectToAction("Index", "Home", new { area = "" });
                     }
                     else
                     {
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error o datos de contraseña invalidos.");
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar modificar la contraseña.");
                         return RedirectToAction("Index", "Home", new { area = "" });
                     }
-
-
                 }
                 else
                 {

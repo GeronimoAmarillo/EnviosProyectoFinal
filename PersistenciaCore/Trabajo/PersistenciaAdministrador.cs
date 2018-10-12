@@ -361,6 +361,7 @@ namespace PersistenciaCore
                     if (usuDesdeBd != null)
                     {
                         usuDesdeBd.Empleados.Usuarios.Contraseña = unAdmin.Contraseña;
+                        usuDesdeBd.Empleados.Usuarios.NombreUsuario = unAdmin.NombreUsuario;
                         dbConnection.Administradores.Update(usuDesdeBd);
                         dbConnection.SaveChanges();
                         return true;
