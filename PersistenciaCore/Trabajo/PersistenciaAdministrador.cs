@@ -269,9 +269,6 @@ namespace PersistenciaCore
             }
         }
 
-        public bool ModificarContrasenia(Administrador unAdmin)
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
         public bool SetearCodigoRecuperacionContraseña(Administrador admin)
         {
             try
@@ -348,7 +345,10 @@ namespace PersistenciaCore
             }
         }
 
-
+        public bool ModificarContrasenia(Administrador unAdmin)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+        
             optionsBuilder.UseSqlServer(Conexion.ConnectionString);
             try
             {
