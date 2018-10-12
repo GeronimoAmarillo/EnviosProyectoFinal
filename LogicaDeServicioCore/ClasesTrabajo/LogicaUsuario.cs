@@ -128,6 +128,18 @@ namespace LogicaDeServicioCore
             
         }
 
+        public static bool ModificarContrasenia(Administrador unAdmin)
+        {
+            try
+            {
+                return FabricaPersistencia.GetPersistenciaAdministrador().ModificarContrasenia(unAdmin);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar modificar la contraseña." + ex.Message);
+            }
+        }
+
         public static EntidadesCompartidasCore.Cliente BuscarCliente(int rut)
         {
             Cliente cliente;

@@ -79,5 +79,10 @@ namespace LogicaDeServicioCore
                 throw new Exception(ex.Message);
             }
         }
+
+        public bool ModificarContrasenia(Administrador unAdmin)
+        {
+            return LogicaUsuario.ModificarContrasenia(unAdmin);
+        }
     }
 }

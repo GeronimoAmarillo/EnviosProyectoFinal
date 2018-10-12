@@ -209,7 +209,37 @@ namespace PersistenciaCore
             }
         }
 
+        public bool ModificarContrasenia(Administrador unAdmin)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
+            optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+            try
+            {
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+
+                    Administradores usuDesdeBd = dbConnection.Administradores.Include("Usuarios").Where(x => x.CiEmpleado == unAdmin.Ci).FirstOrDefault();
+
+
+                    if (usuDesdeBd != null)
+                    {
+                        usuDesdeBd.Empleados.Usuarios.Contraseña = unAdmin.Contraseña;
+                        dbConnection.Administradores.Update(usuDesdeBd);
+                        dbConnection.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar modificar el Cliente" + ex.Message);
+            }
+        }
 
         public bool ModificarAdmin(EntidadesCompartidasCore.Administrador admin)
         {
