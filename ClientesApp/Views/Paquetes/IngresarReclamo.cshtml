@@ -1,0 +1,66 @@
+﻿@model EntidadesCompartidasCore.Paquete
+
+@{
+    ViewData["Title"] = "IngresarReclamo";
+}
+
+<h2>IngresarReclamo</h2>
+
+<div>
+    <h4>Paquete</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaSalida)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FechaSalida)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Ubicacion)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Ubicacion)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Entrega)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Entrega)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Cliente)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cliente)
+        </dd>
+    </dl>
+</div>
+
+
+<h4>Ingrese el comentario de su reclamo</h4>
+<hr />
+
+@using (Html.BeginForm("IngresarReclamo", "Paquetes"))
+{
+    <div class="form-group">
+        <label>Numero de referencia del paquete</label>
+        <input name="numReferencia" type="text" class="form-control" value=@Model.NumReferencia readonly />
+        <br />
+    </div>
+    <div class="form-group">
+        <label>Ingrese aqui el comentario</label>
+        <textarea name="descripcion" cols="40" rows="10" />
+        <br />
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-default">Realizar Reclamo</button>
+    </div>
+
+}
