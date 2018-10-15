@@ -119,7 +119,7 @@ namespace ClientesApp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> IniciarReclamo(int numReferencia)
+        public async Task<ActionResult> IniciarReclamo([FromForm]int numReferencia)
         {
             try
             {
@@ -132,7 +132,7 @@ namespace ClientesApp.Controllers
                     if (pPaquete != null)
                     {
 
-                        return RedirectToAction("IngresarReclamo", "Paquetes", new { paquete = pPaquete });
+                        return RedirectToAction("IngresarReclamo", "Paquetes", new { numReferencia = pPaquete.NumReferencia });
 
                     }
                     else
@@ -161,13 +161,18 @@ namespace ClientesApp.Controllers
 
         }
 
-        public ActionResult IngresarReclamo(Paquete paquete)
+        public async Task<ActionResult> IngresarReclamo(int numReferencia)
         {
             try
             {
                 if (ComprobarLogin())
                 {
-                    return View(paquete);
+
+                    IControladorPaquete controladorPaquete = FabricaApps.GetControladorPaquete();
+
+                    Paquete pPaquete = await controladorPaquete.BuscarPaquete(numReferencia);
+
+                    return View(pPaquete);
                 }
                 else
                 {
@@ -187,7 +192,7 @@ namespace ClientesApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult IngresarReclamo(string descripcion, int numReferencia)
+        public ActionResult IngresarReclamo([FromForm]string descripcion, [FromForm]int numReferencia)
         {
             try
             {
