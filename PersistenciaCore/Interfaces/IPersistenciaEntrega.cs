@@ -9,7 +9,7 @@ namespace PersistenciaCore
 {
     public interface IPersistenciaEntrega
     {
-        bool Entregar(List<EntidadesCompartidasCore.Entrega> entregas);
+        bool Entregar(EntidadesCompartidasCore.Entrega entrega);
 
         List<EntidadesCompartidasCore.Entrega> ListarEntregas();
 

@@ -11,9 +11,69 @@ namespace PersistenciaCore
 {
     class PersistenciaEntrega:IPersistenciaEntrega
     {
-        public bool Entregar(List<EntidadesCompartidasCore.Entrega> entregas)
+        public bool Entregar(EntidadesCompartidasCore.Entrega entrega)
         {
-            return true;
+            try
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+
+                PersistenciaCore.Entregas entregaAgregar = new PersistenciaCore.Entregas();
+
+                entregaAgregar.ClienteEmisor = entrega.ClienteEmisor;
+                entregaAgregar.ClienteReceptor = entrega.ClienteReceptor;
+                entregaAgregar.Codigo = entrega.Codigo;
+                entregaAgregar.Fecha = entrega.Fecha;
+                entregaAgregar.LocalEmisor = entrega.LocalEmisor;
+                entregaAgregar.LocalReceptor = entrega.LocalReceptor;
+                entregaAgregar.NombreReceptor = entrega.NombreReceptor;
+
+                List<Paquetes> paquetes = TransformarPaquetes(entrega.Paquetes);
+                List<Paquetes> paquetes1 = TransformarPaquetes(entrega.Paquetes1);
+
+                entregaAgregar.Codigo = entrega.Codigo;
+
+                entregaAgregar.Turno = entrega.Turno;
+
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    using (var transaction = dbConnection.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            if(paquetes != null || paquetes.Count > 0)
+                            {
+                                foreach (Paquetes p in paquetes)
+                                {
+                                    dbConnection.Paquetes.Update(p);
+                                }
+                            }
+
+                            if (paquetes1 != null || paquetes1.Count > 0)
+                            {
+                                foreach (Paquetes p in paquetes1)
+                                {
+                                    dbConnection.Paquetes.Update(p);
+                                }
+                            }
+                            
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            throw new Exception();
+                        }
+                    }
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al realizar la entrega." + ex);
+            }
         }
 
         public Entrega BuscarEntrega(int codigo)
@@ -85,7 +145,48 @@ namespace PersistenciaCore
 
         public List<EntidadesCompartidasCore.Entrega> ListarEntregas()
         {
-            return new List<EntidadesCompartidasCore.Entrega>();
+            try
+            {
+                List<Entrega> entregasResultado = new List<Entrega>();
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    var entregas = dbConnection.Entregas.Include("Paquetes").Include("Paquetes1").Where(x=> x.Paquetes.FirstOrDefault().Estado == "Levantado" || x.Paquetes1.FirstOrDefault().Estado == "Levantado").ToList();
+
+                    Entrega entregaResultado = null;
+
+                    if (entregas != null)
+                    {
+                        foreach (Entregas e in entregas)
+                        {
+                            entregaResultado = new Entrega();
+
+                            entregaResultado.ClienteEmisor = e.ClienteEmisor;
+                            entregaResultado.ClienteReceptor = e.ClienteReceptor;
+                            entregaResultado.Codigo = e.Codigo;
+                            entregaResultado.Fecha = e.Fecha;
+                            entregaResultado.LocalEmisor = e.LocalEmisor;
+                            entregaResultado.LocalReceptor = e.LocalReceptor;
+                            entregaResultado.NombreReceptor = e.NombreReceptor;
+                            entregaResultado.Paquetes = TransformarPaquetesInversa(e.Paquetes);
+                            entregaResultado.Paquetes1 = TransformarPaquetesInversa(e.Paquetes1);
+                            entregaResultado.Turno = e.Turno;
+
+                            entregasResultado.Add(entregaResultado);
+                        }
+                    }
+                }
+
+                return entregasResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar las entregas." + ex.Message);
+            }
         }
 
         public List<Paquetes> TransformarPaquetes(List<Paquete> pPaquetes)
