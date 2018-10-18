@@ -32,5 +32,7 @@ namespace PersistenciaCore
         bool SetearCodigoRecuperacionContraseña(Administrador admin);
 
         bool SetearCodigoModificarEmail(Administrador admin);
+
+        bool ModificarContrasenia(Administrador unAdmin);
     }
 }

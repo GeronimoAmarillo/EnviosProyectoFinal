@@ -11,29 +11,29 @@ namespace PersistenciaCore
 {
     class PersistenciaCliente:IPersistenciaCliente
     {
-        public PersistenciaCliente()
-        {
-            Mapper.Initialize(cfg =>
-            {
-                cfg.CreateMap<Cliente, Clientes>()
-                    .ForMember(d => d.RUT, opt => opt.MapFrom(u => u.RUT))
-                    .ForMember(d => d.Mensualidad, opt => opt.MapFrom(u => u.Mensualidad))
-                    .ForMember(d => d.Palets, opt => opt.MapFrom(u => u.Palets))
-                    .ForMember(d => d.Usuarios, opt => opt.MapFrom(u => u.Usuarios))
-                    .ForMember(d => d.Paquetes, opt => opt.MapFrom(u => u.Paquetes))
-                    .ForMember(d => d.Calificaciones, opt => opt.MapFrom(u => u.Calificaciones))
-                ;
+        //public PersistenciaCliente()
+        //{
+        //    Mapper.Initialize(cfg =>
+        //    {
+        //        cfg.CreateMap<Cliente, Clientes>()
+        //            .ForMember(d => d.RUT, opt => opt.MapFrom(u => u.RUT))
+        //            .ForMember(d => d.Mensualidad, opt => opt.MapFrom(u => u.Mensualidad))
+        //            .ForMember(d => d.Palets, opt => opt.MapFrom(u => u.Palets))
+        //            .ForMember(d => d.Usuarios, opt => opt.MapFrom(u => u.Usuarios))
+        //            .ForMember(d => d.Paquetes, opt => opt.MapFrom(u => u.Paquetes))
+        //            .ForMember(d => d.Calificaciones, opt => opt.MapFrom(u => u.Calificaciones))
+        //        ;
 
-                cfg.CreateMap<Usuario, Usuarios>()
-                    .ForMember(d => d.Nombre, opt => opt.MapFrom(u => u.Nombre))
-                    .ForMember(d => d.NombreUsuario, opt => opt.MapFrom(u => u.NombreUsuario))
-                    .ForMember(d => d.Telefono, opt => opt.MapFrom(u => u.Telefono))
-                    .ForMember(d => d.Contraseña, opt => opt.MapFrom(u => u.Contraseña))
-                    .ForMember(d => d.Direccion, opt => opt.MapFrom(u => u.Direccion))
-                    .ForMember(d => d.Email, opt => opt.MapFrom(u => u.Email))
-                ;
-            });
-        }
+        //        cfg.CreateMap<Usuario, Usuarios>()
+        //            .ForMember(d => d.Nombre, opt => opt.MapFrom(u => u.Nombre))
+        //            .ForMember(d => d.NombreUsuario, opt => opt.MapFrom(u => u.NombreUsuario))
+        //            .ForMember(d => d.Telefono, opt => opt.MapFrom(u => u.Telefono))
+        //            .ForMember(d => d.Contraseña, opt => opt.MapFrom(u => u.Contraseña))
+        //            .ForMember(d => d.Direccion, opt => opt.MapFrom(u => u.Direccion))
+        //            .ForMember(d => d.Email, opt => opt.MapFrom(u => u.Email))
+        //        ;
+        //    });
+        //}
 
         public Cliente BuscarCliente(int rut)
         {

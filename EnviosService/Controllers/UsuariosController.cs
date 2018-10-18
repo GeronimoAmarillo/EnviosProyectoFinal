@@ -101,5 +101,12 @@ namespace EnviosService.Controllers
         {
             return Json(controladorUsuario.RecuperarContraseña(mail), new Newtonsoft.Json.JsonSerializerSettings());
         }
+
+        [HttpPut]
+        [Route("Api/Usuarios/ModificarContrasenia")]
+        public JsonResult ModificarContrasenia([FromBody] Administrador usuario)
+        {
+            return Json(controladorUsuario.ModificarContrasenia(usuario), new Newtonsoft.Json.JsonSerializerSettings());
+        }
     }
 }

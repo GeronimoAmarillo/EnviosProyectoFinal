@@ -27,6 +27,8 @@ namespace LogicaDeServicioCore
 
         bool ModificarUsuario(Usuario pUsuario);
 
+        bool ModificarContrasenia(Administrador unUsuario);
+
         bool SetearCodigoRecuperarContraseña(Usuario unUsuario);
 
         bool SetearCodigoModificarEmail(Usuario unUsuario);

@@ -347,6 +347,38 @@ namespace PersistenciaCore
             }
         }
 
+        public bool ModificarContrasenia(Administrador unAdmin)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+        
+            optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+            try
+            {
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+
+                    Usuarios usuDesdeBd = dbConnection.Usuarios.Where(x => x.Id == unAdmin.Id).FirstOrDefault();
+
+
+                    if (usuDesdeBd != null)
+                    {
+                        usuDesdeBd.Contraseña = unAdmin.Contraseña;
+                        usuDesdeBd.NombreUsuario = unAdmin.NombreUsuario;
+                        dbConnection.Usuarios.Update(usuDesdeBd);
+                        dbConnection.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar modificar nombre de usuario o contraseña" + ex.Message);
+            }
+        }
 
        public bool ModificarAdmin(EntidadesCompartidasCore.Administrador administrador)
         {
