@@ -1,0 +1,73 @@
+﻿@model DTUsuario
+
+@{
+    ViewData["Title"] = "Modificar Nombre de Usuario y/o Contraseña";
+}
+
+<h2>Modificar Nombre de Usuario y/o Contraseña</h2>
+
+<p></p>
+<p></p>
+<p></p>
+
+@{
+    var mensaje = @ViewBag.Message;
+
+    if (mensaje != null && mensaje != "")
+    {
+
+        <h3 class="text-info">@mensaje</h3>
+
+    }
+
+}
+
+<hr />
+<div class="form-group">
+    <div class="col-md-4">
+        <form asp-controller="Usuarios" asp-action="ModificarContrasenia" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NombreUsuario" class="control-label"></label>
+                <input asp-for="NombreUsuario" class="form-control" name="NombreUsuario" id="NombreUsuario"/>
+                <span asp-validation-for="NombreUsuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NuevoNombreUsuario" class="control-label"></label>
+                <input asp-for="NuevoNombreUsuario" class="form-control" name="NuevoNombreUsuario" id="NuevoNombreUsuario"/>
+                <span asp-validation-for="NuevoNombreUsuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Contraseña" class="control-label"></label>
+                <input asp-for="Contraseña" class="form-control" name="Contraseña" id="Contraseña" />
+                <span asp-validation-for="Contraseña" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NuevaContrasenia" class="control-label"></label>
+                <input asp-for="NuevaContrasenia" class="form-control" name="NuevaContrasenia" id="NuevaContrasenia" />
+                <span asp-validation-for="NuevaContrasenia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Modificar" id="submit" name="submit" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Volver al inicio</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script language="javascript">
+
+    document.getElementById("submit").onclick = function () {
+        if (NombreUsuario.value == NuevoNombreUsuario.value || Contraseña.value == NuevaContrasenia.value) {
+            alert('EL Nombre de Usuario y la contraseña no pueden ser iguales al anterior')
+            return false;
+        }
+    }
+</script>

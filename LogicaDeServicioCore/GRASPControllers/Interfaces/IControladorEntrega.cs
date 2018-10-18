@@ -22,6 +22,8 @@ namespace LogicaDeServicioCore
 
         List<Local> ListarLocales();
 
+        Entrega BuscarEntrega(int codigo);
+
         bool AltaEntrega(Entrega pEntrega);
     }
 }

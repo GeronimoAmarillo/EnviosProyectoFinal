@@ -9,30 +9,77 @@ namespace LogicaDeServicioCore
 {
     class ControladorPaquete:IControladorPaquete
     {
-        public bool RealizarReclamo(string descripcion)
+        public bool RealizarReclamo(EntidadesCompartidasCore.Reclamo reclamo)
         {
-            return true;
+            try
+            {
+                return LogicaPaquete.RealizarReclamo(reclamo);
+            }
+            catch
+            {
+                throw new Exception("Error al intentar dar de alta el Reclamo.");
+            }
         }
       
-        public Paquete BuscarPaquete(int codigo)
+        public Paquete BuscarPaquete(int numReferencia)
         {
-            return new Paquete();
+            try
+            {
+                Paquete paquete = LogicaPaquete.BuscarPaqueteXreferencia(numReferencia);
+
+                return paquete;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el paquete." + ex.Message);
+            }
         }
-        
+        public Paquete BuscarPaqueteIndividual(int numReferencia, int cliente)
+        {
+            try
+            {
+                Paquete paquete = LogicaPaquete.BuscarPaqueteIndividual(numReferencia, cliente);
+
+                return paquete;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el paquete." + ex.Message);
+            }
+        }
+
         public List<Local> ListarLocales()
         {
             return new List<Local>();
         }
 
-        public List<Paquete> ListarPaquetesEnviadosXCliente(int cedula)
+        public List<Paquete> ListarPaquetesEnviadosXCliente(int rut)
         {
-            return new List<Paquete>();
+            try
+            {
+                List<Paquete> lista = LogicaPaquete.ListarPaquetesEnviadosXcliente(rut);
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los paquetes." + ex.Message);
+            }
         }
         
 
-        public List<Paquete> ListarPaquetesRecibidosXCliente(int cedula)
+        public List<Paquete> ListarPaquetesRecibidosXCliente(int rut)
         {
-            return new List<Paquete>();
+            try
+            {
+                List<Paquete> lista = LogicaPaquete.ListarPaquetesRecibidosXcliente(rut);
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los paquetes." + ex.Message);
+            }
         }
 
         public Local BuscarLocal(string nombre)

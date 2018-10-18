@@ -34,45 +34,42 @@ namespace EnviosService.Controllers
         {
             return Json(controladorEmpleado.ExisteEmpleado(ci), new Newtonsoft.Json.JsonSerializerSettings());
         }
-        [HttpPut]
         [HttpPost]
-        [Route("api/Empleados/Modificar")]
         [Route("api/Empleados/Alta")]
         public JsonResult Empleado([FromBody] Administrador item)
         {
-            switch (Request.Method.ToString())
-            {
-                case "POST":
+           
                     return Json(controladorEmpleado.AltaEmpleado(item), new Newtonsoft.Json.JsonSerializerSettings());
-                case "PUT":
-                    return Json(controladorEmpleado.ModificarEmpleado(item), new Newtonsoft.Json.JsonSerializerSettings());
-            }
+            
 
-            return Json("Accion Http Desconocida", new Newtonsoft.Json.JsonSerializerSettings());
+            
         }
-        [HttpPut]
+        
+        [HttpPost]
+        [Route("api/Empleados/Modificar")]
+        public JsonResult EmpleadoModifcar([FromBody] Administrador item)
+        {         
+            return Json(controladorEmpleado.ModificarEmpleado(item), new Newtonsoft.Json.JsonSerializerSettings());                  
+        }
         [HttpPost]
         [Route("api/Empleados/ModificarCadete")]
+        public JsonResult EmpleadoModifcarCadete([FromBody] Cadete item)
+        {
+            return Json(controladorEmpleado.ModificarEmpleado(item), new Newtonsoft.Json.JsonSerializerSettings());
+
+        }
+        [HttpPost]
         [Route("api/Empleados/AltaCadete")]
         public JsonResult EmpleadoCadete([FromBody] Cadete item)
-        {
-            switch (Request.Method.ToString())
-            {
-                case "POST":
+        {          
                     return Json(controladorEmpleado.AltaEmpleado(item), new Newtonsoft.Json.JsonSerializerSettings());
-                case "PUT":
-                    return Json(controladorEmpleado.ModificarEmpleado(item), new Newtonsoft.Json.JsonSerializerSettings());
-            }
-
-            return Json("Accion Http Desconocida", new Newtonsoft.Json.JsonSerializerSettings());
+               
         }
-        [HttpDelete]
+        [HttpPost]
         [Route("api/Empleados/EliminarEmpleado")]
-        public JsonResult EliminarEmpleado([FromBody] Empleado item)
+        public JsonResult EliminarEmpleado([FromBody] Empleado empleado)
         {
-           
-                    return Json(controladorEmpleado.BajaEmpleado(item), new Newtonsoft.Json.JsonSerializerSettings());
-            
+            return Json(controladorEmpleado.BajaEmpleado(empleado.Ci), new Newtonsoft.Json.JsonSerializerSettings());            
         }
         [HttpGet]
         [Route("api/Empleados/Listar")]
@@ -83,7 +80,7 @@ namespace EnviosService.Controllers
                 TypeNameHandling = TypeNameHandling.All
             };
 
-            return Json((controladorEmpleado.Listar()), settings);
+            return Json(controladorEmpleado.Listar(), settings);
         }
     }
 }

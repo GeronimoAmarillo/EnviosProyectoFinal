@@ -28,6 +28,7 @@ namespace PersistenciaCore
 
                 camionetaAgregar.Cabina = camioneta.Cabina;
                 camionetaAgregar.MatriculaCamioneta = camioneta.Matricula;
+                camionetaAgregar.Vehiculos = vehiculoAgregar;
 
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
@@ -36,7 +37,6 @@ namespace PersistenciaCore
 
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    dbConnection.Vehiculos.Add(vehiculoAgregar);
                     dbConnection.Camionetas.Add(camionetaAgregar);
 
                     dbConnection.SaveChanges();
@@ -163,6 +163,7 @@ namespace PersistenciaCore
                     if (vehiculoDesdeDB == 1 && camionetaDesdeDb == 1)
                     {
                         dbConnection.Camionetas.Update(camionetaaModificar);
+
                         dbConnection.SaveChanges();
                         return true;
                     }
@@ -191,7 +192,7 @@ namespace PersistenciaCore
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    camioneta = dbConnection.Camionetas.Include("Vehiculos.Reparaciones").Where(a => a.MatriculaCamioneta == matricula).FirstOrDefault();
+                    camioneta = dbConnection.Camionetas.Include("Vehiculos.Reparaciones").Include("Vehiculos.Multas").Where(a => a.MatriculaCamioneta == matricula).FirstOrDefault();
                 }
 
                 Camioneta camionetaResultado = null;
@@ -222,6 +223,23 @@ namespace PersistenciaCore
 
                         reparaciones.Add(nR);
                     }
+
+                    List<Multa> multas = new List<Multa>();
+
+                    foreach (Multas r in camioneta.Vehiculos.Multas)
+                    {
+                        Multa nR = new Multa();
+
+                        nR.Id = r.Id;
+                        nR.Fecha = r.Fecha;
+                        nR.Suma = r.Suma;
+                        nR.Motivo = r.Motivo;
+                        nR.Vehiculo = r.Vehiculo;
+
+                        multas.Add(nR);
+                    }
+
+                    camionetaResultado.Multas = multas;
 
                     camionetaResultado.Reparaciones = reparaciones;
                 }

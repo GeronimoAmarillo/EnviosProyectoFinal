@@ -11,13 +11,13 @@ namespace EntidadesCompartidasAndroid
         
         public string NombreReceptor { get; set; }
 
-        public long ClienteReceptor { get; set; }
+        public long? ClienteReceptor { get; set; }
 
-        public long ClienteEmisor { get; set; }
+        public long? ClienteEmisor { get; set; }
 
-        public int LocalReceptor { get; set; }
+        public int? LocalReceptor { get; set; }
 
-        public int LocalEmisor { get; set; }
+        public int? LocalEmisor { get; set; }
         
         public string Turno { get; set; }
 

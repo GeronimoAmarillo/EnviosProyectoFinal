@@ -54,6 +54,7 @@
     <Compile Include="Camioneta.cs" />
     <Compile Include="Casilla.cs" />
     <Compile Include="Cliente.cs" />
+    <Compile Include="ConexionREST.cs" />
     <Compile Include="Cuota.cs" />
     <Compile Include="Empleado.cs" />
     <Compile Include="Entrega.cs" />

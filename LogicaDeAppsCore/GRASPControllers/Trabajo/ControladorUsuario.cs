@@ -144,9 +144,30 @@ namespace LogicaDeAppsCore
         }
 
 
-        public Usuario ModificarContraseña(string contraseñaNueva)
+        public async Task<bool> ModificarContraseña(Administrador pAdmin)
         {
-            return new Usuario();
+            try
+            {
+                var httpClient = new HttpClient();
+                var EnvioJson = JsonConvert.SerializeObject(pAdmin);
+
+                var retorno = await httpClient.PutAsync("http://localhost:8080/Api/Usuarios/ModificarContrasenia", new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
+                var contentResult = retorno.Content.ReadAsStringAsync();
+
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar modificar contraseña: " + ex.Message);
+            }
         }
 
         public async Task<Usuario> ModificarEmail(Usuario pUsuario)
@@ -253,8 +274,135 @@ namespace LogicaDeAppsCore
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al intentar dar de alta: " + ex.Message);
+                throw new Exception("Error al intentar modificar: " + ex.Message);
             }
-        }   
+        }
+
+
+
+        public async Task<bool> SetearCodigoContraseña(Usuario unUsuario)
+        {
+            try
+            {
+                bool exito = false;
+
+                var httpClient = new HttpClient();
+
+                var EnvioJson = JsonConvert.SerializeObject(unUsuario);
+
+                HttpResponseMessage retorno = await httpClient.PostAsync(ConexionREST.ConexionUsuarios + "/RecuperacionContrasenia", new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
+
+                var contentResult = retorno.Content.ReadAsStringAsync();
+
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar dar de alta el Usuario: " + ex.Message);
+            }
+        }
+
+        public async Task<bool> SetearCodigoEmail(Usuario unUsuario)
+        {
+            try
+            {
+                bool exito = false;
+
+                var httpClient = new HttpClient();
+
+                var EnvioJson = JsonConvert.SerializeObject(unUsuario);
+
+                HttpResponseMessage retorno = await httpClient.PostAsync(ConexionREST.ConexionUsuarios + "/RecuperacionEmail", new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
+
+                var contentResult = retorno.Content.ReadAsStringAsync();
+
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar dar de alta el Usuario: " + ex.Message);
+            }
+        }
+
+
+        public async Task<bool> VerificarCodigoContraseña(string codigo, string email)
+        {
+            try
+            {
+                bool exito = false;
+
+                var httpClient = new HttpClient();
+
+                List<string> valores = new List<string>();
+                valores.Add(email);
+                valores.Add(codigo);
+
+                var EnvioJson = JsonConvert.SerializeObject(valores);
+
+                HttpResponseMessage retorno = await httpClient.PostAsync(ConexionREST.ConexionUsuarios + "/VerificarCodigoContrasenia", new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
+
+                var contentResult = retorno.Content.ReadAsStringAsync();
+
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar dar de alta el Usuario: " + ex.Message);
+            }
+        }
+
+        public async Task<bool> VerificarCodigoEmail(string codigo, string email)
+        {
+            try
+            {
+                bool exito = false;
+
+                var httpClient = new HttpClient();
+
+                List<string> valores = new List<string>();
+                valores.Add(email);
+                valores.Add(codigo);
+
+                var EnvioJson = JsonConvert.SerializeObject(valores);
+
+                HttpResponseMessage retorno = await httpClient.PostAsync(ConexionREST.ConexionUsuarios + "/VerificarCodigoEmail", new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
+
+                var contentResult = retorno.Content.ReadAsStringAsync();
+
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar dar de alta el Usuario: " + ex.Message);
+            }
+        }
     }
 }

@@ -17,20 +17,19 @@ namespace AdministradoresApp.Controllers
         public static string SESSION_MENSAJE = "Mensaje";
         public static string LOG_USER = "UsuarioLogueado";
         public static string SESSSION_VEHICULOS = "Vehiculos";
+        public static string SESSSION_SELECCIONADO = "VehiculoSeleccionado";
 
         public async Task<ActionResult> Index()
         {
             try
             {
-                if(ComprobarLogin() == "G")
+                if (ComprobarLogin() == "G")
                 {
-                    IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
+                    IControladorReparacion controladorReparacion = FabricaApps.GetControladorReparacion();
 
-                    HttpContext.Session.Set<List<Vehiculo>>(SESSSION_VEHICULOS, null);
+                    string matriculaSeleccionado = HttpContext.Session.Get<string>(SESSSION_SELECCIONADO);
 
-                    List<Vehiculo> vehiculos = await controladorVehiculo.ListarVehiculos();
-
-                    HttpContext.Session.Set<List<Vehiculo>>(SESSSION_VEHICULOS, vehiculos);
+                    Vehiculo vehiculoSeleccionado = await controladorReparacion.SeleccionarVehiculo(matriculaSeleccionado);
 
                     string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
 
@@ -41,7 +40,9 @@ namespace AdministradoresApp.Controllers
                         ViewBag.Message = mensaje;
                     }
 
-                    return View(vehiculos);
+                    ViewBag.Vehiculo = vehiculoSeleccionado;
+
+                    return View(vehiculoSeleccionado.Multas);
                 }
                 else
                 {
@@ -77,7 +78,7 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Registrar([FromForm]Multa multa)
+        public ActionResult Registrar([FromForm]Multa multa)
         {
             try
             {
@@ -88,8 +89,8 @@ namespace AdministradoresApp.Controllers
 
                     if (ModelState.IsValid)
                     {
-                        
-                        bool exito = await controladorMulta.RegistrarMulta(multa);
+
+                        bool exito = controladorMulta.RegistrarMulta(multa);
 
                         if (exito)
                         {
@@ -99,6 +100,10 @@ namespace AdministradoresApp.Controllers
                         {
                             mensaje = "Se produjo un error al registrar la multa.";
                         }
+                    }
+                    else
+                    {
+                        return View();
                     }
 
                     if (mensaje != "")

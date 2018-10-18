@@ -7,7 +7,7 @@ using EntidadesCompartidasCore;
 
 namespace LogicaDeServicioCore
 {
-    class ControladorUsuario:IControladorUsuario
+    class ControladorUsuario : IControladorUsuario
     {
         public bool AltaUsuario(Usuario unUsuario)
         {
@@ -32,6 +32,66 @@ namespace LogicaDeServicioCore
             }
         }
 
+        public bool SetearCodigoRecuperarContraseña(Usuario unUsuario)
+        {
+            try
+            {
+                return LogicaUsuario.SetearCodigoRecuperarContraseña(unUsuario);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool SetearCodigoModificarEmail(Usuario unUsuario)
+        {
+            try
+            {
+                return LogicaUsuario.SetearCodigoModificarEmail(unUsuario);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool VerificarCodigoContraseña(string email, string codigo)
+        {
+            try
+            {
+                bool correcto = false;
+
+                correcto = LogicaUsuario.VerificarCodigoContraseña(email, codigo);
+
+                return correcto;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
+        public bool VerificarCodigoEmail(string email, string codigo)
+        {
+            try
+            {
+                bool correcto = false;
+
+                correcto = LogicaUsuario.VerificarCodigoEmail(email, codigo);
+
+                return correcto;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
         public bool EnviarMail(Usuario usuario)
         {
             return true;
@@ -41,7 +101,7 @@ namespace LogicaDeServicioCore
         {
             return new Usuario();
         }
-        
+
         public Usuario Login(string user, string pass)
         {
             Usuario usuarioLogueado = new Usuario();
@@ -51,7 +111,7 @@ namespace LogicaDeServicioCore
 
                 return usuarioLogueado;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception("Error al loguear el Usuario" + ex.Message);
             }
@@ -77,7 +137,7 @@ namespace LogicaDeServicioCore
         {
             return true;
         }
-        
+
         public bool ModificarUsuario(Usuario pUsuario)
         {
             try
@@ -89,6 +149,11 @@ namespace LogicaDeServicioCore
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public bool ModificarContrasenia(Administrador unAdmin)
+        {
+            return LogicaUsuario.ModificarContrasenia(unAdmin);
         }
     }
 }

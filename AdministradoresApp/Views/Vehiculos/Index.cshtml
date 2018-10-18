@@ -108,9 +108,9 @@
             
             <td>
                 @Html.ActionLink("Modificar", "Modificar", new { matricula = item.Matricula }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Eliminar", "BajaVehiculo", new { matricula = item.Matricula }) |
-                @Html.ActionLink("Reparaciones", "IrReparaciones", new { matricula = item.Matricula })
+                @Html.ActionLink("Reparaciones", "IrReparaciones", new { matricula = item.Matricula }) |
+                @Html.ActionLink("Multas", "IrMultas", new { matricula = item.Matricula })
 
             </td>
         </tr>

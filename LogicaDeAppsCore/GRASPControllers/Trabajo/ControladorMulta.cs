@@ -49,24 +49,33 @@ namespace LogicaDeAppsCore
             return vehiculos;
         }
 
-        public async Task<bool> RegistrarMulta(Multa pMulta)
+        public bool RegistrarMulta(Multa pMulta)
         {
             try
             {
-                bool exito = false;
-                var httpClient = new HttpClient();
-                var EnvioJson = JsonConvert.SerializeObject(pMulta);
-                string url = ConexionREST.ConexionMultas;
-                HttpResponseMessage retorno = await httpClient.PostAsync(url, new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
-                string resultado = await retorno.Content.ReadAsStringAsync();
 
-                if (retorno.IsSuccessStatusCode && resultado == "true")
-                    exito = true;
-                return exito;
+                HttpClient client = new HttpClient();
+
+                string url = ConexionREST.ConexionMultas + "/Alta";
+
+                var content = new StringContent(JsonConvert.SerializeObject(pMulta), Encoding.UTF8, "application/json");
+
+                var result = client.PostAsync(url, content).Result;
+
+                var contentResult = result.Content.ReadAsStringAsync();
+
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al intentar registrar la multa: " + ex.Message);
+                throw new Exception("ERROR!: " + ex.Message);
             }
         }
 

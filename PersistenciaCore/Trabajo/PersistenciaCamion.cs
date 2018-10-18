@@ -29,6 +29,8 @@ namespace PersistenciaCore
                 camionAgregar.Altura = camion.Altura;
                 camionAgregar.MatriculaCamion = camion.Matricula;
 
+                camionAgregar.Vehiculos = vehiculoAgregar;
+
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
                 optionsBuilder.UseSqlServer(Conexion.ConnectionString);
@@ -36,7 +38,6 @@ namespace PersistenciaCore
 
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    dbConnection.Vehiculos.Add(vehiculoAgregar);
                     dbConnection.Camiones.Add(camionAgregar);
 
                     dbConnection.SaveChanges();
@@ -140,7 +141,7 @@ namespace PersistenciaCore
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    camion = dbConnection.Camiones.Include("Vehiculos.Reparaciones").Where(a => a.MatriculaCamion == matricula).FirstOrDefault();
+                    camion = dbConnection.Camiones.Include("Vehiculos.Reparaciones").Include("Vehiculos.Multas").Where(a => a.MatriculaCamion == matricula).FirstOrDefault();
                 }
 
                 Camion camionResultado = null;
@@ -170,6 +171,23 @@ namespace PersistenciaCore
 
                         reparaciones.Add(nR);
                     }
+
+                    List<Multa> multas = new List<Multa>();
+
+                    foreach (Multas r in camion.Vehiculos.Multas)
+                    {
+                        Multa nR = new Multa();
+
+                        nR.Id = r.Id;
+                        nR.Fecha = r.Fecha;
+                        nR.Suma = r.Suma;
+                        nR.Motivo = r.Motivo;
+                        nR.Vehiculo = r.Vehiculo;
+
+                        multas.Add(nR);
+                    }
+
+                    camionResultado.Multas = multas;
 
                     camionResultado.Reparaciones = reparaciones;
                 }
@@ -209,10 +227,12 @@ namespace PersistenciaCore
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
                     int vehiculoDesdeDB = (dbConnection.Vehiculos.Where(x => x.Matricula == camion.Matricula)).Count();
-                    int camionDesdeDb = (dbConnection.Camionetas.Where(x => x.MatriculaCamioneta == camion.Matricula)).Count();
+                    int camionDesdeDb = (dbConnection.Camiones.Where(x => x.MatriculaCamion == camion.Matricula)).Count();
+
                     if (vehiculoDesdeDB == 1 && camionDesdeDb == 1)
                     {
                         dbConnection.Camiones.Update(camionaModificar);
+
                         dbConnection.SaveChanges();
                         return true;
                     }

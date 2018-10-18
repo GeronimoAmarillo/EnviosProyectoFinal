@@ -128,7 +128,7 @@ namespace LogicaDeServicioCore
             {
                 exito = FabricaPersistencia.GetPersistenciaCamioneta().ModificarCamioneta((Camioneta)unVehiculo);
             }
-            else
+            if (unVehiculo is Moto)
             {
                 exito = FabricaPersistencia.GetPersistenciaMoto().ModificarMoto((Moto)unVehiculo);
             }

@@ -58,17 +58,17 @@
                 <span asp-validation-for="Telefono" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label>Su viejo eMail</label>
+                <label>Su actual eMail</label>
                 <input asp-for="EmailViejo" class="form-control" contenteditable="false" readonly/>
                 <span asp-validation-for="EmailViejo" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" hidden>
                 <label>Ingrese su nuevo eMail</label>
-                <input asp-for="Email" class="form-control" />
+                <input asp-for="Email" class="form-control"/>
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div class="form-group" hidden>
-                <input type="submit" value="Solicitar" class="btn btn-default" />
+            <div class="form-group">
+                <input type="submit" value="Solicitar Modificacion" class="btn btn-default" />
             </div>
         </form>
     </div>

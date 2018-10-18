@@ -102,6 +102,10 @@ namespace AdministradoresApp.Controllers
                             mensaje = "Se produjo un error al registrar la reparación!.";
                         }
                     }
+                    else
+                    {
+                        return View();
+                    }
 
                     if (mensaje != "")
                     {

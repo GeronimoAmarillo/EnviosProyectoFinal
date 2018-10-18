@@ -17,6 +17,7 @@ namespace AdministradoresApp.Controllers
     {
         public static string SESSSION_ALTA = "AltaTurno";
         public static string SESSION_MENSAJE = "Mensaje";
+        public static string SESSSION_MODIFICAR = "ModificarTurno";
         public static string LOG_USER = "UsuarioLogueado";
 
         public async Task<ActionResult> Index()
@@ -155,7 +156,93 @@ namespace AdministradoresApp.Controllers
             }
 
         }
+        public async Task<ActionResult> Modificar(string codigo)
+        {
+            if (ComprobarLogin() == "G")
+            {
+                IControladorTurno controladorTurno = FabricaApps.GetControladorTurno();
 
+                Turno turno = await controladorTurno.BuscarTurno(codigo);
+
+                if (turno != null)
+                {
+                    HttpContext.Session.Set<Turno>(SESSSION_MODIFICAR, turno);
+
+                    return View(turno);
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No existe el turno que desea modificar");
+
+                    return RedirectToAction("Index", "Turnos", new { area = "" });
+                }
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult Modificar([FromForm]Turno turno)
+        {
+            try
+            {
+                if (ComprobarLogin() == "G")
+                {
+
+                    Turno turnomodificar = HttpContext.Session.Get<Turno>(SESSSION_MODIFICAR);
+
+                    turnomodificar.Codigo = turno.Codigo;
+                    turnomodificar.Dia = turno.Dia;
+                    turnomodificar.Entregas = turno.Entregas;
+                    turnomodificar.Hora = turno.Hora;
+                    
+                    IControladorTurno controladorTurno = FabricaApps.GetControladorTurno();
+
+                    string mensaje = "";
+
+                    if (ModelState.IsValid)
+                    {
+                        bool exito = controladorTurno.ModificarTurno(turnomodificar);
+
+                        if (exito)
+                        {
+                            controladorTurno.SetTurno(null);
+                            mensaje = "El turno se modifico con exito!.";
+                        }
+                        else
+                        {
+                            mensaje = "Se produjo un error al dar de alta el turno!.";
+                        }
+                    }
+
+                    if (mensaje != "")
+                    {
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                    }
+
+                    return RedirectToAction("Index");
+
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+
+        }
         public string ComprobarLogin()
         {
             try
