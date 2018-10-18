@@ -279,6 +279,16 @@ namespace LogicaDeServicioCore
                     exito = FabricaPersistencia.GetPersistenciaCliente().ModificarCliente((Cliente)unUsuario);
                     return exito;
                 }
+                if (unUsuario is Administrador)
+                {
+                    exito = FabricaPersistencia.GetPersistenciaAdministrador().ModificarAdmin((Administrador)unUsuario);
+                    return exito;
+                }
+                if (unUsuario is Cadete)
+                {
+                    exito = FabricaPersistencia.GetPersistenciaCadete().ModificarCadete((Cadete)unUsuario);
+                    return exito;
+                }
                 return exito;
 
             }
@@ -464,7 +474,7 @@ namespace LogicaDeServicioCore
             {
                 empleado = FabricaPersistencia.GetPersistenciaAdministrador().BuscarAdministrador(cedula);
 
-                if (empleado == null)
+                if (empleado.NombreUsuario == null)
                 {
                     empleado = FabricaPersistencia.GetPersistenciaCadete().BuscarCadete(cedula);
                 }

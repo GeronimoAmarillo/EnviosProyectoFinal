@@ -123,7 +123,30 @@ namespace PersistenciaCore
 
         public bool ModificarTurno(EntidadesCompartidasCore.Turno turno)
         {
-            return true;
+            try
+            {
+                PersistenciaCore.Turnos turnoModificar = new PersistenciaCore.Turnos();
+                turnoModificar.Codigo = turno.Codigo;
+                turnoModificar.Dia = turno.Dia;
+                turnoModificar.Hora = turno.Hora;
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    dbConnection.Turnos.Update(turnoModificar);
+                    dbConnection.SaveChanges();
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al modificar el turno.");
+            }
         }
 
         public bool AltaTurno(EntidadesCompartidasCore.Turno turno)
@@ -157,5 +180,38 @@ namespace PersistenciaCore
             }
 
         }
+        public EntidadesCompartidasCore.Turno BuscarTurno(string codigo)
+        {
+            try
+            {
+                Turno turnoresultado = null;
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    var turno = dbConnection.Turnos.Where(t => t.Codigo == codigo).Select(c => new {
+                        Turno = c
+                    }).FirstOrDefault();
+
+                    if (turno != null && turno.Turno is Turnos)
+                    {
+                        turnoresultado = new Turno();
+                        turnoresultado.Codigo = codigo;
+                        turnoresultado.Dia = turno.Turno.Dia;
+                        turnoresultado.Hora = turno.Turno.Hora;
+                    }
+                }
+
+                return turnoresultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el local." + ex.Message);
+            }
+        }
+
     }
 }

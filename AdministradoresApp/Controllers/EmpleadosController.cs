@@ -118,25 +118,81 @@ namespace AdministradoresApp.Controllers
 
                 if (emp != null)
                 {
-                    DTEmpleado empleadoEditar = new DTEmpleado()
-                    {
-                        Sueldo = emp.Sueldo,
-                          Ci = emp.Ci
-                    };
+                    HttpContext.Session.Set<Empleado>(EMPLEADO_SELECCIONADO, null);
+                    HttpContext.Session.Set<Empleado>(EMPLEADO_SELECCIONADO, emp);
 
                     if (emp is Administrador)
                     {
-                       empleadoEditar.TipoAdministrador= ((Administrador)emp).Tipo;
-                        empleadoEditar.Tipo = "administrador";
+
+                        return RedirectToAction("ModificarAdmin", "Empleados", new { area = "" });
                     }
-                    if (emp is Cadete)
+                    else
                     {
-                        empleadoEditar.TipoLibreta = ((Cadete)emp).TipoLibreta;
-                        empleadoEditar.IdTelefono = ((Cadete)emp).IdTelefono;
-                        empleadoEditar.Tipo = "cadete";
+                        return RedirectToAction("ModificarCadete", "Empleados", new { area = "" });
                     }
 
-                    HttpContext.Session.Set<Empleado>(SESSSION_MODIFICAR, emp);
+                    
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No existe el empleado que desea modificar");
+
+                    return RedirectToAction("Index", "Empleados", new { area = "" });
+                }
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+
+        public ActionResult ModificarAdmin()
+        {
+            if (ComprobarLogin() == "G")
+            {
+                IControladorEmpleado controladorEmpleado = FabricaApps.GetControladorEmpleado();
+
+                //List<Empleado> empleados = HttpContext.Session.Get<List<Empleado>>(SESSSION_EMPLEADOS);
+
+                Empleado emp = HttpContext.Session.Get<Empleado>(EMPLEADO_SELECCIONADO);
+
+                if (emp != null)
+                {
+
+
+                    return View(emp);
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No existe el empleado que desea modificar");
+
+                    return RedirectToAction("Index", "Empleados", new { area = "" });
+                }
+            }
+            else
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+        public ActionResult ModificarCadete()
+        {
+            if (ComprobarLogin() == "G")
+            {
+                IControladorEmpleado controladorEmpleado = FabricaApps.GetControladorEmpleado();
+
+                //List<Empleado> empleados = HttpContext.Session.Get<List<Empleado>>(SESSSION_EMPLEADOS);
+
+                Empleado emp = HttpContext.Session.Get<Empleado>(EMPLEADO_SELECCIONADO);
+
+                if (emp != null)
+                {
+
 
                     return View(emp);
                 }
@@ -168,7 +224,10 @@ namespace AdministradoresApp.Controllers
 
 
                     empModificar.Id = empleado.Id;
+                    empModificar.IdUsuario = empleado.Id;
+                    empModificar.Ci = empleado.Ci;
                     empModificar.Nombre = empleado.Nombre;
+                    empModificar.NombreUsuario = empleado.NombreUsuario;
                     empModificar.Sueldo = empleado.Sueldo;
                     empModificar.Telefono = empleado.Telefono;
                     empModificar.Tipo = empleado.Tipo;
@@ -194,7 +253,7 @@ namespace AdministradoresApp.Controllers
                         }
                         else
                         {
-                            mensaje = "Se produjo un error al modifica el administrador!.";
+                            mensaje = "Se produjo un error al modificar el administrador!.";
                         }
                     }
 
@@ -222,6 +281,75 @@ namespace AdministradoresApp.Controllers
 
         }
 
+        [HttpPost]
+        public ActionResult ModificarCadete([FromForm]Cadete empleado)
+        {
+            try
+            {
+                if (ComprobarLogin() == "G")
+                {
+
+                    Cadete empModificar = new Cadete();
+
+
+                    empModificar.Id = empleado.Id;
+                    empModificar.IdUsuario = empleado.Id;
+                    empModificar.NombreUsuario = empleado.NombreUsuario;
+                    empModificar.Nombre = empleado.Nombre;
+                    empModificar.Ci = empleado.Ci;
+                    empModificar.Sueldo = empleado.Sueldo;
+                    empModificar.Telefono = empleado.Telefono;
+                    empModificar.TipoLibreta = empleado.TipoLibreta;
+                    empModificar.IdTelefono = empModificar.IdTelefono;
+                    empModificar.Email = empleado.Email;
+                    empModificar.Direccion = empleado.Direccion;
+                    empModificar.Contraseña = empleado.Contraseña;
+
+
+
+
+                    IControladorEmpleado controladorEmpleado = FabricaApps.GetControladorEmpleado();
+
+                    string mensaje = "";
+
+                    if (ModelState.IsValid)
+                    {
+                        bool exito = controladorEmpleado.ModificarCadete(empModificar);
+
+                        if (exito)
+                        {
+                            controladorEmpleado.SetEmpleado(null);
+                            mensaje = "El cadete se modifico con exito!.";
+                        }
+                        else
+                        {
+                            mensaje = "Se produjo un error al modificar el cadete!.";
+                        }
+                    }
+
+                    if (mensaje != "")
+                    {
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                    }
+
+                    return RedirectToAction("Index");
+
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+
+        }
         public ActionResult AltaAdministrador()
         {
             
@@ -435,7 +563,7 @@ namespace AdministradoresApp.Controllers
             }
 
         }
-        public async Task<ActionResult> EliminarEmpleado(int id)
+        public async Task<ActionResult> EliminarEmpleado(int ci)
         {
             EntidadesCompartidasCore.Empleado empleado = new EntidadesCompartidasCore.Empleado();
 
@@ -443,7 +571,7 @@ namespace AdministradoresApp.Controllers
             {
                 IControladorEmpleado controladorEmpleado = FabricaApps.GetControladorEmpleado();
 
-                empleado = await controladorEmpleado.BuscarEmpleado(id);
+                empleado = await controladorEmpleado.BuscarEmpleado(ci);
 
                 if (empleado != null)
                 {
@@ -466,8 +594,8 @@ namespace AdministradoresApp.Controllers
             }
         }
 
-        [HttpPost, ActionName("EliminarEmpleado")]
-        public ActionResult EliminarEmpleadoPost()
+        [HttpPost]
+        public ActionResult EliminarEmpleado()
         {
             try
             {

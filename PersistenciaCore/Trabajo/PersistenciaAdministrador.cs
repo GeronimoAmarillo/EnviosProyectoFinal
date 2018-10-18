@@ -230,11 +230,14 @@ namespace PersistenciaCore
 
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
-                       
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
+
                     administradores = dbConnection.Administradores.Include("Empleados.Usuarios").ToList();
+
                 }
 
                 List<Administrador> adminsResultado = new List<Administrador>();

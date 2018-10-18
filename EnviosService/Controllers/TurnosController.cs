@@ -25,7 +25,7 @@ namespace EnviosService.Controllers
         {
             return Json(controladorTurno.ListarTurnos(), new Newtonsoft.Json.JsonSerializerSettings());
         }
-
+        [Route("api/Turnos/Turno")]
         [HttpGet("{codigo}")]
         public JsonResult Turno(string codigo)
         {
@@ -38,21 +38,18 @@ namespace EnviosService.Controllers
         {
             return Json(controladorTurno.ExisteTurno(dia,hora), new Newtonsoft.Json.JsonSerializerSettings());
         }
-
-        [HttpPut]
+        [Route("api/Turnos/Modificar")]
+        [HttpPost]
+        public JsonResult Modificar([FromBody] Turno item)
+        {
+            return Json(controladorTurno.ModificarTurno(item), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+       
         [HttpPost]
         [Route("api/Turnos/Alta")]
         public JsonResult Turno([FromBody] Turno item)
-        {
-            switch (Request.Method.ToString())
-            {
-                case "POST":
+        {         
                     return Json(controladorTurno.AltaTurno(item), new Newtonsoft.Json.JsonSerializerSettings());
-                case "PUT":
-                    return Json(controladorTurno.ModificarTurno(item), new Newtonsoft.Json.JsonSerializerSettings());
-            }
-
-            return Json("Accion Http Desconocida", new Newtonsoft.Json.JsonSerializerSettings());
         }
     }
 }

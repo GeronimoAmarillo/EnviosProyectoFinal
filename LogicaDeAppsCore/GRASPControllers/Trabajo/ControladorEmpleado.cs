@@ -81,14 +81,14 @@ namespace LogicaDeAppsCore
             empleado = pEmpleado;
         }
 
-        public async Task<Empleado> BuscarEmpleado(int Id)
+        public async Task<Empleado> BuscarEmpleado(int cedula)
         {
             HttpClient client = new HttpClient();
             Empleado emp = GetEmpleado();
 
 
             var httpClient = new HttpClient();
-            var json = await httpClient.GetStringAsync("http://localhost:8080/api/Empleados/Empleado?" + "Id=" + Id);
+            var json = await httpClient.GetStringAsync("http://localhost:8080/api/Empleados/Empleado?" + "ci=" + cedula);
 
             emp = JsonConvert.DeserializeObject<Empleado>(json);
 
@@ -146,7 +146,7 @@ namespace LogicaDeAppsCore
 
                 var content = new StringContent(JsonConvert.SerializeObject(pEmpleado), Encoding.UTF8, "application/json");
 
-                var result = client.PutAsync(url, content).Result;
+                var result = client.PostAsync(url, content).Result;
 
                 var contentResult = result.Content.ReadAsStringAsync();
 
