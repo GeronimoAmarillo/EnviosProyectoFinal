@@ -23,6 +23,6 @@ namespace LogicaDeAppsCore
 
         List<Vehiculo> GetVehiculos();
 
-        bool RegistrarMulta(Multa pMulta);
+        Task<bool> RegistrarMulta(Multa pMulta);
     }
 }

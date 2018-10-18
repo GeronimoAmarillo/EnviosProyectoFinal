@@ -16,5 +16,7 @@ namespace LogicaDeServicioCore
         bool ModificarTurno(Turno pTurno);
 
         bool AltaTurno(Turno turno);
+
+        List<Turno> ListarTurnos();
     }
 }

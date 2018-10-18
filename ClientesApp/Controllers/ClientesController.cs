@@ -7,8 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ClientesApp.Controllers
 {
-    [Produces("application/json")]
-    [Route("api/Clientes")]
     public class ClientesController : Controller
     {
     }

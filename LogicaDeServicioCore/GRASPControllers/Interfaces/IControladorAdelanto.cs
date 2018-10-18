@@ -14,5 +14,11 @@ namespace LogicaDeServicioCore
         Empleado BuscarEmpleado(int cedula);
 
         bool RealizarAdelanto(Adelanto pAdelanto);
+
+        List<EntidadesCompartidasCore.Adelanto> ListarAdelantos();
+
+        bool VerificarAdelantoSaldado(int cedula);
+
+        List<EntidadesCompartidasCore.Adelanto> ListarAdelantosXEmpleado(int cedula);
     }
 }

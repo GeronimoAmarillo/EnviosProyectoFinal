@@ -6,11 +6,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using EntidadesCompartidasCore;
 using LogicaDeServicioCore;
+using Newtonsoft.Json;
 
 namespace EnviosService.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Adelantos")]
+    
     public class AdelantosController : Controller
     {
         private IControladorAdelanto controladorAdelanto;
@@ -21,21 +22,42 @@ namespace EnviosService.Controllers
         }
 
         //GET /Api/Empleados
-
+        
         [HttpGet("{cedula}")]
+        [Route("api/Adelantos/Empleado")]
         public JsonResult Empleado(int cedula)
         {
-            return Json(controladorAdelanto.BuscarEmpleado(cedula), new Newtonsoft.Json.JsonSerializerSettings());
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+
+            return Json(controladorAdelanto.BuscarEmpleado(cedula), settings);
         }
 
+        [HttpGet("{cedula}")]
+        [Route("api/Adelantos/Empleado/Habilitado")]
+        public JsonResult Verificar(int cedula)
+        {
+            return Json(controladorAdelanto.VerificarAdelantoSaldado(cedula), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
+
         [HttpGet]
+        [Route("api/Adelantos/Empleados")]
         public JsonResult Empleados()
         {
-            return Json(controladorAdelanto.ListarEmpleados(), new Newtonsoft.Json.JsonSerializerSettings());
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+
+            return Json(controladorAdelanto.ListarEmpleados(), settings);
         }
 
         [HttpPost]
-        public JsonResult Adelantos([FromBody] Adelanto item)
+        [Route("api/Adelantos/Adelanto")]
+        public JsonResult Adelanto([FromBody] Adelanto item)
         {
             switch (Request.Method.ToString())
             {
@@ -44,6 +66,20 @@ namespace EnviosService.Controllers
             }
 
             return Json("Accion Http Desconocida", new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
+        [HttpGet]
+        [Route("api/Adelantos/Adelantos")]
+        public JsonResult Adelantos()
+        {
+            return Json(controladorAdelanto.ListarAdelantos(), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
+        [HttpGet("{cedula}")]
+        [Route("api/Adelantos/AdelantosEmpleado")]
+        public JsonResult Adelantos(int cedula)
+        {
+            return Json(controladorAdelanto.ListarAdelantosXEmpleado(cedula), new Newtonsoft.Json.JsonSerializerSettings());
         }
     }
 }

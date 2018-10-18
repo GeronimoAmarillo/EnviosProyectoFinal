@@ -20,7 +20,6 @@ namespace LogicaDeServicioCore
                     if (!ExisteCliente(((Cliente)unUsuario).RUT))
                     {
                         unUsuario.NombreUsuario = unUsuario.Email;
-                        unUsuario.Contraseña = CrearContrasenia();
                         exito = FabricaPersistencia.GetPersistenciaCliente().AltaCliente((Cliente)unUsuario);
                         return exito;
                     }
@@ -59,8 +58,26 @@ namespace LogicaDeServicioCore
 
         public static bool ExisteCliente(long rut)
         {
-            bool existe = false;
-            return existe;
+            try
+            {
+                return FabricaPersistencia.GetPersistenciaCliente().ExisteCliente(rut);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar comprobar la existencia del cliente con los datos ingresados." + ex.Message);
+            }
+        }
+
+        public static bool ExisteClienteXEmail(string email)
+        {
+            try
+            {
+                return FabricaPersistencia.GetPersistenciaCliente().ExisteClienteXEmail(email);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el Cliente" + ex.Message);
+            }
         }
 
         public static bool ExisteEmpleado(int cedula)
@@ -81,7 +98,7 @@ namespace LogicaDeServicioCore
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al intentar comprobar la existencia del Local con los datos ingresados." + ex.Message);
+                throw new Exception("Error al intentar comprobar la existencia del cliente con los datos ingresados." + ex.Message);
             }
         }
 
@@ -94,25 +111,70 @@ namespace LogicaDeServicioCore
         public static bool ModificarUsuario(EntidadesCompartidasCore.Usuario unUsuario)
         {
             bool exito = false;
-            if (unUsuario is Cliente)
+            try
             {
-                exito = FabricaPersistencia.GetPersistenciaCliente().ModificarCliente((Cliente)unUsuario);
+                if (unUsuario is Cliente)
+                {
+                    exito = FabricaPersistencia.GetPersistenciaCliente().ModificarCliente((Cliente)unUsuario);
+                    return exito;
+                }
                 return exito;
+
             }
-            return exito;
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar modificar el Usuario." + ex.Message);
+            }
+            
+        }
+
+        public static EntidadesCompartidasCore.Cliente BuscarCliente(int rut)
+        {
+            Cliente cliente;
+
+            try
+            {
+                cliente = FabricaPersistencia.GetPersistenciaCliente().BuscarCliente(rut);
+                
+                return cliente;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el Cliente" + ex.Message);
+            }
+        }
+
+        public static EntidadesCompartidasCore.Cliente BuscarClienteXEmail(string email)
+        {
+            Cliente cliente;
+
+            try
+            {
+                cliente = FabricaPersistencia.GetPersistenciaCliente().BuscarClienteXEmail(email);
+
+                return cliente;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el Cliente" + ex.Message);
+            }
         }
 
         public static List<EntidadesCompartidasCore.Empleado> ListarEmpleados()
         {
             try
             {
-                List<Cadete>listaCadete=FabricaPersistencia.GetPersistenciaCadete().ListarCadetes();
-                List<Administrador> listaAdmin =FabricaPersistencia.GetPersistenciaAdministrador().ListarAdministradores();
-                List<Empleado> listaEmpleados = new List<Empleado>();
+                List<Empleado> lista = new List<Empleado>();
 
-                listaEmpleados.AddRange(listaCadete);
-                listaEmpleados.AddRange(listaAdmin);
-                return listaEmpleados;
+                List<Administrador> admins = FabricaPersistencia.GetPersistenciaAdministrador().ListarAdministradores();
+
+                lista.AddRange(admins);
+
+                List<Cadete> cadetes = FabricaPersistencia.GetPersistenciaCadete().ListarCadetes();
+
+                lista.AddRange(cadetes);
+
+                return lista;
             }
             catch (Exception ex)
             {
@@ -216,8 +278,23 @@ namespace LogicaDeServicioCore
 
         public static EntidadesCompartidasCore.Usuario BuscarUsuario(int cedula)
         {
-            EntidadesCompartidasCore.Empleado empleado = new EntidadesCompartidasCore.Empleado();
-            return empleado;
+            Empleado empleado;
+
+            try
+            {
+                empleado = FabricaPersistencia.GetPersistenciaAdministrador().BuscarAdministrador(cedula);
+
+                if (empleado == null)
+                {
+                    empleado = FabricaPersistencia.GetPersistenciaCadete().BuscarCadete(cedula);
+                }
+
+                return empleado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el Empleado" + ex.Message);
+            }
         }
 
         public static string CrearContrasenia()

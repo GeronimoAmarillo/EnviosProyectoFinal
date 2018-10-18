@@ -14,28 +14,27 @@ namespace PersistenciaCore
         {
             try
             {
-                PersistenciaCore.Usuarios usuNuevo = new PersistenciaCore.Usuarios();
-
-                //usuNuevo.Id = cadete.Id;
-                usuNuevo.Nombre = cadete.Nombre;
-                usuNuevo.NombreUsuario = cadete.NombreUsuario;
-                usuNuevo.Contraseña = cadete.Contraseña;
-                usuNuevo.Direccion = cadete.Direccion;
-                usuNuevo.Telefono = cadete.Telefono;
-                usuNuevo.Email = cadete.Email;
-
-                PersistenciaCore.Empleados empNuevo = new PersistenciaCore.Empleados();
-
-               // empNuevo.IdUsuario = usuNuevo.Id;
-                empNuevo.Sueldo = cadete.Sueldo;
-                empNuevo.Ci = cadete.Ci;
-
+                
                 PersistenciaCore.Cadetes cadeteNuevo = new PersistenciaCore.Cadetes();
 
+                
                 cadeteNuevo.CiEmpleado = cadete.Ci;
                 cadeteNuevo.IdTelefono = cadete.IdTelefono;
                 cadeteNuevo.TipoLibreta = cadete.TipoLibreta;
- 
+                cadeteNuevo.Empleados = new Empleados();
+                cadeteNuevo.Empleados.Sueldo = cadete.Sueldo;
+                cadeteNuevo.Empleados.Ci = cadete.Ci;
+                cadeteNuevo.Empleados.IdUsuario = cadete.IdUsuario;
+                cadeteNuevo.Empleados.Usuarios = new Usuarios();
+                cadeteNuevo.Empleados.Usuarios.Id = cadete.Id;
+                cadeteNuevo.Empleados.Usuarios.Nombre = cadete.Nombre;
+                cadeteNuevo.Empleados.Usuarios.NombreUsuario = cadete.NombreUsuario;
+                cadeteNuevo.Empleados.Usuarios.Contraseña = cadete.Contraseña;
+                cadeteNuevo.Empleados.Usuarios.Direccion = cadete.Direccion;
+                cadeteNuevo.Empleados.Usuarios.Telefono = cadete.Telefono;
+                cadeteNuevo.Empleados.Usuarios.Email = cadete.Email;
+
+
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
                 optionsBuilder.UseSqlServer(Conexion.ConnectionString);
@@ -43,33 +42,8 @@ namespace PersistenciaCore
 
                 using (EnviosContext context = new EnviosContext(optionsBuilder.Options))
                 {
-                    using (var dbContextTransaction = context.Database.BeginTransaction())
-                    {
-                        try
-                        {
-
-                            context.Usuarios.Add(usuNuevo);
-                            context.SaveChanges();
-
-                            var id = context.Usuarios.Where(u => u.NombreUsuario == usuNuevo.NombreUsuario).Select(c => new
-                            {
-                                id = c.Id
-                            }).FirstOrDefault();
-                            empNuevo.IdUsuario = id.id;
-                            context.Empleados.Add(empNuevo);
-                            context.Cadetes.Add(cadeteNuevo);
-
-
-                            context.SaveChanges();
-
-                            dbContextTransaction.Commit();
-
-                        }
-                        catch (Exception ex)
-                        {
-                            dbContextTransaction.Rollback();
-                        }
-                    }
+                    context.Cadetes.Add(cadeteNuevo);
+                    context.SaveChanges();
 
                     return true;
                 }
@@ -111,7 +85,7 @@ namespace PersistenciaCore
         {
             try
             {
-                List<Cadetes> emp = new List<Cadetes>();
+                List<Cadetes> cadetes = new List<Cadetes>();
 
 
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
@@ -120,43 +94,36 @@ namespace PersistenciaCore
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    var resultado = dbConnection.Cadetes.Select(c => new
-                    {
-                        Administrador = c,
-                        Empleado = c.Empleados,
-                        Usuario = c.Empleados.Usuarios
-                    }).ToList();
-
-
-                    List<Cadete> empresult = new List<Cadete>();
-
-                    foreach (var a in resultado)
-                    {
-                        Cadete cad = new Cadete();
-
-                        cad.Ci = a.Empleado.Ci;
-                        cad.Contraseña = a.Usuario.Contraseña;
-                        cad.Direccion = a.Usuario.Direccion;
-                        cad.Email = a.Usuario.Email;
-                        cad.Id = a.Usuario.Id;
-                        cad.Nombre = a.Usuario.Nombre;
-                        cad.NombreUsuario = a.Usuario.NombreUsuario;
-                        cad.Sueldo = a.Empleado.Sueldo;
-                        cad.Telefono = a.Usuario.Telefono;
-                        cad.TipoLibreta = a.Empleado.Cadetes.TipoLibreta;
-                        
-
-                        empresult.Add(cad);
-                    }
-
-                    return empresult;
+                    cadetes = dbConnection.Cadetes.Include("Empleados.Usuarios").ToList();
                 }
+
+                List<Cadete> cadetesResultado = new List<Cadete>();
+
+                foreach (Cadetes a in cadetes)
+                {
+                    Cadete cadeteR = new Cadete();
+
+                    cadeteR.Ci = a.CiEmpleado;
+                    cadeteR.CiEmpleado = a.CiEmpleado;
+                    cadeteR.Direccion = a.Empleados.Usuarios.Direccion;
+                    cadeteR.Email = a.Empleados.Usuarios.Email;
+                    cadeteR.Id = a.Empleados.Usuarios.Id;
+                    cadeteR.Nombre = a.Empleados.Usuarios.Nombre;
+                    cadeteR.NombreUsuario = a.Empleados.Usuarios.NombreUsuario;
+                    cadeteR.Sueldo = a.Empleados.Sueldo;
+                    cadeteR.Telefono = a.Empleados.Usuarios.Telefono;
+                    cadeteR.IdTelefono = a.IdTelefono;
+                    cadeteR.TipoLibreta = a.TipoLibreta;
+
+                    cadetesResultado.Add(cadeteR);
+                }
+
+                return cadetesResultado;
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al listar los empleados." + ex.Message);
+                throw new Exception("Error al listar los cadetes." + ex.Message);
             }
-
         }
 
         public EntidadesCompartidasCore.Cadete Login(string user, string contraseña)
@@ -275,7 +242,43 @@ namespace PersistenciaCore
 
         public EntidadesCompartidasCore.Cadete BuscarCadete(int ci)
         {
-            return new EntidadesCompartidasCore.Cadete();
+            try
+            {
+                Cadetes cadete = new Cadetes();
+
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    cadete = dbConnection.Cadetes.Include("Empleados.Usuarios").Where(c => c.CiEmpleado == ci).FirstOrDefault();
+                }
+
+                Cadete cadeteResultado = new Cadete();
+
+                if(cadete != null)
+                {
+
+                    cadeteResultado.Ci = cadete.CiEmpleado;
+                    cadeteResultado.CiEmpleado = cadete.CiEmpleado;
+                    cadeteResultado.Direccion = cadete.Empleados.Usuarios.Direccion;
+                    cadeteResultado.Email = cadete.Empleados.Usuarios.Email;
+                    cadeteResultado.Id = cadete.Empleados.Usuarios.Id;
+                    cadeteResultado.Nombre = cadete.Empleados.Usuarios.Nombre;
+                    cadeteResultado.NombreUsuario = cadete.Empleados.Usuarios.NombreUsuario;
+                    cadeteResultado.Sueldo = cadete.Empleados.Sueldo;
+                    cadeteResultado.Telefono = cadete.Empleados.Usuarios.Telefono;
+                    cadeteResultado.IdTelefono = cadete.IdTelefono;
+                }
+
+                return cadeteResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el cadete." + ex.Message);
+            }
         }
     }
 }

@@ -31,7 +31,7 @@ namespace LogicaDeAppsCore
 
         bool EliminarVehiculo(Vehiculo vehiculo);
 
-        Vehiculo BuscarVehiculo(string matricula);
+        Task<Vehiculo> BuscarVehiculo(string matricula);
 
         Vehiculo ContemplarTipo();
 

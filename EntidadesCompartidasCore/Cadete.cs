@@ -15,6 +15,7 @@ namespace EntidadesCompartidasCore
         [Required]
         public long IdTelefono { get; set; }
         [Required]
+        [Range(1000000, 99999999)]
         public int CiEmpleado { get; set; }
 
         public  Empleado Empleados { get; set; }
