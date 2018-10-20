@@ -43,6 +43,8 @@ namespace PersistenciaCore
                     {
                         try
                         {
+                            dbConnection.Entregas.Update(entregaAgregar);
+
                             if(paquetes != null || paquetes.Count > 0)
                             {
                                 foreach (Paquetes p in paquetes)
@@ -155,7 +157,7 @@ namespace PersistenciaCore
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    var entregas = dbConnection.Entregas.Include("Paquetes").Include("Paquetes1").Where(x=> x.Paquetes.FirstOrDefault().Estado == "Levantado" || x.Paquetes1.FirstOrDefault().Estado == "Levantado").ToList();
+                    var entregas = dbConnection.Entregas.Include("Paquetes").Include("Paquetes1").Include("Locales").Include("Locales1").Include("Clientes").Include("Clientes1").Where(x=> x.Paquetes.FirstOrDefault().Estado == "Levantado" || x.Paquetes1.FirstOrDefault().Estado == "Levantado").ToList();
 
                     Entrega entregaResultado = null;
 

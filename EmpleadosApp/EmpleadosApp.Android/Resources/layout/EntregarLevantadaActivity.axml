@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+  <TextView
+      android:text="Info. Gral. de Entrega"
+      android:id="@+id/tvTituloEntrega"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_weight="10"
+      android:textSize="50px" />
+  <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="20">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+      <TextView
+          android:text="Local Emisor: "
+          android:id="@+id/TextView1"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="50"
+          android:textSize="40px" />
+      <TextView
+          android:text="[Aqui Info]"
+          android:id="@+id/tvLocalEmisor"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="50"
+          android:textSize="40px" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="10">
+      <TextView
+          android:text="Cliente/Destino: "
+          android:id="@+id/TextView2"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="50"
+          android:textSize="40px" />
+      <TextView
+          android:text="[Aqui Info]"
+          android:id="@+id/tvClienteReceptor"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="50"
+          android:textSize="40px" />
+    </LinearLayout>
+  </LinearLayout>
+  <TextView
+      android:text="Paquetes Asociados"
+      android:id="@+id/tvTurno"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:textSize="50px" />
+  <ListView
+      android:id="@+id/lvPaquetes"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_weight="50" />
+  <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="10">
+    <Button
+        android:id="@+id/btnIrNombreReceptor"
+        android:text="Ingresar Nombre Receptor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+  </LinearLayout>
+</LinearLayout>
