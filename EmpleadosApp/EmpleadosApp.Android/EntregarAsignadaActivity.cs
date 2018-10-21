@@ -83,7 +83,7 @@ namespace EmpleadosApp.Droid
             tvLocalReceptor = FindViewById<TextView>(Resource.Id.tvLocalReceptor);
             lvPaquetes = FindViewById<ListView>(Resource.Id.lvPaquetes);
 
-            tvClienteEmisor.Text = entrega.Clientes.Nombre;
+            tvClienteEmisor.Text = entrega.Clientes.Nombre + " / " + entrega.Clientes.Direccion;
             tvLocalReceptor.Text = entrega.Locales1.Nombre + " / " + entrega.Locales1.Direccion;
             
             lvPaquetes.Adapter = new Adaptadores.AdaptadorPaquetes(this, entrega.Paquetes);

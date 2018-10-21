@@ -36,7 +36,7 @@ namespace EmpleadosApp.Droid
             {
 
                 Bundle extras = Intent.Extras;
-                string entregaJson = extras.GetString("EntregaCreacion");
+                string entregaJson = extras.GetString("EntregaSeleccionada");
 
                 entrega = JsonConvert.DeserializeObject<Entrega>(entregaJson);
 

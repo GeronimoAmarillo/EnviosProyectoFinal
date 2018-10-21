@@ -20,6 +20,7 @@ namespace EmpleadosApp.Droid
     {
         Button btnIrAltaPalet;
         Button btnIrBajaPalet;
+        Button btnEntregar;
         Button btnIrLevanteEntrega;
         Button btnIrRegistroEntrega;
         Usuario usuarioLogueado;
@@ -105,6 +106,41 @@ namespace EmpleadosApp.Droid
             btnIrBajaPalet.Click += btnIrBajaPalet_Click;
             btnIrLevanteEntrega.Click += btnIrLevanteEntrega_Click;
             btnIrRegistroEntrega.Click += btnIrRegistroEntrega_Click;
+            btnEntregar.Click += btnEntregar_Click;
+        }
+
+        private void btnEntregar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(Application);
+                string json = prefs.GetString("UsuarioLogueado", "N/L");
+
+                if (json != "N/L")
+                {
+                    usuarioLogueado = JsonConvert.DeserializeObject<Usuario>(json);
+
+                    if (usuarioLogueado != null)
+                    {
+                        Intent intent = new Intent(this, typeof(ListarEntregasActivity));
+                        intent.PutExtra("UsuarioLogueado", Newtonsoft.Json.JsonConvert.SerializeObject(usuarioLogueado));
+
+                        StartActivity(intent);
+                    }
+                    else
+                    {
+                        Toast.MakeText(this, "No hay usuario Logueado, logueese para utilizar esta función", ToastLength.Long).Show();
+                    }
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+            catch (Exception ex)
+            {
+                Toast.MakeText(this, "ERROR: " + ex.Message, ToastLength.Long).Show();
+            }
         }
 
         private void btnIrRegistroEntrega_Click(object sender, EventArgs e)
@@ -261,6 +297,7 @@ namespace EmpleadosApp.Droid
             btnIrLevanteEntrega = FindViewById<Button>(Resource.Id.btnIrLevanteEntrega);
             btnIrBajaPalet = FindViewById<Button>(Resource.Id.btnIrBajaPalet);
             btnIrRegistroEntrega = FindViewById<Button>(Resource.Id.btnIrRegistroEntrega);
+            btnEntregar = FindViewById<Button>(Resource.Id.btnEntregar);
         }
     }
 }

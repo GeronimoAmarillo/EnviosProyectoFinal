@@ -39,7 +39,7 @@ namespace EmpleadosApp.Droid.Adaptadores
 
             if (convertView == null)
             {
-                convertView = contexto.LayoutInflater.Inflate(Resource.Layout.ClienteRow, null);
+                convertView = contexto.LayoutInflater.Inflate(Resource.Layout.EntregaAsignadaRow, null);
             }
 
 

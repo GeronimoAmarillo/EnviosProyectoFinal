@@ -23,4 +23,9 @@
         android:layout_width="match_parent"
         android:id="@+id/btnIrRegistroEntrega"
         android:text="Registrar Entrega en Agencia" />
+<Button
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/btnEntregar"
+        android:text="Entregas" />
 </LinearLayout>

@@ -81,9 +81,10 @@ namespace EmpleadosApp.Droid
             tvClienteReceptor = FindViewById<TextView>(Resource.Id.tvClienteReceptor);
             tvLocalEmisor = FindViewById<TextView>(Resource.Id.tvLocalEmisor);
             lvPaquetes = FindViewById<ListView>(Resource.Id.lvPaquetes);
+            btnIrNombreReceptor = FindViewById<Button>(Resource.Id.btnIrNombreReceptor);
 
-            tvClienteReceptor.Text = entrega.Locales.Nombre;
-            tvLocalEmisor.Text = entrega.Clientes1.Nombre + " / " + entrega.Clientes1.Direccion;
+            tvClienteReceptor.Text = entrega.Clientes1.Nombre + " / " + entrega.Clientes1.Direccion;
+            tvLocalEmisor.Text = entrega.Locales.Nombre + " / " + entrega.Locales.Direccion;
 
             lvPaquetes.Adapter = new Adaptadores.AdaptadorPaquetes(this, entrega.Paquetes1);
         }
