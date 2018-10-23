@@ -14,7 +14,6 @@ namespace PersistenciaCore
 
         public virtual DbSet<Adelantos> Adelantos { get; set; }
         public virtual DbSet<Automobiles> Automobiles { get; set; }
-        public virtual DbSet<Balances> Balances { get; set; }
         public virtual DbSet<Cadetes> Cadetes { get; set; }
         public virtual DbSet<Calificaciones> Calificaciones { get; set; }
         public virtual DbSet<Camiones> Camiones { get; set; }
@@ -35,7 +34,6 @@ namespace PersistenciaCore
         public virtual DbSet<Paquetes> Paquetes { get; set; }
         public virtual DbSet<Racks> Racks { get; set; }
         public virtual DbSet<Reclamo> Reclamo { get; set; }
-        public virtual DbSet<Registros> Registros { get; set; }
         public virtual DbSet<Reparaciones> Reparaciones { get; set; }
         public virtual DbSet<Sectores> Sectores { get; set; }
         public virtual DbSet<Turnos> Turnos { get; set; }
@@ -45,15 +43,12 @@ namespace PersistenciaCore
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            
+
             modelBuilder.Entity<Adelantos>()
                 .Property(e => e.Suma)
                 .HasColumnType("decimal(19,4)");
-
-            modelBuilder.Entity<Balances>()
-                .HasMany(e => e.Registros)
-                .WithOne(e => e.Balances)
-                .IsRequired()
-                .HasForeignKey(e => e.BalanceId);
 
             modelBuilder.Entity<Cadetes>()
                 .Property(e => e.TipoLibreta)
@@ -230,22 +225,6 @@ namespace PersistenciaCore
                 .WithOne(e => e.Racks).IsRequired()
                 .HasForeignKey(e => e.Rack);
 
-            modelBuilder.Entity<Registros>()
-                .Property(e => e.UtilidadBruta)
-                .HasColumnType("decimal(19, 4)");
-
-            modelBuilder.Entity<Registros>()
-                .Property(e => e.UtilidadOperacional)
-                .HasColumnType("decimal(19, 4)");
-
-            modelBuilder.Entity<Registros>()
-                .Property(e => e.UtilidadSinImpuestos)
-                .HasColumnType("decimal(19, 4)");
-
-            modelBuilder.Entity<Registros>()
-                .Property(e => e.UtilidadEjercicio)
-                .HasColumnType("decimal(19, 4)");
-
             modelBuilder.Entity<Reparaciones>()
                 .Property(e => e.Monto)
                 .HasColumnType("decimal(19, 4)");
@@ -334,6 +313,8 @@ namespace PersistenciaCore
 
             modelBuilder.Entity<Reparaciones>()
             .HasKey(c => new { c.Id, c.Vehiculo });
+
+            
         }
     }
 }
