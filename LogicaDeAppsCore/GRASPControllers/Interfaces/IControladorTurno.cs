@@ -13,7 +13,7 @@ namespace LogicaDeAppsCore
 
         Task<bool> ExisteTurno(string dia, string hora);
 
-        Turno BuscarTurno(string codigo);
+        Task<Turno>BuscarTurno(string codigo);
 
         bool ModificarTurno(Turno pTurno);
 

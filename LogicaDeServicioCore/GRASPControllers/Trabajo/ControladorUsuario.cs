@@ -20,6 +20,17 @@ namespace LogicaDeServicioCore
                 throw new Exception(ex.Message);
             }
         }
+        public bool BajaUsuario(int ci)
+        {
+            try
+            {
+                return LogicaUsuario.BajaUsuario(ci);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
         public bool SetearCodigoRecuperarContraseña(Usuario unUsuario)
         {
@@ -138,6 +149,11 @@ namespace LogicaDeServicioCore
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public bool ModificarContrasenia(Administrador unAdmin)
+        {
+            return LogicaUsuario.ModificarContrasenia(unAdmin);
         }
     }
 }

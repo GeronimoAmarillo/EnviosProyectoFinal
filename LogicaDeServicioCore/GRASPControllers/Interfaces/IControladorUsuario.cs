@@ -11,6 +11,8 @@ namespace LogicaDeServicioCore
     {
         bool AltaUsuario(Usuario unUsuario);
 
+        bool BajaUsuario(int ci);
+
         bool EnviarMail(Usuario usuario);
 
         Usuario BuscarUsuario(string mail);
@@ -24,6 +26,8 @@ namespace LogicaDeServicioCore
         bool RecuperarContraseña(string email);
 
         bool ModificarUsuario(Usuario pUsuario);
+
+        bool ModificarContrasenia(Administrador unUsuario);
 
         bool SetearCodigoRecuperarContraseña(Usuario unUsuario);
 

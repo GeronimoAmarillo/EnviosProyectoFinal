@@ -4,50 +4,79 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Empleados</h2>
 
-<p>
-    <a asp-action="AltaAdministrador">Agregar Administrador</a>
-    <a asp-action="AltaCadete">Agregar Cadete</a>
-</p>
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Sueldo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Ci)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Id)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.NombreUsuario)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Contraseña)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Nombre)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Direccion)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Telefono)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Email)
-                </th>
+            <th>
+                <p>Listados</p>
+            </th>
+            <th>
+                <p>Altas</p>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <a asp-action="ListarAdministrador">Listar Administradores</a>
+                @Html.ActionLink("Cadetes", "ListarCadete", new { /* id=item.PrimaryKey */ }) |
+
+            </td>
+            <td>
+                @Html.ActionLink("Administrador", "AltaAdministrador", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Cadete", "AltaCadete", new { /* id=item.PrimaryKey */ }) |
+               
+            </td>
+        </tr>
+    </tbody>
+    </table>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Sueldo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdUsuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ci)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreUsuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contraseña)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefono)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Sueldo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdUsuario)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Ci)
@@ -74,12 +103,23 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) |
+                @{
+                    if (item is Administrador)
+                    {
+                        <label> Administradores</label>
+                    }
+                    else if (item is Cadete)
+                    {
+                        <label>Cadetes</label>
+                    }                  
+                }
+            </td>
+            <td>
                 @Html.ActionLink("Adelantos", "Adelantos", new { ci = item.Ci})
+                @Html.ActionLink("Modificar", "Modificar", new {  ci=item.Ci }) 
+                @Html.ActionLink("Eliminar", "EliminarEmpleado", new {ci= item.Ci})
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>

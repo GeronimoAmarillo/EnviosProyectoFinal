@@ -321,7 +321,67 @@ namespace PersistenciaCore
 
         public bool ModificarCadete(EntidadesCompartidasCore.Cadete cadete)
         {
-            return true;
+            try
+            {
+                PersistenciaCore.Usuarios usuNuevo = new PersistenciaCore.Usuarios();
+
+                usuNuevo.Id = cadete.Id;
+                usuNuevo.Nombre = cadete.Nombre;
+                usuNuevo.NombreUsuario = cadete.NombreUsuario;
+                usuNuevo.Contraseña = cadete.Contraseña;
+                usuNuevo.Direccion = cadete.Direccion;
+                usuNuevo.Telefono = cadete.Telefono;
+                usuNuevo.Email = cadete.Email;
+
+                PersistenciaCore.Empleados empNuevo = new PersistenciaCore.Empleados();
+
+                empNuevo.IdUsuario = usuNuevo.Id;
+                empNuevo.Sueldo = cadete.Sueldo;
+                empNuevo.Ci = cadete.Ci;
+
+                PersistenciaCore.Cadetes cadeteNuevo = new PersistenciaCore.Cadetes();
+
+                cadeteNuevo.CiEmpleado = cadete.Ci;
+                cadeteNuevo.IdTelefono = cadete.IdTelefono;
+                cadeteNuevo.TipoLibreta = cadete.TipoLibreta;
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+
+                using (EnviosContext context = new EnviosContext(optionsBuilder.Options))
+                {
+                    using (var dbContextTransaction = context.Database.BeginTransaction())
+                    {
+                        try
+                        {
+
+                            context.Usuarios.Update(usuNuevo);
+                            context.Empleados.Update(empNuevo);
+                            context.Cadetes.Update(cadeteNuevo);
+
+
+                            context.SaveChanges();
+
+                            dbContextTransaction.Commit();
+
+                        }
+                        catch (Exception ex)
+                        {
+                            dbContextTransaction.Rollback();
+                        }
+                    }
+
+                    return true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al modificar el cadete.");
+            }
+
         }
 
         public List<EntidadesCompartidasCore.Cadete> ListarCadetesDisponibles()
@@ -373,10 +433,71 @@ namespace PersistenciaCore
 
         public bool BajaCadete(int ci)
         {
-            return true;
-        }
+            try
+            {
+                EntidadesCompartidasCore.Cadete cadete = FabricaPersistencia.GetPersistenciaCadete().BuscarCadete(ci);
+                PersistenciaCore.Usuarios usuNuevo = new PersistenciaCore.Usuarios();
 
-        public bool ComprobarUser(string user)
+                usuNuevo.Id = cadete.Id;
+                usuNuevo.Nombre = cadete.Nombre;
+                usuNuevo.NombreUsuario = cadete.NombreUsuario;
+                usuNuevo.Contraseña = cadete.Contraseña;
+                usuNuevo.Direccion = cadete.Direccion;
+                usuNuevo.Telefono = cadete.Telefono;
+                usuNuevo.Email = cadete.Email;
+
+                PersistenciaCore.Empleados empNuevo = new PersistenciaCore.Empleados();
+
+                empNuevo.IdUsuario = usuNuevo.Id;
+                empNuevo.Sueldo = cadete.Sueldo;
+                empNuevo.Ci = cadete.Ci;
+
+                PersistenciaCore.Cadetes cadNuevo = new PersistenciaCore.Cadetes();
+
+                cadNuevo.CiEmpleado = cadete.Ci;
+                cadNuevo.TipoLibreta = cadete.TipoLibreta;
+                cadNuevo.IdTelefono = cadete.IdTelefono;
+
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+
+                using (EnviosContext context = new EnviosContext(optionsBuilder.Options))
+                {
+                    using (var dbContextTransaction = context.Database.BeginTransaction())
+                    {
+                        try
+                        {
+
+                            context.Cadetes.Remove(cadNuevo);
+                            context.Empleados.Remove(empNuevo);
+                            context.Usuarios.Remove(usuNuevo);
+
+
+                            context.SaveChanges();
+
+                            dbContextTransaction.Commit();
+
+                        }
+                        catch (Exception ex)
+                        {
+                            dbContextTransaction.Rollback();
+                        }
+                    }
+
+                    return true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al dar de baja el cadete");
+            }
+
+        }
+    public bool ComprobarUser(string user)
         {
             return true;
         }
@@ -422,6 +543,8 @@ namespace PersistenciaCore
             {
                 throw new Exception("Error al buscar el cadete." + ex.Message);
             }
+
         }
+    
     }
 }

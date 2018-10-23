@@ -10,7 +10,11 @@ namespace AdministradoresApp.Models
 
         public decimal Sueldo { get; set; }
         public int Ci { get; set; }
-        
+        public string TipoAdministrador { get; set; }
+        public string TipoLibreta { get; set; }
+        public long IdTelefono { get; set; }
+        public string Tipo { get; set; }
+
         public List<DTAdelanto> Adelantos { get; set; }
     }
 }

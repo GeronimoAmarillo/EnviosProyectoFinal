@@ -42,14 +42,62 @@ namespace LogicaDeAppsCore
             }
         }
 
-        public Turno BuscarTurno(string codigo)
+        public async Task<Turno> BuscarTurno(string codigo)
         {
-            return new Turno();
+            try
+            {
+                //http://localhost:8080/
+
+                var httpClient = new HttpClient();
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionTurnos + "/Turno?codigo=" + codigo);
+
+                Turno turno = null;
+
+                turno = JsonConvert.DeserializeObject<Turno>(json);
+
+                return turno;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el turno.");
+            }
         }
 
         public bool ModificarTurno(Turno pTurno)
         {
-            return true;
+            try
+            {
+
+                HttpClient client = new HttpClient();
+
+                //if (ExisteTurno(turno.Dia,turno.Hora.ToString()).ToString().ToUpper() == "FALSE")
+                //{
+                //    throw new Exception("El turno que desea modificar no existe en el sistema.");
+                //}
+
+                string url = ConexionREST.ConexionTurnos + "/Modificar";
+
+                var content = new StringContent(JsonConvert.SerializeObject(pTurno), Encoding.UTF8, "application/json");
+
+                var result = client.PostAsync(url, content).Result;
+
+                var contentResult = result.Content.ReadAsStringAsync();
+
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("ERROR!: " + ex.Message);
+            }
+
         }
 
         public Turno GetTurno()

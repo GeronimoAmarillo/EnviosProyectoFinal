@@ -17,3 +17,4 @@ namespace EntidadesCompartidasCore
         public Empleado Empleados { get; set; }
     }
 }
+

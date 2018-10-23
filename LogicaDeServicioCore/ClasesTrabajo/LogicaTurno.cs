@@ -25,10 +25,16 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public Boolean ModificarTurno(Turno unTurno)
+        public static Boolean ModificarTurno(Turno unTurno)
         {
-            bool exito = false;
-            return exito;
+            try
+            {
+                return FabricaPersistencia.GetPersistenciaTurno().ModificarTurno(unTurno);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar dar de modificar el turno." + ex.Message);
+            }
         }
 
         public static bool AltaTurno(Turno unTurno)
@@ -42,7 +48,19 @@ namespace LogicaDeServicioCore
                 throw new Exception("Error al intentar dar de alta el turno." + ex.Message);
             }
         }
+        public static EntidadesCompartidasCore.Turno BuscarTurno(string codigo)
+        {
+            try
+            {
 
+               return FabricaPersistencia.GetPersistenciaTurno().BuscarTurno(codigo);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el turno." + ex.Message);
+            }
+        }
         public static List<Turno> ListarTurnos()
         {
             try

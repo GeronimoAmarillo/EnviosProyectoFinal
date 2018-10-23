@@ -279,6 +279,16 @@ namespace LogicaDeServicioCore
                     exito = FabricaPersistencia.GetPersistenciaCliente().ModificarCliente((Cliente)unUsuario);
                     return exito;
                 }
+                if (unUsuario is Administrador)
+                {
+                    exito = FabricaPersistencia.GetPersistenciaAdministrador().ModificarAdmin((Administrador)unUsuario);
+                    return exito;
+                }
+                if (unUsuario is Cadete)
+                {
+                    exito = FabricaPersistencia.GetPersistenciaCadete().ModificarCadete((Cadete)unUsuario);
+                    return exito;
+                }
                 return exito;
 
             }
@@ -287,6 +297,18 @@ namespace LogicaDeServicioCore
                 throw new Exception("Error al intentar modificar el Usuario." + ex.Message);
             }
 
+        }
+
+        public static bool ModificarContrasenia(Administrador unAdmin)
+        {
+            try
+            {
+                return FabricaPersistencia.GetPersistenciaAdministrador().ModificarContrasenia(unAdmin);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar modificar la contraseña." + ex.Message);
+            }
         }
 
         public static EntidadesCompartidasCore.Cliente BuscarCliente(int rut)
@@ -368,7 +390,7 @@ namespace LogicaDeServicioCore
             bool exito = false;
             try
             {
-                EntidadesCompartidasCore.Usuario usuario = LogicaUsuario.BuscarEmpleado(cedula);
+                EntidadesCompartidasCore.Usuario usuario = LogicaUsuario.BuscarUsuario(cedula);
 
                 if (usuario is EntidadesCompartidasCore.Administrador)
                 {
@@ -436,7 +458,6 @@ namespace LogicaDeServicioCore
                 throw new Exception("Error al intentar comprobar la existencia del Local con los datos ingresados." + ex.Message);
             }
         }
-
         public static EntidadesCompartidasCore.Empleado BuscarEmpleado(int cedula)
         {
             Empleado empleado;
@@ -446,6 +467,26 @@ namespace LogicaDeServicioCore
                 empleado = FabricaPersistencia.GetPersistenciaAdministrador().BuscarAdministrador(cedula);
 
                 if (empleado == null)
+                {
+                    empleado = FabricaPersistencia.GetPersistenciaCadete().BuscarCadete(cedula);
+                }
+
+                return empleado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el Empleado" + ex.Message);
+            }
+        }
+        public static EntidadesCompartidasCore.Usuario BuscarUsuario(int cedula)
+        {
+            Empleado empleado;
+
+            try
+            {
+                empleado = FabricaPersistencia.GetPersistenciaAdministrador().BuscarAdministrador(cedula);
+
+                if (empleado.NombreUsuario == null)
                 {
                     empleado = FabricaPersistencia.GetPersistenciaCadete().BuscarCadete(cedula);
                 }

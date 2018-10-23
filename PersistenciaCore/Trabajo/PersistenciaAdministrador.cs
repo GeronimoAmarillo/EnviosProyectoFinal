@@ -221,8 +221,6 @@ namespace PersistenciaCore
 
         }
 
-
-
         public List<EntidadesCompartidasCore.Administrador> ListarAdministradores()
         {
             try
@@ -234,9 +232,12 @@ namespace PersistenciaCore
 
                 optionsBuilder.UseSqlServer(Conexion.ConnectionString);
 
+
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
+
                     administradores = dbConnection.Administradores.Include("Empleados.Usuarios").ToList();
+
                 }
 
                 List<Administrador> adminsResultado = new List<Administrador>();
@@ -265,9 +266,10 @@ namespace PersistenciaCore
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al listar los administradores." + ex.Message);
+                throw new Exception("Error al listar los Administradores." + ex.Message);
             }
         }
+       
 
         public bool SetearCodigoRecuperacionContraseña(Administrador admin)
         {
@@ -345,11 +347,101 @@ namespace PersistenciaCore
             }
         }
 
-
-
-        public bool ModificarAdmin(EntidadesCompartidasCore.Administrador admin)
+        public bool ModificarContrasenia(Administrador unAdmin)
         {
-            return true;
+            var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+        
+            optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+            try
+            {
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+
+                    Usuarios usuDesdeBd = dbConnection.Usuarios.Where(x => x.Id == unAdmin.Id).FirstOrDefault();
+
+
+                    if (usuDesdeBd != null)
+                    {
+                        usuDesdeBd.Contraseña = unAdmin.Contraseña;
+                        usuDesdeBd.NombreUsuario = unAdmin.NombreUsuario;
+                        dbConnection.Usuarios.Update(usuDesdeBd);
+                        dbConnection.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar modificar nombre de usuario o contraseña" + ex.Message);
+            }
+        }
+
+       public bool ModificarAdmin(EntidadesCompartidasCore.Administrador administrador)
+        {
+            try
+            {
+                PersistenciaCore.Usuarios usuNuevo = new PersistenciaCore.Usuarios();
+
+                usuNuevo.Id = administrador.Id;
+                usuNuevo.Nombre = administrador.Nombre;
+                usuNuevo.NombreUsuario = administrador.NombreUsuario;
+                usuNuevo.Contraseña = administrador.Contraseña;
+                usuNuevo.Direccion = administrador.Direccion;
+                usuNuevo.Telefono = administrador.Telefono;
+                usuNuevo.Email = administrador.Email;
+
+                PersistenciaCore.Empleados empNuevo = new PersistenciaCore.Empleados();
+
+                empNuevo.IdUsuario = usuNuevo.Id;
+                empNuevo.Sueldo = administrador.Sueldo;
+                empNuevo.Ci = administrador.Ci;
+
+                PersistenciaCore.Administradores adminNuevo = new PersistenciaCore.Administradores();
+
+                adminNuevo.CiEmpleado = administrador.Ci;
+                adminNuevo.Tipo = administrador.Tipo;
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+
+                using (EnviosContext context = new EnviosContext(optionsBuilder.Options))
+                {
+                    using (var dbContextTransaction = context.Database.BeginTransaction())
+                    {
+                        try
+                        {
+
+                            context.Usuarios.Update(usuNuevo);
+                            context.Empleados.Update(empNuevo);
+                            context.Administradores.Update(adminNuevo);
+
+
+                            context.SaveChanges();
+
+                            dbContextTransaction.Commit();
+
+                        }
+                        catch (Exception ex)
+                        {
+                            dbContextTransaction.Rollback();
+                        }
+                    }
+
+                    return true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al modificar el administrador");
+            }
+
         }
 
         public EntidadesCompartidasCore.Administrador Login(string user, string contraseña)

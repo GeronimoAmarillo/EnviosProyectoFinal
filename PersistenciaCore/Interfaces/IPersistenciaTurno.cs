@@ -15,6 +15,7 @@ namespace PersistenciaCore
 
         bool ModificarTurno(EntidadesCompartidasCore.Turno turno);
         Turnos IdentificarTurno(string diaSemana, int hora);
+        EntidadesCompartidasCore.Turno BuscarTurno(string codigo);
 
         bool AltaTurno(EntidadesCompartidasCore.Turno turno);
     }

@@ -44,11 +44,16 @@ namespace LogicaDeAppsCore
                 //http://localhost:8080/
 
                 var httpClient = new HttpClient();
-                var json = await httpClient.GetStringAsync("http://localhost:8080/api/Empleados/Listar");
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionEmpleados+"/Listar");
 
                 List<Empleado> empleados = null;
 
-                empleados = JsonConvert.DeserializeObject<List<Empleado>>(json);
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Objects
+                };
+
+                empleados = JsonConvert.DeserializeObject<List<Empleado>>(json,settings);
 
                 return empleados;
 
@@ -58,7 +63,14 @@ namespace LogicaDeAppsCore
                 throw new Exception("Se produjo un error al intentar listar los empleados.");
             }
         }
-
+        public Cadete GetEmpleadoCad()
+        {
+            return new Cadete();
+        }
+        public Administrador GetEmpleadoAdm()
+        {
+            return new Administrador();
+        }
         public Empleado GetEmpleado()
         {
             return new Empleado();
@@ -69,19 +81,120 @@ namespace LogicaDeAppsCore
             empleado = pEmpleado;
         }
 
-        public Empleado BuscarEmpleado(int ci)
+        public async Task<Empleado> BuscarEmpleado(int cedula)
         {
-            return new Empleado();
+            HttpClient client = new HttpClient();
+            Empleado emp = GetEmpleado();
+
+
+            var httpClient = new HttpClient();
+            var json = await httpClient.GetStringAsync("http://localhost:8080/api/Empleados/Empleado?" + "ci=" + cedula);
+
+            emp = JsonConvert.DeserializeObject<Empleado>(json);
+
+            return emp;
         }
 
-        public bool ModificarEmpleado(Empleado pEmpleado)
+        public bool ModificarAdmnistrador(Administrador pEmpleado)
         {
-            return true;
-        }
+            try
+            {
 
-        public bool EliminarEmpleado(Empleado pEmpleado)
+                HttpClient client = new HttpClient();
+
+                if (ExisteEmpleado(pEmpleado.Ci).ToString().ToUpper() == "TRUE")
+                {
+                    throw new Exception("El empleado que desea modificar no existe en el sistema.");
+                }
+
+                string url = ConexionREST.ConexionEmpleados + "/Modificar";
+
+                var content = new StringContent(JsonConvert.SerializeObject(pEmpleado), Encoding.UTF8, "application/json");
+
+                var result = client.PostAsync(url, content).Result;
+
+                var contentResult = result.Content.ReadAsStringAsync();
+
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("ERROR!: " + ex.Message);
+            }
+        }
+        public bool ModificarCadete(Cadete pEmpleado)
         {
-            return true;
+            try
+            {
+
+                HttpClient client = new HttpClient();
+
+                if (ExisteEmpleado(pEmpleado.Ci).ToString().ToUpper() == "FALSE")
+                {
+                    throw new Exception("El empleado que desea modificar no existe en el sistema.");
+                }
+
+                string url = ConexionREST.ConexionEmpleados + "/ModificarCadete";
+
+                var content = new StringContent(JsonConvert.SerializeObject(pEmpleado), Encoding.UTF8, "application/json");
+
+                var result = client.PostAsync(url, content).Result;
+
+                var contentResult = result.Content.ReadAsStringAsync();
+
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("ERROR!: " + ex.Message);
+            }
+        }
+        public bool EliminarEmpleado(Empleado emp)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+
+              
+
+                string url = ConexionREST.ConexionEmpleados + "/EliminarEmpleado";
+
+                var content = new StringContent(JsonConvert.SerializeObject(emp), Encoding.UTF8, "application/json");
+
+                var result = client.PostAsync(url, content).Result;
+
+                var contentResult = result.Content.ReadAsStringAsync();
+
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("ERROR!: " + ex.Message);
+            }
         }
 
         public bool AltaEmpleadoAdministrador(Administrador pEmpleado)

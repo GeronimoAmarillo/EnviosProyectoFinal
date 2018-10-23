@@ -25,12 +25,28 @@ namespace LogicaDeServicioCore
 
         public Turno BuscarTurno(string codigo)
         {
-            return new Turno();
+            try
+            {
+                return LogicaTurno.BuscarTurno(codigo);
+            }
+
+            catch
+            {
+                throw new Exception("Error al buscar el turno.");
+            }
         }
 
         public bool ModificarTurno(Turno pTurno)
         {
-            return true;
+            try
+            {
+                return LogicaTurno.ModificarTurno(pTurno);
+            }
+
+            catch
+            {
+                throw new Exception("Error al intentar dar de modificar el turno.");
+            }
         }
 
         public bool AltaTurno(Turno turno)

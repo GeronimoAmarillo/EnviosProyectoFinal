@@ -68,7 +68,7 @@ namespace AdministradoresApp.Controllers
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Vehiculos registrados");
 
@@ -88,7 +88,7 @@ namespace AdministradoresApp.Controllers
                 HttpContext.Session.Set<Vehiculo>(SESSION_BAJA, vehiculo);
 
                 return View(vehiculo);
-                
+
             }
             else
             {
@@ -200,17 +200,17 @@ namespace AdministradoresApp.Controllers
 
                     string mensaje = "";
 
-                    
-                        bool exito = controladorVehiculo.AltaVehiculo(auto);
 
-                        if (exito)
-                        {
-                            mensaje = "El vehiculo se dio de alta con exito!.";
-                        }
-                        else
-                        {
-                            mensaje = "Se produjo un error al dar de alta el vehiculo!.";
-                        }
+                    bool exito = controladorVehiculo.AltaVehiculo(auto);
+
+                    if (exito)
+                    {
+                        mensaje = "El vehiculo se dio de alta con exito!.";
+                    }
+                    else
+                    {
+                        mensaje = "Se produjo un error al dar de alta el vehiculo!.";
+                    }
 
                     if (mensaje != "")
                     {
@@ -451,22 +451,22 @@ namespace AdministradoresApp.Controllers
                     Estado = vehiculo.Estado,
                     Cadete = vehiculo.Cadete
                 };
-                if(vehiculo is Moto)
+                if (vehiculo is Moto)
                 {
                     vehiculoaEditar.Cilindrada = ((Moto)vehiculo).Cilindrada;
                     vehiculoaEditar.Tipo = "Moto";
                 }
-                if(vehiculo is Camioneta)
+                if (vehiculo is Camioneta)
                 {
                     vehiculoaEditar.Cabina = ((Camioneta)vehiculo).Cabina;
                     vehiculoaEditar.Tipo = "Camioneta";
                 }
-                if(vehiculo is Automobil)
+                if (vehiculo is Automobil)
                 {
                     vehiculoaEditar.Puertas = ((Automobil)vehiculo).Puertas;
                     vehiculoaEditar.Tipo = "Automobil";
                 }
-                if(vehiculo is Camion)
+                if (vehiculo is Camion)
                 {
                     vehiculoaEditar.Altura = ((Camion)vehiculo).Altura;
                     vehiculoaEditar.Tipo = "Camion";
