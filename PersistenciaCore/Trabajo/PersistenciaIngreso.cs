@@ -35,6 +35,7 @@ namespace PersistenciaCore
                     ingresoR.Id = g.Id;
                     ingresoR.Suma = g.Suma;
                     ingresoR.Descripcion = g.Descripcion;
+                    ingresoR.fechaRegistro = g.fechaRegistro;
 
                     ingresosResultado.Add(ingresoR);
                 }
@@ -55,6 +56,7 @@ namespace PersistenciaCore
 
                 ingresoAgregar.Suma = ingreso.Suma;
                 ingresoAgregar.Descripcion = ingreso.Descripcion;
+                ingresoAgregar.fechaRegistro = DateTime.Now;
 
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 

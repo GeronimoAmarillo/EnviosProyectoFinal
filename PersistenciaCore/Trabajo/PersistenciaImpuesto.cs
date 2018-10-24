@@ -20,6 +20,7 @@ namespace PersistenciaCore
                 impuestoAgregar.Descripcion = impuesto.Descripcion;
                 impuestoAgregar.Porcentaje = impuesto.Porcentaje;
                 impuestoAgregar.Id = 0;
+                impuestoAgregar.fechaRegistro = impuesto.fechaRegistro;
 
 
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
@@ -67,6 +68,7 @@ namespace PersistenciaCore
                     impuestoR.Nombre = g.Nombre;
                     impuestoR.Descripcion = g.Descripcion;
                     impuestoR.Porcentaje = g.Porcentaje;
+                    impuestoR.fechaRegistro = g.fechaRegistro;
 
                     impustosResultado.Add(impuestoR);
                 }

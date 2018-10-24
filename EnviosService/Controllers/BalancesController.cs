@@ -10,7 +10,6 @@ using LogicaDeServicioCore;
 namespace EnviosService.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Balances")]
     public class BalancesController : Controller
     {
         private IControladorBalance controladorBalance;
@@ -30,6 +29,20 @@ namespace EnviosService.Controllers
         public JsonResult Balances(int año)
         {
             return Json(controladorBalance.ConsultarBalanceAnual(año), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
+        [HttpGet("{fecha}")]
+        [Route("api/Balances/BuscarRegistro")]
+        public JsonResult Registro(DateTime fecha)
+        {
+            return Json(controladorBalance.ObtenerRegistro(fecha), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
+        [HttpGet("{fechaInicio, fechaFinal}")]
+        [Route("api/Balances/BuscarRegistros")]
+        public JsonResult Registro(DateTime fechaInicio, DateTime fechaFinal)
+        {
+            return Json(controladorBalance.ObtenerRegistros(fechaInicio, fechaFinal), new Newtonsoft.Json.JsonSerializerSettings());
         }
     }
 }
