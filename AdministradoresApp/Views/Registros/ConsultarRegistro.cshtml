@@ -11,7 +11,7 @@
     List<SelectListItem> itemsIngresos = ViewBag.Ingresos;
     List<SelectListItem> itemsGastos = ViewBag.Gastos;
     List<SelectListItem> itemsImpuestos = ViewBag.Impuestos;
- }
+}
 
 <div>
     <h4>Registro</h4>
@@ -50,34 +50,20 @@
     </dl>
 </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                <label>Ingresos</label>
-            </th>
-            <th>
-                <label>Egresos</label>
-            </th>
-            <th>
-                <label>Impuestos</label>
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                @Html.ListBox("Ingresos", itemsIngresos);
-            </td>
-            <td>
-                @Html.ListBox("Egresos", itemsGastos);
-            </td>
-            <td>
-                @Html.ListBox("Impuestos", itemsImpuestos);
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div>
+    <label>Ingresos</label>
+    <br />
+    @Html.ListBox("Ingresos", itemsIngresos)
+    <br />
+    <br />
+    <label>Egresos</label>
+    <br />
+    @Html.ListBox("Egresos", itemsGastos)
+    <br /><br />
+    <label>Impuestos</label>
+    <br />
+    @Html.ListBox("Impuestos", itemsImpuestos)
+</div>
 
 <div>
     <a asp-action="Index">Volver</a>

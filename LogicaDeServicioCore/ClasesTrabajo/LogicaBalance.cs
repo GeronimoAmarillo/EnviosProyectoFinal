@@ -30,9 +30,15 @@ namespace LogicaDeServicioCore
                 List<Gasto> gastos = new List<Gasto>();
                 List<Impuesto> impuestos = new List<Impuesto>();
 
+                
+
                 ingresos = LogicaValor.ListarIngresos();
                 gastos = LogicaValor.ListarGastos();
                 impuestos = LogicaValor.ListarImpuestos();
+
+                List<Ingreso> ingresosR = new List<Ingreso>();
+                List<Gasto> gastosR = new List<Gasto>();
+                List<Impuesto> impuestosR = new List<Impuesto>();
 
                 decimal utilidadbruta = 0;
                 decimal utilidadoperacional = 0;
@@ -43,12 +49,10 @@ namespace LogicaDeServicioCore
 
                 foreach (Ingreso i in ingresos)
                 {
-                    if (!(i.fechaRegistro.Month == fecha.Month && i.fechaRegistro.Year == fecha.Year))
+                    if ((i.fechaRegistro.Month == fecha.Month && i.fechaRegistro.Year == fecha.Year))
                     {
-                        ingresos.Remove(i);
-                    }
-                    else
-                    {
+                        ingresosR.Add(i);
+
                         if (i.Descripcion.Substring(0, 5) != "Extra")
                         {
                             utilidadbruta += i.Suma;
@@ -61,14 +65,13 @@ namespace LogicaDeServicioCore
                     }
                 }
 
+                
+
                 foreach (Gasto g in gastos)
                 {
-                    if (!(g.fechaRegistro.Month == fecha.Month && g.fechaRegistro.Year == fecha.Year))
+                    if ((g.fechaRegistro.Month == fecha.Month && g.fechaRegistro.Year == fecha.Year))
                     {
-                        gastos.Remove(g);
-                    }
-                    else
-                    {
+                        gastosR.Add(g);
                         if (g.Descripcion.Substring(0, 5) != "Extra")
                         {
                             utilidadoperacional -= g.Suma;
@@ -77,7 +80,6 @@ namespace LogicaDeServicioCore
                         {
                             gastosextras += g.Suma;
                         }
-                        
                     }
                 }
 
@@ -87,12 +89,9 @@ namespace LogicaDeServicioCore
 
                 foreach (Impuesto i in impuestos)
                 {
-                    if (!(i.fechaRegistro.Month < fecha.Month && i.fechaRegistro.Year == fecha.Year))
+                    if ((i.fechaRegistro.Month < fecha.Month && i.fechaRegistro.Year == fecha.Year))
                     {
-                        impuestos.Remove(i);
-                    }
-                    else
-                    {
+                        impuestosR.Add(i);
                         montosimpuestoaplicados.Add((utilidadsinimpuestos * i.Porcentaje) / 100);
                     }
                 }
@@ -104,10 +103,14 @@ namespace LogicaDeServicioCore
                     utilidadEjercicio -= d;
                 }
 
+                registro.UtilidadBruta = utilidadbruta;
+                registro.UtilidadEjercicio = utilidadEjercicio;
+                registro.UtilidadOperacional = utilidadoperacional;
+                registro.UtilidadSinImpuestos = utilidadsinimpuestos;
                 registro.Fecha = fecha;
-                registro.Ingresos = ingresos;
-                registro.Gastos = gastos;
-                registro.Impuestos = impuestos;
+                registro.Ingresos = ingresosR;
+                registro.Gastos = gastosR;
+                registro.Impuestos = impuestosR;
 
                 return registro;
 
@@ -135,7 +138,7 @@ namespace LogicaDeServicioCore
                 {
                     int indice = mesInicial;
 
-                    while (indice < mesFinal)
+                    while (indice <= mesFinal)
                     {
                         mesesIncluidos.Add(Convert.ToDateTime("1/" + indice + "/" + añoInicial));
 
@@ -185,9 +188,9 @@ namespace LogicaDeServicioCore
                 {
                     Registro registro = new Registro();
 
-                    List<Ingreso> ingresosR = ingresos;
-                    List<Gasto> gastosR = gastos;
-                    List<Impuesto> impuestosR = impuestos;
+                    List<Ingreso> ingresosR = new List<Ingreso>();
+                    List<Gasto> gastosR = new List<Gasto>();
+                    List<Impuesto> impuestosR = new List<Impuesto>();
 
                     decimal utilidadbruta = 0;
                     decimal utilidadoperacional = 0;
@@ -198,12 +201,10 @@ namespace LogicaDeServicioCore
 
                     foreach (Ingreso i in ingresos)
                     {
-                        if (!(i.fechaRegistro.Month == d.Month && i.fechaRegistro.Year == d.Year))
+                        if ((i.fechaRegistro.Month == d.Month && i.fechaRegistro.Year == d.Year))
                         {
-                            ingresos.Remove(i);
-                        }
-                        else
-                        {
+                            ingresosR.Add(i);
+
                             if (i.Descripcion.Substring(0, 5) != "Extra")
                             {
                                 utilidadbruta += i.Suma;
@@ -216,14 +217,13 @@ namespace LogicaDeServicioCore
                         }
                     }
 
+
+
                     foreach (Gasto g in gastos)
                     {
-                        if (!(g.fechaRegistro.Month == d.Month && g.fechaRegistro.Year == d.Year))
+                        if ((g.fechaRegistro.Month == d.Month && g.fechaRegistro.Year == d.Year))
                         {
-                            gastos.Remove(g);
-                        }
-                        else
-                        {
+                            gastosR.Add(g);
                             if (g.Descripcion.Substring(0, 5) != "Extra")
                             {
                                 utilidadoperacional -= g.Suma;
@@ -232,7 +232,6 @@ namespace LogicaDeServicioCore
                             {
                                 gastosextras += g.Suma;
                             }
-
                         }
                     }
 
@@ -242,27 +241,28 @@ namespace LogicaDeServicioCore
 
                     foreach (Impuesto i in impuestos)
                     {
-                        if (!(i.fechaRegistro.Month < d.Month && i.fechaRegistro.Year == d.Year))
+                        if ((i.fechaRegistro.Month < d.Month && i.fechaRegistro.Year == d.Year))
                         {
-                            impuestos.Remove(i);
-                        }
-                        else
-                        {
+                            impuestosR.Add(i);
                             montosimpuestoaplicados.Add((utilidadsinimpuestos * i.Porcentaje) / 100);
                         }
                     }
 
                     utilidadEjercicio = utilidadsinimpuestos;
 
-                    foreach (decimal x in montosimpuestoaplicados)
+                    foreach (decimal de in montosimpuestoaplicados)
                     {
-                        utilidadEjercicio -= x;
+                        utilidadEjercicio -= de;
                     }
 
+                    registro.UtilidadBruta = utilidadbruta;
+                    registro.UtilidadEjercicio = utilidadEjercicio;
+                    registro.UtilidadOperacional = utilidadoperacional;
+                    registro.UtilidadSinImpuestos = utilidadsinimpuestos;
                     registro.Fecha = d;
-                    registro.Ingresos = ingresos;
-                    registro.Gastos = gastos;
-                    registro.Impuestos = impuestos;
+                    registro.Ingresos = ingresosR;
+                    registro.Gastos = gastosR;
+                    registro.Impuestos = impuestosR;
 
                     registros.Add(registro);
                 }

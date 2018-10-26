@@ -49,7 +49,7 @@
                 @Html.DisplayFor(modelItem => item.UtilidadEjercicio)
             </td>
             <td>
-                @Html.ActionLink("Detalles", "Detalles", new { fecha = item.Fecha.ToString()}) |
+                @Html.ActionLink("Detalles", "Detalles", new { mes = item.Fecha.Month, año = item.Fecha.Year}) |
             </td>
         </tr>
 }

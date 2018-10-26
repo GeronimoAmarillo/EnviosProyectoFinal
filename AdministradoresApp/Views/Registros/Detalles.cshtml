@@ -52,35 +52,22 @@
 </div>
 
 
+<div>
+    <label>Ingresos</label>
+    <br />
+    @Html.ListBox("Ingresos", itemsIngresos)
+    <br />
+    <br />
+    <label>Egresos</label>
+    <br />
+    @Html.ListBox("Egresos", itemsGastos)
+    <br /><br />
+    <label>Impuestos</label>
+    <br />
+    @Html.ListBox("Impuestos", itemsImpuestos)
+</div>    
+                    
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                <label>Ingresos</label>
-            </th>
-            <th>
-                <label>Egresos</label>
-            </th>
-            <th>
-                <label>Impuestos</label>
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                @Html.ListBox("Ingresos", itemsIngresos);
-            </td>
-            <td>
-                @Html.ListBox("Egresos", itemsGastos);
-            </td>
-            <td>
-                @Html.ListBox("Impuestos", itemsImpuestos);
-            </td>
-        </tr>
-    </tbody>
-</table>
 
 <div>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |

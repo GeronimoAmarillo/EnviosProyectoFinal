@@ -40,11 +40,13 @@ namespace AdministradoresApp.Controllers
                     while (añoCero <= DateTime.Now.Year)
                     {
                         itemsAños.Add(new SelectListItem() { Text = añoCero.ToString(), Value = añoCero.ToString() });
+                        añoCero++;
                     }
 
                     while (mesCero <= 12)
                     {
                         itemsMeses.Add(new SelectListItem() { Text = mesCero.ToString(), Value = mesCero.ToString() });
+                        mesCero++;
                     }
 
                     ViewBag.Años = itemsAños;
@@ -79,7 +81,7 @@ namespace AdministradoresApp.Controllers
                 {
                     IControladorBalance controladorBalance = FabricaApps.GetControladorBalance();
 
-                    DateTime fecha = Convert.ToDateTime("1/"+Mes+"/"+Año);
+                    DateTime fecha = Convert.ToDateTime(Mes+"/1/"+Año);
 
                     Registro registro = await controladorBalance.ConsultarRegistro(fecha);
 
@@ -156,8 +158,8 @@ namespace AdministradoresApp.Controllers
                         {
                             IControladorBalance controladorBalance = FabricaApps.GetControladorBalance();
 
-                            DateTime fechaInicial = Convert.ToDateTime("1/" + MesInicial + "/" + AñoInicial);
-                            DateTime fechaFinal = Convert.ToDateTime("1/" + MesFinal + "/" + AñoFinal);
+                            DateTime fechaInicial = Convert.ToDateTime(MesInicial+"/1/"+ AñoInicial);
+                            DateTime fechaFinal = Convert.ToDateTime(MesFinal + "/1/" + AñoFinal);
 
                             List<Registro> registros = await controladorBalance.ConsultarRegistros(fechaInicial, fechaFinal);
                             
@@ -209,7 +211,7 @@ namespace AdministradoresApp.Controllers
         }
 
 
-        public async Task<ActionResult> Detalles(string fechaP)
+        public async Task<ActionResult> Detalles(int mes, int año)
         {
             try
             {
@@ -217,7 +219,7 @@ namespace AdministradoresApp.Controllers
                 {
                     IControladorBalance controladorBalance = FabricaApps.GetControladorBalance();
 
-                    DateTime fecha = Convert.ToDateTime(fechaP);
+                    DateTime fecha = Convert.ToDateTime(mes+"/1/"+año);
 
                     Registro registro = await controladorBalance.ConsultarRegistro(fecha);
 
