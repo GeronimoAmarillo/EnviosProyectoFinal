@@ -1,0 +1,57 @@
+﻿@model IEnumerable<EntidadesCompartidasCore.Reclamo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+</p>
+<form id="form1" action="Paquetes/ListarReclamoporPaquete">
+    <div class="form-group">
+        <label>Ingrese aqui el numero de referencia</label>
+        <input type="text" name="numReferencia" class="form-control"/>
+        <br />
+        <input type="submit" name="Buscar" value="Buscar Reclamo" />
+        <input type="submit" name="Buscar" value="Volver" />
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Comentario)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Paquete)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comentario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paquete)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -86,5 +86,18 @@ namespace LogicaDeServicioCore
         {
             return new Local();
         }
+        //Reclamos
+
+        public List<EntidadesCompartidasCore.Reclamo> ListarReclamos()
+        {
+            try
+            {
+                return LogicaPaquete.LisarReclamos();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al Listar los reclamos." + ex.Message);
+            }
+        }
     }
 }

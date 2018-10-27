@@ -282,6 +282,44 @@ namespace PersistenciaCore
             }
 
         }
-        
+
+        //Reclamos
+
+        public List<EntidadesCompartidasCore.Reclamo> ListarReclamos()
+        {
+            try
+            {
+                List<Reclamo> reclamos = new List<Reclamo>();
+
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    reclamos = dbConnection.Reclamo.ToList();
+                }
+
+                List<EntidadesCompartidasCore.Reclamo> rResultados = new List<EntidadesCompartidasCore.Reclamo>();
+
+                foreach (Reclamo r in reclamos)
+                {
+                    EntidadesCompartidasCore.Reclamo reclamoresultado = new EntidadesCompartidasCore.Reclamo();
+
+                    reclamoresultado.Id = r.Id;
+                    reclamoresultado.Paquete = r.Paquete;
+                    reclamoresultado.Comentario = r.Comentario;
+
+                    rResultados.Add(reclamoresultado);
+                }
+
+                return rResultados;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los reclamos." + ex.Message);
+            }
+        }
     }
 }
