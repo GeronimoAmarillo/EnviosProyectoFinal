@@ -11,20 +11,153 @@ namespace LogicaDeServicioCore
     {
         public static List<Balance> ObtenerBalancesAnuales(int anio)
         {
+            bool abierto = anio < DateTime.Today.Year ? false : true;
             List<Balance> balancesdelAnio = new List<Balance>();
+            DateTime fechaInicio = new DateTime(anio, 1, 1);
+            DateTime fechaFinal = anio == DateTime.Today.Year ? new DateTime(anio, DateTime.Today.Month - 1, DateTime.DaysInMonth(anio, DateTime.Today.Month - 1)) : new DateTime(anio, 12, 31);
 
-
-
+            List<Registro> RegistrosDelBalance = ObtenerRegistros(fechaInicio, fechaFinal);
+            
+            for(int i= 1; i<=fechaFinal.Month; i++)
+            {
+                balancesdelAnio.Add(BuscarBalance(i, anio));
+            }
+            
             return balancesdelAnio;
         }
 
-        public static EntidadesCompartidasCore.Balance BuscarBalance(int mes, int anio)
+        public static Balance ObtenerBalanceAnual(DateTime fechaDesde, DateTime FechaHasta)
         {
-            Balance balance = new Balance();
+            List<Registro> RegistrosDelBalance = ObtenerRegistros(fechaDesde, FechaHasta);
+            decimal utilidadBrutaTotal = 0;
+            decimal utilidadOperacionalTotal = 0;
+            decimal ingresos = 0;
+            decimal ingresosExtra = 0;
+            decimal gastos = 0;
+            decimal gastosExtra = 0;
+            decimal utilidadSinimpuestosTotal = 0;
+            decimal utilidadEjercicioTotal = 0;
 
+            foreach (Registro registro in RegistrosDelBalance)
+            {
+                utilidadBrutaTotal += registro.UtilidadBruta;
+                utilidadEjercicioTotal += registro.UtilidadEjercicio;
+                utilidadOperacionalTotal += registro.UtilidadOperacional;
+                utilidadSinimpuestosTotal += registro.UtilidadSinImpuestos;
+                foreach (Ingreso ingreso in registro.Ingresos)
+                {
+                    if (ingreso.Descripcion.Substring(0, 5) != "Extra")
+                    {
+                        ingresosExtra += ingreso.Suma;
+                    }
+                    else
+                    {
+                        ingresos += ingreso.Suma;
+                    }
+                }
+                foreach (Gasto gasto in registro.Gastos)
+                {
+                    if (gasto.Descripcion.Substring(0, 5) != "Extra")
+                    {
+                        gastosExtra += gasto.Suma;
+                    }
+                    else
+                    {
+                        gastos += gasto.Suma;
+                    }
+                }
+            }
 
+            Balance balance = new Balance()
+            {
+                Mes = FechaHasta.Month,
+                Año = FechaHasta.Year,
+                Abierto = true,
+                UtilidadBrutaTotal = utilidadBrutaTotal,
+                UtilidadOperacionalTotal = utilidadOperacionalTotal,
+                Ingresos = ingresos,
+                IngresosExtra = ingresosExtra,
+                Gastos = gastos,
+                GastosExtra = gastosExtra,
+                UtilidadSinimpuestosTotal = utilidadSinimpuestosTotal,
+                UtilidadEjercicioTotal = utilidadEjercicioTotal,
+                Registros = RegistrosDelBalance
+            };
 
             return balance;
+
+        }
+
+        public static Balance BuscarBalance(int mes, int anio)
+        {
+            try
+            {
+                bool abierto = mes < DateTime.Today.Month ? false : true;
+                DateTime fechaInicio = Convert.ToDateTime(mes + "/1/" + anio);
+                DateTime fechaFinal = new DateTime(fechaInicio.Year, fechaInicio.Month, DateTime.DaysInMonth(fechaInicio.Year, fechaInicio.Month));
+                List<Registro> RegistrosDelBalance = ObtenerRegistros(fechaInicio, fechaFinal);
+                decimal utilidadBrutaTotal = 0;
+                decimal utilidadOperacionalTotal = 0;
+                decimal ingresos = 0;
+                decimal ingresosExtra = 0;
+                decimal gastos = 0;
+                decimal gastosExtra = 0;
+                decimal utilidadSinimpuestosTotal = 0;
+                decimal utilidadEjercicioTotal = 0;
+
+                foreach (Registro registro in RegistrosDelBalance)
+                {
+                    utilidadBrutaTotal += registro.UtilidadBruta;
+                    utilidadEjercicioTotal += registro.UtilidadEjercicio;
+                    utilidadOperacionalTotal += registro.UtilidadOperacional;
+                    utilidadSinimpuestosTotal += registro.UtilidadSinImpuestos;
+                    foreach (Ingreso ingreso in registro.Ingresos)
+                    {
+                        if(ingreso.Descripcion.Substring(0, 5) != "Extra")
+                        {
+                            ingresosExtra += ingreso.Suma;
+                        }
+                        else
+                        {
+                            ingresos += ingreso.Suma;
+                        }
+                    }
+                    foreach(Gasto gasto in registro.Gastos)
+                    {
+                        if(gasto.Descripcion.Substring(0, 5) != "Extra")
+                        {
+                            gastosExtra += gasto.Suma;
+                        }
+                        else
+                        {
+                            gastos += gasto.Suma;
+                        }
+                    }
+                }
+
+                Balance balance = new Balance()
+                {
+                    Mes = mes,
+                    Año = anio,
+                    Abierto = abierto,
+                    UtilidadBrutaTotal = utilidadBrutaTotal,
+                    UtilidadOperacionalTotal = utilidadOperacionalTotal,
+                    Ingresos = ingresos,
+                    IngresosExtra = ingresosExtra,
+                    Gastos = gastos,
+                    GastosExtra = gastosExtra,
+                    UtilidadSinimpuestosTotal = utilidadSinimpuestosTotal,
+                    UtilidadEjercicioTotal = utilidadEjercicioTotal,
+                    Registros = RegistrosDelBalance
+                };
+
+                return balance;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al obtener el balance del mes, " + ex.Message);
+            }
+
         }
 
         public static Registro ObtenerRegistro(DateTime fecha)

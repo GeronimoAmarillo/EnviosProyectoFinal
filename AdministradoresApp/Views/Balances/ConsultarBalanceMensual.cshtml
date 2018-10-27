@@ -1,15 +1,98 @@
-﻿
+﻿@model EntidadesCompartidasCore.Balance
+
 @{
-    Layout = null;
+    ViewData["Title"] = "Consultar Balance Mensual";
 }
 
-<!DOCTYPE html>
+<h2>Consultar Balance Mensual</h2>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>ConsultarBalanceMensual</title>
-</head>
-<body>
-</body>
-</html>
+<div>
+    <h4>Balance</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Mes)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UtilidadBrutaTotal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UtilidadEjercicioTotal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UtilidadOperacionalTotal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UtilidadSinimpuestosTotal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Ingresos)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IngresosExtra)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Gastos)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GastosExtra)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Abierto)
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.Label("Fecha")
+                </th>
+                <th>
+                    @Html.Label("Utilidad Bruta")
+                </th>
+                <th>
+                    @Html.Label("Utilidad Operacional")
+                </th>
+                <th>
+                    @Html.Label("Utilidad Sin Impuestos")
+                </th>
+                <th>
+                    @Html.Label("Utilidad Ejercicio")
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Registros)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fecha)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UtilidadBruta)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UtilidadOperacional)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UtilidadSinImpuestos)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UtilidadEjercicio)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Detalles", "Detalles", new { mes = item.Fecha.Month, año = item.Fecha.Year }) |
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <a asp-action="Index">Volver</a>
+</div>

@@ -31,6 +31,13 @@ namespace EnviosService.Controllers
             return Json(controladorBalance.ConsultarBalanceAnual(año), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
+        [HttpGet("{fechaDesde, fechaHasta}")]
+        [Route("api/Balances/ObtenerBalanceAnual")]
+        public JsonResult BalanceAnual(DateTime fechaDesde, DateTime fechaHasta)
+        {
+            return Json(controladorBalance.ObtenerBalanceAnual(fechaDesde, fechaHasta), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
         [HttpGet("{fecha}")]
         [Route("api/Balances/BuscarRegistro")]
         public JsonResult Registro(DateTime fecha)

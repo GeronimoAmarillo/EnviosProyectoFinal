@@ -21,6 +21,18 @@ namespace LogicaDeServicioCore
             }
         }
 
+        public static Balance ObtenerBalanceAnual(DateTime fechaDesde, DateTime FechaHasta)
+        {
+            try
+            {
+                return LogicaBalance.ObtenerBalanceAnual(fechaDesde, FechaHasta);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al generar el balance: " + ex.Message);
+            }
+        }
+
         public EntidadesCompartidasCore.Balance ConsultarBalanceMensual(int mes, int año)
         {
             try
