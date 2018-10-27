@@ -22,7 +22,7 @@ namespace PersistenciaCore
         [Column(TypeName = "date")]
         public DateTime fechaRegistro { get; set; }
 
-        public long RUT { get; set; }
+        public long? RUT { get; set; }
         
         [ForeignKey("RUT")]
         public virtual Clientes Clientes { get; set; }

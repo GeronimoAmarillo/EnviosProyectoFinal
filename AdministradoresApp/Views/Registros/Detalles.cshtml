@@ -1,0 +1,75 @@
+﻿@model EntidadesCompartidasCore.Registro
+
+@{
+    ViewData["Title"] = "Detalles";
+}
+
+<h2>Detalles</h2>
+
+
+@{
+
+    List<SelectListItem> itemsIngresos = ViewBag.Ingresos;
+    List<SelectListItem> itemsGastos = ViewBag.Gastos;
+    List<SelectListItem> itemsImpuestos = ViewBag.Impuestos;
+}
+
+<div>
+    <h4>Registro</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UtilidadBruta)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UtilidadBruta)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UtilidadOperacional)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UtilidadOperacional)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UtilidadSinImpuestos)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UtilidadSinImpuestos)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UtilidadEjercicio)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UtilidadEjercicio)
+        </dd>
+    </dl>
+</div>
+
+
+<div>
+    <label>Ingresos</label>
+    <br />
+    @Html.ListBox("Ingresos", itemsIngresos)
+    <br />
+    <br />
+    <label>Egresos</label>
+    <br />
+    @Html.ListBox("Egresos", itemsGastos)
+    <br /><br />
+    <label>Impuestos</label>
+    <br />
+    @Html.ListBox("Impuestos", itemsImpuestos)
+</div>    
+                    
+
+
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>
