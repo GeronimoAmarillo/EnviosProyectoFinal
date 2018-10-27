@@ -11,12 +11,26 @@ namespace LogicaDeServicioCore
     {
         public List<EntidadesCompartidasCore.Balance> ConsultarBalanceAnual(int año)
         {
-            return new List<EntidadesCompartidasCore.Balance>();
+            try
+            {
+                return LogicaBalance.ObtenerBalancesAnuales(año);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al generar el balance: " + ex.Message);
+            }
         }
 
-        public EntidadesCompartidasCore.Balance ConsultarBalanceMensual(string mes, int año)
+        public EntidadesCompartidasCore.Balance ConsultarBalanceMensual(int mes, int año)
         {
-            return new EntidadesCompartidasCore.Balance();
+            try
+            {
+                return LogicaBalance.BuscarBalance(mes, año);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al generar el balance: " + ex.Message);
+            }
         }
 
         public Registro ObtenerRegistro(DateTime fecha)

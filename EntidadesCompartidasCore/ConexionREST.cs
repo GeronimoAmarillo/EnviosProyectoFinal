@@ -20,7 +20,6 @@ namespace EntidadesCompartidasCore
         static string conexionPaquetes = "http://localhost:8080/api/Paquetes";
         static string conexionBalances = "http://localhost:8080/api/Balances";
         static string conexionEmpleados = "http://localhost:8080/api/Empleados";
-        static string conexionBalances = "http://localhost:8080/api/Balances";
 
 
         /*static string conexionRaiz = "https://enviosservice.azurewebsites.net/api/";

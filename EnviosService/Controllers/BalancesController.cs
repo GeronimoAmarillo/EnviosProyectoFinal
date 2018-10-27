@@ -20,7 +20,7 @@ namespace EnviosService.Controllers
         }
 
         [HttpGet("{mes, año}")]
-        public JsonResult Balance(string mes, int año)
+        public JsonResult Balance(int mes, int año)
         {
             return Json(controladorBalance.ConsultarBalanceMensual(mes, año), new Newtonsoft.Json.JsonSerializerSettings());
         }

@@ -43,12 +43,12 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult ConsultarBalanceMensual(String mes, int anio)
+        public async Task<ActionResult> ConsultarBalanceMensual(String mes, int anio)
         {
             try
             {
                 IControladorBalance controladorBalance = FabricaApps.GetControladorBalance();
-                Balance balanceARetornar = controladorBalance.ConsultarBalanceMensual(mes, anio);
+                Balance balanceARetornar = await controladorBalance.ConsultarBalanceMensual(mes, anio);
                 if (balanceARetornar != null)
                 {
                     return View(balanceARetornar);
@@ -69,12 +69,12 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult ConsultarBalanceAnual(int anio)
+        public async Task<ActionResult> ConsultarBalanceAnual(int anio)
         {
             try
             {
                 IControladorBalance controladorBalance = FabricaApps.GetControladorBalance();
-                List<Balance> balancesARetornar = controladorBalance.ConsultarBalanceAnual(anio);
+                List<Balance> balancesARetornar = await controladorBalance.ConsultarBalanceAnual(anio);
                 if (balancesARetornar != null)
                 {
                     return View(balancesARetornar);

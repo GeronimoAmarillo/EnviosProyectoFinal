@@ -11,7 +11,7 @@ namespace LogicaDeServicioCore
     {
         List<Balance> ConsultarBalanceAnual(int año);
 
-        Balance ConsultarBalanceMensual(string mes, int año);
+        Balance ConsultarBalanceMensual(int mes, int año);
 
         Registro ObtenerRegistro(DateTime fecha);
 

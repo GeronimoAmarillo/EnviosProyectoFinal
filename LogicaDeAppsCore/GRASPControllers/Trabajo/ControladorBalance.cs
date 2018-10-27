@@ -11,18 +11,34 @@ namespace LogicaDeAppsCore
 {
     class ControladorBalance: IControladorBalance
     {
-        public List<Balance> ConsultarBalanceAnual(int año)
-        {
-            return new List<Balance>();
-        }
 
-        public Balance ConsultarBalanceMensual(string mes, int año)
+        public async Task<Balance> ConsultarBalanceMensual(string mes, int año)
         {
             try
             {
                 var httpClient = new HttpClient();
-                var json = httpClient.GetStringAsync(ConexionREST.ConexionBalances + "/Balance");
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionBalances + "/Balance?mes=" + mes + "&año=" + año);
                 Balance balanceARetornar = JsonConvert.DeserializeObject<Balance>(json);
+                return balanceARetornar;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el balance.");
+            }
+        }
+
+        public async Task<List<Balance>> ConsultarBalanceAnual(int año)
+        {
+            try
+            {
+                var httpClient = new HttpClient();
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionBalances + "año=" + año);
+                List<Balance> balancesARetornar = JsonConvert.DeserializeObject<List<Balance>>(json);
+                return balancesARetornar;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el balance.");
             }
         }
 
