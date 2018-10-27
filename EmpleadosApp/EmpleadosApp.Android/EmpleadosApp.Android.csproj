@@ -72,6 +72,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adaptadores\AdaptadorClientes.cs" />
+    <Compile Include="Adaptadores\AdaptadorEntregasAsignadas.cs" />
+    <Compile Include="Adaptadores\AdaptadorEntregasLevantadas.cs" />
     <Compile Include="Adaptadores\AdaptadorLocales.cs" />
     <Compile Include="Adaptadores\AdaptadorPalets.cs" />
     <Compile Include="Adaptadores\AdaptadorPaquetes.cs" />
@@ -81,6 +83,8 @@
     <Compile Include="AsignarPaqueteActivity.cs" />
     <Compile Include="AsyncHelper.cs" />
     <Compile Include="BajaPaletActivity.cs" />
+    <Compile Include="EntregarAsignadaActivity.cs" />
+    <Compile Include="EntregarLevantadaActivity.cs" />
     <Compile Include="IngresoReceptorActivity.cs" />
     <Compile Include="InicioActivity.cs" />
     <Compile Include="ListadoClientesActivity.cs" />
@@ -91,6 +95,7 @@
     <Compile Include="ListadoPaletsActivity.cs" />
     <Compile Include="ListadoRacksActivity.cs" />
     <Compile Include="ListadoSectoresActivity.cs" />
+    <Compile Include="ListarEntregasActivity.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="NuevoPaqueteActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -154,6 +159,21 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\IngresoDeReceptor.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ListarEntregasActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\EntregaAsignadaRow.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\EntregaLevantadaRow.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\EntregarAsignadaActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\EntregarLevantadaActivity.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

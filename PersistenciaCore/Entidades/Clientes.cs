@@ -17,6 +17,7 @@ namespace PersistenciaCore
             Entregas1 = new HashSet<Entregas>();
             Palets = new HashSet<Palets>();
             Paquetes1 = new HashSet<Paquetes>();
+            Ingresos = new HashSet<Ingresos>();
         }
 
         [Key]
@@ -47,5 +48,8 @@ namespace PersistenciaCore
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Paquetes> Paquetes1 { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Ingresos> Ingresos { get; set; }
     }
 }

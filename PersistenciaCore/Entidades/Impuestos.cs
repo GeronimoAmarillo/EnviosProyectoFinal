@@ -20,5 +20,9 @@ namespace PersistenciaCore
         [Required]
         [StringLength(50)]
         public string Nombre { get; set; }
+
+        [Required]
+        [Column(TypeName = "date")]
+        public DateTime fechaRegistro { get; set; }
     }
 }

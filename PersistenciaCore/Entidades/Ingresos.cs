@@ -17,5 +17,14 @@ namespace PersistenciaCore
         [Required]
         [Column(TypeName = "money")]
         public decimal Suma { get; set; }
+
+        [Required]
+        [Column(TypeName = "date")]
+        public DateTime fechaRegistro { get; set; }
+
+        public long? RUT { get; set; }
+        
+        [ForeignKey("RUT")]
+        public virtual Clientes Clientes { get; set; }
     }
 }

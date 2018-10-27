@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersistenciaCore;
 
 namespace PersistenciaCore.Migrations
 {
     [DbContext(typeof(EnviosContext))]
-    partial class EnviosContextModelSnapshot : ModelSnapshot
+    [Migration("20181023012643_Problema")]
+    partial class Problema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -307,7 +309,7 @@ namespace PersistenciaCore.Migrations
                         .IsRequired()
                         .HasMaxLength(250);
 
-                    b.Property<long>("RUT");
+                    b.Property<long?>("RUT");
 
                     b.Property<decimal>("Suma")
                         .HasColumnType("decimal(19, 4)");
@@ -733,8 +735,7 @@ namespace PersistenciaCore.Migrations
                 {
                     b.HasOne("PersistenciaCore.Clientes", "Clientes")
                         .WithMany("Ingresos")
-                        .HasForeignKey("RUT")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("RUT");
                 });
 
             modelBuilder.Entity("PersistenciaCore.Motos", b =>

@@ -11,9 +11,62 @@ namespace PersistenciaCore
 {
     class PersistenciaEntrega:IPersistenciaEntrega
     {
-        public bool Entregar(List<EntidadesCompartidasCore.Entrega> entregas)
+        public bool Entregar(EntidadesCompartidasCore.Entrega entrega)
         {
-            return true;
+            try
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+
+                PersistenciaCore.Entregas entregaAgregar = new PersistenciaCore.Entregas();
+
+                entregaAgregar.ClienteEmisor = entrega.ClienteEmisor;
+                entregaAgregar.ClienteReceptor = entrega.ClienteReceptor;
+                entregaAgregar.Codigo = entrega.Codigo;
+                entregaAgregar.Fecha = entrega.Fecha;
+                entregaAgregar.LocalEmisor = entrega.LocalEmisor;
+                entregaAgregar.LocalReceptor = entrega.LocalReceptor;
+                entregaAgregar.NombreReceptor = entrega.NombreReceptor;
+
+                List<Paquetes> paquetes = TransformarPaquetes(entrega.Paquetes);
+                List<Paquetes> paquetes1 = TransformarPaquetes(entrega.Paquetes1);
+
+                entregaAgregar.Codigo = entrega.Codigo;
+
+                entregaAgregar.Turno = entrega.Turno;
+
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    if (paquetes != null || paquetes.Count > 0)
+                    {
+                        foreach (Paquetes p in paquetes)
+                        {
+                            p.Estado = "Entregado";
+                            dbConnection.Paquetes.Update(p);
+                        }
+                    }
+
+                    dbConnection.Entregas.Update(entregaAgregar);
+                    
+                    /*if (paquetes1 != null || paquetes1.Count > 0)
+                    {
+                        foreach (Paquetes p in paquetes1)
+                        {
+                            dbConnection.Paquetes.Update(p);
+                        }
+                    }*/
+
+                    dbConnection.SaveChanges();
+
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al realizar la entrega." + ex);
+            }
         }
 
         public Entrega BuscarEntrega(int codigo)
@@ -85,7 +138,73 @@ namespace PersistenciaCore
 
         public List<EntidadesCompartidasCore.Entrega> ListarEntregas()
         {
-            return new List<EntidadesCompartidasCore.Entrega>();
+            try
+            {
+                List<Entrega> entregasResultado = new List<Entrega>();
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    var entregas = dbConnection.Entregas.Include("Paquetes").Include("Paquetes1").Include("Locales").Include("Locales1").Include("Clientes.Usuarios").Include("Clientes1.Usuarios").Where(x=> x.Paquetes.FirstOrDefault().Estado == "Levantado" || x.Paquetes1.FirstOrDefault().Estado == "Levantado").ToList();
+
+                    Entrega entregaResultado = null;
+
+                    if (entregas != null)
+                    {
+                        foreach (Entregas e in entregas)
+                        {
+                            entregaResultado = new Entrega();
+
+                            entregaResultado.ClienteEmisor = e.ClienteEmisor;
+                            entregaResultado.ClienteReceptor = e.ClienteReceptor;
+                            entregaResultado.Codigo = e.Codigo;
+                            entregaResultado.Fecha = e.Fecha;
+                            entregaResultado.LocalEmisor = e.LocalEmisor;
+                            entregaResultado.LocalReceptor = e.LocalReceptor;
+                            if (e.Locales != null)
+                            {
+                                entregaResultado.Locales = TransformarLocal(e.Locales);
+                            }
+                            if (e.Locales1 != null)
+                            {
+                                entregaResultado.Locales1 = TransformarLocal(e.Locales1);
+                            }
+                            if (e.Clientes != null)
+                            {
+                                entregaResultado.Clientes = TransformarCliente(e.Clientes);
+                            }
+                            if (e.Clientes1 != null)
+                            {
+                                entregaResultado.Clientes1 = TransformarCliente(e.Clientes1);
+                            }
+                            
+                            entregaResultado.NombreReceptor = e.NombreReceptor;
+
+                            if (e.Paquetes != null)
+                            {
+                                entregaResultado.Paquetes = TransformarPaquetesInversa(e.Paquetes);
+                            }
+                            if (e.Paquetes1 != null)
+                            {
+                                entregaResultado.Paquetes1 = TransformarPaquetesInversa(e.Paquetes1);
+                            }
+
+                            entregaResultado.Turno = e.Turno;
+
+                            entregasResultado.Add(entregaResultado);
+                        }
+                    }
+                }
+
+                return entregasResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar las entregas." + ex.Message);
+            }
         }
 
         public List<Paquetes> TransformarPaquetes(List<Paquete> pPaquetes)
@@ -115,6 +234,48 @@ namespace PersistenciaCore
                 throw new Exception("Error al transformar los paquetes.");
             }
         }
+        public Local TransformarLocal(Locales pLocal)
+        {
+            try
+            {
+                Local localR = new Local();
+
+
+                localR.Direccion = pLocal.Direccion;
+                localR.Id = pLocal.Id;
+                localR.Nombre = pLocal.Nombre;
+
+                return localR;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al transformar el Local.");
+            }
+        }
+
+        public Cliente TransformarCliente(Clientes pCliente)
+        {
+            try
+            {
+                Cliente clienteR = new Cliente();
+
+
+                clienteR.Direccion = pCliente.Usuarios.Direccion;
+                clienteR.Email = pCliente.Usuarios.Email;
+                clienteR.Id = pCliente.Usuarios.Id;
+                clienteR.Mensualidad = pCliente.Mensualidad;
+                clienteR.Nombre = pCliente.Usuarios.Nombre;
+                clienteR.NombreUsuario = pCliente.Usuarios.NombreUsuario;
+                clienteR.RUT = pCliente.RUT;
+                clienteR.Telefono = pCliente.Usuarios.Telefono;
+
+                return clienteR;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al transformar el cliente.");
+            }
+        }
 
         public bool AltaEntrega(EntidadesCompartidasCore.Entrega entrega)
         {
@@ -133,7 +294,7 @@ namespace PersistenciaCore
                 entregaAgregar.Fecha = entrega.Fecha;
                 entregaAgregar.LocalEmisor = entrega.LocalEmisor;
                 entregaAgregar.LocalReceptor = entrega.LocalReceptor;
-                entregaAgregar.NombreReceptor = entrega.NombreReceptor;
+                entregaAgregar.NombreReceptor = "";
 
                 List<Paquetes> paquetes = TransformarPaquetes(entrega.Paquetes);
 

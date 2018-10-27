@@ -28,6 +28,10 @@ namespace PersistenciaCore
         [StringLength(10)]
         public string Vehiculo { get; set; }
 
+        [Required]
+        [Column(TypeName = "date")]
+        public DateTime fechaRegistro { get; set; }
+
         public virtual Vehiculos Vehiculos { get; set; }
     }
 }

@@ -93,6 +93,152 @@ namespace ClientesApp.Controllers
 
         }
 
+        public ActionResult IniciarReclamo()
+        {
+            try
+            {
+                if (ComprobarLogin())
+                {
+                    return View();
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> IniciarReclamo([FromForm]int numReferencia)
+        {
+            try
+            {
+                if (ComprobarLogin())
+                {
+                    IControladorPaquete controladorPaquete = FabricaApps.GetControladorPaquete();
+
+                    Paquete pPaquete = await controladorPaquete.BuscarPaquete(numReferencia);
+
+                    if (pPaquete != null)
+                    {
+
+                        return RedirectToAction("IngresarReclamo", "Paquetes", new { numReferencia = pPaquete.NumReferencia });
+
+                    }
+                    else
+                    {
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+
+                        return RedirectToAction("IniciarReclamo", "Paquetes", new { area = "" });
+                    }
+
+                    return View();
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+
+        public async Task<ActionResult> IngresarReclamo(int numReferencia)
+        {
+            try
+            {
+                if (ComprobarLogin())
+                {
+
+                    IControladorPaquete controladorPaquete = FabricaApps.GetControladorPaquete();
+
+                    Paquete pPaquete = await controladorPaquete.BuscarPaquete(numReferencia);
+
+                    return View(pPaquete);
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult IngresarReclamo([FromForm]string descripcion, [FromForm]int numReferencia)
+        {
+            try
+            {
+                if (ComprobarLogin())
+                {
+                    Reclamo reclamoAgregar = new Reclamo();
+
+                    reclamoAgregar.Id = 0;
+                    reclamoAgregar.Comentario = descripcion;
+                    reclamoAgregar.Paquete = numReferencia;
+
+                    IControladorPaquete controladorPaquete = FabricaApps.GetControladorPaquete();
+                    
+
+                    if (controladorPaquete.RealizarReclamo(reclamoAgregar))
+                    {
+
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "Se registro su reclamo de forma exitosa.");
+
+                        return RedirectToAction("Index", "Home", new { area = "" });
+
+                    }
+                    else
+                    {
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "Ocurrio un error al intentar ingresar el reclamo.");
+
+                        return RedirectToAction("IniciarReclamo", "Paquetes", new { area = "" });
+                    }
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+
         public async Task<ActionResult> ListarRecibidos()
         {
             try

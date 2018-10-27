@@ -19,5 +19,7 @@ namespace EntidadesCompartidasCore
         [MinLength(2)]
         [MaxLength(25)]
         public string Nombre { get; set; }
+        [Required]
+        public DateTime fechaRegistro { get; set; }
     }
 }
