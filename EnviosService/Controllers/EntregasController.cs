@@ -44,7 +44,7 @@ namespace EnviosService.Controllers
 
         [Route("api/Entregas/Entregar")]
         [HttpPost]
-        public JsonResult Entregas([FromBody] List<Entrega> item)
+        public JsonResult Entregas([FromBody] Entrega item)
         {
             return Json(controladorEntrega.Entregar(item));
         }

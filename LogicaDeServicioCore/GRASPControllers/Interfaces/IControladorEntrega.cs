@@ -12,7 +12,7 @@ namespace LogicaDeServicioCore
 
         List<Entrega> ListarEntregas();
 
-        bool Entregar(List<Entrega> entregasSelecciondas);
+        bool Entregar(EntidadesCompartidasCore.Entrega entrega);
 
         List<Cliente> ListarClientes();
 

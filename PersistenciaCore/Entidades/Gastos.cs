@@ -18,5 +18,9 @@ namespace PersistenciaCore
         [Required]
         [Column(TypeName = "money")]
         public decimal Suma { get; set; }
+
+        [Required]
+        [Column(TypeName = "date")]
+        public DateTime fechaRegistro { get; set; }
     }
 }

@@ -13,6 +13,8 @@ namespace LogicaDeAppsCore
 
         Balance ConsultarBalanceMensual(string mes, int año);
 
-        List<Registro> ConsultarRegistros(string mes, int año);
+        Task<Registro> ConsultarRegistro(DateTime fecha);
+
+        Task<List<Registro>> ConsultarRegistros(DateTime fechaInicio, DateTime fechaFinal);
     }
 }

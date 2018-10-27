@@ -10,16 +10,28 @@ namespace LogicaDeServicioCore
 {
     public class LogicaEntrega
     {
-        public bool Entregar(List<Entrega> entregasSeleccionadas)
+        public static bool Entregar(Entrega entrega)
         {
-            bool exito = false;
-            return exito;
+            try
+            {
+                return FabricaPersistencia.GetPersistenciaEntrega().Entregar(entrega);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar realizar la entrega." + ex);
+            }
         }
 
-        public List<Entrega> ListarEntregas()
+        public static List<Entrega> ListarEntregas()
         {
-            List<Entrega> entregas = new List<Entrega>();
-            return entregas;
+            try
+            {
+                return FabricaPersistencia.GetPersistenciaEntrega().ListarEntregas();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar las entregas." + ex);
+            }
         }
 
         public static Entrega BuscarEntrega(int codigo)

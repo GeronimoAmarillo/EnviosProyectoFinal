@@ -18,6 +18,7 @@ namespace EntidadesCompartidasCore
         static string conexionReparaciones = "http://localhost:8080/api/Reparaciones";
         static string conexionTurnos = "http://localhost:8080/api/Turnos";
         static string conexionPaquetes = "http://localhost:8080/api/Paquetes";
+        static string conexionBalances = "http://localhost:8080/api/Balances";
         static string conexionEmpleados = "http://localhost:8080/api/Empleados";
         static string conexionBalances = "http://localhost:8080/api/Balances";
 
@@ -33,7 +34,8 @@ namespace EntidadesCompartidasCore
         static string conexionMultas = "https://enviosservice.azurewebsites.net/api/Multas";
         static string conexionReparaciones = "https://enviosservice.azurewebsites.net/api/Reparaciones";
         static string conexionTurnos = "https://enviosservice.azurewebsites.net/api/Turnos";
-        static string conexionPaquetes = "https://enviosservice.azurewebsites.net/api/Paquetes";*/
+        static string conexionPaquetes = "https://enviosservice.azurewebsites.net/api/Paquetes";
+        static string conexionBalances = "https://enviosservice.azurewebsites.net/api/Balances";*/
 
 
         public static string ConexionValores { get => conexionValores; }
@@ -49,6 +51,6 @@ namespace EntidadesCompartidasCore
         public static string ConexionTurnos { get => conexionTurnos; }
         public static string ConexionEmpleados { get => conexionEmpleados; }
         public static string ConexionPaquetes { get => conexionPaquetes; }
-        public static string ConexionBalances { get => ConexionBalances; }
+        public static string ConexionBalances { get => conexionBalances; }
     }
 }

@@ -70,25 +70,6 @@ namespace PersistenciaCore.Migrations
                     b.ToTable("Automobiles");
                 });
 
-            modelBuilder.Entity("PersistenciaCore.Balances", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("Abierto");
-
-                    b.Property<int>("Año");
-
-                    b.Property<string>("Mes")
-                        .IsRequired()
-                        .HasMaxLength(10);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Balances");
-                });
-
             modelBuilder.Entity("PersistenciaCore.Cadetes", b =>
                 {
                     b.Property<int>("CiEmpleado");
@@ -283,6 +264,9 @@ namespace PersistenciaCore.Migrations
                     b.Property<decimal>("Suma")
                         .HasColumnType("decimal(19, 4)");
 
+                    b.Property<DateTime>("fechaRegistro")
+                        .HasColumnType("date");
+
                     b.HasKey("Id");
 
                     b.ToTable("Gastos");
@@ -305,6 +289,9 @@ namespace PersistenciaCore.Migrations
                     b.Property<decimal>("Porcentaje")
                         .HasColumnType("decimal(18, 0)");
 
+                    b.Property<DateTime>("fechaRegistro")
+                        .HasColumnType("date");
+
                     b.HasKey("Id");
 
                     b.ToTable("Impuestos");
@@ -320,10 +307,17 @@ namespace PersistenciaCore.Migrations
                         .IsRequired()
                         .HasMaxLength(250);
 
+                    b.Property<long>("RUT");
+
                     b.Property<decimal>("Suma")
                         .HasColumnType("decimal(19, 4)");
 
+                    b.Property<DateTime>("fechaRegistro")
+                        .HasColumnType("date");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("RUT");
 
                     b.ToTable("Ingresos");
                 });
@@ -488,36 +482,6 @@ namespace PersistenciaCore.Migrations
                     b.ToTable("Reclamo");
                 });
 
-            modelBuilder.Entity("PersistenciaCore.Registros", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BalanceId");
-
-                    b.Property<DateTime>("Fecha")
-                        .HasColumnType("date");
-
-                    b.Property<decimal>("UtilidadBruta")
-                        .HasColumnType("decimal(19, 4)");
-
-                    b.Property<decimal>("UtilidadEjercicio")
-                        .HasColumnType("decimal(19, 4)");
-
-                    b.Property<decimal>("UtilidadOperacional")
-                        .HasColumnType("decimal(19, 4)");
-
-                    b.Property<decimal>("UtilidadSinImpuestos")
-                        .HasColumnType("decimal(19, 4)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BalanceId");
-
-                    b.ToTable("Registros");
-                });
-
             modelBuilder.Entity("PersistenciaCore.Reparaciones", b =>
                 {
                     b.Property<int>("Id")
@@ -537,6 +501,9 @@ namespace PersistenciaCore.Migrations
                     b.Property<string>("Taller")
                         .IsRequired()
                         .HasMaxLength(25);
+
+                    b.Property<DateTime>("fechaRegistro")
+                        .HasColumnType("date");
 
                     b.HasKey("Id", "Vehiculo");
 
@@ -762,6 +729,14 @@ namespace PersistenciaCore.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
+            modelBuilder.Entity("PersistenciaCore.Ingresos", b =>
+                {
+                    b.HasOne("PersistenciaCore.Clientes", "Clientes")
+                        .WithMany("Ingresos")
+                        .HasForeignKey("RUT")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("PersistenciaCore.Motos", b =>
                 {
                     b.HasOne("PersistenciaCore.Vehiculos", "Vehiculos")
@@ -830,14 +805,6 @@ namespace PersistenciaCore.Migrations
                         .WithMany("Reclamo1")
                         .HasForeignKey("Paquete")
                         .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("PersistenciaCore.Registros", b =>
-                {
-                    b.HasOne("PersistenciaCore.Balances", "Balances")
-                        .WithMany("Registros")
-                        .HasForeignKey("BalanceId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("PersistenciaCore.Reparaciones", b =>

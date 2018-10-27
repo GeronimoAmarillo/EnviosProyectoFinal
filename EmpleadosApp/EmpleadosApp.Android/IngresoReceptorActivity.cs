@@ -36,7 +36,7 @@ namespace EmpleadosApp.Droid
             {
 
                 Bundle extras = Intent.Extras;
-                string entregaJson = extras.GetString("EntregaCreacion");
+                string entregaJson = extras.GetString("EntregaSeleccionada");
 
                 entrega = JsonConvert.DeserializeObject<Entrega>(entregaJson);
 
@@ -69,11 +69,6 @@ namespace EmpleadosApp.Droid
                 }
 
                 entrega.NombreReceptor = etReceptor.Text;
-                entrega.ClienteEmisor = null;
-                entrega.Locales = null;
-
-                entrega.Fecha = DateTime.Now;
-                
 
                 try
                 {
@@ -81,7 +76,7 @@ namespace EmpleadosApp.Droid
                     using (var httpClient = new HttpClient())
                     {
 
-                        string url = ConexionREST.ConexionEntregas + "/Alta";
+                        string url = ConexionREST.ConexionEntregas + "/Entregar";
 
                         var content = new StringContent(JsonConvert.SerializeObject(entrega), Encoding.UTF8, "application/json");
 
@@ -91,15 +86,15 @@ namespace EmpleadosApp.Droid
 
                         if (contentResult.Result.ToUpper() == "TRUE")
                         {
-                            Toast.MakeText(this, "Se dio de alta con exito la Entrega.", ToastLength.Long).Show();
+                            Toast.MakeText(this, "Se entrego con exito la Entrega.", ToastLength.Long).Show();
 
-                            Intent intent = new Intent(this, typeof(InicioActivity));
+                            Intent intent = new Intent(this, typeof(ListarEntregasActivity));
 
                             StartActivity(intent);
                         }
                         else
                         {
-                            Toast.MakeText(this, "Error al dar de alta la entrega.", ToastLength.Long).Show();
+                            Toast.MakeText(this, "Error al entregar la entrega.", ToastLength.Long).Show();
                         }
                     }
 

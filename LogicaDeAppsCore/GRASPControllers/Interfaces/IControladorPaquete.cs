@@ -9,11 +9,11 @@ namespace LogicaDeAppsCore
 {
     public interface IControladorPaquete
     {
-        bool RealizarReclamo(string descripcion);
+        bool RealizarReclamo(Reclamo reclamo);
 
         Paquete GetPaquete();
 
-        Paquete BuscarPaquete(int codigo);
+        Task<Paquete> BuscarPaquete(int codigo);
 
         void SetPaquete(Paquete pPaquete);
 
