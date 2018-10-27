@@ -19,6 +19,7 @@ namespace EntidadesCompartidasCore
         static string conexionTurnos = "http://localhost:8080/api/Turnos";
         static string conexionPaquetes = "http://localhost:8080/api/Paquetes";
         static string conexionEmpleados = "http://localhost:8080/api/Empleados";
+        static string conexionBalances = "http://localhost:8080/api/Balances";
 
 
         /*static string conexionRaiz = "https://enviosservice.azurewebsites.net/api/";
@@ -48,5 +49,6 @@ namespace EntidadesCompartidasCore
         public static string ConexionTurnos { get => conexionTurnos; }
         public static string ConexionEmpleados { get => conexionEmpleados; }
         public static string ConexionPaquetes { get => conexionPaquetes; }
+        public static string ConexionBalances { get => ConexionBalances; }
     }
 }

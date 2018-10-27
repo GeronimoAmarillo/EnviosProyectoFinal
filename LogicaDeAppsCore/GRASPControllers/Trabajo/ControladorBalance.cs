@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidasCore;
+using Newtonsoft.Json;
 
 namespace LogicaDeAppsCore
 {
@@ -16,7 +18,12 @@ namespace LogicaDeAppsCore
 
         public Balance ConsultarBalanceMensual(string mes, int año)
         {
-            return new Balance();
+            try
+            {
+                var httpClient = new HttpClient();
+                var json = httpClient.GetStringAsync(ConexionREST.ConexionBalances + "/Balance");
+                Balance balanceARetornar = JsonConvert.DeserializeObject<Balance>(json);
+            }
         }
 
         public List<Registro> ConsultarRegistros(string mes, int año)
