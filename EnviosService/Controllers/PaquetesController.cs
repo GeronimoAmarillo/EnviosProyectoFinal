@@ -76,5 +76,11 @@ namespace EnviosService.Controllers
         {
             return Json(controladorPaquete.RealizarReclamo(item));
         }
+        [Route("api/Paquete/ListarReclamos")]
+        [HttpGet]
+        public JsonResult ListarReclamos()
+        {
+            return Json(controladorPaquete.ListarReclamos(), new Newtonsoft.Json.JsonSerializerSettings());
+        }
     }
 }

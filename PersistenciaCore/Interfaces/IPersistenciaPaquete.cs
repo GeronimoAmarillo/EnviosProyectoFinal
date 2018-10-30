@@ -21,5 +21,7 @@ namespace PersistenciaCore
         bool RealizarReclamo(EntidadesCompartidasCore.Reclamo reclamo);
 
         List<EntidadesCompartidasCore.Paquete> ListarPaquetesRecibidosXCliente(int rut);
+
+        List<EntidadesCompartidasCore.Reclamo> ListarReclamos();
     }
 }

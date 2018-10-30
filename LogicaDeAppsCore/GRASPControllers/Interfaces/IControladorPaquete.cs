@@ -17,5 +17,7 @@ namespace LogicaDeAppsCore
 
         void SetPaquete(Paquete pPaquete);
 
+        Task<List<EntidadesCompartidasCore.Reclamo>> ListarReclamos();
+
     }
 }
