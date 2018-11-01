@@ -11,17 +11,27 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using Android.Content;
 using EntidadesCompartidasAndroid;
+using Plugin.CurrentActivity;
+using Plugin.Permissions;
 
 namespace EmpleadosApp.Droid
 {
     [Activity(Label = "Login", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : Activity
     {
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+        {
+            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             try
             {
+                Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, bundle);
                 SetContentView(Resource.Layout.MainActivity);
 
                 Button btnLogin = FindViewById<Button>(Resource.Id.btnLogin);

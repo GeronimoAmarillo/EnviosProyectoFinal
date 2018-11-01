@@ -25,6 +25,12 @@ namespace EmpleadosApp.Droid
         Button btnIrRegistroEntrega;
         Usuario usuarioLogueado;
 
+        protected override void OnStart()
+        {
+            base.OnStart();
+            var intent = new Intent(this, typeof(ServicioGeolocalizacion));
+            StartService(intent);
+        }
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);

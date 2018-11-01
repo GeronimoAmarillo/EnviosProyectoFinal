@@ -17,8 +17,10 @@ namespace PersistenciaCore
         [Required]
         [StringLength(2)]
         public string TipoLibreta { get; set; }
-       
-        public long IdTelefono { get; set; }
+
+        public string Longitud { get; set; }
+
+        public string Latitud { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]

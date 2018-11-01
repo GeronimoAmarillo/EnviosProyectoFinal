@@ -66,7 +66,8 @@ namespace TestsLogicaServicioCore
                 Sueldo = 1234,
                 Ci = 41739143,
                 TipoLibreta ="a",
-                IdTelefono=2345,
+                Latitud="1241124",
+                Longitud="137501"
             };
 
             var resultado = FabricaServicio.GetControladorUsuario().AltaUsuario(cadete);

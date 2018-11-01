@@ -74,7 +74,9 @@ namespace PersistenciaCore.Migrations
                 {
                     b.Property<int>("CiEmpleado");
 
-                    b.Property<long>("IdTelefono");
+                    b.Property<string>("Latitud");
+
+                    b.Property<string>("Longitud");
 
                     b.Property<string>("TipoLibreta")
                         .IsRequired()
@@ -307,7 +309,7 @@ namespace PersistenciaCore.Migrations
                         .IsRequired()
                         .HasMaxLength(250);
 
-                    b.Property<long>("RUT");
+                    b.Property<long?>("RUT");
 
                     b.Property<decimal>("Suma")
                         .HasColumnType("decimal(19, 4)");
@@ -733,8 +735,7 @@ namespace PersistenciaCore.Migrations
                 {
                     b.HasOne("PersistenciaCore.Clientes", "Clientes")
                         .WithMany("Ingresos")
-                        .HasForeignKey("RUT")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("RUT");
                 });
 
             modelBuilder.Entity("PersistenciaCore.Motos", b =>
