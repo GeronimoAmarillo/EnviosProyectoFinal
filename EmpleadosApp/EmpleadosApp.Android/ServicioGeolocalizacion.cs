@@ -27,6 +27,7 @@ namespace EmpleadosApp.Droid
         Timer timer;
         DateTime startTime;
         bool isStarted = false;
+        string user = "";
 
         public override void OnCreate()
         {
@@ -36,9 +37,12 @@ namespace EmpleadosApp.Droid
         public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
         {
             Log.Debug(TAG, $"OnStartCommand called at {startTime}, flags={flags}, startid={startId}");
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+            user = prefs.GetString("UsuarioLogueado", "");
 
             if (isStarted)
             {
+
                 TimeSpan runtime = DateTime.UtcNow.Subtract(startTime);
                 Log.Debug(TAG, $"This service was already started, it's been running for {runtime:c}.");
             }
@@ -72,53 +76,51 @@ namespace EmpleadosApp.Droid
 
         async void HandleTimerCallback(object state)
         {
-            TimeSpan runTime = DateTime.UtcNow.Subtract(startTime);
-
-            var locator = CrossGeolocator.Current;
-            locator.DesiredAccuracy = 50;
-
-            var position = await locator.GetPositionAsync(new TimeSpan(10000));
-
-            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
-            string user = prefs.GetString("UsuarioLogueado", "");
-
-            if (user == "")
+            try
             {
-                Toast.MakeText(this, "Acceso Denegado: No hay ningun usuario logueado", ToastLength.Long).Show();
+                TimeSpan runTime = DateTime.UtcNow.Subtract(startTime);
 
-                var intent = new Intent(this, typeof(MainActivity));
-                StartActivity(intent);
+                var locator = CrossGeolocator.Current;
+                locator.DesiredAccuracy = 50;
+
+                var position = await locator.GetPositionAsync(new TimeSpan(10000));
+
+                
+                Cadete cadeteLogueado = JsonConvert.DeserializeObject<Cadete>(user);
+                cadeteLogueado.Longitud = position.Longitude.ToString();
+                cadeteLogueado.Latitud = position.Latitude.ToString();
+                string cadeteM = JsonConvert.SerializeObject(cadeteLogueado);
+
+                
+                using (var httpClient = new HttpClient())
+                {
+                    string url = ConexionREST.ConexionEmpleados + "/ModificarCadete";
+
+                    var content = new StringContent(cadeteM, Encoding.UTF8, "application/json");
+
+                    var result = httpClient.PostAsync(url, content).Result;
+
+                    var contentResult = result.Content.ReadAsStringAsync();
+
+                    if (contentResult.Result.ToUpper() == "TRUE")
+                    {
+                        Log.Debug(TAG, $"Resultado positivo");
+                    }
+                    else
+                    {
+                        Log.Debug(TAG, $"Resultado negativo");
+                    }
+                }
+
+
+
+                Log.Debug(TAG, $"This service has been running for {runTime:c} (since ${state}). Latitud = " + position.Latitude.ToString() + " - Longitud = " + position.Longitude.ToString() + ". Latitud Logueada: " + cadeteLogueado.Latitud);
             }
-
-            Cadete cadeteLogueado = JsonConvert.DeserializeObject<Cadete>(user);
-            cadeteLogueado.Longitud = position.Longitude.ToString();
-            cadeteLogueado.Latitud = position.Latitude.ToString();
-            string cadeteM = JsonConvert.SerializeObject(cadeteLogueado);
-
-
-            using (var httpClient = new HttpClient())
+            catch (Exception ex)
             {
-                string url = ConexionREST.ConexionEmpleados + "/ModificarCadete";
-
-                var content = new StringContent(cadeteM, Encoding.UTF8, "application/json");
-
-                var result = httpClient.PostAsync(url, content).Result;
-
-                var contentResult = result.Content.ReadAsStringAsync();
-
-                if (contentResult.Result.ToUpper() == "TRUE")
-                {
-                    Log.Debug(TAG, $"Resultado positivo");
-                }
-                else
-                {
-                    Log.Debug(TAG, $"Resultado negativo");
-                }
+                throw new Exception(ex.Message);
             }
-
             
-
-            Log.Debug(TAG, $"This service has been running for {runTime:c} (since ${state}). Latitud = " + position.Latitude.ToString() + " - Longitud = " + position.Longitude.ToString() + ".");
         }
     }
 }
