@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "IniciarTrackeo";
+}
+
+<h2>IniciarTrackeo</h2>
+
+<h4>Ingrese el Numero de Referencia del Paquete</h4>
+<hr />
+
+@using (Html.BeginForm("IniciarTrackeoPost", "Paquetes"))
+{
+    <div class="form-group">
+        <label>Ingrese aqui el numero de referencia</label>
+        <input type="text" name="numReferencia" class="form-control" />
+        <br />
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-default">Consultar</button>
+    </div>
+}

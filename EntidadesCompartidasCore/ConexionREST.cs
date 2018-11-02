@@ -52,5 +52,6 @@ namespace EntidadesCompartidasCore
         public static string ConexionEmpleados { get => conexionEmpleados; }
         public static string ConexionPaquetes { get => conexionPaquetes; }
         public static string ConexionBalances { get => conexionBalances; }
+        
     }
 }

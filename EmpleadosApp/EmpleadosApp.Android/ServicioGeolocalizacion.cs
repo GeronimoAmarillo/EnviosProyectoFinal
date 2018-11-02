@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Preferences;
 using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using EntidadesCompartidasAndroid;
+using Newtonsoft.Json;
 using Plugin.Geolocator;
 
 namespace EmpleadosApp.Droid
@@ -32,6 +36,7 @@ namespace EmpleadosApp.Droid
         public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
         {
             Log.Debug(TAG, $"OnStartCommand called at {startTime}, flags={flags}, startid={startId}");
+
             if (isStarted)
             {
                 TimeSpan runtime = DateTime.UtcNow.Subtract(startTime);
@@ -73,6 +78,45 @@ namespace EmpleadosApp.Droid
             locator.DesiredAccuracy = 50;
 
             var position = await locator.GetPositionAsync(new TimeSpan(10000));
+
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+            string user = prefs.GetString("UsuarioLogueado", "");
+
+            if (user == "")
+            {
+                Toast.MakeText(this, "Acceso Denegado: No hay ningun usuario logueado", ToastLength.Long).Show();
+
+                var intent = new Intent(this, typeof(MainActivity));
+                StartActivity(intent);
+            }
+
+            Cadete cadeteLogueado = JsonConvert.DeserializeObject<Cadete>(user);
+            cadeteLogueado.Longitud = position.Longitude.ToString();
+            cadeteLogueado.Latitud = position.Latitude.ToString();
+            string cadeteM = JsonConvert.SerializeObject(cadeteLogueado);
+
+
+            using (var httpClient = new HttpClient())
+            {
+                string url = ConexionREST.ConexionEmpleados + "/ModificarCadete";
+
+                var content = new StringContent(cadeteM, Encoding.UTF8, "application/json");
+
+                var result = httpClient.PostAsync(url, content).Result;
+
+                var contentResult = result.Content.ReadAsStringAsync();
+
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    Log.Debug(TAG, $"Resultado positivo");
+                }
+                else
+                {
+                    Log.Debug(TAG, $"Resultado negativo");
+                }
+            }
+
+            
 
             Log.Debug(TAG, $"This service has been running for {runTime:c} (since ${state}). Latitud = " + position.Latitude.ToString() + " - Longitud = " + position.Longitude.ToString() + ".");
         }

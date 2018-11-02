@@ -44,7 +44,9 @@ namespace PersistenciaCore
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            
+            modelBuilder.Entity<Entregas>()
+                .HasOne(x => x.Cadetes)
+                .WithMany(x => x.Entregas);
 
             modelBuilder.Entity<Adelantos>()
                 .Property(e => e.Suma)

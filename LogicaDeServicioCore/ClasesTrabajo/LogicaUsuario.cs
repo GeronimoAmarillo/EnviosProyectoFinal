@@ -29,6 +29,23 @@ namespace LogicaDeServicioCore
 
         }
 
+        public static Geolocalizacion ConsultarLocalizacion(int numReferencia, int rut)
+        {
+            try
+            {
+                Geolocalizacion geo = new Geolocalizacion();
+                geo.Cadete = FabricaPersistencia.GetPersistenciaCadete().ConsultarLocalizacion(numReferencia);
+                geo.Paquete = FabricaPersistencia.GetPersistenciaPaquete().BuscarPaqueteIndividual(numReferencia, rut);
+
+                return geo;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public static bool VerificarCodigoEmail(string email, string codigo)
         {
             try

@@ -21,6 +21,20 @@ namespace LogicaDeServicioCore
             }
         }
 
+        public Geolocalizacion ConsultarLocalizacion(int numReferencia, int rut)
+        {
+            try
+            {
+
+                return LogicaUsuario.ConsultarLocalizacion(numReferencia, rut);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public EntidadesCompartidasCore.Empleado BuscarEmpleado(int ci)
         {
             try

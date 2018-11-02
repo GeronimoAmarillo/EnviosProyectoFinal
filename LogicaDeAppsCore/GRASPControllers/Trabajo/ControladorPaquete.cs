@@ -71,6 +71,27 @@ namespace LogicaDeAppsCore
             }
         }
 
+        public async Task<Geolocalizacion> LocalizarPaquete(int numReferencia, long rut)
+        {
+            try
+            {
+                //http://localhost:8080/
+
+                var httpClient = new HttpClient();
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionPaquetes + "/Localizar?numReferencia=" + numReferencia + "&rut="+ rut);
+
+                Geolocalizacion geo = null;
+
+                geo = JsonConvert.DeserializeObject<Geolocalizacion>(json);
+
+                return geo;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al rastrear el paquete.");
+            }
+        }
+
         public void SetPaquete(Paquete pPaquete)
         {
             paquete = pPaquete;

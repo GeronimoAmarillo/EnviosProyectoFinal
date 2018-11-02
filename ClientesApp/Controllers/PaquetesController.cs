@@ -161,6 +161,8 @@ namespace ClientesApp.Controllers
 
         }
 
+        
+
         public async Task<ActionResult> IngresarReclamo(int numReferencia)
         {
             try
@@ -528,6 +530,69 @@ namespace ClientesApp.Controllers
             }
         }
 
+        public ActionResult IniciarTrackeo()
+        {
+            try
+            {
+                if (ComprobarLogin())
+                {
+                    return View();
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+
+        public async Task<ActionResult> IniciarTrackeoPost(int numReferencia)
+        {
+            try
+            {
+                if (ComprobarLogin())
+                {
+                    IControladorPaquete controladorPaquete = FabricaApps.GetControladorPaquete();
+
+                    Cliente cliente = HttpContext.Session.Get<Cliente>(LOG_USER);
+
+                    Geolocalizacion geo = await controladorPaquete.LocalizarPaquete(numReferencia, cliente.RUT);
+
+                    if (geo != null)
+                    {
+                        return View(geo);
+                    }
+                    else
+                    {
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "No existe el paquete seleccionado");
+
+                        return RedirectToAction("IniciarTrackeo", "Paquetes", new { area = "" });
+                    }
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudo cargar el Paquete");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
 
         public bool ComprobarLogin()
         {

@@ -18,6 +18,7 @@ namespace EntidadesCompartidasAndroid
         static string conexionReparaciones = "http://169.254.80.80:8080/api/Reparaciones";
         static string conexionTurnos = "http://169.254.80.80:8080/api/Turnos";
         static string conexionEntregas = "http://169.254.80.80:8080/api/Entregas";
+        static string conexionEmpleados = "http://localhost:8080/api/Empleados";
 
         /*static string conexionRaiz = "https://enviosservice.azurewebsites.net/api/";
         static string conexionLocales = "https://enviosservice.azurewebsites.net/api/Locales";
@@ -45,5 +46,7 @@ namespace EntidadesCompartidasAndroid
         public static string ConexionAdelantos { get => conexionAdelantos; }
         public static string ConexionTurnos { get => conexionTurnos; }
         public static string ConexionEntregas { get => conexionEntregas; }
+
+        public static string ConexionEmpleados { get => conexionEmpleados; }
     }
 }

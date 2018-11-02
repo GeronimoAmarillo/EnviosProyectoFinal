@@ -35,8 +35,9 @@ namespace PersistenciaCore
 
         public long? Cliente { get; set; }
 
+        
         public virtual Clientes Clientes { get; set; }
-
+        
         public virtual Clientes Clientes1 { get; set; }
 
         public virtual Entregas Entregas { get; set; }

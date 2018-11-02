@@ -88,7 +88,6 @@ namespace EmpleadosApp.Droid
                     Usuario usuarioLogueado = null;
                     Administrador admin = null;
                     Cadete cadete = null;
-                    Cliente cliente = null;
 
 
                     usuarioLogueado = JsonConvert.DeserializeObject<Administrador>(json);
@@ -102,8 +101,9 @@ namespace EmpleadosApp.Droid
 
                         if (cadete == null || cadete.TipoLibreta == null)
                         {
-                            usuarioLogueado = JsonConvert.DeserializeObject<Cliente>(json);
-                            cliente = (Cliente)usuarioLogueado;
+                            Toast.MakeText(this, "ERROR: Error de Logueo", ToastLength.Long).Show();
+
+                            return null;
                         }
                     }
 
