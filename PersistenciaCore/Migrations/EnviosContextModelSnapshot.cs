@@ -548,6 +548,8 @@ namespace PersistenciaCore.Migrations
                         .IsRequired()
                         .HasMaxLength(10);
 
+                    b.Property<bool>("Eliminado");
+
                     b.Property<int>("Hora");
 
                     b.HasKey("Codigo");
