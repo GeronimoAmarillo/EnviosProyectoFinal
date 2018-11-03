@@ -12,20 +12,28 @@
     <div class="col-md-4">
         <form asp-action="Alta">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group" hidden>
+            <div class="form-group">
                 <label asp-for="Codigo" class="control-label"></label>
-                <input asp-for="Codigo" class="form-control" value="N/A" />
+                <input asp-for="Codigo" class="form-control" />
                 <span asp-validation-for="Codigo" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Dia" class="control-label"></label>
                 <input asp-for="Dia" class="form-control" />
+                <label>Ingrese la hora de forma numerica (ej: 0230 = "02:30")</label>
                 <span asp-validation-for="Dia" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Hora" class="control-label"></label>
                 <input asp-for="Hora" class="form-control" />
                 <span asp-validation-for="Hora" class="text-danger"></span>
+            </div>
+            <div class="form-group" hidden>
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Eliminado" /> @Html.DisplayNameFor(model => model.Eliminado)
+                    </label>
+                </div>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

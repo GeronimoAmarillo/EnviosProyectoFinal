@@ -98,9 +98,6 @@ namespace AdministradoresApp.Controllers
             {
                 if (ComprobarLogin() == "G")
                 {
-
-
-
                     if (ModelState.IsValid)
                     {
                         Turno turnoAlta = HttpContext.Session.Get<Turno>(SESSSION_ALTA);
@@ -108,6 +105,7 @@ namespace AdministradoresApp.Controllers
                         turnoAlta.Codigo = "" + turno.Dia.Substring(0, 3).ToUpper() + turno.Hora.ToString().ToUpper() + "";
                         turnoAlta.Dia = turno.Dia;
                         turnoAlta.Hora = turno.Hora;
+                        turnoAlta.Eliminado = false;
 
                         IControladorTurno controladorTurno = FabricaApps.GetControladorTurno();
 
@@ -156,7 +154,7 @@ namespace AdministradoresApp.Controllers
             }
 
         }
-        public async Task<ActionResult> Modificar(string codigo)
+        public async Task<ActionResult> Eliminar(string codigo)
         {
             if (ComprobarLogin() == "G")
             {
@@ -172,7 +170,7 @@ namespace AdministradoresApp.Controllers
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No existe el turno que desea modificar");
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No existe el turno que desea eliminar");
 
                     return RedirectToAction("Index", "Turnos", new { area = "" });
                 }
@@ -187,7 +185,7 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult Modificar([FromForm]Turno turno)
+        public ActionResult Eliminar([FromForm]Turno turno)
         {
             try
             {
@@ -200,6 +198,7 @@ namespace AdministradoresApp.Controllers
                     turnomodificar.Dia = turno.Dia;
                     turnomodificar.Entregas = turno.Entregas;
                     turnomodificar.Hora = turno.Hora;
+                    turnomodificar.Eliminado = true;
                     
                     IControladorTurno controladorTurno = FabricaApps.GetControladorTurno();
 
@@ -207,16 +206,16 @@ namespace AdministradoresApp.Controllers
 
                     if (ModelState.IsValid)
                     {
-                        bool exito = controladorTurno.ModificarTurno(turnomodificar);
+                        bool exito = controladorTurno.Eliminar(turnomodificar);
 
                         if (exito)
                         {
                             controladorTurno.SetTurno(null);
-                            mensaje = "El turno se modifico con exito!.";
+                            mensaje = "El turno se elimino con exito!.";
                         }
                         else
                         {
-                            mensaje = "Se produjo un error al dar de alta el turno!.";
+                            mensaje = "Se produjo un error al dar de baja el turno!.";
                         }
                     }
 

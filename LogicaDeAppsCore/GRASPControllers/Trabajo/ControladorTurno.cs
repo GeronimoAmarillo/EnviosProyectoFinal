@@ -63,7 +63,7 @@ namespace LogicaDeAppsCore
             }
         }
 
-        public bool ModificarTurno(Turno pTurno)
+        public bool Eliminar(Turno pTurno)
         {
             try
             {
@@ -75,7 +75,7 @@ namespace LogicaDeAppsCore
                 //    throw new Exception("El turno que desea modificar no existe en el sistema.");
                 //}
 
-                string url = ConexionREST.ConexionTurnos + "/Modificar";
+                string url = ConexionREST.ConexionTurnos + "/Eliminar";
 
                 var content = new StringContent(JsonConvert.SerializeObject(pTurno), Encoding.UTF8, "application/json");
 
