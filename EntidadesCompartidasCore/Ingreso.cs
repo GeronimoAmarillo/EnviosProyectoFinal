@@ -17,5 +17,6 @@ namespace EntidadesCompartidasCore
         public decimal Suma { get; set; }
         [Required]
         public DateTime fechaRegistro { get; set; }
+        
     }
 }

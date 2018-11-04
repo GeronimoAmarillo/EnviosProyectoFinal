@@ -299,11 +299,73 @@ namespace EmpleadosApp.Droid
 
         private void SetupViews()
         {
-            btnIrAltaPalet = FindViewById<Button>(Resource.Id.btnIrAltaPalet);
-            btnIrLevanteEntrega = FindViewById<Button>(Resource.Id.btnIrLevanteEntrega);
-            btnIrBajaPalet = FindViewById<Button>(Resource.Id.btnIrBajaPalet);
-            btnIrRegistroEntrega = FindViewById<Button>(Resource.Id.btnIrRegistroEntrega);
-            btnEntregar = FindViewById<Button>(Resource.Id.btnEntregar);
+            if (VerificarSesion() == "L")
+            {
+                btnIrAltaPalet = FindViewById<Button>(Resource.Id.btnIrAltaPalet);
+                btnIrBajaPalet = FindViewById<Button>(Resource.Id.btnIrBajaPalet);
+                btnIrRegistroEntrega = FindViewById<Button>(Resource.Id.btnIrRegistroEntrega);
+            }
+            else if (VerificarSesion() == "Cadete")
+            {
+                btnIrLevanteEntrega = FindViewById<Button>(Resource.Id.btnIrLevanteEntrega);
+                btnEntregar = FindViewById<Button>(Resource.Id.btnEntregar);
+            }
+            else
+            {
+                Intent intent = new Intent(this, typeof(MainActivity));
+                usuarioLogueado = null;
+                intent.PutExtra("UsuarioLogueado", Newtonsoft.Json.JsonConvert.SerializeObject(usuarioLogueado));
+
+                Toast.MakeText(this, "Acceso Denegado: No tiene permisos para utilizar las funciones de esta App", ToastLength.Long).Show();
+
+                StartActivity(intent);
+            }
+        }
+
+
+        public string VerificarSesion()
+        {
+            try
+            {
+                ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+                string user = prefs.GetString("UsuarioLogueado", "");
+
+                if (user == "")
+                {
+                    Toast.MakeText(this, "Acceso Denegado: No hay ningun usuario logueado", ToastLength.Long).Show();
+
+                    
+                    var intent = new Intent(this, typeof(MainActivity));
+                    StartActivity(intent);
+
+                    return "";
+                }
+                else
+                {
+                    Usuario userLogueado = JsonConvert.DeserializeObject<Usuario>(user);
+
+                    if (usuarioLogueado is Administrador)
+                    {
+                        return ((Administrador)usuarioLogueado).Tipo;
+                    }
+                    else if (usuarioLogueado is Cadete)
+                    {
+                        return "Cadete";
+                    }
+                    else
+                    {
+                        return "Cliente";
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                Toast.MakeText(this, "ERROR: Al verificar la sesion de usuario.", ToastLength.Long).Show();
+
+                return "";
+            }
+
         }
     }
 }
