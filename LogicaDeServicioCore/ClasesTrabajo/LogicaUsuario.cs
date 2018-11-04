@@ -384,8 +384,30 @@ namespace LogicaDeServicioCore
 
         public static List<EntidadesCompartidasCore.Cadete> ListarCadetesDisponibles()
         {
-            List<EntidadesCompartidasCore.Cadete> lista = new List<EntidadesCompartidasCore.Cadete>();
-            return lista;
+            try
+            {
+                List<EntidadesCompartidasCore.Cadete> lista = new List<EntidadesCompartidasCore.Cadete>();
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los cadetes." + ex.Message);
+            }
+            
+        }
+
+        public static List<EntidadesCompartidasCore.Cadete> ListarCadetes()
+        {
+            try
+            {
+                List<EntidadesCompartidasCore.Cadete> lista = FabricaPersistencia.GetPersistenciaCadete().ListarCadetes();
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los cadetes." + ex.Message);
+            }
+
         }
 
         public static List<EntidadesCompartidasCore.Cliente> ListarClientes()

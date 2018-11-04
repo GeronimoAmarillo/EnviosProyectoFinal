@@ -476,6 +476,7 @@ namespace PersistenciaCore
                 throw new Exception("Error al listar los cadetes disponibles." + ex.Message);
             }
         }
+        
 
         public bool BajaCadete(int ci)
         {

@@ -15,11 +15,11 @@ using Newtonsoft.Json;
 
 namespace EmpleadosApp.Droid
 {
-    [Activity(Label = "ListadoClientesPaqueteAsignarActivity")]
-    public class ListadoClientesPaqueteAsignarActivity : Activity
+    [Activity(Label = "ListadoCadetesActivity")]
+    public class ListadoCadetesActivity : Activity
     {
-        private List<Cliente> clientes;
-        private ListView lvClientes;
+        private List<Cadete> cadetes;
+        private ListView lvCadetes;
         private Entrega entrega;
 
 
@@ -27,7 +27,7 @@ namespace EmpleadosApp.Droid
         {
             base.OnCreate(savedInstanceState);
 
-            SetContentView(Resource.Layout.ListadoClienteActivity);
+            SetContentView(Resource.Layout.ListadoCadetesActivity);
 
 
             try
@@ -38,24 +38,24 @@ namespace EmpleadosApp.Droid
 
                 entrega = JsonConvert.DeserializeObject<Entrega>(entregaJson);
 
-                clientes = new List<Cliente>();
+                cadetes = new List<Cadete>();
 
-                if (!clientes.Any())
+                if (!cadetes.Any())
                 {
                     try
                     {
-                        clientes = AsyncHelper.RunSync<List<Cliente>>(() => ListarClientes());
+                        cadetes = AsyncHelper.RunSync<List<Cadete>>(() => ListarCadetes());
                     }
                     catch (Exception ex)
                     {
-                        throw new Exception("Se produjo un error al intentar listar los clientes.");
+                        throw new Exception("Se produjo un error al intentar listar los cadetes.");
                     }
                 }
 
                 SetupViews();
                 SetupEvents();
 
-                lvClientes.Adapter = new Adaptadores.AdaptadorClientes(this, clientes);
+                lvCadetes.Adapter = new Adaptadores.AdaptadorCadetes(this, cadetes);
 
             }
             catch (Exception ex)
@@ -64,7 +64,7 @@ namespace EmpleadosApp.Droid
             }
         }
 
-        private async System.Threading.Tasks.Task<List<Cliente>> ListarClientes()
+        private async System.Threading.Tasks.Task<List<Cadete>> ListarCadetes()
         {
             try
             {
@@ -74,30 +74,30 @@ namespace EmpleadosApp.Droid
                 {
                     var json = await httpClient.GetStringAsync(ConexionREST.ConexionEntregas + "/Clientes");
 
-                    List<Cliente> clientes = null;
+                    List<Cadete> cadetes = null;
 
-                    clientes = JsonConvert.DeserializeObject<List<Cliente>>(json);
+                    cadetes = JsonConvert.DeserializeObject<List<Cadete>>(json);
 
-                    return clientes;
+                    return cadetes;
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("Se produjo un error al intentar listar los clientes.");
+                throw new Exception("Se produjo un error al intentar listar los cadetes.");
             }
         }
 
         private void SetupEvents()
         {
-            lvClientes.ItemClick += lvClientes_ItemClick;
+            lvCadetes.ItemClick += lvCadetes_ItemClick;
         }
 
-        private void lvClientes_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        private void lvCadetes_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            var intent = new Intent(this, typeof(ListadoCadetesActivity));
+            var intent = new Intent(this, typeof(ListadoTurnosActivity));
             var id = (int)e.Id;
 
-            entrega.ClienteEmisor = id;
+            entrega.Cadete = id;
 
             intent.PutExtra("EntregaCreacion", Newtonsoft.Json.JsonConvert.SerializeObject(entrega));
 
@@ -106,7 +106,7 @@ namespace EmpleadosApp.Droid
 
         private void SetupViews()
         {
-            lvClientes = FindViewById<ListView>(Resource.Id.lvClientes);
+            lvCadetes = FindViewById<ListView>(Resource.Id.lvCadetes);
         }
     }
 }

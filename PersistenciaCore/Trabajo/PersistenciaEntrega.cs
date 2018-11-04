@@ -29,6 +29,7 @@ namespace PersistenciaCore
                 entregaAgregar.LocalEmisor = entrega.LocalEmisor;
                 entregaAgregar.LocalReceptor = entrega.LocalReceptor;
                 entregaAgregar.NombreReceptor = entrega.NombreReceptor;
+                entregaAgregar.Cadete = entrega.Cadete;
 
                 List<Paquetes> paquetes = TransformarPaquetes(entrega.Paquetes);
                 List<Paquetes> paquetes1 = TransformarPaquetes(entrega.Paquetes1);
@@ -97,6 +98,8 @@ namespace PersistenciaCore
                         entregaResultado.Paquetes = TransformarPaquetesInversa(entrega.Paquetes);
                         entregaResultado.Paquetes1 = TransformarPaquetesInversa(entrega.Paquetes1);
                         entregaResultado.Turno = entrega.Turno;
+                        entregaResultado.Cadete = entrega.Cadete;
+                        entregaResultado.Cadetes = TransformarCadete(entrega.Cadetes);
                     }
                 }
 
@@ -148,7 +151,7 @@ namespace PersistenciaCore
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    var entregas = dbConnection.Entregas.Include("Paquetes").Include("Paquetes1").Include("Locales").Include("Locales1").Include("Clientes.Usuarios").Include("Clientes1.Usuarios").Where(x=> x.Paquetes.FirstOrDefault().Estado == "Levantado" || x.Paquetes1.FirstOrDefault().Estado == "Levantado").ToList();
+                    var entregas = dbConnection.Entregas.Include("Paquetes").Include("Paquetes1").Include("Locales").Include("Locales1").Include("Clientes.Usuarios").Include("Clientes1.Usuarios").Include("Cadetes.Empleados.Usuarios").Where(x=> x.Paquetes.FirstOrDefault().Estado == "Levantado" || x.Paquetes1.FirstOrDefault().Estado == "Levantado").ToList();
 
                     Entrega entregaResultado = null;
 
@@ -164,6 +167,8 @@ namespace PersistenciaCore
                             entregaResultado.Fecha = e.Fecha;
                             entregaResultado.LocalEmisor = e.LocalEmisor;
                             entregaResultado.LocalReceptor = e.LocalReceptor;
+                            entregaResultado.Cadete = e.Cadete;
+                            entregaResultado.Cadetes = TransformarCadete(e.Cadetes);
                             if (e.Locales != null)
                             {
                                 entregaResultado.Locales = TransformarLocal(e.Locales);
@@ -253,6 +258,30 @@ namespace PersistenciaCore
             }
         }
 
+        public Cadete TransformarCadete(Cadetes pCadete)
+        {
+            try
+            {
+                Cadete cadeteR = new Cadete();
+
+
+                cadeteR.Direccion = pCadete.Empleados.Usuarios.Direccion;
+                cadeteR.Email = pCadete.Empleados.Usuarios.Email;
+                cadeteR.Id = pCadete.Empleados.Usuarios.Id;
+                cadeteR.TipoLibreta = pCadete.TipoLibreta;
+                cadeteR.Nombre = pCadete.Empleados.Usuarios.Nombre;
+                cadeteR.NombreUsuario = pCadete.Empleados.Usuarios.NombreUsuario;
+                cadeteR.Ci = pCadete.CiEmpleado;
+                cadeteR.Telefono = pCadete.Empleados.Usuarios.Telefono;
+
+                return cadeteR;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al transformar el cadete.");
+            }
+        }
+
         public Cliente TransformarCliente(Clientes pCliente)
         {
             try
@@ -277,7 +306,7 @@ namespace PersistenciaCore
             }
         }
 
-        public bool AltaEntrega(EntidadesCompartidasCore.Entrega entrega)
+        public bool LevantarEntrega(EntidadesCompartidasCore.Entrega entrega)
         {
             try
             {
@@ -295,6 +324,7 @@ namespace PersistenciaCore
                 entregaAgregar.LocalEmisor = entrega.LocalEmisor;
                 entregaAgregar.LocalReceptor = entrega.LocalReceptor;
                 entregaAgregar.NombreReceptor = "";
+                entregaAgregar.Cadete = entrega.Cadete;
 
                 List<Paquetes> paquetes = TransformarPaquetes(entrega.Paquetes);
 
@@ -329,6 +359,111 @@ namespace PersistenciaCore
 
                 Turnos turnoCandidato = FabricaPersistencia.GetPersistenciaTurno().IdentificarTurno(dia, hora);
                 
+                string turno = turnoCandidato.Codigo;
+
+                entregaAgregar.Turno = turno;
+
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    using (var transaction = dbConnection.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            dbConnection.Entregas.Add(entregaAgregar);
+                            dbConnection.SaveChanges();
+
+                            var ultimoRegistro = dbConnection.Entregas.OrderByDescending(x => x.Codigo).FirstOrDefault();
+
+                            codigo = ultimoRegistro.Codigo;
+
+                            if (entrega.Paquetes != null)
+                            {
+                                foreach (Paquete p in entrega.Paquetes)
+                                {
+                                    p.Entrega = codigo;
+                                }
+
+                                paquetes = TransformarPaquetes(entrega.Paquetes);
+                            }
+
+                            foreach (Paquetes p in paquetes)
+                            {
+                                dbConnection.Paquetes.Add(p);
+                            }
+
+                            dbConnection.SaveChanges();
+
+                            transaction.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            throw new Exception();
+                        }
+                    }
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar dar de alta la entrega." + ex);
+            }
+        }
+
+        public bool AsignarEntrega(EntidadesCompartidasCore.Entrega entrega)
+        {
+            try
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+
+                PersistenciaCore.Entregas entregaAgregar = new PersistenciaCore.Entregas();
+
+                entregaAgregar.ClienteEmisor = entrega.ClienteEmisor;
+                entregaAgregar.ClienteReceptor = entrega.ClienteReceptor;
+                entregaAgregar.Codigo = entrega.Codigo;
+                entregaAgregar.Fecha = entrega.Fecha;
+                entregaAgregar.LocalEmisor = entrega.LocalEmisor;
+                entregaAgregar.LocalReceptor = entrega.LocalReceptor;
+                entregaAgregar.NombreReceptor = "";
+                entregaAgregar.Turno = entrega.Turno;
+                entregaAgregar.Cadete = entrega.Cadete;
+
+                List<Paquetes> paquetes = TransformarPaquetes(entrega.Paquetes);
+
+
+                int codigo = 0;
+
+                entregaAgregar.Codigo = codigo;
+
+                /*using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    bool existe = true;
+
+                    while (existe == true)
+                    {
+                        codigo = GenerarCodigo();
+
+                        existe = dbConnection.Entregas.Where(x => x.Codigo == codigo).Any();
+                    }
+
+                }*/
+
+                DateTime fechaActual = DateTime.Now;
+
+                var culture = new System.Globalization.CultureInfo("es-ES");
+                string dia = culture.DateTimeFormat.GetDayName(fechaActual.DayOfWeek);
+
+                string horaString = fechaActual.ToShortTimeString();
+
+                string horaStringInt = horaString.Substring(0, 2) + horaString.Substring(3, 2);
+
+                int hora = Convert.ToInt32(horaStringInt);
+
+                Turnos turnoCandidato = FabricaPersistencia.GetPersistenciaTurno().IdentificarTurno(dia, hora);
+
                 string turno = turnoCandidato.Codigo;
 
                 entregaAgregar.Turno = turno;

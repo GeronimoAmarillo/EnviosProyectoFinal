@@ -21,13 +21,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Aqui va el Cliente Receptor"
-        android:enabled="false"/>
+        android:enabled="false" />
     <EditText
         android:id="@+id/etLocalEmisor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Aqui va el Local Emisor"
-        android:enabled="false"/>
+        android:enabled="false" />
+    <EditText
+        android:id="@+id/etCadeteTransportador"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Aqui va el Cadete Transportador"
+        android:enabled="false" />
+    <EditText
+        android:id="@+id/etTurno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Aqui va el Turno"
+        android:enabled="false" />
     <Button
         android:text="Asignar"
         android:layout_width="match_parent"

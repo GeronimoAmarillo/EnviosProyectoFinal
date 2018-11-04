@@ -77,6 +77,7 @@
     <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="25.4.0.2" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adaptadores\AdaptadorCadetes.cs" />
     <Compile Include="Adaptadores\AdaptadorClientes.cs" />
     <Compile Include="Adaptadores\AdaptadorEntregasAsignadas.cs" />
     <Compile Include="Adaptadores\AdaptadorEntregasLevantadas.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Adaptadores\AdaptadorPaquetes.cs" />
     <Compile Include="Adaptadores\AdaptadorRacks.cs" />
     <Compile Include="Adaptadores\AdaptadorSectores.cs" />
+    <Compile Include="Adaptadores\AdaptadorTurnos.cs" />
     <Compile Include="AltaPalletActivity.cs" />
     <Compile Include="AsignarPaqueteActivity.cs" />
     <Compile Include="AsyncHelper.cs" />
@@ -93,6 +95,7 @@
     <Compile Include="EntregarLevantadaActivity.cs" />
     <Compile Include="IngresoReceptorActivity.cs" />
     <Compile Include="InicioActivity.cs" />
+    <Compile Include="ListadoCadetesActivity.cs" />
     <Compile Include="ListadoClientesActivity.cs" />
     <Compile Include="ListadoClientesPaqueteActivity.cs" />
     <Compile Include="ListadoClientesPaqueteAsignarActivity.cs" />
@@ -101,6 +104,7 @@
     <Compile Include="ListadoPaletsActivity.cs" />
     <Compile Include="ListadoRacksActivity.cs" />
     <Compile Include="ListadoSectoresActivity.cs" />
+    <Compile Include="ListadoTurnosActivity.cs" />
     <Compile Include="ListarEntregasActivity.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="NuevoPaqueteActivity.cs" />
@@ -181,6 +185,18 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\EntregarLevantadaActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ListadoCadetesActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\CadeteRow.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ListadoTurnosActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\TurnoRow.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

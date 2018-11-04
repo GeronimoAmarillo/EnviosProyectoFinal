@@ -24,6 +24,8 @@ namespace LogicaDeServicioCore
 
         Entrega BuscarEntrega(int codigo);
 
-        bool AltaEntrega(Entrega pEntrega);
+        bool AsignarEntrega(EntidadesCompartidasCore.Entrega pEntrega);
+
+        bool LevantarEntrega(EntidadesCompartidasCore.Entrega pEntrega);
     }
 }

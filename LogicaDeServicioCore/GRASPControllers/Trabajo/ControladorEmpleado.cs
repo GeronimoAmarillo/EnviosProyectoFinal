@@ -96,5 +96,17 @@ namespace LogicaDeServicioCore
                 throw new Exception("Error al Listar los Empleados." + ex.Message);
             }
         }
+
+        public List<Cadete> ListarCadetes()
+        {
+            try
+            {
+                return LogicaUsuario.ListarCadetes();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al Listar los Cadetes." + ex.Message);
+            }
+        }
     }
 }

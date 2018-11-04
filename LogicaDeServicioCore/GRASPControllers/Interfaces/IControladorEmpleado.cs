@@ -22,5 +22,7 @@ namespace LogicaDeServicioCore
         bool AltaEmpleado(Empleado pEmpleado);
 
         List<Empleado> Listar();
+
+        List<Cadete> ListarCadetes();
     }
 }

@@ -22,6 +22,8 @@ namespace EmpleadosApp.Droid
         private Entrega entrega;
         private TextView tvLocalEmisor;
         private TextView tvClienteReceptor;
+        private TextView tvCadeteTransportador;
+        private TextView tvTurno;
         private ListView lvPaquetes;
         private Button btnNuevoPaquete;
         private Button btnCerrarEntrega;
@@ -147,6 +149,8 @@ namespace EmpleadosApp.Droid
             btnCerrarEntrega = FindViewById<Button>(Resource.Id.btnTerminar);
             btnNuevoPaquete = FindViewById<Button>(Resource.Id.btnNuevoPaquete);
             lvPaquetes = FindViewById<ListView>(Resource.Id.lvPaquetes);
+            tvTurno = FindViewById<TextView>(Resource.Id.tvTurno);
+            tvCadeteTransportador = FindViewById<TextView>(Resource.Id.tvCadeteTransporta);
 
             if (entrega.ClienteEmisor != null)
             {
@@ -165,6 +169,10 @@ namespace EmpleadosApp.Droid
             {
                 tvLocalEmisor.Text = entrega.LocalReceptor.ToString();
             }
+
+            tvCadeteTransportador.Text = entrega.Cadete.ToString();
+
+            tvTurno.Text = entrega.Turno.ToString();
             
 
             lvPaquetes.Adapter = new Adaptadores.AdaptadorPaquetes(this, entrega.Paquetes);
