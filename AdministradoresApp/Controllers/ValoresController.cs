@@ -8,6 +8,7 @@ using EntidadesCompartidasCore;
 using LogicaDeAppsCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 
 namespace AdministradoresApp.Controllers
@@ -227,15 +228,27 @@ namespace AdministradoresApp.Controllers
 
         }
 
-        public ActionResult RegistrarIngreso()
+        public async Task<ActionResult> RegistrarIngreso()
         {
             if (ComprobarLogin() == "G")
             {
                 IControladorIngreso controladorIngreso = FabricaApps.GetControladorIngreso();
+                IControladorCliente controladorCliente = FabricaApps.GetControladorCliente();
 
                 controladorIngreso.IniciarRegistroIngreso();
 
+                List<Cliente> clientes = await controladorCliente.ListarClientes();
+
                 HttpContext.Session.Set<Ingreso>(SESSSION_ALTA, controladorIngreso.GetIngreso());
+                
+                List<SelectListItem> itemsClientes = new List<SelectListItem>();
+                
+                foreach (Cliente c in clientes)
+                {
+                    itemsClientes.Add(new SelectListItem() { Text = c.RUT + " - " + c.Nombre, Value = c.RUT.ToString() });
+                }
+                    
+                ViewBag.Clientes = itemsClientes;
 
                 return View();
             }
@@ -251,17 +264,21 @@ namespace AdministradoresApp.Controllers
 
 
         [HttpPost]
-        public ActionResult RegistrarIngreso([FromForm]Ingreso ingreso)
+        public ActionResult RegistrarIngreso([FromForm]Ingreso ingreso, [FromForm]string cliente)
         {
             try
             {
                 if (ComprobarLogin() == "G")
                 {
 
+                    long rutCliente = Convert.ToInt64(cliente);
+
                     Ingreso ingresoAlta = HttpContext.Session.Get<Ingreso>(SESSSION_ALTA);
 
                     ingresoAlta.Suma = ingreso.Suma;
+                    ingresoAlta.RUT = rutCliente;
                     ingresoAlta.Descripcion = ingreso.Descripcion;
+                    ingresoAlta.Extra = ingreso.Extra;
                     ingresoAlta.Id = 0;
 
                     IControladorIngreso controladorIngreso = FabricaApps.GetControladorIngreso();

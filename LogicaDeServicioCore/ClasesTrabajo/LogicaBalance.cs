@@ -53,7 +53,7 @@ namespace LogicaDeServicioCore
                     {
                         ingresosR.Add(i);
 
-                        if (i.Descripcion.Substring(0, 5) != "Extra")
+                        if (!(i.Extra))
                         {
                             utilidadbruta += i.Suma;
                             utilidadoperacional = utilidadbruta;
@@ -72,7 +72,7 @@ namespace LogicaDeServicioCore
                     if ((g.fechaRegistro.Month == fecha.Month && g.fechaRegistro.Year == fecha.Year))
                     {
                         gastosR.Add(g);
-                        if (g.Descripcion.Substring(0, 5) != "Extra")
+                        if (!(g.Extra))
                         {
                             utilidadoperacional -= g.Suma;
                         }
@@ -205,7 +205,7 @@ namespace LogicaDeServicioCore
                         {
                             ingresosR.Add(i);
 
-                            if (i.Descripcion.Substring(0, 5) != "Extra")
+                            if (!(i.Extra))
                             {
                                 utilidadbruta += i.Suma;
                                 utilidadoperacional = utilidadbruta;
@@ -224,7 +224,7 @@ namespace LogicaDeServicioCore
                         if ((g.fechaRegistro.Month == d.Month && g.fechaRegistro.Year == d.Year))
                         {
                             gastosR.Add(g);
-                            if (g.Descripcion.Substring(0, 5) != "Extra")
+                            if (!(g.Extra))
                             {
                                 utilidadoperacional -= g.Suma;
                             }
