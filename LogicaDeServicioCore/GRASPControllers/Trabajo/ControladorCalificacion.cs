@@ -9,10 +9,17 @@ namespace LogicaDeServicioCore
 {
     class ControladorCalificacion:IControladorCalificacion
     {
-        public bool Calificar(int puntaje, string comentario, long rutCliente)
+        public bool Calificar(Calificacion cal)
         {
-            LogicaCalificacion.Calificar(puntaje, comentario, rutCliente);
-            return true;
+            try
+            {
+                return LogicaCalificacion.Calificar(cal);
+                
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al realizar la calificacion." + ex.Message);
+            }
         }
     }
 }

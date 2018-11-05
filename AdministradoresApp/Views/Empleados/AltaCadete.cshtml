@@ -18,10 +18,15 @@
                 <label class="text-danger">Tipos de Libreta admitidos: A, B, C, D, E, F, G1, G2, G3 y H </label>
                 <span asp-validation-for="TipoLibreta" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="IdTelefono" class="control-label"></label>
-                <input asp-for="IdTelefono" class="form-control" />
-                <span asp-validation-for="IdTelefono" class="text-danger"></span>
+            <div class="form-group" hidden>
+                <label asp-for="Latitud" class="control-label"></label>
+                <input asp-for="Latitud" class="form-control" />
+                <span asp-validation-for="Latitud" class="text-danger"></span>
+            </div>
+            <div class="form-group" hidden>
+                <label asp-for="Longitud" class="control-label"></label>
+                <input asp-for="Longitud" class="form-control" />
+                <span asp-validation-for="Longitud" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Sueldo" class="control-label"></label>
@@ -35,17 +40,17 @@
             </div>
             <div class="form-group" hidden>
                 <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" value="0"/>
+                <input asp-for="Id" class="form-control" value="0" />
                 <span asp-validation-for="Id" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="NombreUsuario" class="control-label"></label>
-                <input asp-for="NombreUsuario" class="form-control"/>
+                <input asp-for="NombreUsuario" class="form-control" />
                 <span asp-validation-for="NombreUsuario" class="text-danger"></span>
             </div>
             <div class="form-group" hidden>
                 <label asp-for="Contraseña" class="control-label"></label>
-                <input asp-for="Contraseña" class="form-control" value="123456789"/>
+                <input asp-for="Contraseña" class="form-control" value="123456789" />
                 <span asp-validation-for="Contraseña" class="text-danger"></span>
             </div>
             <div class="form-group">

@@ -269,6 +269,8 @@ namespace PersistenciaCore.Migrations
                         .IsRequired()
                         .HasMaxLength(250);
 
+                    b.Property<bool>("Extra");
+
                     b.Property<decimal>("Suma")
                         .HasColumnType("decimal(19, 4)");
 
@@ -314,6 +316,8 @@ namespace PersistenciaCore.Migrations
                     b.Property<string>("Descripcion")
                         .IsRequired()
                         .HasMaxLength(250);
+
+                    b.Property<bool>("Extra");
 
                     b.Property<long?>("RUT");
 

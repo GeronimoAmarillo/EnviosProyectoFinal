@@ -17,8 +17,12 @@ namespace AdministradoresApp.Controllers
 
         public ActionResult Calificar()
         {
-            if (ComprobarLogin() == "G")
+            if (ComprobarLogin())
             {
+
+                Cliente cliente = HttpContext.Session.Get<Cliente>(LOG_USER);
+
+                ViewBag.Cliente = cliente.RUT;
                 return View();
             }
             else
@@ -34,13 +38,13 @@ namespace AdministradoresApp.Controllers
         {
             try
             {
-                if (ComprobarLogin() == "G")
+                if (ComprobarLogin())
                 {
                     IControladorCalificacion controladorCalificacion = FabricaApps.GetControladorCalificacion();
                     string mensaje = "";
                     if (ModelState.IsValid)
                     {
-                        bool exito = controladorCalificacion.Calificar(calificacion.Puntaje, calificacion.Comentario, calificacion.RutCliente);
+                        bool exito = controladorCalificacion.Calificar(calificacion);
                         if (exito)
                         {
                             mensaje = "La calificacion se registro exitosamente!.";
@@ -54,7 +58,7 @@ namespace AdministradoresApp.Controllers
                     {
                         HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
                     }
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", "Home", new { area = "" });
                 }
                 else
                 {
@@ -71,35 +75,19 @@ namespace AdministradoresApp.Controllers
             }
         }
 
-        public string ComprobarLogin()
+        public bool ComprobarLogin()
         {
             try
             {
-                Administrador administrador = HttpContext.Session.Get<Administrador>(LOG_USER);
+                Cliente cliente = HttpContext.Session.Get<Cliente>(LOG_USER);
 
-                if (administrador != null)
+                if (cliente != null)
                 {
-
-                    if (administrador.Tipo.ToUpper() == "G")
-                    {
-                        return "G";
-                    }
-                    else if (administrador.Tipo.ToUpper() == "C")
-                    {
-                        return "C";
-                    }
-                    else if (administrador.Tipo.ToUpper() == "L")
-                    {
-                        return "L";
-                    }
-                    else
-                    {
-                        return "Valor invalido.";
-                    }
+                    return true;
                 }
                 else
                 {
-                    return "";
+                    return false;
                 }
             }
             catch

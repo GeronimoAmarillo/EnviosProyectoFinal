@@ -25,7 +25,7 @@ namespace AdministradoresApp.Controllers
         {
             try
             {
-                if (ComprobarLogin() == "G")
+                if (ComprobarLogin() == "C")
                 {
                     SortedList<string, string> listaActual = HttpContext.Session.Get<SortedList<string, string>>(SESSION_LISTA_ACTUAL);
                     HttpContext.Session.Set<SortedList<string, string>>(SESSION_LISTA_ACTUAL, null);
@@ -67,7 +67,7 @@ namespace AdministradoresApp.Controllers
 
         public ActionResult RegistrarGasto()
         {
-            if (ComprobarLogin() == "G")
+            if (ComprobarLogin() == "C")
             {
                 IControladorGasto controladorGasto = FabricaApps.GetControladorGasto();
 
@@ -93,7 +93,7 @@ namespace AdministradoresApp.Controllers
         {
             try
             {
-                if (ComprobarLogin() == "G")
+                if (ComprobarLogin() == "C")
                 {
 
                     Gasto gastoAlta = HttpContext.Session.Get<Gasto>(SESSSION_ALTA);
@@ -101,6 +101,7 @@ namespace AdministradoresApp.Controllers
                     gastoAlta.Suma = gasto.Suma;
                     gastoAlta.Descripcion = gasto.Descripcion;
                     gastoAlta.Id = 0;
+                    gastoAlta.Extra = gasto.Extra;
 
                     IControladorGasto controladorGasto = FabricaApps.GetControladorGasto();
 
@@ -121,6 +122,10 @@ namespace AdministradoresApp.Controllers
                         {
                             mensaje = "Se produjo un error al dar de alta el gasto!.";
                         }
+                    }
+                    else
+                    {
+                        return View();
                     }
 
                     if (mensaje != "")
@@ -149,7 +154,7 @@ namespace AdministradoresApp.Controllers
 
         public ActionResult RegistrarImpuesto()
         {
-            if (ComprobarLogin() == "G")
+            if (ComprobarLogin() == "C")
             {
                 IControladorImpuesto controladorImpuesto = FabricaApps.GetControladorImpuesto();
 
@@ -173,7 +178,7 @@ namespace AdministradoresApp.Controllers
         {
             try
             {
-                if (ComprobarLogin() == "G")
+                if (ComprobarLogin() == "C")
                 {
 
                     Impuesto impuestoAlta = HttpContext.Session.Get<Impuesto>(SESSSION_ALTA);
@@ -230,7 +235,7 @@ namespace AdministradoresApp.Controllers
 
         public async Task<ActionResult> RegistrarIngreso()
         {
-            if (ComprobarLogin() == "G")
+            if (ComprobarLogin() == "C")
             {
                 IControladorIngreso controladorIngreso = FabricaApps.GetControladorIngreso();
                 IControladorCliente controladorCliente = FabricaApps.GetControladorCliente();
@@ -268,7 +273,7 @@ namespace AdministradoresApp.Controllers
         {
             try
             {
-                if (ComprobarLogin() == "G")
+                if (ComprobarLogin() == "C")
                 {
 
                     long rutCliente = Convert.ToInt64(cliente);
@@ -330,7 +335,7 @@ namespace AdministradoresApp.Controllers
 
         public async Task<ActionResult> ListarGastos()
         {
-            if (ComprobarLogin() == "G")
+            if (ComprobarLogin() == "C")
             {
                 IControladorGasto controladorGasto = FabricaApps.GetControladorGasto();
 
@@ -356,7 +361,7 @@ namespace AdministradoresApp.Controllers
         {
             try
             {
-                if (ComprobarLogin() == "G")
+                if (ComprobarLogin() == "C")
                 {
                     IControladorImpuesto controladorImpuesto = FabricaApps.GetControladorImpuesto();
 
@@ -388,7 +393,7 @@ namespace AdministradoresApp.Controllers
 
         public async Task<ActionResult> ListarIngresos()
         {
-            if (ComprobarLogin() == "G")
+            if (ComprobarLogin() == "C")
             {
                 IControladorIngreso controladorIngreso = FabricaApps.GetControladorIngreso();
 

@@ -10,7 +10,7 @@ using LogicaDeServicioCore;
 namespace EnviosService.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Calificaciones")]
+    
     public class CalificacionesController : Controller
     {
         private IControladorCalificacion controladorCalificacion;
@@ -19,11 +19,11 @@ namespace EnviosService.Controllers
         {
             controladorCalificacion = FabricaServicio.GetControladorCalificacion();
         }
-
+        [Route("api/Calificaciones/Calificar")]
         [HttpPost]
         public JsonResult Calificacion([FromBody] Calificacion cal)
         {
-            return Json(controladorCalificacion.Calificar(cal.Puntaje, cal.Comentario, cal.RutCliente));
+            return Json(controladorCalificacion.Calificar(cal));
         }
         
     }

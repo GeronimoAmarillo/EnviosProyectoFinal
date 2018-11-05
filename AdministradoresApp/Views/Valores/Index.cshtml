@@ -74,28 +74,31 @@
                     <th>
                         @Html.DisplayName("Suma");
                     </th>
+                    <th>
+                        @Html.DisplayName("Extra");
+                    </th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var g in gastos)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayName(g.Id.ToString())
-                        </td>
-                        <td>
-                            @Html.DisplayName(g.Descripcion)
-                        </td>
-                        <td>
-                            @Html.DisplayName(g.Suma.ToString())
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayName(g.Id.ToString())
+                    </td>
+                    <td>
+                        @Html.DisplayName(g.Descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayName(g.Suma.ToString())
+                    </td>
+                    <td>
+                        @Html.DisplayName(g.Extra.ToString())
+                    </td>
+                    <td>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
@@ -114,28 +117,31 @@
                     <th>
                         @Html.DisplayName("Suma");
                     </th>
+                    <th>
+                        @Html.DisplayName("Extra");
+                    </th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var g in ingresos)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayName(g.Id.ToString())
-                        </td>
-                        <td>
-                            @Html.DisplayName(g.Descripcion)
-                        </td>
-                        <td>
-                            @Html.DisplayName(g.Suma.ToString())
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayName(g.Id.ToString())
+                    </td>
+                    <td>
+                        @Html.DisplayName(g.Descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayName(g.Suma.ToString())
+                    </td>
+                    <td>
+                        @Html.DisplayName(g.Extra.ToString())
+                    </td>
+                    <td>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
@@ -178,9 +184,6 @@
                             @Html.DisplayName(i.Porcentaje.ToString())
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
                         </td>
                     </tr>
                 }

@@ -100,6 +100,9 @@ namespace AdministradoresApp.Controllers
                 {
                     if (ModelState.IsValid)
                     {
+
+                        int hora = 0;
+
                         Turno turnoAlta = HttpContext.Session.Get<Turno>(SESSSION_ALTA);
 
                         turnoAlta.Codigo = "" + turno.Dia.Substring(0, 3).ToUpper() + turno.Hora.ToString().ToUpper() + "";
