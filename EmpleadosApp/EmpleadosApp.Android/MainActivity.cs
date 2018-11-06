@@ -47,6 +47,11 @@ namespace EmpleadosApp.Droid
 
                     Usuario usuarioLogueado = null;
 
+                    JsonSerializerSettings settings = new JsonSerializerSettings
+                    {
+                        TypeNameHandling = TypeNameHandling.All
+                    };
+
                     try
                     {
                         usuarioLogueado = await Login(user, pass);
@@ -61,8 +66,26 @@ namespace EmpleadosApp.Droid
                     {
                         if (usuarioLogueado.NombreUsuario == user && usuarioLogueado.Contraseña == pass)
                         {
+                            string json = "";
+
+                            if (usuarioLogueado is Administrador)
+                            {
+                                json = Newtonsoft.Json.JsonConvert.SerializeObject((Administrador)usuarioLogueado, settings);
+                            }
+                            else if (usuarioLogueado is Cadete)
+                            {
+                                json = Newtonsoft.Json.JsonConvert.SerializeObject((Cadete)usuarioLogueado, settings);
+                            }
+                            else
+                            {
+                                json = Newtonsoft.Json.JsonConvert.SerializeObject(usuarioLogueado, settings);
+                            }
+                            
+                            
+
                             Intent intent = new Intent(this, typeof(InicioActivity));
-                            intent.PutExtra("UsuarioLogueado", Newtonsoft.Json.JsonConvert.SerializeObject(usuarioLogueado));
+
+                            intent.PutExtra("UsuarioLogueado", json);
 
                             StartActivity(intent);
                         }
@@ -83,20 +106,24 @@ namespace EmpleadosApp.Droid
                 //ip correcta: 169.254.80.80
                 using (var httpClient = new HttpClient())
                 {
-                    var json = await httpClient.GetStringAsync("http://169.254.80.80:8080/api/Usuarios/Login?" + "usuario=" + user + "&contrasenia=" + pass);
+                    var json = await httpClient.GetStringAsync("http://169.254.80.80:8080/api/Usuarios/LoginDroid?" + "usuario=" + user + "&contrasenia=" + pass);
 
                     Usuario usuarioLogueado = null;
                     Administrador admin = null;
                     Cadete cadete = null;
 
+                    JsonSerializerSettings settings = new JsonSerializerSettings
+                    {
+                        TypeNameHandling = TypeNameHandling.All
+                    };
 
-                    usuarioLogueado = JsonConvert.DeserializeObject<Administrador>(json);
+                    usuarioLogueado = JsonConvert.DeserializeObject<Administrador>(json,settings);
 
                     admin = (Administrador)usuarioLogueado;
 
                     if (admin == null || admin.Tipo == null)
                     {
-                        usuarioLogueado = JsonConvert.DeserializeObject<Cadete>(json);
+                        usuarioLogueado = JsonConvert.DeserializeObject<Cadete>(json, settings);
                         cadete = (Cadete)usuarioLogueado;
 
                         if (cadete == null || cadete.TipoLibreta == null)

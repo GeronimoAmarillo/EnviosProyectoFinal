@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using EntidadesCompartidasCore;
 using LogicaDeServicioCore;
+using Newtonsoft.Json;
+using EntidadesCompartidasAndroid;
 
 namespace EnviosService.Controllers
 {
@@ -22,21 +24,21 @@ namespace EnviosService.Controllers
 
         [HttpPost]
         [Route("Api/Usuarios/AltaUsuario")]
-        public JsonResult AltaUsuario([FromBody] Usuario unUsuario)
+        public JsonResult AltaUsuario([FromBody] EntidadesCompartidasCore.Usuario unUsuario)
         {
             return Json(controladorUsuario.AltaUsuario(unUsuario), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
         [HttpPost]
         [Route("Api/Usuarios/RecuperacionContrasenia")]
-        public JsonResult CodigoContraseña([FromBody] Cliente unUsuario)
+        public JsonResult CodigoContraseña([FromBody] EntidadesCompartidasCore.Cliente unUsuario)
         {
             return Json(controladorUsuario.SetearCodigoRecuperarContraseña(unUsuario), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
         [HttpPost]
         [Route("Api/Usuarios/RecuperacionEmail")]
-        public JsonResult CodigoEmail([FromBody] Cliente unUsuario)
+        public JsonResult CodigoEmail([FromBody] EntidadesCompartidasCore.Cliente unUsuario)
         {
             return Json(controladorUsuario.SetearCodigoModificarEmail(unUsuario), new Newtonsoft.Json.JsonSerializerSettings());
         }
@@ -75,7 +77,24 @@ namespace EnviosService.Controllers
         [Route("api/Usuarios/Login")]
         public JsonResult Usuario(string usuario, string contrasenia)
         {
-            return Json(controladorUsuario.Login(usuario, contrasenia), new Newtonsoft.Json.JsonSerializerSettings());
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+
+            return Json(controladorUsuario.Login(usuario, contrasenia), settings);
+        }
+
+        [HttpGet("{usuario, contrasenia}")]
+        [Route("api/Usuarios/LoginDroid")]
+        public JsonResult UsuarioAndroid(string usuario, string contrasenia)
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+            
+            return Json(controladorUsuario.LoginDroid(usuario, contrasenia), settings);
         }
 
         [HttpGet("{mail}")]
@@ -91,7 +110,7 @@ namespace EnviosService.Controllers
         }
 
         [HttpPut]
-        public JsonResult Usuario([FromBody] Usuario usuario)
+        public JsonResult Usuario([FromBody] EntidadesCompartidasCore.Usuario usuario)
         {
             return Json(controladorUsuario.ModificarUsuario(usuario), new Newtonsoft.Json.JsonSerializerSettings());
         }
@@ -104,7 +123,7 @@ namespace EnviosService.Controllers
 
         [HttpPut]
         [Route("Api/Usuarios/ModificarContrasenia")]
-        public JsonResult ModificarContrasenia([FromBody] Administrador usuario)
+        public JsonResult ModificarContrasenia([FromBody] EntidadesCompartidasCore.Administrador usuario)
         {
             return Json(controladorUsuario.ModificarContrasenia(usuario), new Newtonsoft.Json.JsonSerializerSettings());
         }

@@ -20,7 +20,7 @@ namespace EntidadesCompartidasCore
         [Required]
         [MinLength(2)]
         public string Estado { get; set; }
-
+        [Required]
         public int Cadete { get; set; }
 
         public Automobil Automobiles { get; set; }

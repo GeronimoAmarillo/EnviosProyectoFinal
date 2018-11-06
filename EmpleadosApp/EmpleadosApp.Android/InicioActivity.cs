@@ -37,16 +37,14 @@ namespace EmpleadosApp.Droid
             try
             {
                 SetContentView(Resource.Layout.InicioActivity);
-
-                SetupViews();
-                SetupEvents();
-
+                
                 Bundle extras = Intent.Extras;
 
                 string usuarioL = "";
 
                 if (extras != null)
                 {
+                    
                     usuarioL = extras.GetString("UsuarioLogueado");
 
                     ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(Application);
@@ -55,14 +53,22 @@ namespace EmpleadosApp.Droid
                     editor.Apply();
 
                     usuarioLogueado = Newtonsoft.Json.JsonConvert.DeserializeObject<Usuario>(usuarioL);
+
+                    SetupViews();
+                    SetupEvents();
+
                 }
                 else
                 {
+
                     ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(Application);
                     string json = prefs.GetString("UsuarioLogueado", "N/L");
 
                     if (json != "N/L")
                     {
+                        SetupViews();
+                        SetupEvents();
+
                         usuarioLogueado = JsonConvert.DeserializeObject<Usuario>(json);
 
                         if (usuarioLogueado == null)
@@ -108,11 +114,12 @@ namespace EmpleadosApp.Droid
 
         private void SetupEvents()
         {
+            btnIrLevanteEntrega.Click += btnIrLevanteEntrega_Click;
+            btnEntregar.Click += btnEntregar_Click;
             btnIrAltaPalet.Click += btnIrAltaPalet_Click;
             btnIrBajaPalet.Click += btnIrBajaPalet_Click;
-            btnIrLevanteEntrega.Click += btnIrLevanteEntrega_Click;
             btnIrRegistroEntrega.Click += btnIrRegistroEntrega_Click;
-            btnEntregar.Click += btnEntregar_Click;
+            
         }
 
         private void btnEntregar_Click(object sender, EventArgs e)
@@ -247,11 +254,17 @@ namespace EmpleadosApp.Droid
                     }
                     else
                     {
+                        var intent = new Intent(this, typeof(MainActivity));
+                        StartActivity(intent);
+
                         Toast.MakeText(this, "No hay usuario Logueado, logueese para utilizar esta función", ToastLength.Long).Show();
                     }
                 }
                 else
                 {
+                    var intent = new Intent(this, typeof(MainActivity));
+                    StartActivity(intent);
+
                     throw new Exception();
                 }
             }
@@ -299,16 +312,27 @@ namespace EmpleadosApp.Droid
 
         private void SetupViews()
         {
+            btnIrAltaPalet = FindViewById<Button>(Resource.Id.btnIrAltaPalet);
+            btnIrBajaPalet = FindViewById<Button>(Resource.Id.btnIrBajaPalet);
+            btnIrRegistroEntrega = FindViewById<Button>(Resource.Id.btnIrRegistroEntrega);
+            btnIrLevanteEntrega = FindViewById<Button>(Resource.Id.btnIrLevanteEntrega);
+            btnEntregar = FindViewById<Button>(Resource.Id.btnEntregar);
+
             if (VerificarSesion() == "L")
             {
-                btnIrAltaPalet = FindViewById<Button>(Resource.Id.btnIrAltaPalet);
-                btnIrBajaPalet = FindViewById<Button>(Resource.Id.btnIrBajaPalet);
-                btnIrRegistroEntrega = FindViewById<Button>(Resource.Id.btnIrRegistroEntrega);
+                btnIrAltaPalet.Enabled = true;
+                btnIrBajaPalet.Enabled = true;
+                btnIrRegistroEntrega.Enabled = true;
+                btnIrLevanteEntrega.Enabled = false;
+                btnEntregar.Enabled = false;
             }
             else if (VerificarSesion() == "Cadete")
             {
-                btnIrLevanteEntrega = FindViewById<Button>(Resource.Id.btnIrLevanteEntrega);
-                btnEntregar = FindViewById<Button>(Resource.Id.btnEntregar);
+                btnIrAltaPalet.Enabled = false;
+                btnIrBajaPalet.Enabled = false;
+                btnIrRegistroEntrega.Enabled = false;
+                btnIrLevanteEntrega.Enabled = true;
+                btnEntregar.Enabled = true;
             }
             else
             {
@@ -330,6 +354,11 @@ namespace EmpleadosApp.Droid
                 ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
                 string user = prefs.GetString("UsuarioLogueado", "");
 
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.All
+                };
+
                 if (user == "")
                 {
                     Toast.MakeText(this, "Acceso Denegado: No hay ningun usuario logueado", ToastLength.Long).Show();
@@ -342,13 +371,15 @@ namespace EmpleadosApp.Droid
                 }
                 else
                 {
-                    Usuario userLogueado = JsonConvert.DeserializeObject<Usuario>(user);
 
-                    if (usuarioLogueado is Administrador)
+                    Usuario userLogueado = JsonConvert.DeserializeObject<Usuario>(user, settings);
+                    
+
+                    if (userLogueado is Administrador)
                     {
-                        return ((Administrador)usuarioLogueado).Tipo;
+                        return ((Administrador)userLogueado).Tipo;
                     }
-                    else if (usuarioLogueado is Cadete)
+                    else if (userLogueado is Cadete)
                     {
                         return "Cadete";
                     }

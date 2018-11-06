@@ -11,6 +11,95 @@ namespace LogicaDeServicioCore
     public class LogicaUsuario
     {
 
+        private static EntidadesCompartidasAndroid.Usuario TransformarUserAAndroid(EntidadesCompartidasCore.Usuario userCore)
+        {
+            try
+            {
+
+                if (userCore is EntidadesCompartidasCore.Administrador)
+                {
+                    try
+                    {
+                        EntidadesCompartidasAndroid.Administrador adminR = new EntidadesCompartidasAndroid.Administrador();
+
+                        adminR.Direccion = userCore.Direccion;
+                        adminR.Email = userCore.Email;
+                        adminR.Id = userCore.Id;
+                        adminR.Tipo = ((EntidadesCompartidasCore.Administrador)userCore).Tipo;
+                        adminR.Nombre = userCore.Nombre;
+                        adminR.NombreUsuario = userCore.NombreUsuario;
+                        adminR.Telefono = userCore.Telefono;
+                        adminR.Ci = ((EntidadesCompartidasCore.Administrador)userCore).Ci;
+                        adminR.CiEmpleado = ((EntidadesCompartidasCore.Administrador)userCore).CiEmpleado;
+                        adminR.Contraseña = userCore.Contraseña;
+
+                        return adminR;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error al transformar el administrador.");
+                    }
+                }
+                else if (userCore is EntidadesCompartidasCore.Cadete)
+                {
+                    try
+                    {
+                        EntidadesCompartidasAndroid.Cadete adminR = new EntidadesCompartidasAndroid.Cadete();
+
+                        adminR.Direccion = userCore.Direccion;
+                        adminR.Email = userCore.Email;
+                        adminR.Id = userCore.Id;
+                        adminR.TipoLibreta = ((EntidadesCompartidasCore.Cadete)userCore).TipoLibreta;
+                        adminR.Nombre = userCore.Nombre;
+                        adminR.NombreUsuario = userCore.NombreUsuario;
+                        adminR.Telefono = userCore.Telefono;
+                        adminR.Ci = ((EntidadesCompartidasCore.Cadete)userCore).Ci;
+                        adminR.CiEmpleado = ((EntidadesCompartidasCore.Cadete)userCore).CiEmpleado;
+                        adminR.Contraseña = userCore.Contraseña;
+
+                        return adminR;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error al transformar el cadete.");
+                    }
+                }
+                else if (userCore is EntidadesCompartidasCore.Cliente)
+                {
+                    try
+                    {
+                        EntidadesCompartidasAndroid.Cliente adminR = new EntidadesCompartidasAndroid.Cliente();
+
+                        adminR.Direccion = userCore.Direccion;
+                        adminR.Email = userCore.Email;
+                        adminR.Id = userCore.Id;
+                        adminR.Mensualidad = ((EntidadesCompartidasCore.Cliente)userCore).Mensualidad;
+                        adminR.Nombre = userCore.Nombre;
+                        adminR.NombreUsuario = userCore.NombreUsuario;
+                        adminR.Telefono = userCore.Telefono;
+                        adminR.RUT = ((EntidadesCompartidasCore.Cliente)userCore).RUT;
+                        adminR.Contraseña = userCore.Contraseña;
+
+                        return adminR;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error al transformar el cliente.");
+                    }
+                }
+                else
+                {
+                    return new EntidadesCompartidasAndroid.Usuario();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar comprobar la existencia del Local con los datos ingresados.");
+            }
+        }
+
+
         public static bool VerificarCodigoContraseña(string email, string codigo)
         {
             try
@@ -27,6 +116,25 @@ namespace LogicaDeServicioCore
                 throw new Exception(ex.Message);
             }
 
+        }
+
+        public static EntidadesCompartidasAndroid.Usuario LoginDroid(string user, string pass)
+        {
+            EntidadesCompartidasAndroid.Usuario usuarioLogueado = new EntidadesCompartidasAndroid.Usuario();
+            EntidadesCompartidasCore.Usuario userCore = new EntidadesCompartidasCore.Usuario();
+
+            try
+            {
+                userCore = Login(user, pass);
+
+                usuarioLogueado = TransformarUserAAndroid(userCore);
+
+                return usuarioLogueado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al loguear el Usuario" + ex.Message);
+            }
         }
 
         public static Geolocalizacion ConsultarLocalizacion(int numReferencia, int rut)
