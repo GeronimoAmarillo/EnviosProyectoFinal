@@ -144,14 +144,18 @@ namespace LogicaDeAppsCore
         }
 
 
-        public async Task<bool> ModificarContraseña(Administrador pAdmin)
+        public async Task<bool> ModificarContraseña(Usuario pusuario)
         {
             try
             {
                 var httpClient = new HttpClient();
-                var EnvioJson = JsonConvert.SerializeObject(pAdmin);
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.All
+                };
+                var EnvioJson = JsonConvert.SerializeObject(pusuario, settings);
 
-                var retorno = await httpClient.PutAsync("http://localhost:8080/Api/Usuarios/ModificarContrasenia", new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
+                var retorno = await httpClient.PostAsync("http://localhost:8080/Api/Usuarios/ModificarContrasenia", new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
                 var contentResult = retorno.Content.ReadAsStringAsync();
 
                 if (contentResult.Result.ToUpper() == "TRUE")

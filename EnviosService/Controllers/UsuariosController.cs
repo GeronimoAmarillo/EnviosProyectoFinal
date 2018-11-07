@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using EntidadesCompartidasCore;
 using LogicaDeServicioCore;
+using Newtonsoft.Json;
 
 namespace EnviosService.Controllers
 {
@@ -102,11 +103,16 @@ namespace EnviosService.Controllers
             return Json(controladorUsuario.RecuperarContraseña(mail), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
-        [HttpPut]
+        [HttpPost]
         [Route("Api/Usuarios/ModificarContrasenia")]
-        public JsonResult ModificarContrasenia([FromBody] Administrador usuario)
+        public JsonResult ModificarContrasenia([FromBody] Usuario usuario)
         {
-            return Json(controladorUsuario.ModificarContrasenia(usuario), new Newtonsoft.Json.JsonSerializerSettings());
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+
+            return Json(controladorUsuario.ModificarContrasenia(usuario), settings);
         }
     }
 }

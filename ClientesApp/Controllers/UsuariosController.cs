@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using LogicaDeAppsCore;
 using EntidadesCompartidasCore;
 using System.Net.Mail;
+using ClientesApp.Models;
 
 namespace ClientesApp.Controllers
 {
@@ -753,6 +754,54 @@ namespace ClientesApp.Controllers
             {
                 throw new Exception("Error al comprobar el logueo.");
             }
+        }
+
+        [HttpGet]
+        public ActionResult ModificarContrasenia()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ModificarContrasenia([FromForm] DTUsuario datadelForm)
+        {
+            try
+            {
+                if (ModelState.IsValid && (!string.IsNullOrEmpty(datadelForm.NuevaContrasenia) || !string.IsNullOrEmpty(datadelForm.NuevoNombreUsuario)))
+                {
+
+                    Cliente empLogueado = HttpContext.Session.Get<Cliente>(LOG_USER);
+                    if (empLogueado.Contraseña == datadelForm.Contraseña && empLogueado.NombreUsuario == datadelForm.NombreUsuario)
+                    {
+                        empLogueado.Contraseña = string.IsNullOrEmpty(datadelForm.NuevaContrasenia) ? empLogueado.Contraseña : datadelForm.NuevaContrasenia;
+                        empLogueado.NombreUsuario = string.IsNullOrEmpty(datadelForm.NuevoNombreUsuario) ? empLogueado.NombreUsuario : datadelForm.NuevoNombreUsuario;
+                    }
+                    IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
+                    if (await controladorUsuario.ModificarContraseña(empLogueado))
+                    {
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "Contraseña modificada exitosamente!.");
+                        return RedirectToAction("Index", "Home", new { area = "" });
+                    }
+                    else
+                    {
+                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar modificar la contraseña.");
+                        return RedirectToAction("Index", "Home", new { area = "" });
+                    }
+                }
+                else
+                {
+                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error o datos de contraseña invalidos.");
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+            }
+            catch
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar modificar la contraseña.");
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+
         }
     }
 }

@@ -21,7 +21,7 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public static Balance ObtenerBalanceAnual(DateTime fechaDesde, DateTime FechaHasta)
+        public Balance ObtenerBalanceAnual(DateTime fechaDesde, DateTime FechaHasta)
         {
             try
             {

@@ -151,9 +151,9 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public bool ModificarContrasenia(Administrador unAdmin)
+        public bool ModificarContrasenia(Usuario unUsuario)
         {
-            return LogicaUsuario.ModificarContrasenia(unAdmin);
+            return LogicaUsuario.ModificarContrasenia(unUsuario);
         }
     }
 }
