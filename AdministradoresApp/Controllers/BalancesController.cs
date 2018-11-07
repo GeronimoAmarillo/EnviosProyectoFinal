@@ -69,15 +69,15 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> ConsultarBalanceAnual(int anio)
+        public async Task<ActionResult> ConsultarBalanceAnual(DateTime fDesde, DateTime fHasta)
         {
             try
             {
                 IControladorBalance controladorBalance = FabricaApps.GetControladorBalance();
-                List<Balance> balancesARetornar = await controladorBalance.ConsultarBalanceAnual(anio);
-                if (balancesARetornar != null)
+                Balance balanceARetornar = await controladorBalance.ObtenerBalanceAnual(fDesde, fHasta);
+                if (balanceARetornar != null)
                 {
-                    return View(balancesARetornar);
+                    return View(balanceARetornar);
                 }
                 else
                 {

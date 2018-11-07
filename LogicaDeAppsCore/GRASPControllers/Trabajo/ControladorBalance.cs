@@ -42,6 +42,21 @@ namespace LogicaDeAppsCore
             }
         }
 
+        public async Task<Balance> ObtenerBalanceAnual(DateTime fechaInicio, DateTime fechaFinal)
+        {
+            try
+            {
+                var httpClient = new HttpClient();
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionBalances + "/ObtenerBalanceAnual?fechaInicio=" + fechaInicio + "&fechaFinal=" + fechaFinal);
+                Balance balanceARetornar = JsonConvert.DeserializeObject<Balance>(json);
+                return balanceARetornar;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el balance.");
+            }
+        }
+
         public async Task<Registro> ConsultarRegistro(DateTime fecha)
         {
             try

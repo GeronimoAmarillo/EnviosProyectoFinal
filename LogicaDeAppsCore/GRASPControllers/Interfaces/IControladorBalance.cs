@@ -11,6 +11,8 @@ namespace LogicaDeAppsCore
     {
         Task<List<Balance>> ConsultarBalanceAnual(int año);
 
+        Task<Balance> ObtenerBalanceAnual(DateTime fechaDesde, DateTime fechaHasta);
+
         Task<Balance> ConsultarBalanceMensual(string mes, int año);
 
         Task<Registro> ConsultarRegistro(DateTime fecha);
