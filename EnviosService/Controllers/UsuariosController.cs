@@ -104,15 +104,39 @@ namespace EnviosService.Controllers
         }
 
         [HttpPost]
-        [Route("Api/Usuarios/ModificarContrasenia")]
-        public JsonResult ModificarContrasenia([FromBody] Usuario usuario)
+        [Route("Api/Usuarios/ModificarContraseniaAdmin")]
+        public JsonResult ModificarContrasenia([FromBody] Administrador Admin)
         {
             JsonSerializerSettings settings = new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.All
             };
 
-            return Json(controladorUsuario.ModificarContrasenia(usuario), settings);
+            return Json(controladorUsuario.ModificarContrasenia(Admin), settings);
+        }
+
+        [HttpPost]
+        [Route("Api/Usuarios/ModificarContraseniaCliente")]
+        public JsonResult ModificarContrasenia([FromBody] Cliente CLi)
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+
+            return Json(controladorUsuario.ModificarContrasenia(CLi), settings);
+        }
+
+        [HttpPost]
+        [Route("Api/Usuarios/ModificarContraseniaCadete")]
+        public JsonResult ModificarContrasenia([FromBody] Cadete Cadete)
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+
+            return Json(controladorUsuario.ModificarContrasenia(Cadete), settings);
         }
     }
 }
