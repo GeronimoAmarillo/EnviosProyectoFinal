@@ -293,6 +293,7 @@ namespace PersistenciaCore
                     cadeteR.TipoLibreta = a.TipoLibreta;
                     cadeteR.CodigoRecuperacionContraseña = a.Empleados.Usuarios.CodigoRecuperacionContraseña;
                     cadeteR.CodigoModificarEmail = a.Empleados.Usuarios.CodigoModificarEmail;
+                    cadeteR.Contraseña = a.Empleados.Usuarios.Contraseña;
 
                     cadetesResultado.Add(cadeteR);
                 }
@@ -411,14 +412,16 @@ namespace PersistenciaCore
 
                             dbContextTransaction.Commit();
 
+                            return true;
+
                         }
                         catch (Exception ex)
                         {
                             dbContextTransaction.Rollback();
+                            return false;
                         }
                     }
-
-                    return true;
+                    
                 }
 
             }

@@ -117,22 +117,24 @@ namespace EmpleadosApp.Droid
                         TypeNameHandling = TypeNameHandling.All
                     };
 
-                    usuarioLogueado = JsonConvert.DeserializeObject<Administrador>(json,settings);
+                    usuarioLogueado = JsonConvert.DeserializeObject<Usuario>(json,settings);
 
-                    admin = (Administrador)usuarioLogueado;
 
-                    if (admin == null || admin.Tipo == null)
+                    if (usuarioLogueado is Administrador)
+                    {
+                        usuarioLogueado = JsonConvert.DeserializeObject<Administrador>(json, settings);
+                    }
+                    else if (usuarioLogueado is Cadete)
                     {
                         usuarioLogueado = JsonConvert.DeserializeObject<Cadete>(json, settings);
-                        cadete = (Cadete)usuarioLogueado;
-
-                        if (cadete == null || cadete.TipoLibreta == null)
-                        {
-                            Toast.MakeText(this, "ERROR: Error de Logueo", ToastLength.Long).Show();
-
-                            return null;
-                        }
                     }
+                    else
+                    {
+                        Toast.MakeText(this, "ERROR: Error de Logueo", ToastLength.Long).Show();
+
+                        return null;
+                    }
+                    
 
                     return usuarioLogueado;
                 }

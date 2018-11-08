@@ -101,16 +101,27 @@ namespace PersistenciaCore
                 }
 
                 turnos.OrderBy(x=> x.Hora);
-                
-                for (int t = 0; t < turnos.Count; t++)
+
+                if (turnos.Count == 1)
                 {
-                    if (turnos[t].Hora < hora)
+                    turnoCandidato = turnos[0];
+                }
+                else if (turnos.Count == 0)
+                {
+                    throw new Exception("No existen Turnos el dia de hoy.");
+                }
+                else
+                {
+                    for (int t = 0; t < turnos.Count; t++)
                     {
-                        turnoCandidato = turnos[t];
-                    }
-                    else
-                    {
-                        turnoCandidato = turnos[t - 1];
+                        if (turnos[t].Hora < hora)
+                        {
+                            turnoCandidato = turnos[t];
+                        }
+                        else
+                        {
+                            turnoCandidato = turnos[t - 1];
+                        }
                     }
                 }
 

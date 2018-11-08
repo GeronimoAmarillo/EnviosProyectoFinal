@@ -241,9 +241,7 @@ namespace AdministradoresApp.Controllers
                     IControladorEmpleado controladorEmpleado = FabricaApps.GetControladorEmpleado();
 
                     string mensaje = "";
-
-                    if (ModelState.IsValid)
-                    {
+                    
                         bool exito = controladorEmpleado.ModificarAdmnistrador(empModificar);
 
                         if (exito)
@@ -255,7 +253,6 @@ namespace AdministradoresApp.Controllers
                         {
                             mensaje = "Se produjo un error al modificar el administrador!.";
                         }
-                    }
 
                     if (mensaje != "")
                     {
@@ -312,9 +309,7 @@ namespace AdministradoresApp.Controllers
                     IControladorEmpleado controladorEmpleado = FabricaApps.GetControladorEmpleado();
 
                     string mensaje = "";
-
-                    if (ModelState.IsValid)
-                    {
+                    
                         bool exito = controladorEmpleado.ModificarCadete(empModificar);
 
                         if (exito)
@@ -326,7 +321,6 @@ namespace AdministradoresApp.Controllers
                         {
                             mensaje = "Se produjo un error al modificar el cadete!.";
                         }
-                    }
 
                     if (mensaje != "")
                     {
