@@ -46,19 +46,23 @@ namespace EmpleadosApp.Droid.Adaptadores
 
             if (item.Hora.ToString().Length == 3)
             {
-                hora = "0" + item.Hora.ToString()[0] + ":" + item.Hora.ToString()[1] + item.Hora.ToString()[2];
+                string horastring = item.Hora.ToString();
+                hora = "0" + horastring.Substring(0,1) + ":" + horastring.Substring(1,1)+ horastring.Substring(2,1);
             }
             else if (item.Hora.ToString().Length == 2)
             {
-                hora = "00:" + item.Hora.ToString()[0] + item.Hora.ToString()[1];
+                string horastring = item.Hora.ToString();
+                hora = "00:" + horastring.Substring(0, 1) + horastring.Substring(1, 1);
             }
             else if (item.Hora.ToString().Length == 1)
             {
-                hora = "00:0" + item.Hora.ToString()[0];
+                string horastring = item.Hora.ToString();
+                hora = "00:0" + horastring.Substring(0, 1);
             }
             else
             {
-                hora = item.Hora.ToString()[0] + item.Hora.ToString()[1] + ":" + item.Hora.ToString()[2] + item.Hora.ToString()[3];
+                string horastring = item.Hora.ToString();
+                hora = horastring.Substring(0, 1) + horastring.Substring(1, 1) + ":" + horastring.Substring(2, 1) + horastring.Substring(3, 1);
             }
 
             convertView.FindViewById<TextView>(Resource.Id.tvCodigoTurno).Text = item.Codigo.ToString();

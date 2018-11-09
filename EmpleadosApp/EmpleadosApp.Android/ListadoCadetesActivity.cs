@@ -72,7 +72,7 @@ namespace EmpleadosApp.Droid
 
                 using (var httpClient = new HttpClient())
                 {
-                    var json = await httpClient.GetStringAsync(ConexionREST.ConexionEntregas + "/Clientes");
+                    var json = await httpClient.GetStringAsync(ConexionREST.ConexionEntregas + "/Cadetes");
 
                     List<Cadete> cadetes = null;
 

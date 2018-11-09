@@ -23,6 +23,6 @@ namespace LogicaDeServicioCore
 
         List<Empleado> Listar();
 
-        List<Cadete> ListarCadetes();
+        List<EntidadesCompartidasAndroid.Cadete> ListarCadetes();
     }
 }

@@ -48,27 +48,12 @@ namespace EmpleadosApp.Droid.Adaptadores
             {
                 if (item.Vehiculos.Count != 0)
                 {
-                    string tipo = "Auto";
-
-                    if (item.Vehiculos[0] is Camion)
-                    {
-                        tipo = "Camion";
-                    }
-                    if (item.Vehiculos[0] is Camioneta)
-                    {
-                        tipo = "Camioneta";
-                    }
-                    if (item.Vehiculos[0] is Moto)
-                    {
-                        tipo = "Moto";
-                    }
-
-                    vehiculo = "Matricula: " + item.Vehiculos[0].Matricula + " - Tipo: " + tipo;
+                    vehiculo = "Matricula: " + item.Vehiculos[0].Matricula + " - Marca: " + item.Vehiculos[0].Marca + " " + item.Vehiculos[0].Modelo;
                 }
             }
 
             convertView.FindViewById<TextView>(Resource.Id.tvCedulaCadete).Text = item.CiEmpleado.ToString();
-            convertView.FindViewById<TextView>(Resource.Id.tvNombre).Text = item.Nombre.ToString();
+            convertView.FindViewById<TextView>(Resource.Id.tvNombreCadete).Text = item.Nombre.ToString();
             convertView.FindViewById<TextView>(Resource.Id.tvVehiculoCadete).Text = vehiculo;
 
             return convertView;

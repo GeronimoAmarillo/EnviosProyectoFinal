@@ -569,7 +569,27 @@ namespace ClientesApp.Controllers
 
                     if (geo != null)
                     {
-                        return View(geo);
+                        if (geo.Cadete.Nombre != null && geo.Paquete.NumReferencia != 0)
+                        {
+                            if (geo.Paquete.Estado == "Entregado")
+                            {
+                                ViewBag.Entregado = true;
+                            }
+                            else
+                            {
+                                ViewBag.Entregado = false;
+                            }
+
+                            return View(geo);
+                        }
+                        else
+                        {
+
+                            
+                            HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay paquetes que trackear para el cliente logueado");
+
+                            return RedirectToAction("IniciarTrackeo", "Paquetes", new { area = "" });
+                        }
                     }
                     else
                     {

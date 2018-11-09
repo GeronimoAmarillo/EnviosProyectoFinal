@@ -6,9 +6,8 @@ namespace EntidadesCompartidasAndroid
     public partial class Cadete:Empleado
     {
         public string TipoLibreta { get; set; }
-
-        public long IdTelefono { get; set; }
-
+        
+        
         public string Longitud { get; set; }
 
         public string Latitud { get; set; }
