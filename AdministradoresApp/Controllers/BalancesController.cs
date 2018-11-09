@@ -42,8 +42,8 @@ namespace AdministradoresApp.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<ActionResult> ConsultarBalanceMensual(String mes, int anio)
+        [HttpPost("ConsultarBalanceMensual")]
+        public async Task<ActionResult> ConsultarBalanceMensual([FromForm]String mes, int anio)
         {
             try
             {
@@ -68,8 +68,8 @@ namespace AdministradoresApp.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<ActionResult> ConsultarBalanceAnual(DateTime fDesde, DateTime fHasta)
+        [HttpPost("ConsultarBalanceAnual")]
+        public async Task<ActionResult> ConsultarBalanceAnual([FromForm]DateTime fDesde, DateTime fHasta)
         {
             try
             {
