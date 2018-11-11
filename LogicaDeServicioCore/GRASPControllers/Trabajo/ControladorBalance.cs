@@ -33,7 +33,7 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public EntidadesCompartidasCore.Balance ConsultarBalanceMensual(int mes, int año)
+        public EntidadesCompartidasCore.Balance ConsultarBalanceMensual(string mes, int año)
         {
             try
             {

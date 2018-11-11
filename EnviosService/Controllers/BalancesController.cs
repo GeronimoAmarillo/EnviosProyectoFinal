@@ -20,7 +20,8 @@ namespace EnviosService.Controllers
         }
 
         [HttpGet("{mes, año}")]
-        public JsonResult Balance(int mes, int año)
+        [Route("api/Balances/Balance")]
+        public JsonResult Balance(string mes, int año)
         {
             return Json(controladorBalance.ConsultarBalanceMensual(mes, año), new Newtonsoft.Json.JsonSerializerSettings());
         }
@@ -37,6 +38,7 @@ namespace EnviosService.Controllers
         {
             return Json(controladorBalance.ObtenerBalanceAnual(fechaDesde, fechaHasta), new Newtonsoft.Json.JsonSerializerSettings());
         }
+
 
         [HttpGet("{fecha}")]
         [Route("api/Balances/BuscarRegistro")]

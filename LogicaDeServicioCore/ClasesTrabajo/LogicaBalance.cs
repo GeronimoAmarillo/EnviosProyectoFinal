@@ -17,12 +17,12 @@ namespace LogicaDeServicioCore
             DateTime fechaFinal = anio == DateTime.Today.Year ? new DateTime(anio, DateTime.Today.Month - 1, DateTime.DaysInMonth(anio, DateTime.Today.Month - 1)) : new DateTime(anio, 12, 31);
 
             List<Registro> RegistrosDelBalance = ObtenerRegistros(fechaInicio, fechaFinal);
-            
-            for(int i= 1; i<=fechaFinal.Month; i++)
-            {
-                balancesdelAnio.Add(BuscarBalance(i, anio));
-            }
-            
+
+            //for (int i = 1; i <= fechaFinal.Month; i++)
+            //{
+            //    balancesdelAnio.Add(BuscarBalance(i, anio));
+            //}
+
             return balancesdelAnio;
         }
 
@@ -88,12 +88,33 @@ namespace LogicaDeServicioCore
 
         }
 
-        public static Balance BuscarBalance(int mes, int anio)
+        public static Balance BuscarBalance(string mes, int anio)
         {
             try
             {
-                bool abierto = mes < DateTime.Today.Month ? false : true;
-                DateTime fechaInicio = Convert.ToDateTime(mes + "/1/" + anio);
+                int numeroMes = 0;
+                Dictionary<string, int> Meses = new Dictionary<string, int>();
+
+                Meses.Add("enero", 1);
+                Meses.Add("febrero", 2);
+                Meses.Add("marzo", 3);
+                Meses.Add("abril", 4);
+                Meses.Add("mayo", 5);
+                Meses.Add("junio", 6);
+                Meses.Add("julio", 7);
+                Meses.Add("agosto", 8);
+                Meses.Add("septiembre", 9);
+                Meses.Add("octubre", 10);
+                Meses.Add("noviembre", 11);
+                Meses.Add("diciembre", 12);
+
+                if (Meses.ContainsKey(mes.ToLower()))
+                {
+                    numeroMes = Meses[mes];
+                }
+
+                bool abierto = numeroMes < DateTime.Today.Month ? false : true;
+                DateTime fechaInicio = Convert.ToDateTime(numeroMes + "/1/" + anio);
                 DateTime fechaFinal = new DateTime(fechaInicio.Year, fechaInicio.Month, DateTime.DaysInMonth(fechaInicio.Year, fechaInicio.Month));
                 List<Registro> RegistrosDelBalance = ObtenerRegistros(fechaInicio, fechaFinal);
                 decimal utilidadBrutaTotal = 0;
@@ -137,7 +158,7 @@ namespace LogicaDeServicioCore
 
                 Balance balance = new Balance()
                 {
-                    Mes = mes,
+                    Mes = numeroMes,
                     Año = anio,
                     Abierto = abierto,
                     UtilidadBrutaTotal = utilidadBrutaTotal,
