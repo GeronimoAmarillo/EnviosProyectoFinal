@@ -74,7 +74,9 @@ namespace PersistenciaCore.Migrations
                 {
                     b.Property<int>("CiEmpleado");
 
-                    b.Property<long>("IdTelefono");
+                    b.Property<string>("Latitud");
+
+                    b.Property<string>("Longitud");
 
                     b.Property<string>("TipoLibreta")
                         .IsRequired()
@@ -200,6 +202,8 @@ namespace PersistenciaCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("Cadete");
+
                     b.Property<long?>("ClienteEmisor");
 
                     b.Property<long?>("ClienteReceptor");
@@ -220,6 +224,8 @@ namespace PersistenciaCore.Migrations
                         .HasMaxLength(7);
 
                     b.HasKey("Codigo");
+
+                    b.HasIndex("Cadete");
 
                     b.HasIndex("ClienteEmisor");
 
@@ -260,6 +266,8 @@ namespace PersistenciaCore.Migrations
                     b.Property<string>("Descripcion")
                         .IsRequired()
                         .HasMaxLength(250);
+
+                    b.Property<bool>("Extra");
 
                     b.Property<decimal>("Suma")
                         .HasColumnType("decimal(19, 4)");
@@ -307,7 +315,9 @@ namespace PersistenciaCore.Migrations
                         .IsRequired()
                         .HasMaxLength(250);
 
-                    b.Property<long>("RUT");
+                    b.Property<bool>("Extra");
+
+                    b.Property<long?>("RUT");
 
                     b.Property<decimal>("Suma")
                         .HasColumnType("decimal(19, 4)");
@@ -475,6 +485,8 @@ namespace PersistenciaCore.Migrations
                         .IsRequired()
                         .HasMaxLength(250);
 
+                    b.Property<bool>("Resuelto");
+
                     b.HasKey("Id", "Paquete");
 
                     b.HasIndex("Paquete");
@@ -539,6 +551,8 @@ namespace PersistenciaCore.Migrations
                     b.Property<string>("Dia")
                         .IsRequired()
                         .HasMaxLength(10);
+
+                    b.Property<bool>("Eliminado");
 
                     b.Property<int>("Hora");
 
@@ -703,6 +717,10 @@ namespace PersistenciaCore.Migrations
 
             modelBuilder.Entity("PersistenciaCore.Entregas", b =>
                 {
+                    b.HasOne("PersistenciaCore.Cadetes", "Cadetes")
+                        .WithMany("Entregas")
+                        .HasForeignKey("Cadete");
+
                     b.HasOne("PersistenciaCore.Clientes", "Clientes")
                         .WithMany("Entregas")
                         .HasForeignKey("ClienteEmisor")
@@ -733,8 +751,7 @@ namespace PersistenciaCore.Migrations
                 {
                     b.HasOne("PersistenciaCore.Clientes", "Clientes")
                         .WithMany("Ingresos")
-                        .HasForeignKey("RUT")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("RUT");
                 });
 
             modelBuilder.Entity("PersistenciaCore.Motos", b =>

@@ -13,12 +13,13 @@ namespace EnviosService.Controllers
     
     public class PaquetesController : Controller
     {
-
         private IControladorPaquete controladorPaquete;
+        private IControladorEmpleado controladorEmpleado;
 
         public PaquetesController()
         {
             controladorPaquete = FabricaServicio.GetControladorPaquete();
+            controladorEmpleado = FabricaServicio.GetControladorEmpleado();
         }
 
 
@@ -27,6 +28,13 @@ namespace EnviosService.Controllers
         public JsonResult Paquete(int numReferencia)
         {
             return Json(controladorPaquete.BuscarPaquete(numReferencia), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
+        [Route("api/Paquetes/Localizar")]
+        [HttpGet("{numReferencia, rut}")]
+        public JsonResult Localizar(int numReferencia, int rut)
+        {
+            return Json(controladorEmpleado.ConsultarLocalizacion(numReferencia, rut), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
         [Route("api/Paquetes/BuscarIndividual")]
@@ -75,6 +83,13 @@ namespace EnviosService.Controllers
         public JsonResult Reclamo([FromBody] EntidadesCompartidasCore.Reclamo item)
         {
             return Json(controladorPaquete.RealizarReclamo(item));
+        }
+
+        [Route("api/Paquetes/ListarReclamos")]
+        [HttpGet]
+        public JsonResult ListarReclamos()
+        {
+            return Json(controladorPaquete.ListarReclamos(), new Newtonsoft.Json.JsonSerializerSettings());
         }
     }
 }

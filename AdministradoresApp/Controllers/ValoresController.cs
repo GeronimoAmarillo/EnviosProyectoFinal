@@ -8,6 +8,7 @@ using EntidadesCompartidasCore;
 using LogicaDeAppsCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 
 namespace AdministradoresApp.Controllers
@@ -24,7 +25,7 @@ namespace AdministradoresApp.Controllers
         {
             try
             {
-                if (ComprobarLogin() == "G")
+                if (ComprobarLogin() == "C")
                 {
                     SortedList<string, string> listaActual = HttpContext.Session.Get<SortedList<string, string>>(SESSION_LISTA_ACTUAL);
                     HttpContext.Session.Set<SortedList<string, string>>(SESSION_LISTA_ACTUAL, null);
@@ -66,7 +67,7 @@ namespace AdministradoresApp.Controllers
 
         public ActionResult RegistrarGasto()
         {
-            if (ComprobarLogin() == "G")
+            if (ComprobarLogin() == "C")
             {
                 IControladorGasto controladorGasto = FabricaApps.GetControladorGasto();
 
@@ -92,7 +93,7 @@ namespace AdministradoresApp.Controllers
         {
             try
             {
-                if (ComprobarLogin() == "G")
+                if (ComprobarLogin() == "C")
                 {
 
                     Gasto gastoAlta = HttpContext.Session.Get<Gasto>(SESSSION_ALTA);
@@ -100,6 +101,7 @@ namespace AdministradoresApp.Controllers
                     gastoAlta.Suma = gasto.Suma;
                     gastoAlta.Descripcion = gasto.Descripcion;
                     gastoAlta.Id = 0;
+                    gastoAlta.Extra = gasto.Extra;
 
                     IControladorGasto controladorGasto = FabricaApps.GetControladorGasto();
 
@@ -120,6 +122,10 @@ namespace AdministradoresApp.Controllers
                         {
                             mensaje = "Se produjo un error al dar de alta el gasto!.";
                         }
+                    }
+                    else
+                    {
+                        return View();
                     }
 
                     if (mensaje != "")
@@ -148,7 +154,7 @@ namespace AdministradoresApp.Controllers
 
         public ActionResult RegistrarImpuesto()
         {
-            if (ComprobarLogin() == "G")
+            if (ComprobarLogin() == "C")
             {
                 IControladorImpuesto controladorImpuesto = FabricaApps.GetControladorImpuesto();
 
@@ -172,7 +178,7 @@ namespace AdministradoresApp.Controllers
         {
             try
             {
-                if (ComprobarLogin() == "G")
+                if (ComprobarLogin() == "C")
                 {
 
                     Impuesto impuestoAlta = HttpContext.Session.Get<Impuesto>(SESSSION_ALTA);
@@ -227,15 +233,27 @@ namespace AdministradoresApp.Controllers
 
         }
 
-        public ActionResult RegistrarIngreso()
+        public async Task<ActionResult> RegistrarIngreso()
         {
-            if (ComprobarLogin() == "G")
+            if (ComprobarLogin() == "C")
             {
                 IControladorIngreso controladorIngreso = FabricaApps.GetControladorIngreso();
+                IControladorCliente controladorCliente = FabricaApps.GetControladorCliente();
 
                 controladorIngreso.IniciarRegistroIngreso();
 
+                List<Cliente> clientes = await controladorCliente.ListarClientes();
+
                 HttpContext.Session.Set<Ingreso>(SESSSION_ALTA, controladorIngreso.GetIngreso());
+                
+                List<SelectListItem> itemsClientes = new List<SelectListItem>();
+                
+                foreach (Cliente c in clientes)
+                {
+                    itemsClientes.Add(new SelectListItem() { Text = c.RUT + " - " + c.Nombre, Value = c.RUT.ToString() });
+                }
+                    
+                ViewBag.Clientes = itemsClientes;
 
                 return View();
             }
@@ -251,17 +269,21 @@ namespace AdministradoresApp.Controllers
 
 
         [HttpPost]
-        public ActionResult RegistrarIngreso([FromForm]Ingreso ingreso)
+        public ActionResult RegistrarIngreso([FromForm]Ingreso ingreso, [FromForm]string cliente)
         {
             try
             {
-                if (ComprobarLogin() == "G")
+                if (ComprobarLogin() == "C")
                 {
+
+                    long rutCliente = Convert.ToInt64(cliente);
 
                     Ingreso ingresoAlta = HttpContext.Session.Get<Ingreso>(SESSSION_ALTA);
 
                     ingresoAlta.Suma = ingreso.Suma;
+                    ingresoAlta.RUT = rutCliente;
                     ingresoAlta.Descripcion = ingreso.Descripcion;
+                    ingresoAlta.Extra = ingreso.Extra;
                     ingresoAlta.Id = 0;
 
                     IControladorIngreso controladorIngreso = FabricaApps.GetControladorIngreso();
@@ -313,7 +335,7 @@ namespace AdministradoresApp.Controllers
 
         public async Task<ActionResult> ListarGastos()
         {
-            if (ComprobarLogin() == "G")
+            if (ComprobarLogin() == "C")
             {
                 IControladorGasto controladorGasto = FabricaApps.GetControladorGasto();
 
@@ -339,7 +361,7 @@ namespace AdministradoresApp.Controllers
         {
             try
             {
-                if (ComprobarLogin() == "G")
+                if (ComprobarLogin() == "C")
                 {
                     IControladorImpuesto controladorImpuesto = FabricaApps.GetControladorImpuesto();
 
@@ -371,7 +393,7 @@ namespace AdministradoresApp.Controllers
 
         public async Task<ActionResult> ListarIngresos()
         {
-            if (ComprobarLogin() == "G")
+            if (ComprobarLogin() == "C")
             {
                 IControladorIngreso controladorIngreso = FabricaApps.GetControladorIngreso();
 

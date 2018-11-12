@@ -28,7 +28,7 @@ namespace PersistenciaCore
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    var turno = dbConnection.Turnos.Where(l => l.Dia == dia && l.Hora == int.Parse(hora)).Select(c => new {
+                    var turno = dbConnection.Turnos.Where(l => l.Dia == dia && l.Hora == int.Parse(hora) && l.Eliminado == false).Select(c => new {
                         Trn = c
                     }).FirstOrDefault();
 
@@ -59,7 +59,7 @@ namespace PersistenciaCore
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    turnos = dbConnection.Turnos.ToList();
+                    turnos = dbConnection.Turnos.Where(x => x.Eliminado == false).ToList();
                 }
 
                 List<Turno> turnosResultado = new List<Turno>();
@@ -71,6 +71,7 @@ namespace PersistenciaCore
                     turnoR.Codigo = l.Codigo;
                     turnoR.Dia = l.Dia;
                     turnoR.Hora = l.Hora;
+                    turnoR.Eliminado = l.Eliminado;
 
                     turnosResultado.Add(turnoR);
                 }
@@ -100,16 +101,27 @@ namespace PersistenciaCore
                 }
 
                 turnos.OrderBy(x=> x.Hora);
-                
-                for (int t = 0; t < turnos.Count; t++)
+
+                if (turnos.Count == 1)
                 {
-                    if (turnos[t].Hora < hora)
+                    turnoCandidato = turnos[0];
+                }
+                else if (turnos.Count == 0)
+                {
+                    throw new Exception("No existen Turnos el dia de hoy.");
+                }
+                else
+                {
+                    for (int t = 0; t < turnos.Count; t++)
                     {
-                        turnoCandidato = turnos[t];
-                    }
-                    else
-                    {
-                        turnoCandidato = turnos[t - 1];
+                        if (turnos[t].Hora < hora)
+                        {
+                            turnoCandidato = turnos[t];
+                        }
+                        else
+                        {
+                            turnoCandidato = turnos[t - 1];
+                        }
                     }
                 }
 
@@ -121,14 +133,15 @@ namespace PersistenciaCore
             }
         }
 
-        public bool ModificarTurno(EntidadesCompartidasCore.Turno turno)
+        public bool EliminarTurno(EntidadesCompartidasCore.Turno turno)
         {
             try
             {
-                PersistenciaCore.Turnos turnoModificar = new PersistenciaCore.Turnos();
-                turnoModificar.Codigo = turno.Codigo;
-                turnoModificar.Dia = turno.Dia;
-                turnoModificar.Hora = turno.Hora;
+                PersistenciaCore.Turnos turnoEliminar = new PersistenciaCore.Turnos();
+                turnoEliminar.Codigo = turno.Codigo;
+                turnoEliminar.Dia = turno.Dia;
+                turnoEliminar.Hora = turno.Hora;
+                turnoEliminar.Eliminado = true;
 
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
@@ -137,7 +150,7 @@ namespace PersistenciaCore
 
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    dbConnection.Turnos.Update(turnoModificar);
+                    dbConnection.Turnos.Update(turnoEliminar);
                     dbConnection.SaveChanges();
 
                     return true;
@@ -145,7 +158,7 @@ namespace PersistenciaCore
             }
             catch (Exception ex)
             {
-                throw new Exception("Error al modificar el turno.");
+                throw new Exception("Error al dar de baja el turno.");
             }
         }
 
@@ -158,6 +171,7 @@ namespace PersistenciaCore
                 turnoNuevo.Dia = turno.Dia;
                 turnoNuevo.Codigo = turno.Codigo;
                 turnoNuevo.Hora = turno.Hora;
+                turnoNuevo.Eliminado = false;
               
 
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
@@ -192,7 +206,7 @@ namespace PersistenciaCore
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    var turno = dbConnection.Turnos.Where(t => t.Codigo == codigo).Select(c => new {
+                    var turno = dbConnection.Turnos.Where(t => t.Codigo == codigo && t.Eliminado == false).Select(c => new {
                         Turno = c
                     }).FirstOrDefault();
 
@@ -202,6 +216,7 @@ namespace PersistenciaCore
                         turnoresultado.Codigo = codigo;
                         turnoresultado.Dia = turno.Turno.Dia;
                         turnoresultado.Hora = turno.Turno.Hora;
+                        turnoresultado.Eliminado = turno.Turno.Eliminado;
                     }
                 }
 

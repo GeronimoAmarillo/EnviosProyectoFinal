@@ -33,6 +33,10 @@ namespace PersistenciaCore
 
         public int? LocalEmisor { get; set; }
 
+        public int? Cadete { get; set; }
+
+        public virtual Cadetes Cadetes { get; set; }
+
         [Required]
         [StringLength(7)]
         public string Turno { get; set; }

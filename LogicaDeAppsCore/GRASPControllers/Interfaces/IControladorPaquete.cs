@@ -17,5 +17,9 @@ namespace LogicaDeAppsCore
 
         void SetPaquete(Paquete pPaquete);
 
+        Task<List<EntidadesCompartidasCore.Reclamo>> ListarReclamos();
+
+        Task<Geolocalizacion> LocalizarPaquete(int numReferencia, long rut);
+
     }
 }

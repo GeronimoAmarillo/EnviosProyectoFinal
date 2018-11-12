@@ -11,20 +11,14 @@ namespace LogicaDeAppsCore
 {
     class ControladorCalificacion:IControladorCalificacion
     {
-        public bool Calificar(int puntaje, string comentario, long rutCliente)
+        public bool Calificar(Calificacion cal)
         {
             try
             {
-                Calificacion cal = new Calificacion()
-                {
-                    Puntaje = puntaje,
-                    Comentario = comentario,
-                    RutCliente = rutCliente
-                };
 
                 HttpClient client = new HttpClient();
 
-                string url = ConexionREST.ConexionAdelantos + "/Adelanto";
+                string url = ConexionREST.ConexionCalificaciones + "/Calificar";
 
                 var content = new StringContent(JsonConvert.SerializeObject(cal), Encoding.UTF8, "application/json");
 

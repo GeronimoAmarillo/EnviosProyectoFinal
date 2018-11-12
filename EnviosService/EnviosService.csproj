@@ -76,6 +76,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EntidadesCompartidasAndroid\EntidadesCompartidasAndroid.csproj" />
     <ProjectReference Include="..\EntidadesCompartidasCore\EntidadesCompartidasCore.csproj" />
     <ProjectReference Include="..\LogicaDeServicioCore\LogicaDeServicioCore.csproj" />
   </ItemGroup>

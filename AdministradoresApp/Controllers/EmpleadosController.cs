@@ -241,9 +241,7 @@ namespace AdministradoresApp.Controllers
                     IControladorEmpleado controladorEmpleado = FabricaApps.GetControladorEmpleado();
 
                     string mensaje = "";
-
-                    if (ModelState.IsValid)
-                    {
+                    
                         bool exito = controladorEmpleado.ModificarAdmnistrador(empModificar);
 
                         if (exito)
@@ -255,7 +253,6 @@ namespace AdministradoresApp.Controllers
                         {
                             mensaje = "Se produjo un error al modificar el administrador!.";
                         }
-                    }
 
                     if (mensaje != "")
                     {
@@ -300,7 +297,8 @@ namespace AdministradoresApp.Controllers
                     empModificar.Sueldo = empleado.Sueldo;
                     empModificar.Telefono = empleado.Telefono;
                     empModificar.TipoLibreta = empleado.TipoLibreta;
-                    empModificar.IdTelefono = empModificar.IdTelefono;
+                    empModificar.Latitud = empleado.Latitud;
+                    empModificar.Longitud = empleado.Longitud;
                     empModificar.Email = empleado.Email;
                     empModificar.Direccion = empleado.Direccion;
                     empModificar.Contraseña = empleado.Contraseña;
@@ -311,9 +309,7 @@ namespace AdministradoresApp.Controllers
                     IControladorEmpleado controladorEmpleado = FabricaApps.GetControladorEmpleado();
 
                     string mensaje = "";
-
-                    if (ModelState.IsValid)
-                    {
+                    
                         bool exito = controladorEmpleado.ModificarCadete(empModificar);
 
                         if (exito)
@@ -325,7 +321,6 @@ namespace AdministradoresApp.Controllers
                         {
                             mensaje = "Se produjo un error al modificar el cadete!.";
                         }
-                    }
 
                     if (mensaje != "")
                     {
@@ -517,7 +512,8 @@ namespace AdministradoresApp.Controllers
                     adm.NombreUsuario = administrador.NombreUsuario;
                     adm.Sueldo = administrador.Sueldo;
                     adm.Telefono = administrador.Telefono;
-                    adm.IdTelefono = administrador.IdTelefono;
+                    adm.Latitud = administrador.Latitud;
+                    adm.Longitud = administrador.Longitud;
                     adm.TipoLibreta = administrador.TipoLibreta;
                     adm.Email = administrador.Email;
                     adm.Direccion = administrador.Direccion;

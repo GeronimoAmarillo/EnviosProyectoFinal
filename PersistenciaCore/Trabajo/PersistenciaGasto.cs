@@ -19,6 +19,7 @@ namespace PersistenciaCore
                 gastoAgregar.Suma = gasto.Suma;
                 gastoAgregar.Descripcion = gasto.Descripcion;
                 gastoAgregar.fechaRegistro = DateTime.Now;
+                gastoAgregar.Extra = gastoAgregar.Extra;
 
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
 
@@ -65,6 +66,7 @@ namespace PersistenciaCore
                     gastoR.Suma = g.Suma;
                     gastoR.Descripcion = g.Descripcion;
                     gastoR.fechaRegistro = g.fechaRegistro;
+                    gastoR.Extra = g.Extra;
 
                     gastosResultado.Add(gastoR);
                 }

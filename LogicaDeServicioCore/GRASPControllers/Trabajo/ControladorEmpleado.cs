@@ -21,6 +21,20 @@ namespace LogicaDeServicioCore
             }
         }
 
+        public Geolocalizacion ConsultarLocalizacion(int numReferencia, int rut)
+        {
+            try
+            {
+
+                return LogicaUsuario.ConsultarLocalizacion(numReferencia, rut);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public EntidadesCompartidasCore.Empleado BuscarEmpleado(int ci)
         {
             try
@@ -82,5 +96,19 @@ namespace LogicaDeServicioCore
                 throw new Exception("Error al Listar los Empleados." + ex.Message);
             }
         }
+
+        public List<EntidadesCompartidasAndroid.Cadete> ListarCadetes()
+        {
+            try
+            {
+                return LogicaUsuario.ListarCadetes();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al Listar los Cadetes." + ex.Message);
+            }
+        }
+        
+
     }
 }

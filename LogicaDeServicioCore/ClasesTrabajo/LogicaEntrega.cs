@@ -46,11 +46,23 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public static bool AltaEntega(Entrega unaEntrega)
+        public static bool AsignarEntrega(Entrega unaEntrega)
         {
             try
             {
-                return FabricaPersistencia.GetPersistenciaEntrega().AltaEntrega(unaEntrega);
+                return FabricaPersistencia.GetPersistenciaEntrega().AsignarEntrega(unaEntrega);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar dar de alta la entrega." + ex);
+            }
+        }
+
+        public static bool LevantarEntrega(Entrega unaEntrega)
+        {
+            try
+            {
+                return FabricaPersistencia.GetPersistenciaEntrega().LevantarEntrega(unaEntrega);
             }
             catch (Exception ex)
             {

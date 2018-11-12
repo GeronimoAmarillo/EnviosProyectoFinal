@@ -19,6 +19,8 @@ namespace LogicaDeServicioCore
 
         Usuario Login(string user, string pass);
 
+        EntidadesCompartidasAndroid.Usuario LoginDroid(string user, string pass);
+
         bool ModificarNombreUsuario(string user);
 
         bool ComprobarUser(string user);

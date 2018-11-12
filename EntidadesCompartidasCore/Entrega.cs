@@ -33,5 +33,9 @@ namespace EntidadesCompartidasCore
         public Turno Turnos { get; set; }
         
         public List<Paquete> Paquetes1 { get; set; }
+
+        public int? Cadete { get; set; }
+
+        public virtual Cadete Cadetes { get; set; }
     }
 }

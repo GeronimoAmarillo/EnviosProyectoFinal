@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EntidadesCompartidasAndroid\EntidadesCompartidasAndroid.csproj" />
     <ProjectReference Include="..\EntidadesCompartidasCore\EntidadesCompartidasCore.csproj" />
     <ProjectReference Include="..\PersistenciaCore\PersistenciaCore.csproj" />
   </ItemGroup>

@@ -4,6 +4,8 @@ namespace EntidadesCompartidasAndroid
     using System.Collections.Generic;
     public partial class Turno
     {
+        public long Id { get; set; }
+
         public string Codigo { get; set; }
         
         public string Dia { get; set; }

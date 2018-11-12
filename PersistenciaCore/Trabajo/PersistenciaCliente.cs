@@ -362,6 +362,8 @@ namespace PersistenciaCore
                         clienteDesdeBd.Usuarios.Telefono = cliente.Telefono;
                         clienteDesdeBd.Usuarios.Email = cliente.Email;
                         clienteDesdeBd.Mensualidad = cliente.Mensualidad;
+                        clienteDesdeBd.Usuarios.Contraseña = cliente.Contraseña;
+                        clienteDesdeBd.Usuarios.NombreUsuario = cliente.NombreUsuario;
 
                         dbConnection.Clientes.Update(clienteDesdeBd);
 

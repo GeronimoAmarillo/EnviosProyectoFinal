@@ -89,5 +89,19 @@ namespace LogicaDeServicioCore
                 throw new Exception("Error al intentar dar de alta el Reclamo." + ex.Message);
             }
         }
+        //Reclamos
+        public static List<EntidadesCompartidasCore.Reclamo> LisarReclamos()
+        {
+            try
+            {
+                List<EntidadesCompartidasCore.Reclamo> lista = FabricaPersistencia.GetPersistenciaPaquete().ListarReclamos();
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los reclamos." + ex.Message);
+            }
+        }
     }
 }

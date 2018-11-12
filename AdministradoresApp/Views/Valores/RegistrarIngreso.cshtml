@@ -4,6 +4,10 @@
     ViewData["Title"] = "RegistrarIngreso";
 }
 
+@{
+    var listItemsCliente = ViewBag.Clientes;
+}
+
 <h2>RegistrarIngreso</h2>
 
 <h4>Ingreso</h4>
@@ -14,7 +18,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group" hidden>
                 <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" value="0"/>
+                <input asp-for="Id" class="form-control"  value="0"/>
                 <span asp-validation-for="Id" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -28,6 +32,24 @@
                 <span asp-validation-for="Suma" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="fechaRegistro" class="control-label"></label>
+                <input asp-for="fechaRegistro" class="form-control" />
+                <span asp-validation-for="fechaRegistro" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Extra" id="extra" /> @Html.DisplayNameFor(model => model.Extra)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group" id="campoRut">
+                <label>Seleccione el Cliente</label>
+                @Html.DropDownList("cliente", new SelectList(listItemsCliente, "Value", "Text"))
+            </div>
+
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </form>
@@ -37,7 +59,15 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#extra').change(function () {
+            if (this.checked) {
+                $("#campoRut").hide();
+            } else {
+                $("#campoRut").show();
+            }
+        })
+    });
+</script>

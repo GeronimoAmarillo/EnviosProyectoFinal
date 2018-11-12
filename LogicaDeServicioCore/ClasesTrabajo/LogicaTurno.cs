@@ -25,11 +25,11 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public static Boolean ModificarTurno(Turno unTurno)
+        public static bool Eliminar(Turno unTurno)
         {
             try
             {
-                return FabricaPersistencia.GetPersistenciaTurno().ModificarTurno(unTurno);
+                return FabricaPersistencia.GetPersistenciaTurno().EliminarTurno(unTurno);
             }
             catch (Exception ex)
             {

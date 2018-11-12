@@ -22,5 +22,7 @@ namespace LogicaDeServicioCore
         List<Paquete> ListarPaquetesRecibidosXCliente(int rut);
 
         Local BuscarLocal(string nombre);
+
+        List<EntidadesCompartidasCore.Reclamo> ListarReclamos();
     }
 }

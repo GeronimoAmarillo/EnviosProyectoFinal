@@ -24,6 +24,9 @@ namespace PersistenciaCore
         [Required]
         public int Hora { get; set; }
 
+        [Required]
+        public bool Eliminado { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Entregas> Entregas { get; set; }
     }

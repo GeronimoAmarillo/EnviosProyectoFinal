@@ -20,6 +20,9 @@ namespace PersistenciaCore
         public decimal Suma { get; set; }
 
         [Required]
+        public bool Extra { get; set; }
+
+        [Required]
         [Column(TypeName = "date")]
         public DateTime fechaRegistro { get; set; }
     }
