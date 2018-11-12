@@ -34,7 +34,7 @@ namespace EntidadesCompartidasCore
         
         public List<Paquete> Paquetes1 { get; set; }
 
-        public long? Cadete { get; set; }
+        public int? Cadete { get; set; }
 
         public virtual Cadete Cadetes { get; set; }
     }
