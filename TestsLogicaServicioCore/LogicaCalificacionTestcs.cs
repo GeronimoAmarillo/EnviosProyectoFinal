@@ -16,7 +16,7 @@ namespace TestsLogicaServicioCore
             long RutCliente = 2547854125;
             string Comentario = "un comentario";
 
-            var resultado = FabricaServicio.GetControladorCalificacion().Calificar(Puntaje, Comentario, RutCliente);
+            var resultado = FabricaServicio.GetControladorCalificacion().Calificar(new Calificacion());
 
             Assert.True(resultado);
         }
