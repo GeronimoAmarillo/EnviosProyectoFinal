@@ -2,70 +2,72 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        .dropbtn {
-            background-color: #3498DB;
-            color: white;
-            padding: 16px;
-            font-size: 16px;
-            border: none;
-            cursor: pointer;
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+
+    .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: black;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    }
+
+    .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 14px;
+    color: lightgray;
+    display: block;
+    transition: 0.3s;
+    }
+
+        .sidenav a:hover {
+            color: black;
+            background-color: #FF7F50;
         }
 
-            .dropbtn:hover, .dropbtn:focus {
-                background-color: #2980B9;
-            }
+    .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    }
 
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
+    #main {
+    transition: margin-left .5s;
+    padding: 16px;
+    }
 
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f1f1f1;
-            min-width: 160px;
-            overflow: auto;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-
-            .dropdown-content a {
-                color: black;
-                padding: 12px 16px;
-                text-decoration: none;
-                display: block;
-            }
-
-        .dropdown a:hover {
-            background-color: #ddd;
-        }
-
-        .show {
-            display: block;
-        }
-    </style>
+    @@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+    }
+</style>
 </head>
 <body>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a asp-area="" asp-controller="Usuarios" asp-action="ModificarContrasenia">Modificar User/Pass</a>
+        <a asp-controller="Usuarios" asp-action="ModificarEmail">Modificar Email de Contacto</a>
+    </div>
 
     @{
         if (Model != null)
         {
-            <div class="dropdown">
-                <button onclick="myFunction()" class="dropbtn">Dropdown</button>
-                <div id="myDropdown" class="dropdown-content">
-                    <form asp-controller="Usuarios" asp-action="Logout" method="post" class="btn-link">
-                        <div>
-                            <input type="submit" value="Logout" class="btn-link" />
-                        </div>
-                    </form>
-                    <a asp-area="" asp-controller="Usuarios" asp-action="ModificarContrasenia">Modificar Nombre de Usuario y/o Contraseña</a>
-                    <a asp-controller="Usuarios" asp-action="ModificarEmail" class="btn-link">Modificar Email de Contacto</a>
-                </div>
-            </div>
+
+            <a asp-area="" asp-controller="Usuarios" asp-action="Logout">Logout</a>
+            
+            <span style="font-size:30px;cursor:pointer;color:orangered;font-size:30px" onclick="openNav()">&#9776;&nbsp;&nbsp;</span>
+
         }
         else
         {
@@ -74,25 +76,19 @@
     }
 
     <script>
-        function myFunction() {
-            document.getElementById("myDropdown").classList.toggle("show");
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+            document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
         }
 
-        // Close the dropdown if the user clicks outside of it
-        window.onclick = function (event) {
-            if (!event.target.matches('.dropbtn')) {
-
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                var i;
-                for (i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
-                }
-            }
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+            document.body.style.backgroundColor = "white";
         }
     </script>
 
+
 </body>
-</html>
+</html >

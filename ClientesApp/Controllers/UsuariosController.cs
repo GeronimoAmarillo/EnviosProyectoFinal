@@ -52,7 +52,6 @@ namespace ClientesApp.Controllers
 
         }
 
-        [HttpPost]
         public IActionResult Logout()
         {
             try
