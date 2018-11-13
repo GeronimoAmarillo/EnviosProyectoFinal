@@ -166,7 +166,7 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public bool ModificarContrasenia(Usuario unUsuario)
+        public bool ModificarContrasenia(EntidadesCompartidasCore.Usuario unUsuario)
         {
             return LogicaUsuario.ModificarContrasenia(unUsuario);
         }

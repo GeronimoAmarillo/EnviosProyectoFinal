@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using EntidadesCompartidasCore;
 using LogicaDeServicioCore;
 using Newtonsoft.Json;
-using EntidadesCompartidasAndroid;
 
 namespace EnviosService.Controllers
 {
@@ -123,7 +122,7 @@ namespace EnviosService.Controllers
 
         [HttpPost]
         [Route("Api/Usuarios/ModificarContraseniaAdmin")]
-        public JsonResult ModificarContrasenia([FromBody] Administrador Admin)
+        public JsonResult ModificarContrasenia([FromBody] EntidadesCompartidasCore.Administrador Admin)
         {
             JsonSerializerSettings settings = new JsonSerializerSettings
             {
@@ -135,7 +134,7 @@ namespace EnviosService.Controllers
 
         [HttpPost]
         [Route("Api/Usuarios/ModificarContraseniaCliente")]
-        public JsonResult ModificarContrasenia([FromBody] Cliente CLi)
+        public JsonResult ModificarContrasenia([FromBody] EntidadesCompartidasCore.Cliente CLi)
         {
             JsonSerializerSettings settings = new JsonSerializerSettings
             {
@@ -147,7 +146,7 @@ namespace EnviosService.Controllers
 
         [HttpPost]
         [Route("Api/Usuarios/ModificarContraseniaCadete")]
-        public JsonResult ModificarContrasenia([FromBody] Cadete Cadete)
+        public JsonResult ModificarContrasenia([FromBody] EntidadesCompartidasCore.Cadete Cadete)
         {
             JsonSerializerSettings settings = new JsonSerializerSettings
             {
