@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersistenciaCore;
 
 namespace PersistenciaCore.Migrations
 {
     [DbContext(typeof(EnviosContext))]
-    partial class EnviosContextModelSnapshot : ModelSnapshot
+    [Migration("20181110231046_Correccion")]
+    partial class Correccion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -484,8 +486,6 @@ namespace PersistenciaCore.Migrations
                     b.Property<string>("Comentario")
                         .IsRequired()
                         .HasMaxLength(250);
-
-                    b.Property<bool>("Resuelto");
 
                     b.HasKey("Id", "Paquete");
 

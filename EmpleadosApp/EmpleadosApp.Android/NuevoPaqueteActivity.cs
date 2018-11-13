@@ -77,8 +77,17 @@ namespace EmpleadosApp.Droid
 
                     using (var httpClient = new HttpClient())
                     {
+                        string url;
 
-                        string url = ConexionREST.ConexionEntregas + "/Alta";
+                        if (entrega.Turno == null)
+                        {
+                            url = ConexionREST.ConexionEntregas + "/Levantar";
+                        }
+                        else
+                        {
+                            url = ConexionREST.ConexionEntregas + "/Asignar";
+                        }
+                        
 
                         string json = JsonConvert.SerializeObject(entrega);
 
@@ -172,7 +181,7 @@ namespace EmpleadosApp.Droid
 
             tvCadeteTransportador.Text = entrega.Cadete.ToString();
 
-            tvTurno.Text = entrega.Turno.ToString();
+            tvTurno.Text = entrega.Turno == null? "Turno Generado Automaticamente":entrega.Turno.ToString();
             
 
             lvPaquetes.Adapter = new Adaptadores.AdaptadorPaquetes(this, entrega.Paquetes);

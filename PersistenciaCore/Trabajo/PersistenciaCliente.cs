@@ -362,6 +362,8 @@ namespace PersistenciaCore
                         clienteDesdeBd.Usuarios.Telefono = cliente.Telefono;
                         clienteDesdeBd.Usuarios.Email = cliente.Email;
                         clienteDesdeBd.Mensualidad = cliente.Mensualidad;
+                        clienteDesdeBd.Usuarios.Contraseña = cliente.Contraseña;
+                        clienteDesdeBd.Usuarios.NombreUsuario = cliente.NombreUsuario;
 
                         dbConnection.Clientes.Update(clienteDesdeBd);
 
@@ -486,5 +488,39 @@ namespace PersistenciaCore
         {
             return true;
         }
+
+        public bool ModificarContrasenia(Cliente unCliente)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+            optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+            try
+            {
+                using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+
+                    Usuarios usuDesdeBd = dbConnection.Usuarios.Where(x => x.Id == unCliente.Id).FirstOrDefault();
+
+
+                    if (usuDesdeBd != null)
+                    {
+                        usuDesdeBd.Contraseña = unCliente.Contraseña;
+                        usuDesdeBd.NombreUsuario = unCliente.NombreUsuario;
+                        dbConnection.Usuarios.Update(usuDesdeBd);
+                        dbConnection.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar modificar nombre de usuario o contraseña" + ex.Message);
+            }
+        }
+
     }
 }

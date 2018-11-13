@@ -44,9 +44,10 @@ namespace PersistenciaCore
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<Entregas>()
-                .HasOne(x => x.Cadetes)
-                .WithMany(x => x.Entregas);
+            modelBuilder.Entity<Cadetes>()
+                .HasMany(x => x.Entregas)
+                .WithOne(x => x.Cadetes)
+                .HasForeignKey(x=> x.Cadete);
 
             modelBuilder.Entity<Adelantos>()
                 .Property(e => e.Suma)

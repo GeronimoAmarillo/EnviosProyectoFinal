@@ -450,23 +450,9 @@ namespace PersistenciaCore
                     }
 
                 }*/
+                
 
-                DateTime fechaActual = DateTime.Now;
-
-                var culture = new System.Globalization.CultureInfo("es-ES");
-                string dia = culture.DateTimeFormat.GetDayName(fechaActual.DayOfWeek);
-
-                string horaString = fechaActual.ToShortTimeString();
-
-                string horaStringInt = horaString.Substring(0, 2) + horaString.Substring(3, 2);
-
-                int hora = Convert.ToInt32(horaStringInt);
-
-                Turnos turnoCandidato = FabricaPersistencia.GetPersistenciaTurno().IdentificarTurno(dia, hora);
-
-                string turno = turnoCandidato.Codigo;
-
-                entregaAgregar.Turno = turno;
+                entregaAgregar.Turno = entrega.Turno;
 
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {

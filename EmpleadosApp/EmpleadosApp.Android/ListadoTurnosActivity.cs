@@ -72,7 +72,7 @@ namespace EmpleadosApp.Droid
 
                 using (var httpClient = new HttpClient())
                 {
-                    var json = await httpClient.GetStringAsync(ConexionREST.ConexionTurnos + "/Listar");
+                    var json = await httpClient.GetStringAsync(ConexionREST.ConexionTurnos + "/Turnos");
 
                     List<Turno> turnos = null;
 
@@ -133,31 +133,31 @@ namespace EmpleadosApp.Droid
 
             if (id.ToString()[0].ToString() == "1")
             {
-                codigo = "LUN" + id.ToString().Substring(3, 4);
+                codigo = "LUN" + id.ToString().Substring(1, 4);
             }
             if (id.ToString()[0].ToString() == "2")
             {
-                codigo = "MAR" + id.ToString().Substring(3, 4);
+                codigo = "MAR" + id.ToString().Substring(1, 4);
             }
             if (id.ToString()[0].ToString() == "3")
             {
-                codigo = "MIE" + id.ToString().Substring(3, 4);
+                codigo = "MIE" + id.ToString().Substring(1, 4);
             }
             if (id.ToString()[0].ToString() == "4")
             {
-                codigo = "JUE" + id.ToString().Substring(3, 4);
+                codigo = "JUE" + id.ToString().Substring(1, 4);
             }
             if (id.ToString()[0].ToString() == "5")
             {
-                codigo = "VIE" + id.ToString().Substring(3, 4);
+                codigo = "VIE" + id.ToString().Substring(1, 4);
             }
             if (id.ToString()[0].ToString() == "6")
             {
-                codigo = "SAB" + id.ToString().Substring(3, 4);
+                codigo = "SAB" + id.ToString().Substring(1, 4);
             }
             if (id.ToString()[0].ToString() == "7")
             {
-                codigo = "DOM" + id.ToString().Substring(3, 4);
+                codigo = "DOM" + id.ToString().Substring(1, 4);
             }
 
             entrega.Turno = codigo;

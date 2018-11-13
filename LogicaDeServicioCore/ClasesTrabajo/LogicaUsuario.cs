@@ -424,11 +424,15 @@ namespace LogicaDeServicioCore
 
         }
 
-        public static bool ModificarContrasenia(Administrador unAdmin)
+        public static bool ModificarContrasenia(Usuario unUsuario)
         {
             try
             {
-                return FabricaPersistencia.GetPersistenciaAdministrador().ModificarContrasenia(unAdmin);
+                if(unUsuario is Administrador)
+                    return FabricaPersistencia.GetPersistenciaAdministrador().ModificarContrasenia((Administrador)unUsuario);
+                else
+                    return FabricaPersistencia.GetPersistenciaCliente().ModificarContrasenia((Cliente)unUsuario);
+
             }
             catch (Exception ex)
             {
@@ -504,18 +508,79 @@ namespace LogicaDeServicioCore
             
         }
 
-        public static List<EntidadesCompartidasCore.Cadete> ListarCadetes()
+        public static List<EntidadesCompartidasAndroid.Cadete> ListarCadetes()
         {
+
             try
             {
-                List<EntidadesCompartidasCore.Cadete> lista = FabricaPersistencia.GetPersistenciaCadete().ListarCadetes();
-                return lista;
+                List<Cadete> cadetesNormales = FabricaPersistencia.GetPersistenciaCadete().ListarCadetes();
+                return TransformarCadetesAndroid(cadetesNormales);
             }
             catch (Exception ex)
             {
                 throw new Exception("Error al listar los cadetes." + ex.Message);
             }
 
+        }
+
+        private static List<EntidadesCompartidasAndroid.Cadete> TransformarCadetesAndroid(List<Cadete> cadetesNormales)
+        {
+            try
+            {
+                List<EntidadesCompartidasAndroid.Cadete> cadetes = new List<EntidadesCompartidasAndroid.Cadete>();
+
+                foreach (Cadete c in cadetesNormales)
+                {
+                    EntidadesCompartidasAndroid.Cadete cN = new EntidadesCompartidasAndroid.Cadete();
+
+                    cN.Ci = c.Ci;
+                    cN.CiEmpleado = c.CiEmpleado;
+                    cN.Direccion = c.Direccion;
+                    cN.Email = c.Email;
+                    cN.Id = c.Id;
+                    cN.Nombre = c.Nombre;
+                    cN.NombreUsuario = c.NombreUsuario;
+                    cN.Telefono = c.Telefono;
+                    cN.TipoLibreta = c.TipoLibreta;
+                    cN.Vehiculos = TransformarVehiculos(c.Vehiculos);
+
+                    cadetes.Add(cN);
+                }
+
+                return cadetes;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al Listar los Cadetes." + ex.Message);
+            }
+        }
+
+        private static List<EntidadesCompartidasAndroid.Vehiculo> TransformarVehiculos(List<EntidadesCompartidasCore.Vehiculo> vehiculosP)
+        {
+            try
+            {
+                List<EntidadesCompartidasAndroid.Vehiculo> vehiculos = new List<EntidadesCompartidasAndroid.Vehiculo>();
+
+                foreach (EntidadesCompartidasCore.Vehiculo c in vehiculosP)
+                {
+
+                    EntidadesCompartidasAndroid.Vehiculo cN = new EntidadesCompartidasAndroid.Vehiculo();
+
+                    cN.Capacidad = c.Capacidad;
+                    cN.Estado = c.Estado;
+                    cN.Marca = c.Marca;
+                    cN.Matricula = c.Matricula;
+                    cN.Modelo = c.Modelo;
+
+                    vehiculos.Add(cN);
+                }
+
+                return vehiculos;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al Listar los Vehiculos." + ex.Message);
+            }
         }
 
         public static List<EntidadesCompartidasCore.Cliente> ListarClientes()

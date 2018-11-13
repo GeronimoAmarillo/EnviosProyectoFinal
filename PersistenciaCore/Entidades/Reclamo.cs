@@ -17,6 +17,9 @@ namespace PersistenciaCore
         public string Comentario { get; set; }
         
         public int Paquete { get; set; }
+
+        [Required]
+        public bool Resuelto { get; set; }
         
         public virtual Paquetes Paquetes { get; set; }
         

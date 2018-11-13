@@ -97,7 +97,7 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public List<Cadete> ListarCadetes()
+        public List<EntidadesCompartidasAndroid.Cadete> ListarCadetes()
         {
             try
             {
@@ -108,5 +108,7 @@ namespace LogicaDeServicioCore
                 throw new Exception("Error al Listar los Cadetes." + ex.Message);
             }
         }
+        
+
     }
 }

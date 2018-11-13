@@ -24,7 +24,7 @@ namespace PersistenciaCore
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    entrega = dbConnection.Entregas.Include("Cadetes").FirstOrDefault(x => x.Paquetes.Any(y => y.NumReferencia == numReferencia));
+                    entrega = dbConnection.Entregas.Include("Cadetes").FirstOrDefault(x => x.Paquetes.Any(y => y.NumReferencia == numReferencia) || x.Paquetes1.Any(y => y.NumReferencia == numReferencia));
                     
                     cadete = dbConnection.Cadetes.Include("Empleados.Usuarios").Where(x => x.CiEmpleado == entrega.Cadete).FirstOrDefault();
                 }
@@ -270,7 +270,7 @@ namespace PersistenciaCore
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    cadetes = dbConnection.Cadetes.Include("Empleados.Usuarios").ToList();
+                    cadetes = dbConnection.Cadetes.Include("Empleados.Usuarios").Include("Vehiculos").ToList();
                 }
 
                 List<Cadete> cadetesResultado = new List<Cadete>();
@@ -293,6 +293,8 @@ namespace PersistenciaCore
                     cadeteR.TipoLibreta = a.TipoLibreta;
                     cadeteR.CodigoRecuperacionContraseña = a.Empleados.Usuarios.CodigoRecuperacionContraseña;
                     cadeteR.CodigoModificarEmail = a.Empleados.Usuarios.CodigoModificarEmail;
+                    cadeteR.Contraseña = a.Empleados.Usuarios.Contraseña;
+                    cadeteR.Vehiculos = TransformarVehiculos(a.Vehiculos);
 
                     cadetesResultado.Add(cadeteR);
                 }
@@ -302,6 +304,34 @@ namespace PersistenciaCore
             catch (Exception ex)
             {
                 throw new Exception("Error al listar los cadetes." + ex.Message);
+            }
+        }
+
+        private List<Vehiculo> TransformarVehiculos(ICollection<Vehiculos> vehiculosP)
+        {
+            try
+            {
+                List<Vehiculo> vehiculos = new List<Vehiculo>();
+
+                foreach (Vehiculos c in vehiculosP)
+                {
+                    
+                    Vehiculo cN = new Vehiculo();
+
+                    cN.Capacidad = c.Capacidad;
+                    cN.Estado = c.Estado;
+                    cN.Marca = c.Marca;
+                    cN.Matricula = c.Matricula;
+                    cN.Modelo = c.Modelo;
+
+                    vehiculos.Add(cN);
+                }
+
+                return vehiculos;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al Listar los Vehiculos." + ex.Message);
             }
         }
 
@@ -411,14 +441,16 @@ namespace PersistenciaCore
 
                             dbContextTransaction.Commit();
 
+                            return true;
+
                         }
                         catch (Exception ex)
                         {
                             dbContextTransaction.Rollback();
+                            return false;
                         }
                     }
-
-                    return true;
+                    
                 }
 
             }

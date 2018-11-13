@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersistenciaCore;
 
 namespace PersistenciaCore.Migrations
 {
     [DbContext(typeof(EnviosContext))]
-    partial class EnviosContextModelSnapshot : ModelSnapshot
+    [Migration("20181105183102_Campo Extra agregado a valores")]
+    partial class CampoExtraagregadoavalores
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -202,7 +204,9 @@ namespace PersistenciaCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("Cadete");
+                    b.Property<long?>("Cadete");
+
+                    b.Property<int?>("CadetesCiEmpleado");
 
                     b.Property<long?>("ClienteEmisor");
 
@@ -225,7 +229,7 @@ namespace PersistenciaCore.Migrations
 
                     b.HasKey("Codigo");
 
-                    b.HasIndex("Cadete");
+                    b.HasIndex("CadetesCiEmpleado");
 
                     b.HasIndex("ClienteEmisor");
 
@@ -485,8 +489,6 @@ namespace PersistenciaCore.Migrations
                         .IsRequired()
                         .HasMaxLength(250);
 
-                    b.Property<bool>("Resuelto");
-
                     b.HasKey("Id", "Paquete");
 
                     b.HasIndex("Paquete");
@@ -719,7 +721,7 @@ namespace PersistenciaCore.Migrations
                 {
                     b.HasOne("PersistenciaCore.Cadetes", "Cadetes")
                         .WithMany("Entregas")
-                        .HasForeignKey("Cadete");
+                        .HasForeignKey("CadetesCiEmpleado");
 
                     b.HasOne("PersistenciaCore.Clientes", "Clientes")
                         .WithMany("Entregas")

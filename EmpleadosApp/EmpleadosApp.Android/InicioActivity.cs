@@ -204,13 +204,16 @@ namespace EmpleadosApp.Droid
 
                 if (json != "N/L")
                 {
-                    usuarioLogueado = JsonConvert.DeserializeObject<Usuario>(json);
 
                     if (usuarioLogueado != null)
                     {
                         Entrega entrega = new Entrega();
 
                         entrega.ClienteEmisor = null;
+
+                        Cadete cadeteLogueado = JsonConvert.DeserializeObject<Cadete>(json);
+
+                        entrega.Cadete = cadeteLogueado.Ci;
 
                         Intent intent = new Intent(this, typeof(ListadoLocalesActivity));
                         intent.PutExtra("EntregaCreacion", Newtonsoft.Json.JsonConvert.SerializeObject(entrega));
