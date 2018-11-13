@@ -3,8 +3,8 @@
 @{
     if (Model != null)
     {
-        <form asp-controller="Usuarios" asp-action="Logout" method="post">
-            <div class="form-group">
+        <form asp-controller="Usuarios" asp-action="Logout" method="post" class="btn-link">
+            <div>
                 <input type="submit" value="Logout" class="btn-link" />
             </div>
         </form>
@@ -12,6 +12,6 @@
     }
     else
     {
-        <li class="btn-link"><a class="btn-link" asp-area="" asp-controller="Usuarios" asp-action="Login">Login</a></li>
+        <a class="btn-link" asp-area="" asp-controller="Usuarios" asp-action="Login">Login</a>
     }
 }
