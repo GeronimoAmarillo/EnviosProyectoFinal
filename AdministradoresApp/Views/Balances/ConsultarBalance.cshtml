@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewData["Title"] = "Balances";
+}
+
+<h2>Balances</h2>
+
+<p></p>
+<p></p>
+<p></p>
+
+@{
+    var mensaje = @ViewBag.Message;
+
+    if (mensaje != null && mensaje != "")
+    {
+
+        <h3 class="text-info">@mensaje</h3>
+
+    }
+
+}
+
+<hr />
+<h3>Seleccione balance a generar:</h3>
+<div class="form-group">
+    <div class="col-md-4">
+        <button id="Anual" type="button" class="btn btn-primary">Balance Anual</button>
+    </div>
+    <div>
+        <button id="Mensual" type="button" class="btn btn-primary">Balance Mensual</button>
+    </div>
+    <br />
+    <div id="formAnual" style="display:none;">
+        @using (Html.BeginForm("ConsultarBalanceAnual", "Balances", FormMethod.Post))
+        {
+        <label>"Fecha Desde"</label>
+        <input type="date" name="fDesde" id="fDesde" />
+        <label>Fecha Hasta</label>
+        <input type="date" name="fHasta" id="fHasta" />
+        <input type="submit" class="btn btn-primary" value="Generar Anual" />
+        }
+    </div>
+    <div id="formMensual" style="display:none;">
+        @using (Html.BeginForm("ConsultarBalanceMensual", "Balances", FormMethod.Post))
+        {
+        <label>"Mes"</label>
+        <input type="text" name="mes" id="mes" />
+        <label>Año</label>
+        <input type="number" name="anio" id="anio" />
+        <input type="submit" class="btn btn-primary" value="Generar Mensual" />
+        }
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Volver al inicio</a>
+</div>
+
+
+<script language="javascript">
+    
+    document.getElementById("Anual").onclick = function () {
+        document.getElementById("formMensual").style.display = "none";
+        if (document.getElementById("formAnual").style.display === "none") {
+            document.getElementById("formAnual").style.display = "block";
+        } else {
+            document.getElementById("formAnual").style.display = "none";
+
+        }
+    }
+
+    document.getElementById("Mensual").onclick = function () {
+        document.getElementById("formAnual").style.display = "none"
+        if (document.getElementById("formMensual").style.display === "none") {
+            document.getElementById("formMensual").style.display = "block";
+        } else {
+            document.getElementById("formMensual").style.display = "none";
+
+        }
+    }
+    
+</script>

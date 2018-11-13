@@ -105,12 +105,6 @@ namespace AdministradoresApp.Controllers
             
         }
 
-        [HttpGet]
-        public ActionResult ModificarContrasenia()
-        {
-            return View();
-        }
-
         [HttpPost]
         public async Task<IActionResult> ModificarContrasenia([FromForm] DTUsuario datadelForm)
         {

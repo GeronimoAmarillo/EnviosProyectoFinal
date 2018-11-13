@@ -37,7 +37,7 @@ namespace LogicaDeAppsCore
 
         void SetUsuario(Usuario pUsuario);
 
-        Task<bool> ModificarContraseña(Administrador pAdministrador);
+        Task<bool> ModificarContraseña(Usuario pUsuario);
 
         Task<Usuario> ModificarEmail(Usuario pUsuario);
 

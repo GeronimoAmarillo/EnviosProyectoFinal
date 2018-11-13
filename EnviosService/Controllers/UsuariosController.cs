@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using EntidadesCompartidasCore;
 using LogicaDeServicioCore;
 using Newtonsoft.Json;
-using EntidadesCompartidasAndroid;
 
 namespace EnviosService.Controllers
 {
@@ -121,11 +120,40 @@ namespace EnviosService.Controllers
             return Json(controladorUsuario.RecuperarContraseña(mail), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
-        [HttpPut]
-        [Route("Api/Usuarios/ModificarContrasenia")]
-        public JsonResult ModificarContrasenia([FromBody] EntidadesCompartidasCore.Administrador usuario)
+        [HttpPost]
+        [Route("Api/Usuarios/ModificarContraseniaAdmin")]
+        public JsonResult ModificarContrasenia([FromBody] EntidadesCompartidasCore.Administrador Admin)
         {
-            return Json(controladorUsuario.ModificarContrasenia(usuario), new Newtonsoft.Json.JsonSerializerSettings());
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+
+            return Json(controladorUsuario.ModificarContrasenia(Admin), settings);
+        }
+
+        [HttpPost]
+        [Route("Api/Usuarios/ModificarContraseniaCliente")]
+        public JsonResult ModificarContrasenia([FromBody] EntidadesCompartidasCore.Cliente CLi)
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+
+            return Json(controladorUsuario.ModificarContrasenia(CLi), settings);
+        }
+
+        [HttpPost]
+        [Route("Api/Usuarios/ModificarContraseniaCadete")]
+        public JsonResult ModificarContrasenia([FromBody] EntidadesCompartidasCore.Cadete Cadete)
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+
+            return Json(controladorUsuario.ModificarContrasenia(Cadete), settings);
         }
     }
 }

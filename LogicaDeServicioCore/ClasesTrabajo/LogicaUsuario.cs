@@ -424,11 +424,15 @@ namespace LogicaDeServicioCore
 
         }
 
-        public static bool ModificarContrasenia(Administrador unAdmin)
+        public static bool ModificarContrasenia(Usuario unUsuario)
         {
             try
             {
-                return FabricaPersistencia.GetPersistenciaAdministrador().ModificarContrasenia(unAdmin);
+                if(unUsuario is Administrador)
+                    return FabricaPersistencia.GetPersistenciaAdministrador().ModificarContrasenia((Administrador)unUsuario);
+                else
+                    return FabricaPersistencia.GetPersistenciaCliente().ModificarContrasenia((Cliente)unUsuario);
+
             }
             catch (Exception ex)
             {

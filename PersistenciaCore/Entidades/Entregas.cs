@@ -33,7 +33,7 @@ namespace PersistenciaCore
 
         public int? LocalEmisor { get; set; }
 
-        public long? Cadete { get; set; }
+        public int? Cadete { get; set; }
 
         public virtual Cadetes Cadetes { get; set; }
 

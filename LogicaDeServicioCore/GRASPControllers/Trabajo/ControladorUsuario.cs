@@ -166,9 +166,9 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public bool ModificarContrasenia(EntidadesCompartidasCore.Administrador unAdmin)
+        public bool ModificarContrasenia(EntidadesCompartidasCore.Usuario unUsuario)
         {
-            return LogicaUsuario.ModificarContrasenia(unAdmin);
+            return LogicaUsuario.ModificarContrasenia(unUsuario);
         }
     }
 }

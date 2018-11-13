@@ -202,9 +202,7 @@ namespace PersistenciaCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("Cadete");
-
-                    b.Property<int?>("CadetesCiEmpleado");
+                    b.Property<int?>("Cadete");
 
                     b.Property<long?>("ClienteEmisor");
 
@@ -227,7 +225,7 @@ namespace PersistenciaCore.Migrations
 
                     b.HasKey("Codigo");
 
-                    b.HasIndex("CadetesCiEmpleado");
+                    b.HasIndex("Cadete");
 
                     b.HasIndex("ClienteEmisor");
 
@@ -487,6 +485,8 @@ namespace PersistenciaCore.Migrations
                         .IsRequired()
                         .HasMaxLength(250);
 
+                    b.Property<bool>("Resuelto");
+
                     b.HasKey("Id", "Paquete");
 
                     b.HasIndex("Paquete");
@@ -719,7 +719,7 @@ namespace PersistenciaCore.Migrations
                 {
                     b.HasOne("PersistenciaCore.Cadetes", "Cadetes")
                         .WithMany("Entregas")
-                        .HasForeignKey("CadetesCiEmpleado");
+                        .HasForeignKey("Cadete");
 
                     b.HasOne("PersistenciaCore.Clientes", "Clientes")
                         .WithMany("Entregas")

@@ -84,7 +84,8 @@ namespace EnviosService.Controllers
         {
             return Json(controladorPaquete.RealizarReclamo(item));
         }
-        [Route("api/Paquete/ListarReclamos")]
+
+        [Route("api/Paquetes/ListarReclamos")]
         [HttpGet]
         public JsonResult ListarReclamos()
         {

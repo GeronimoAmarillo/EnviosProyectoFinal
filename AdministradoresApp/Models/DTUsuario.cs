@@ -14,11 +14,13 @@ namespace AdministradoresApp.Models
         [Required(ErrorMessage = "El nombre de usuario es obligatorio")]
         public string NombreUsuario { get; set; }
 
+        [Required(ErrorMessage = "El nuevo nombre de usuario es obligatorio")]
         public string NuevoNombreUsuario { get; set; }
 
         [Required(ErrorMessage = "La contraseña es obligatoria")]
         public string Contraseña { get; set; }
 
+        [Required(ErrorMessage = "La contraseña nueva es obligatoria")]
         public string NuevaContrasenia { get; set; }
 
         public string Nombre { get; set; }
