@@ -78,7 +78,7 @@
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 14px;
 }
 
 .topnav a:hover {
@@ -120,27 +120,24 @@
     text-align: left;
   }
 }
+
     </style>
 </head>
 <body class="body-content">
     <div class="topnav" id="myTopnav">
-        <div class="topnav-right">
-            <p>@await Component.InvokeAsync("UsuarioLogueado") | @await Component.InvokeAsync("BotonesSesion")</p>
-        </div>
-        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-            <i class="fa fa-bars"></i>
-        </a>
-    </div>
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+        <a asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
         <a asp-area="" asp-controller="Paquetes" asp-action="Index">Paquetes Enviados</a>
         <a asp-area="" asp-controller="Paquetes" asp-action="ListarRecibidos">Paquetes Recibidos</a>
         <a asp-area="" asp-controller="Paquetes" asp-action="ConsultarEstado">Estado de Paquete</a>
         <a asp-area="" asp-controller="Paquetes" asp-action="IniciarReclamo">Realizar Reclamo</a>
         <a asp-area="" asp-controller="Paquetes" asp-action="IniciarTrackeo">Localizar Paquete</a>
         <a asp-area="" asp-controller="Calificaciones" asp-action="Calificar">Calificar Servicio</a>
-
+        <div class="topnav-right">
+            @await Component.InvokeAsync("BotonesSesion")
+        </div>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>
     </div>
 
     <div id="main">
@@ -198,6 +195,8 @@
             }
         }
     </script>
+
+    
 
     @RenderSection("Scripts", required: false)
 </body>
