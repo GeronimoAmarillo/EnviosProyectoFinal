@@ -30,7 +30,7 @@
 
         .sidenav a:hover {
             color: black;
-            background-color: #FF7F50;
+            background-color: white;
         }
 
     .sidenav .closebtn {
@@ -64,14 +64,14 @@
         if (Model != null)
         {
 
-            <a asp-area="" asp-controller="Usuarios" asp-action="Logout">Logout</a>
+            <a asp-area="" asp-controller="Usuarios" asp-action="Logout" style="float:right">Logout</a>
             
-            <span style="font-size:30px;cursor:pointer;color:orangered;font-size:30px" onclick="openNav()">&#9776;&nbsp;&nbsp;</span>
+            <span style="font-size:30px;cursor:pointer;color:black;font-size:30px;float:right" onclick="openNav()" >&#9776;&nbsp;&nbsp;</span>
 
         }
         else
         {
-            <a class="btn-link" asp-area="" asp-controller="Usuarios" asp-action="Login">Login</a>
+            <a class="btn-link" asp-area="" asp-controller="Usuarios" asp-action="Login"  style="float:right">Login</a>
         }
     }
 
