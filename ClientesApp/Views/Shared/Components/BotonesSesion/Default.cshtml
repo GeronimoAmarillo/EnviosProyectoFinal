@@ -2,93 +2,66 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-
-    .sidenav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    right: 0;
-    background-color: black;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-    }
-
-    .sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 14px;
-    color: lightgray;
-    display: block;
-    transition: 0.3s;
-    }
-
-        .sidenav a:hover {
-            color: black;
-            background-color: white;
-        }
-
-    .sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-    }
-
-    #main {
-    transition: margin-left .5s;
-    padding: 16px;
-    }
-
-    @@media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
-    }
-</style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/login.css" />
 </head>
 <body>
-
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a asp-area="" asp-controller="Usuarios" asp-action="ModificarContrasenia">Modificar User/Pass</a>
-        <a asp-controller="Usuarios" asp-action="ModificarEmail">Modificar Email de Contacto</a>
-    </div>
 
     @{
         if (Model != null)
         {
 
             <a asp-area="" asp-controller="Usuarios" asp-action="Logout" style="float:right">Logout</a>
-            
-            <span style="font-size:30px;cursor:pointer;color:black;font-size:30px;float:right" onclick="openNav()" >&#9776;&nbsp;&nbsp;</span>
-
         }
         else
         {
-            <a class="btn-link" asp-area="" asp-controller="Usuarios" asp-action="Login"  style="float:right">Login</a>
+            @*<a class="navbar-link" asp-area="" asp-controller="Usuarios" asp-action="Login" style="float:right; font-size:14px; padding:2px">Login</a>*@
+            <a onclick="document.getElementById('id01').style.display='block'" style="width:auto; float:right; padding:3px">Login</a>
+
+            <div id="id01" class="modal">
+
+                <form class="modal-content animate" asp-action="Login" asp-controller="Usuarios">
+
+                    <div class="imgcontainer">
+                        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+                        <img src="~/images/LogoCentral.png" alt="Avatar" class="avatar" style="width:150px; height:150px">
+                    </div>
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="container">
+
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input asp-for="NombreUsuario" placeholder="Ingrese su nombre de usuario" class="form-control" />
+                        <span asp-validation-for="NombreUsuario" class="text-danger"></span>
+
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input asp-for="Contraseña" placeholder="Ingrese su contraseña de acceso" class="form-control" />
+                        <span asp-validation-for="Contraseña" class="text-danger"></span>
+
+                        <p></p>
+
+                        <input type="submit" value="Login" class="btn btn-default" />
+
+                    </div>
+
+                </form>
+            </div>
         }
     }
 
     <script>
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
-            document.getElementById("main").style.marginLeft = "250px";
-            document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
-        }
+        // Get the modal
+        var modal = document.getElementById('id01');
 
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-            document.getElementById("main").style.marginLeft = "0";
-            document.body.style.backgroundColor = "white";
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
         }
     </script>
 
-
 </body>
-</html >
+</html> 
