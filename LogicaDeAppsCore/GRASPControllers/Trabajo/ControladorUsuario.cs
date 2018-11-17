@@ -108,18 +108,27 @@ namespace LogicaDeAppsCore
                 var httpClient = new HttpClient();
 
                 var EnvioJson = JsonConvert.SerializeObject(unUsuario);
-                
-                HttpResponseMessage retorno = await httpClient.PostAsync("http://localhost:8080/api/Clientes/Alta", new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
-                
-                var contentResult = retorno.Content.ReadAsStringAsync();
 
-                if (contentResult.Result.ToUpper() == "TRUE")
+                if (FabricaApps.GetControladorCliente().BuscarCliente(((Cliente)unUsuario).RUT) == null)
                 {
-                    return true;
+                    HttpResponseMessage retorno;
+
+                    retorno = await httpClient.PostAsync("http://localhost:8080/api/Clientes/Alta", new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
+
+                    var contentResult = retorno.Content.ReadAsStringAsync();
+
+                    if (contentResult.Result.ToUpper() == "TRUE")
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
-                    return false;
+                    throw new Exception("Ya existe un Cliente con los Datos Ingresados");
                 }
             }
             catch(Exception ex)

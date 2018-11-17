@@ -153,9 +153,9 @@ namespace AdministradoresApp.Controllers
                 }
                 
             }
-            catch
+            catch(Exception ex)
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar dar de alta el cliente.");
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar dar de alta el cliente." + ex.Message);
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
