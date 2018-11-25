@@ -204,7 +204,7 @@ namespace ClientesApp.Controllers
                     {
                         if (cliente != null && cliente is ClienteEmailNuevo)
                         {
-                            Cliente clienteXemailModificado = await FabricaApps.GetControladorCliente().BuscarClienteXEmail(cliente.Email);
+                            Cliente clienteXemailModificado = await FabricaApps.GetControladorCliente().BuscarClienteXEmail(cliente.EmailViejo);
 
                             MailMessage mail = new MailMessage();
                             mail.From = new MailAddress("enviosservice2018@gmail.com");
