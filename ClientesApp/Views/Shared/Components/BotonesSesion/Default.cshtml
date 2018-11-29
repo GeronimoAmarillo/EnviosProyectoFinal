@@ -9,12 +9,7 @@
 <body>
 
     @{
-        if (Model != null)
-        {
-
-            <a asp-area="" asp-controller="Usuarios" asp-action="Logout" style="float:right">Logout</a>
-        }
-        else
+        if (Model == null)
         {
             @*<a class="navbar-link" asp-area="" asp-controller="Usuarios" asp-action="Login" style="float:right; font-size:14px; padding:2px">Login</a>*@
             <a onclick="document.getElementById('id01').style.display='block'" style="width:auto; float:right; padding:11px; font-size:17px">Login</a>
@@ -37,7 +32,7 @@
                         <span asp-validation-for="NombreUsuario" class="text-danger"></span>
 
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input asp-for="Contraseña" placeholder="Ingrese su contraseña de acceso" class="form-control" />
+                        <input type="password" asp-for="Contraseña" placeholder="Ingrese su contraseña de acceso" class="form-control" />
                         <span asp-validation-for="Contraseña" class="text-danger"></span>
 
                         <p></p>
