@@ -5,29 +5,33 @@
     ViewData["Title"] = "DefinicionContraseña";
 }
 
-<h2>DefinicionContraseña</h2>
+<h2 class="container">Definir Nueva Contraseña</h2>
 
-<h2>Definir Nueva Contraseña</h2>
+<div class="container">
 
-<h4>Datos de nueva contraseña</h4>
-<hr />
+    @using (Html.BeginForm("DefinicionContraseñaPost", "Usuarios"))
+    {
+        <div class="form-group">
+            <label>Mail solicitante</label>
+            <input type="text" name="email" class="form-control" value=@ViewBag.Email readonly />
+            <br />
+        </div>
+        <div class="form-group">
+            <label>Ingrese su nueva contraseña</label>
+            <input type="text" name="contraseña" class="form-control" />
+            <br />
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-default">Modificar Contraseña</button>
+        </div>
+    }
 
-@using (Html.BeginForm("DefinicionContraseñaPost", "Usuarios"))
-{
-    <div class="form-group">
-        <label>Mail solicitante</label>
-        <input type="text" name="email" class="form-control" value=@ViewBag.Email readonly />
-        <br />
+    <div>
+        <a asp-action="Index" asp-controller="Home" class="btn btn-danger">Cancelar</a>
     </div>
-    <div class="form-group">
-        <label>Ingrese su nueva contraseña</label>
-        <input type="text" name="contraseña" class="form-control" />
-        <br />
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-default">Modificar Contraseña</button>
-    </div>
-}
+
+
+</div>
 
 
 @*<div class="row">
@@ -49,6 +53,3 @@
         </div>
     </div>*@
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>

@@ -3,20 +3,26 @@
     ViewData["Title"] = "ConsultarEstado";
 }
 
-<h2>Consultar Estado de Paquete</h2>
+<h2 class="container">Consultar Estado de Paquete</h2>
 
-<h4>Ingrese el Numero de Referencia del Paquete</h4>
-<hr />
+<div class="container">
+    @using (Html.BeginForm("ConsultarEstadoPost", "Paquetes"))
+    {
+        <div class="form-group">
+            <label>Ingrese aqui el numero de referencia</label>
+            <input type="text" name="numReferencia" class="form-control" />
+            <br />
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-default">Consultar</button>
+        </div>
 
-@using (Html.BeginForm("ConsultarEstadoPost", "Paquetes"))
-{
-    <div class="form-group">
-        <label>Ingrese aqui el numero de referencia</label>
-        <input type="text" name="numReferencia" class="form-control" />
-        <br />
+    }
+
+    <div>
+        <a asp-action="Index" asp-controller="Home" class="btn-group-xs">Volver</a>
     </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-default">Consultar</button>
-    </div>
+</div>
 
-}
+
+

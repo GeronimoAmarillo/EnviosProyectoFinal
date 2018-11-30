@@ -3,26 +3,33 @@
     ViewData["Title"] = "IngresarCodigoEmail";
 }
 
-<h2>Verifique su identidad</h2>
+<h2 class="container">Verifique su identidad</h2>
 
-<h4>Ingrese el codigo que se le envio al mail: @ViewBag.Email</h4>
-<hr />
+<h4 class="container">Ingrese el codigo que se le envio al mail: @ViewBag.Email</h4>
 
-@using (Html.BeginForm("IngresarCodigoEmail", "Usuarios"))
-{
-    <div class="form-group">
-        <label>Mail solicitante</label>
-        <input type="text" name="email" class="form-control" value=@ViewBag.Email readonly />
-        <br />
-    </div>
-    <div class="form-group">
-        <label>Ingrese aqui el codigo</label>
-        <input type="text" name="codigo" class="form-control" />
-        <br />
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-default">Verificar</button>
+<div class="container">
+
+    @using (Html.BeginForm("IngresarCodigoEmail", "Usuarios"))
+    {
+        <div class="form-group">
+            <label>Mail solicitante</label>
+            <input type="text" name="email" class="form-control" value=@ViewBag.Email readonly />
+            <br />
+        </div>
+        <div class="form-group">
+            <label>Ingrese aqui el codigo</label>
+            <input type="text" name="codigo" class="form-control" />
+            <br />
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-default">Verificar</button>
+        </div>
+
+    }
+
+    <div>
+        <a asp-action="Index" asp-controller="Home" class="btn btn-danger">Cancelar</a>
     </div>
 
-}
+</div>
 

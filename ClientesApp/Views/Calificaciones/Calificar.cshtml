@@ -4,15 +4,13 @@
     ViewData["Title"] = "Calificar";
 }
 
-<h2>Calificar</h2>
+<h2 class="container">Calificar</h2>
 
 @{ 
     long Cliente = ViewBag.Cliente;
 }
-
-<h4>Calificacion</h4>
 <hr />
-<div class="row">
+<div class="container">
     <div class="col-md-4">
         <form asp-action="Calificar">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -29,22 +27,24 @@
             </div>
             <div class="form-group">
                 <label asp-for="RutCliente" class="control-label"></label>
-                <input asp-for="RutCliente" class="form-control" value="@Cliente" readonly/>
+                <input asp-for="RutCliente" class="form-control" value="@Cliente" readonly />
                 <span asp-validation-for="RutCliente" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Comentario" class="control-label"></label>
-                <input asp-for="Comentario" class="form-control" />
+                <textarea asp-for="Comentario" class="form-control"></textarea>
                 <span asp-validation-for="Comentario" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Calificar" class="btn btn-success" />
             </div>
         </form>
+
+        <div>
+            <a asp-action="Index" asp-controller="Home" class="btn-group-xs">Volver</a>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 

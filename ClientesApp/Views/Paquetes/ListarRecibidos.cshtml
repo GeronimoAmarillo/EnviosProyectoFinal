@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<EntidadesCompartidasCore.Paquete>
-
+<script src="https://www.w3schools.com/lib/w3.js"></script>
 @{
     ViewData["Title"] = "ListarRecibidos";
 }
 
-<h2>ListarRecibidos</h2>
+<h2 class="container">Lista de Paquetes Recibidos</h2>
 
 @using (Html.BeginForm("FiltrarRecibidos", "Paquetes"))
 {
-    <div class="form-group">
+    @*<div class="form-group">
 
         <table class="table">
             <thead>
@@ -68,60 +68,71 @@
             </tbody>
         </table>
 
-    </div>
+    </div>*@
 }
 
+<div class="container">
+    <p>
+        <input oninput="w3.filterHTML('#id01', '.item', this.value)" placeholder="Busqueda multi-columna...">
+    </p>
+    <div class="table-responsive">
+        <table class="table-hover" id="id01">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NumReferencia)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FechaSalida)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Estado)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Ubicacion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Entrega)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cliente)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="item">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NumReferencia)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FechaSalida)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Estado)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ubicacion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Entrega)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cliente)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Detalles", "Detalles", new { numReferencia = item.NumReferencia, accion = "Enviados" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.NumReferencia)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaSalida)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ubicacion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Entrega)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cliente)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumReferencia)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaSalida)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Estado)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Ubicacion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Entrega)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cliente)
-                </td>
-                <td>
-                    @Html.ActionLink("Detalles", "Detalles", new { numReferencia = item.NumReferencia, accion = "Recibidos" })
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div>
+        <a asp-action="Index" asp-controller="Home" class="btn-group-xs">Volver</a>
+    </div>
+
+</div>
