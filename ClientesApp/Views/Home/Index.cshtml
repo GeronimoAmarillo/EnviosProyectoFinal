@@ -11,7 +11,7 @@
 
 @{
     string mensaje = "";
-    
+
     if (TempData["Mensaje"] != null)
     {
         mensaje = TempData["Mensaje"].ToString();
@@ -24,7 +24,15 @@
 @{
     if (mensaje != "")
     {
-        <div id="toast"><div id="img">Icon</div><div id="desc">@mensaje</div></div>
+        if (mensaje.ToLower().Contains("exito"))
+        {
+            <div id="toast"><div id="img">&#9989;</div><div id="desc">@mensaje</div></div>
+        }
+        else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid"))
+        {
+            <div id="toast"><div id="img">&#10060;</div><div id="desc">@mensaje</div></div>
+        }
+
     }
 
 }

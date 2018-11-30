@@ -60,18 +60,18 @@ namespace ClientesApp.Controllers
                 {
                     HttpContext.Session.Set<Usuario>(LOG_USER, null);
 
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "Usuario deslogueado exitosamente!.");
+                    TempData["Mensaje"] = "Usuario deslogueado exitosamente!.";
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "Accion Incorrecta: No existe un usuario previamente logueado!.");
+                    TempData["Mensaje"] = "Accion Incorrecta: No existe un usuario previamente logueado!.";
                 }
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
             catch
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar desloguearse.");
+                TempData["Mensaje"] = "Error al intentar desloguearse.";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -103,7 +103,7 @@ namespace ClientesApp.Controllers
                 {
                     HttpContext.Session.Set<Usuario>(LOG_USER, null);
 
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "Usuario y/o contraseña invalidos.");
+                    TempData["Mensaje"] = "Usuario y/o contraseña invalidos.";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -112,7 +112,7 @@ namespace ClientesApp.Controllers
             }
             catch
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar Loguearse.");
+                TempData["Mensaje"] = "Error al intentar Loguearse.";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
