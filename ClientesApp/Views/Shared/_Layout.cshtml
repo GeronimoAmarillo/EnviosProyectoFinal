@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ClientesApp</title>
+    <script src="toast.js"></script>
+
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -36,6 +38,7 @@
         </a>
     </div>
 
+
     @*<div class="icon-bar" id="redes">
             <a href="#" class="fa fa-facebook"></a>
             <a href="#" class="fa fa-twitter"></a>
@@ -57,6 +60,7 @@
     </div>
 
     <div id="main" style="margin:0; padding:0">
+
 
         <div style="background-color:black">
             <span style="font-size:25px;cursor:pointer;color:white" onclick="openNav()">&#9776; Menu</span>@await Component.InvokeAsync("AccionesUsuario")

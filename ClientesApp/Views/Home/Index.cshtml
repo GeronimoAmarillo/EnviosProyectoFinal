@@ -1,4 +1,7 @@
-﻿@{
+﻿<script src="toast.js"></script>
+<link rel="stylesheet" href="~/css/inicio.css" />
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -7,16 +10,25 @@
 <p></p>
 
 @{
-    var mensaje = @ViewBag.Message;
-
-    if (mensaje != null && mensaje != "")
+    string mensaje = "";
+    
+    if (TempData["Mensaje"] != null)
     {
+        mensaje = TempData["Mensaje"].ToString();
+    }
 
-        <h3 class="text-danger">@mensaje</h3>
 
+    <p>@mensaje</p>
+}
+
+@{
+    if (mensaje != "")
+    {
+        <div id="toast"><div id="img">Icon</div><div id="desc">@mensaje</div></div>
     }
 
 }
+
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
@@ -57,4 +69,16 @@
     </a>
 </div>
 
+<script>
+
+    function launch_toast() {
+        var x = document.getElementById("toast")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+    }
+
+
+    window.onload = launch_toast;
+
+</script>
 

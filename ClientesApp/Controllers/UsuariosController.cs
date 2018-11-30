@@ -90,11 +90,14 @@ namespace ClientesApp.Controllers
 
                 if (usuarioLogueado != null && usuarioLogueado is Cliente)
                 {
+
+
                     Cliente cliente = (Cliente)usuarioLogueado;
 
                     HttpContext.Session.Set<Cliente>(LOG_USER, cliente);
 
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "Usuario logueado exitosamente!.");
+                    TempData["Mensaje"] = "Usuario Logueado con Exito!";
+
                 }
                 else
                 {
@@ -102,7 +105,7 @@ namespace ClientesApp.Controllers
 
                     HttpContext.Session.Set<string>(SESSION_MENSAJE, "Usuario y/o contraseña invalidos.");
 
-                    return RedirectToAction("Login", "Usuarios", new { area = "" });
+                    return RedirectToAction("Index", "Home", new { area = "" });
                 }
 
                 return RedirectToAction("Index", "Home", new { area = "" });

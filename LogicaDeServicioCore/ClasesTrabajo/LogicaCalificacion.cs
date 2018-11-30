@@ -25,5 +25,18 @@ namespace LogicaDeServicioCore
                 throw new Exception("Error al realizar la calificacion." + ex.Message);
             }
         }
+
+        public static List<EntidadesCompartidasCore.Calificacion> ListarCalificaciones()
+        {
+            try
+            {
+                
+                return FabricaPersistencia.GetPersistenciaCalificacion().ListarCalificaciones();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar las calificaciones." + ex.Message);
+            }
+        }
     }
 }

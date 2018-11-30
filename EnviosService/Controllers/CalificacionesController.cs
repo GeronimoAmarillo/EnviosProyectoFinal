@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using EntidadesCompartidasCore;
 using LogicaDeServicioCore;
+using Newtonsoft.Json;
 
 namespace EnviosService.Controllers
 {
@@ -25,6 +26,18 @@ namespace EnviosService.Controllers
         {
             return Json(controladorCalificacion.Calificar(cal));
         }
-        
+
+        [Route("api/Calificaciones/Listar")]
+        [HttpGet]
+        public JsonResult Calificaciones()
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+
+            return Json(controladorCalificacion.ListarCalificaciones(), settings);
+        }
+
     }
 }

@@ -48,5 +48,43 @@ namespace PersistenciaCore
                 throw new Exception("Error al intentar agregar la calificacion: " + ex.Message);
             }
         }
+
+        public List<EntidadesCompartidasCore.Calificacion> ListarCalificaciones()
+        {
+            try
+            {
+                List<Calificaciones> calificaciones = new List<Calificaciones>();
+
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    calificaciones = dbConnection.Calificaciones.ToList();
+                }
+
+                List<Calificacion> calificacionesResultado = new List<Calificacion>();
+
+                foreach (Calificaciones l in calificaciones)
+                {
+                    Calificacion calificacionR = new Calificacion();
+
+                    calificacionR.Id = l.Id;
+                    calificacionR.Comentario = l.Comentario;
+                    calificacionR.Puntaje = l.Puntaje;
+                    calificacionR.Clientes = FabricaPersistencia.GetPersistenciaCliente().BuscarCliente(Convert.ToInt32(calificacionR.RutCliente));
+
+                    calificacionesResultado.Add(calificacionR);
+                }
+
+                return calificacionesResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar las calificaciones." + ex.Message);
+            }
+        }
     }
 }
