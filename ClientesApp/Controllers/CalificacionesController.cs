@@ -24,11 +24,20 @@ namespace AdministradoresApp.Controllers
                 Cliente cliente = HttpContext.Session.Get<Cliente>(LOG_USER);
 
                 ViewBag.Cliente = cliente.RUT;
+
+                if (TempData["Mensaje"] != null)
+                {
+                    string mensaje = TempData["Mensaje"].ToString();
+                    TempData["Mensaje"] = mensaje;
+                }
+
                 return View();
             }
             else
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                TempData["Mensaje"] = "No hay un usuario de tipo Cliente logueado en el sistema";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -42,7 +51,9 @@ namespace AdministradoresApp.Controllers
                 if (ComprobarLogin())
                 {
                     IControladorCalificacion controladorCalificacion = FabricaApps.GetControladorCalificacion();
+
                     string mensaje = "";
+
                     if (ModelState.IsValid)
                     {
                         bool exito = controladorCalificacion.Calificar(calificacion);
@@ -55,22 +66,28 @@ namespace AdministradoresApp.Controllers
                             mensaje = "Se produjo un error al registrar la calificacion.";
                         }
                     }
+
                     if (mensaje != "")
                     {
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                        TempData["Mensaje"] = mensaje;
                     }
+
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
             }
             catch (Exception ex)
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario. ");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario. ");
+
+                TempData["Mensaje"] = "Error al mostrar el formulario.";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -114,16 +131,20 @@ namespace AdministradoresApp.Controllers
                                 mensaje = "Se produjo un error al registrar la calificacion.";
                             }
                         }
+
                         if (mensaje != "")
                         {
-                            HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                            TempData["Mensaje"] = mensaje;
                         }
+
                         return RedirectToAction("Index", "Home", new { area = "" });
 
                     }
                     else
                     {
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario logueado en el sistema");
+                        //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario logueado en el sistema");
+
+                        TempData["Mensaje"] = "No hay un usuario logueado en el sistema";
 
                         return RedirectToAction("Index", "Home", new { area = "" });
                     }
@@ -131,14 +152,18 @@ namespace AdministradoresApp.Controllers
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
             }
             catch (Exception ex)
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario. ");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario. ");
+
+                TempData["Mensaje"] = "Error al mostrar el formulario.";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }

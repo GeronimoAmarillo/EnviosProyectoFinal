@@ -22,9 +22,13 @@
         {
             <div id="toast"><div id="img">&#9989;</div><div id="desc">@mensaje</div></div>
         }
-        else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid"))
+        else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid") || mensaje.ToLower().Contains("incorrecto"))
         {
             <div id="toast"><div id="img">&#10060;</div><div id="desc">@mensaje</div></div>
+        }
+        else
+        {
+            <div id="toast"><div id="img">&#10069;</div><div id="desc">@mensaje</div></div>
         }
 
     }
@@ -83,6 +87,7 @@
 
     @using (Html.BeginForm("IngresarReclamo", "Paquetes"))
     {
+    <div class="col-md-4">
         <div class="form-group">
             <textarea name="descripcion" cols="100" rows="10"></textarea>
             <br />
@@ -90,6 +95,7 @@
         <div class="form-group">
             <button type="submit" class="btn btn-success">Realizar Reclamo</button>
         </div>
+    </div>
 
     }
 

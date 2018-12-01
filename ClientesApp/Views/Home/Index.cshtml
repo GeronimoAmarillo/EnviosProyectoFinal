@@ -16,7 +16,7 @@
     {
         mensaje = TempData["Mensaje"].ToString();
     }
-    
+
 }
 
 @{
@@ -26,9 +26,13 @@
         {
             <div id="toast"><div id="img">&#9989;</div><div id="desc">@mensaje</div></div>
         }
-        else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid"))
+        else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid") || mensaje.ToLower().Contains("incorrecto"))
         {
             <div id="toast"><div id="img">&#10060;</div><div id="desc">@mensaje</div></div>
+        }
+        else
+        {
+            <div id="toast"><div id="img">&#10069;</div><div id="desc">@mensaje</div></div>
         }
 
     }

@@ -35,6 +35,12 @@ namespace ClientesApp.Controllers
             //    return RedirectToAction("Index", "Home", new { area = "" });
             //}
 
+            if (TempData["Mensaje"] != null)
+            {
+                string mensaje = TempData["Mensaje"].ToString();
+                TempData["Mensaje"] = mensaje;
+            }
+
             return View();
         }
 

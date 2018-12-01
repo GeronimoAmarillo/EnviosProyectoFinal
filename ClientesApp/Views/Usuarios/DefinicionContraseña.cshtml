@@ -5,12 +5,44 @@
     ViewData["Title"] = "DefinicionContraseña";
 }
 
+@{
+    string mensaje = "";
+
+    if (TempData["Mensaje"] != null)
+    {
+        mensaje = TempData["Mensaje"].ToString();
+    }
+
+}
+
+@{
+    if (mensaje != "")
+    {
+        if (mensaje.ToLower().Contains("exito"))
+        {
+            <div id="toast"><div id="img">&#9989;</div><div id="desc">@mensaje</div></div>
+        }
+        else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid") || mensaje.ToLower().Contains("incorrecto"))
+        {
+            <div id="toast"><div id="img">&#10060;</div><div id="desc">@mensaje</div></div>
+        }
+        else
+        {
+            <div id="toast"><div id="img">&#10069;</div><div id="desc">@mensaje</div></div>
+        }
+
+    }
+
+}
+
+
 <h2 class="container">Definir Nueva Contraseña</h2>
 
 <div class="container">
 
     @using (Html.BeginForm("DefinicionContraseñaPost", "Usuarios"))
     {
+    <div class="col-md-4">
         <div class="form-group">
             <label>Mail solicitante</label>
             <input type="text" name="email" class="form-control" value=@ViewBag.Email readonly />
@@ -24,6 +56,8 @@
         <div class="form-group">
             <button type="submit" class="btn btn-default">Modificar Contraseña</button>
         </div>
+    </div>
+        
     }
 
     <div>
@@ -53,3 +87,17 @@
         </div>
     </div>*@
 
+
+
+<script>
+
+    function launch_toast() {
+        var x = document.getElementById("toast")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+    }
+
+
+    window.onload = launch_toast;
+
+</script>
