@@ -4,6 +4,33 @@
 <h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Message"]</h3>
 
+@{
+    string mensaje = "";
+
+    if (TempData["Mensaje"] != null)
+    {
+        mensaje = TempData["Mensaje"].ToString();
+    }
+
+}
+
+@{
+    if (mensaje != "")
+    {
+        if (mensaje.ToLower().Contains("exito"))
+        {
+            <div id="toast"><div id="img">&#9989;</div><div id="desc">@mensaje</div></div>
+        }
+        else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid"))
+        {
+            <div id="toast"><div id="img">&#10060;</div><div id="desc">@mensaje</div></div>
+        }
+
+    }
+
+}
+
+
 <address>
     One Microsoft Way<br />
     Redmond, WA 98052-6399<br />
@@ -15,3 +42,17 @@
     <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
     <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
 </address>
+
+
+<script>
+
+    function launch_toast() {
+        var x = document.getElementById("toast")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+    }
+
+
+    window.onload = launch_toast;
+
+</script>

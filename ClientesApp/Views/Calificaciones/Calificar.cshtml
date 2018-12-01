@@ -6,9 +6,36 @@
 
 <h2 class="container">Calificar</h2>
 
-@{ 
+@{
     long Cliente = ViewBag.Cliente;
 }
+
+@{
+    string mensaje = "";
+
+    if (TempData["Mensaje"] != null)
+    {
+        mensaje = TempData["Mensaje"].ToString();
+    }
+
+}
+
+@{
+    if (mensaje != "")
+    {
+        if (mensaje.ToLower().Contains("exito"))
+        {
+            <div id="toast"><div id="img">&#9989;</div><div id="desc">@mensaje</div></div>
+        }
+        else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid"))
+        {
+            <div id="toast"><div id="img">&#10060;</div><div id="desc">@mensaje</div></div>
+        }
+
+    }
+
+}
+
 <hr />
 <div class="container">
     <div class="col-md-4">
@@ -50,3 +77,15 @@
 
 
 
+<script>
+
+    function launch_toast() {
+        var x = document.getElementById("toast")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+    }
+
+
+    window.onload = launch_toast;
+
+</script>
