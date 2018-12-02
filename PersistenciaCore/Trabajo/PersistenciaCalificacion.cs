@@ -29,6 +29,17 @@ namespace PersistenciaCore
                 {
                     Clientes cliente = dbConnection.Clientes.FirstOrDefault(x => x.RUT == calificacion.RutCliente);
 
+                    Calificaciones ultimaCalificacion = dbConnection.Calificaciones.OrderByDescending(x => x.Id).FirstOrDefault();
+
+                    if (ultimaCalificacion == null)
+                    {
+                        nuevaCalificacion.Id = 1;
+                    }
+                    else
+                    {
+                        nuevaCalificacion.Id = ultimaCalificacion.Id + 1;
+                    }
+
                     if (cliente != null)
                     {
                         dbConnection.Calificaciones.Add(nuevaCalificacion);
@@ -74,7 +85,8 @@ namespace PersistenciaCore
                     calificacionR.Id = l.Id;
                     calificacionR.Comentario = l.Comentario;
                     calificacionR.Puntaje = l.Puntaje;
-                    calificacionR.Clientes = FabricaPersistencia.GetPersistenciaCliente().BuscarCliente(Convert.ToInt32(calificacionR.RutCliente));
+                    calificacionR.RutCliente = l.RutCliente;
+                    calificacionR.Clientes = FabricaPersistencia.GetPersistenciaCliente().BuscarCliente(Convert.ToInt32(l.RutCliente));
 
                     calificacionesResultado.Add(calificacionR);
                 }

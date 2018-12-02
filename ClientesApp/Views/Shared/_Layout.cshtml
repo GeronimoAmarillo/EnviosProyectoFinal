@@ -32,6 +32,8 @@
         <a href="#" class="fa fa-google-plus" style="background-color:#333"></a>
         <a href="#" class="fa fa-instagram" style="background-color:#333"></a>
         <a href="#" class="fa fa-envelope" style="background-color:#333"></a>
+        @await Component.InvokeAsync("ContactUs")
+        @await Component.InvokeAsync("ContactUsPost")
         @await Component.InvokeAsync("BotonesSesion")
         <a href="javascript:void(0);" class="icon" onclick="myFunction()">
             <i class="fa fa-bars"></i>

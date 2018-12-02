@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using ClientesApp.Models;
 using LogicaDeAppsCore;
 using EntidadesCompartidasCore;
+using System.Net.Mail;
 
 namespace ClientesApp.Controllers
 {
@@ -18,22 +19,22 @@ namespace ClientesApp.Controllers
         public async Task<ActionResult> Index()
         {
 
-            //try
-            //{
-            //    IControladorCalificacion controladorCalificacion = FabricaApps.GetControladorCalificacion();
+            try
+            {
+                IControladorCalificacion controladorCalificacion = FabricaApps.GetControladorCalificacion();
 
-            //    List<Calificacion> calificaciones = await controladorCalificacion.ListarCalificaciones();
+                List<Calificacion> calificaciones = await controladorCalificacion.ListarCalificaciones();
 
-            //    HttpContext.Session.Set<List<Calificacion>>(SESSION_CALIFICACIONES, calificaciones);
+                HttpContext.Session.Set<List<Calificacion>>(SESSION_CALIFICACIONES, calificaciones);
 
-            //    return View();
-            //}
-            //catch
-            //{
-            //    HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar las Calificaciones");
+                return View();
+            }
+            catch
+            {
+                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar las Calificaciones");
 
-            //    return RedirectToAction("Index", "Home", new { area = "" });
-            //}
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
 
             if (TempData["Mensaje"] != null)
             {
@@ -51,11 +52,9 @@ namespace ClientesApp.Controllers
             return View();
         }
 
-        public IActionResult Contact()
+        public IActionResult Contactar([FromForm]string nombre, [FromForm] string email, [FromForm] string mensaje)
         {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
+            throw new NotImplementedException(); 
         }
 
         public IActionResult Error()

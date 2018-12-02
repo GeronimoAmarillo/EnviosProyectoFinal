@@ -44,7 +44,7 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult Calificar([FromForm] Calificacion calificacion)
+        public ActionResult Calificar([FromForm] Calificacion calificacion, [FromForm] int puntaje)
         {
             try
             {
@@ -53,6 +53,8 @@ namespace AdministradoresApp.Controllers
                     IControladorCalificacion controladorCalificacion = FabricaApps.GetControladorCalificacion();
 
                     string mensaje = "";
+
+                    calificacion.Puntaje = puntaje;
 
                     if (ModelState.IsValid)
                     {
