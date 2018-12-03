@@ -674,11 +674,8 @@ namespace ClientesApp.Controllers
                         {
                             if (geo.Paquete.Estado == "Entregado")
                             {
-                                ViewBag.Entregado = true;
-                            }
-                            else
-                            {
-                                ViewBag.Entregado = false;
+                                TempData["Mensaje"] = "El paquete solicitado ya fue entregado.";
+                                return RedirectToAction("IniciarTrackeo", "Paquetes", new { area = "" });
                             }
 
                             if (TempData["Mensaje"] != null)
@@ -695,7 +692,7 @@ namespace ClientesApp.Controllers
                             
                             //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay paquetes que trackear para el cliente logueado");
 
-                            TempData["Mensaje"] = "No hay paquetes que trackear para el cliente logueado";
+                            TempData["Mensaje"] = "El paquete requerido no existe o no fue registrado aún.";
 
                             return RedirectToAction("IniciarTrackeo", "Paquetes", new { area = "" });
                         }

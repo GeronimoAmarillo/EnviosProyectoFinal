@@ -26,7 +26,7 @@
 
 </head>
 <body>
-    <div class="topnav" id="myTopnav">
+    <div class="topnav" id="myTopnav" style="z-index:3">
         <a href="#" class="fa fa-facebook" style="background-color:#333"></a>
         <a href="#" class="fa fa-twitter" style="background-color:#333"></a>
         <a href="#" class="fa fa-google-plus" style="background-color:#333"></a>
@@ -40,14 +40,81 @@
         </a>
     </div>
 
+    <div class="header">
+        <div class="parallax" id="parallax"><div style="padding:70px;overflow:hidden"><a asp-area="" asp-controller="Home" asp-action="Index" style="float:left;"><img src="~/images/Logo Leyenda.png" alt="Home" class="img-responsive" /></a><img id="bannerContraste" src="~/images/BannerContraste.png" alt="Home" class="banner" style="float:left" /> </div></div>
+    </div>
+
+    <div class="menu" style="z-index:2; transition: .5s" id="menu">
+        <div style="background-color:black">
+            <span style="font-size:25px;cursor:pointer;color:white" onclick="openNav()">&#9776; Menu</span>@await Component.InvokeAsync("AccionesUsuario")
+        </div>
+    </div>
+
+    <div class="wrapper" style="z-index:1">
+
+        <div id="main" style="margin:0; padding:0">
+
+            @RenderBody()
+            <section id="footer">
+                <div class="container">
+                    <div class="row text-center text-xs-center text-sm-left text-md-left">
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <h5>Contactanos</h5>
+                            <ul class="list-unstyled quick-links">
+                                <li>Telefono 1:</li>
+                                <li>Telefono 2:</li>
+                                <li>Correo: </li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <h5>Comparte nuestro sitio</h5>
+                            <ul class="list-unstyled quick-links">
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <h5>Nuestros horarios y localidad</h5>
+                            <ul class="list-unstyled quick-links">
+                                <li>Nos encontramos en</li>
+                                <li>Calle 1 y Chimborazo</li>
+                                <li>a 3 pazos del MC Donalds del ovelizco</li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
+                            <ul class="list-unstyled list-inline social text-center">
+                                <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-facebook"></i></a></li>
+                                <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-twitter"></i></a></li>
+                                <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-instagram"></i></a></li>
+                                <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-google-plus"></i></a></li>
+                                <li class="list-inline-item"><a href="javascript:void();" target="_blank"><i class="fa fa-envelope"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <p style="text-align:center; color:white">Copyright 2018 EnviosService</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+
 
     @*<div class="icon-bar" id="redes">
             <a href="#" class="fa fa-facebook"></a>
             <a href="#" class="fa fa-twitter"></a>
             @await Component.InvokeAsync("BotonesSesion")
         </div>*@
-
-    <div class="parallax" id="parallax"><div style="padding:70px;overflow:hidden"><a asp-area="" asp-controller="Home" asp-action="Index" style="float:left"><img src="~/images/Logo Leyenda.png" alt="Home" class="img-responsive" /></a><img src="~/images/BannerContraste.png" alt="Home" class="img-responsive" style="float:left"/> </div></div>
 
 
     <div id="mySidenav" class="sidenav">
@@ -61,65 +128,7 @@
 
     </div>
 
-    <div id="main" style="margin:0; padding:0">
 
-
-        <div style="background-color:black">
-            <span style="font-size:25px;cursor:pointer;color:white" onclick="openNav()">&#9776; Menu</span>@await Component.InvokeAsync("AccionesUsuario")
-        </div>
-
-        @RenderBody()
-        <section id="footer">
-            <div class="container">
-                <div class="row text-center text-xs-center text-sm-left text-md-left">
-                    <div class="col-xs-12 col-sm-4 col-md-4">
-                        <h5>Contactanos</h5>
-                        <ul class="list-unstyled quick-links">
-                            <li>Telefono 1:</li>
-                            <li>Telefono 2:</li>
-                            <li>Correo: </li>
-                            <li></li>
-                            <li></li>
-                        </ul>
-                    </div>
-                    <div class="col-xs-12 col-sm-4 col-md-4">
-                        <h5>Comparte nuestro sitio</h5>
-                        <ul class="list-unstyled quick-links">
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                        </ul>
-                    </div>
-                    <div class="col-xs-12 col-sm-4 col-md-4">
-                        <h5>Nuestros horarios y localidad</h5>
-                        <ul class="list-unstyled quick-links">
-                            <li>Nos encontramos en</li>
-                            <li>Calle 1 y Chimborazo</li>
-                            <li>a 3 pazos del MC Donalds del ovelizco</li>
-                            <li></li>
-                            <li></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
-                        <ul class="list-unstyled list-inline social text-center">
-                            <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-facebook"></i></a></li>
-                            <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-twitter"></i></a></li>
-                            <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-instagram"></i></a></li>
-                            <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-google-plus"></i></a></li>
-                            <li class="list-inline-item"><a href="javascript:void();" target="_blank"><i class="fa fa-envelope"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="row">
-                    <p style="text-align:center; color:white">Copyright 2018 EnviosService</p>
-                </div>
-            </div>
-        </section>
-    </div>
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -148,6 +157,7 @@
             document.getElementById("main").style.marginLeft = "250px";
             document.getElementById("parallax").style.marginLeft = "250px";
             document.getElementById("myTopnav").style.marginLeft = "250px";
+            document.getElementById("menu").style.marginLeft = "250px";
             document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
         }
 
@@ -156,6 +166,7 @@
             document.getElementById("main").style.marginLeft = "0";
             document.getElementById("parallax").style.marginLeft = "0";
             document.getElementById("myTopnav").style.marginLeft = "0";
+            document.getElementById("menu").style.marginLeft = "0";
             document.body.style.backgroundColor = "white";
         }
 
@@ -177,6 +188,37 @@
         }
 
     </script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+        posicionarMenu();
+
+        $(window).scroll(function () {
+            posicionarMenu();
+        });
+
+        function posicionarMenu() {
+            var altura_del_header = $('.header').outerHeight(true);
+            var altura_del_menu = $('.menu').outerHeight(true);
+            var altura_del_topnav = $('.topnav').outerHeight(true);
+
+            if ($(window).scrollTop() >= altura_del_header + altura_del_topnav) {
+                $('.menu').addClass('fixed')
+                $('.wrapper').css('margin-top', altura_del_menu + 'px');
+            } else {
+                $('.menu').removeClass('fixed');
+                $('.wrapper').css('margin-top', '0');
+            }
+        }
+
+        if ($('#bannerContraste').is(":visible")) {
+            $('#bannerContraste').fadeIn(1000);
+        } else {
+            $('#bannerContraste').fadeOut(1000);
+        }
+
+    </script>
+
 
     @RenderSection("Scripts", required: false)
 </body>
