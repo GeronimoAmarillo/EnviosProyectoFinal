@@ -10,5 +10,6 @@ namespace LogicaDeAppsCore
     public interface IControladorCalificacion
     {
         bool Calificar(Calificacion cal);
+        Task<List<Calificacion>> ListarCalificaciones();
     }
 }

@@ -21,5 +21,18 @@ namespace LogicaDeServicioCore
                 throw new Exception("Error al realizar la calificacion." + ex.Message);
             }
         }
+
+        public List<EntidadesCompartidasCore.Calificacion> ListarCalificaciones()
+        {
+            try
+            {
+                return LogicaCalificacion.ListarCalificaciones();
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al realizar la calificacion." + ex.Message);
+            }
+        }
     }
 }

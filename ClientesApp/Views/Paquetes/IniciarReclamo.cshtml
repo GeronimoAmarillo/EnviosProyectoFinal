@@ -3,20 +3,69 @@
     ViewData["Title"] = "IniciarReclamo";
 }
 
-<h2>Iniciar Reclamo</h2>
+@{
+    string mensaje = "";
 
-<h4>Ingrese el numero de referencia de su paquete</h4>
-<hr />
-
-@using (Html.BeginForm("IniciarReclamo", "Paquetes"))
-{
-    <div class="form-group">
-        <label>Ingrese aqui el codigo</label>
-        <input type="text" name="numReferencia" class="form-control" />
-        <br />
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-default">Verificar Paquete</button>
-    </div>
+    if (TempData["Mensaje"] != null)
+    {
+        mensaje = TempData["Mensaje"].ToString();
+    }
 
 }
+
+@{
+    if (mensaje != "")
+    {
+        if (mensaje.ToLower().Contains("exito"))
+        {
+            <div id="toast"><div id="img">&#9989;</div><div id="desc">@mensaje</div></div>
+        }
+        else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid") || mensaje.ToLower().Contains("incorrecto"))
+        {
+            <div id="toast"><div id="img">&#10060;</div><div id="desc">@mensaje</div></div>
+        }
+        else
+        {
+            <div id="toast"><div id="img">&#10069;</div><div id="desc">@mensaje</div></div>
+        }
+
+    }
+
+}
+
+
+<h2 class="container">Iniciar Reclamo</h2>
+<div class="container">
+    @using (Html.BeginForm("IniciarReclamo", "Paquetes"))
+    {
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Ingrese aqui el Numero de Referencia del Paquete</label>
+            <input type="text" name="numReferencia" class="form-control" />
+            <br />
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-default">Iniciar Reclamo</button>
+        </div>
+    </div>
+        
+
+    }
+
+    <div>
+        <a asp-action="Index" asp-controller="Home" class="btn-group-xs">Volver</a>
+    </div>
+
+</div>
+<script>
+
+    function launch_toast() {
+        var x = document.getElementById("toast")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+    }
+
+
+    window.onload = launch_toast;
+
+</script>

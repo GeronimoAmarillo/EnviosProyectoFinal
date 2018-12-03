@@ -4,25 +4,70 @@
     ViewData["Title"] = "RecuperarContraseña";
 }
 
-<h2>RecuperarContraseña</h2>
+@{
+    string mensaje = "";
 
-<h4>ClienteEmailNuevo</h4>
-<hr />
+    if (TempData["Mensaje"] != null)
+    {
+        mensaje = TempData["Mensaje"].ToString();
+    }
 
-@using (Html.BeginForm("RecuperarContraseña", "Usuarios"))
-{
-    <div class="form-group">
-        <label>Ingrese su eMail de contacto</label>
-        <input type="text" name="email" class="form-control" />
-        <br />
+}
+
+@{
+    if (mensaje != "")
+    {
+        if (mensaje.ToLower().Contains("exito"))
+        {
+            <div id="toast"><div id="img">&#9989;</div><div id="desc">@mensaje</div></div>
+        }
+        else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid") || mensaje.ToLower().Contains("incorrecto"))
+        {
+            <div id="toast"><div id="img">&#10060;</div><div id="desc">@mensaje</div></div>
+        }
+        else
+        {
+            <div id="toast"><div id="img">&#10069;</div><div id="desc">@mensaje</div></div>
+        }
+
+    }
+
+}
+
+<h2 class="container">Recuperar Contraseña</h2>
+
+<div class="container">
+    @using (Html.BeginForm("RecuperarContraseña", "Usuarios"))
+    {
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Ingrese su eMail de contacto</label>
+            <input type="text" name="email" class="form-control" />
+            <br />
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-default">Solicitar</button>
+        </div>
     </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-default">Solicitar</button>
+        
+    }
+
+    <div>
+        <a asp-action="Index" asp-controller="Home" class="btn btn-danger">Cancelar</a>
     </div>
+
+</div>
+
+
+<script>
+
+    function launch_toast() {
+        var x = document.getElementById("toast")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
     }
 
 
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
+    window.onload = launch_toast;
 
+</script>

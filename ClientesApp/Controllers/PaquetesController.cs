@@ -45,15 +45,6 @@ namespace ClientesApp.Controllers
 
                     HttpContext.Session.Set<List<Paquete>>(SESSION_PAQUETES, paquetes);
 
-                    string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
-
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, null);
-
-                    if (mensaje != null && mensaje != "")
-                    {
-                        ViewBag.Message = mensaje;
-                    }
-
                     List<Paquete> filtrados = HttpContext.Session.Get<List<Paquete>>(SESSION_FILTRADOS);
 
                     ViewBag.Locales = localesDDL;
@@ -65,9 +56,18 @@ namespace ClientesApp.Controllers
 
                     ViewBag.Estados = estados;
 
+
+                    if (TempData["Mensaje"] != null)
+                    {
+                        string mensaje = TempData["Mensaje"].ToString();
+                        TempData["Mensaje"] = mensaje;
+                    }
+
+
                     if (filtrados != null)
                     {
                         HttpContext.Session.Set<List<Paquete>>(SESSION_FILTRADOS, null);
+
 
                         return View(filtrados);
                     }
@@ -78,7 +78,9 @@ namespace ClientesApp.Controllers
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un Cliente logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -86,7 +88,9 @@ namespace ClientesApp.Controllers
             }
             catch (Exception ex)
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados");
+
+                TempData["Mensaje"] = "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -99,11 +103,19 @@ namespace ClientesApp.Controllers
             {
                 if (ComprobarLogin())
                 {
+                    if (TempData["Mensaje"] != null)
+                    {
+                        string mensaje = TempData["Mensaje"].ToString();
+                        TempData["Mensaje"] = mensaje;
+                    }
+
                     return View();
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un Cliente logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -111,7 +123,9 @@ namespace ClientesApp.Controllers
             }
             catch (Exception ex)
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados");
+
+                TempData["Mensaje"] = "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -129,6 +143,12 @@ namespace ClientesApp.Controllers
 
                     Paquete pPaquete = await controladorPaquete.BuscarPaquete(numReferencia);
 
+                    if (TempData["Mensaje"] != null)
+                    {
+                        string mensaje = TempData["Mensaje"].ToString();
+                        TempData["Mensaje"] = mensaje;
+                    }
+
                     if (pPaquete != null)
                     {
 
@@ -137,16 +157,18 @@ namespace ClientesApp.Controllers
                     }
                     else
                     {
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+
+                        TempData["Mensaje"] = "No existe el paquete con el numero de referencia ingresado";
 
                         return RedirectToAction("IniciarReclamo", "Paquetes", new { area = "" });
                     }
-
-                    return View();
+                    
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un Cliente logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -154,7 +176,9 @@ namespace ClientesApp.Controllers
             }
             catch (Exception ex)
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados");
+
+                TempData["Mensaje"] = "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -174,11 +198,19 @@ namespace ClientesApp.Controllers
 
                     Paquete pPaquete = await controladorPaquete.BuscarPaquete(numReferencia);
 
+                    if (TempData["Mensaje"] != null)
+                    {
+                        string mensaje = TempData["Mensaje"].ToString();
+                        TempData["Mensaje"] = mensaje;
+                    }
+
                     return View(pPaquete);
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un Cliente logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -186,7 +218,9 @@ namespace ClientesApp.Controllers
             }
             catch (Exception ex)
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados");
+
+                TempData["Mensaje"] = "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -212,21 +246,27 @@ namespace ClientesApp.Controllers
                     if (controladorPaquete.RealizarReclamo(reclamoAgregar))
                     {
 
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "Se registro su reclamo de forma exitosa.");
+                        //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Se registro su reclamo de forma exitosa.");
+
+                        TempData["Mensaje"] = "Se registro su reclamo de forma exitosa.";
 
                         return RedirectToAction("Index", "Home", new { area = "" });
 
                     }
                     else
                     {
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "Ocurrio un error al intentar ingresar el reclamo.");
+                        //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Ocurrio un error al intentar ingresar el reclamo.");
+
+                        TempData["Mensaje"] = "Ocurrio un error al intentar ingresar el reclamo.";
 
                         return RedirectToAction("IniciarReclamo", "Paquetes", new { area = "" });
                     }
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un Cliente logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -234,7 +274,9 @@ namespace ClientesApp.Controllers
             }
             catch (Exception ex)
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados");
+
+                TempData["Mensaje"] = "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -270,13 +312,10 @@ namespace ClientesApp.Controllers
 
                     HttpContext.Session.Set<List<Paquete>>(SESSION_PAQUETES, paquetes);
 
-                    string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
-
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, null);
-
-                    if (mensaje != null && mensaje != "")
+                    if (TempData["Mensaje"] != null)
                     {
-                        ViewBag.Message = mensaje;
+                        string mensaje = TempData["Mensaje"].ToString();
+                        TempData["Mensaje"] = mensaje;
                     }
 
                     List<Paquete> filtrados = HttpContext.Session.Get<List<Paquete>>(SESSION_FILTRADOS);
@@ -303,7 +342,9 @@ namespace ClientesApp.Controllers
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un Cliente logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -311,7 +352,9 @@ namespace ClientesApp.Controllers
             }
             catch (Exception ex)
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados");
+
+                TempData["Mensaje"] = "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -324,11 +367,20 @@ namespace ClientesApp.Controllers
             {
                 if (ComprobarLogin())
                 {
+
+                    if (TempData["Mensaje"] != null)
+                    {
+                        string mensaje = TempData["Mensaje"].ToString();
+                        TempData["Mensaje"] = mensaje;
+                    }
+
                     return View();
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un Cliente logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -336,7 +388,9 @@ namespace ClientesApp.Controllers
             }
             catch (Exception ex)
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados");
+
+                TempData["Mensaje"] = "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -359,25 +413,38 @@ namespace ClientesApp.Controllers
 
                     if (paquete != null)
                     {
+
+                        if (TempData["Mensaje"] != null)
+                        {
+                            string mensaje = TempData["Mensaje"].ToString();
+                            TempData["Mensaje"] = mensaje;
+                        }
+
                         return View(paquete);
                     }
                     else
                     {
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "No existe el paquete seleccionado");
+                        //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No existe el paquete seleccionado");
+
+                        TempData["Mensaje"] = "No existe el paquete seleccionado";
 
                         return RedirectToAction("ConsultarEstado", "Paquetes", new { area = "" });
                     }
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un Cliente logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
             }
             catch (Exception ex)
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudo cargar el Paquete");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudo cargar el Paquete");
+
+                TempData["Mensaje"] = "Error al mostrar el formulario: No se pudo cargar el Paquete";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -421,14 +488,18 @@ namespace ClientesApp.Controllers
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un Cliente logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
             }
             catch (Exception ex)
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Paquetes filtrados");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Paquetes filtrados");
+
+                TempData["Mensaje"] = "Error al mostrar el formulario: No se pudieron listar los Paquetes filtrados";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -471,14 +542,18 @@ namespace ClientesApp.Controllers
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un Cliente logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
             }
             catch (Exception ex)
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Paquetes filtrados");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Paquetes filtrados");
+
+                TempData["Mensaje"] = "Error al mostrar el formulario: No se pudieron listar los Paquetes filtrados";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -497,19 +572,30 @@ namespace ClientesApp.Controllers
 
                     if (paquete != null)
                     {
+
+                        if (TempData["Mensaje"] != null)
+                        {
+                            string mensaje = TempData["Mensaje"].ToString();
+                            TempData["Mensaje"] = mensaje;
+                        }
+
                         return View(paquete);
                     }
                     else
                     {
                         if (accion == "Enviados")
                         {
-                            HttpContext.Session.Set<string>(SESSION_MENSAJE, "No existe el paquete seleccionado");
+                            //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No existe el paquete seleccionado");
+
+                            TempData["Mensaje"] = "No existe el paquete seleccionado";
 
                             return RedirectToAction("Index", "Paquetes", new { area = "" });
                         }
                         else
                         {
-                            HttpContext.Session.Set<string>(SESSION_MENSAJE, "No existe el paquete seleccionado");
+                            //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No existe el paquete seleccionado");
+
+                            TempData["Mensaje"] = "No existe el paquete seleccionado";
 
                             return RedirectToAction("ListarRecibidos", "Paquetes", new { area = "" });
                         }
@@ -517,14 +603,18 @@ namespace ClientesApp.Controllers
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un Cliente logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
             }
             catch (Exception ex)
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudo cargar el Paquete");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudo cargar el Paquete");
+
+                TempData["Mensaje"] = "Error al mostrar el formulario: No se pudo cargar el Paquete";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -536,11 +626,20 @@ namespace ClientesApp.Controllers
             {
                 if (ComprobarLogin())
                 {
+                    if (TempData["Mensaje"] != null)
+                    {
+                        string mensaje = TempData["Mensaje"].ToString();
+                        TempData["Mensaje"] = mensaje;
+                    }
+
+
                     return View();
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un Cliente logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -548,7 +647,9 @@ namespace ClientesApp.Controllers
             }
             catch (Exception ex)
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados");
+
+                TempData["Mensaje"] = "Error al mostrar el formulario: No se pudieron listar los Paquetes registrados";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -573,11 +674,14 @@ namespace ClientesApp.Controllers
                         {
                             if (geo.Paquete.Estado == "Entregado")
                             {
-                                ViewBag.Entregado = true;
+                                TempData["Mensaje"] = "El paquete solicitado ya fue entregado.";
+                                return RedirectToAction("IniciarTrackeo", "Paquetes", new { area = "" });
                             }
-                            else
+
+                            if (TempData["Mensaje"] != null)
                             {
-                                ViewBag.Entregado = false;
+                                string mensaje = TempData["Mensaje"].ToString();
+                                TempData["Mensaje"] = mensaje;
                             }
 
                             return View(geo);
@@ -586,28 +690,36 @@ namespace ClientesApp.Controllers
                         {
 
                             
-                            HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay paquetes que trackear para el cliente logueado");
+                            //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay paquetes que trackear para el cliente logueado");
+
+                            TempData["Mensaje"] = "El paquete requerido no existe o no fue registrado aún.";
 
                             return RedirectToAction("IniciarTrackeo", "Paquetes", new { area = "" });
                         }
                     }
                     else
                     {
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "No existe el paquete seleccionado");
+                        //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No existe el paquete seleccionado");
+
+                        TempData["Mensaje"] = "No existe el paquete seleccionado";
 
                         return RedirectToAction("IniciarTrackeo", "Paquetes", new { area = "" });
                     }
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un Cliente logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un Cliente logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
             }
             catch (Exception ex)
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudo cargar el Paquete");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudo cargar el Paquete");
+
+                TempData["Mensaje"] = "Error al mostrar el formulario: No se pudo cargar el Paquete";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }

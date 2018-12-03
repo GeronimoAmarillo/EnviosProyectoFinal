@@ -1,0 +1,156 @@
+﻿@model List<Calificacion>
+
+<link rel="stylesheet" href="~/css/Calificar.css" />
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-7">
+                <div class="review-block">
+
+                    @{
+                        if (Model != null)
+                        {
+                            foreach (Calificacion c in Model)
+                            {
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <img src="~/images/LogoCentral.png" class="img-rounded" style="max-height:90px;max-width:90px;padding:0px">
+                                        <div class="review-block-name">@c.Clientes.Nombre</div>
+                                    </div>
+                                    @if (c.Puntaje == 1)
+                                    {
+                                        <div class="col-sm-9">
+                                            <div class="review-block-rate">
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                            <div class="review-block-description">@c.Comentario</div>
+                                        </div>
+                                    }
+                                    @if (c.Puntaje == 2)
+                                    {
+                                        <div class="col-sm-9">
+                                            <div class="review-block-rate">
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                            <div class="review-block-description">@c.Comentario</div>
+                                        </div>
+                                    }
+                                    @if (c.Puntaje == 3)
+                                    {
+                                        <div class="col-sm-9">
+                                            <div class="review-block-rate">
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                            <div class="review-block-description">@c.Comentario</div>
+                                        </div>
+                                    }
+                                    @if (c.Puntaje == 4)
+                                    {
+                                        <div class="col-sm-9">
+                                            <div class="review-block-rate">
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default btn-grey btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                            <div class="review-block-description">@c.Comentario</div>
+                                        </div>
+                                    }
+                                    @if (c.Puntaje == 5)
+                                    {
+                                        <div class="col-sm-9">
+                                            <div class="review-block-rate">
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs" aria-label="Left Align">
+                                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                            <div class="review-block-description">@c.Comentario</div>
+                                        </div>
+                                    }
+
+
+
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="row">
+
+                                <p>Nadie ha dejado su reseña, se el primero en hacerlo!</p>
+
+                            </div>
+
+                        }
+                    }
+
+                </div>
+            </div>
+
+        </div>
+    </div>

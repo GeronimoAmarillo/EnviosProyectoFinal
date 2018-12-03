@@ -1,0 +1,36 @@
+﻿@model Usuario
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/inicio.css" />
+</head>
+<body>
+
+    @{
+        if (Model != null)
+        {
+            <div id="mySidepanel" class="sidepanel">
+                <a href="javascript:void(0)" class="closebtn" onclick="closePan()">×</a>
+                <a asp-area="" asp-controller="Usuarios" asp-action="ModificarContrasenia">Modificar User/Pass</a>
+                <a asp-controller="Usuarios" asp-action="ModificarEmail">Modificar Email de Contacto</a>
+                <a asp-area="" asp-controller="Usuarios" asp-action="Logout">Logout</a>
+            </div>
+
+            <button class="openbtn" onclick="openPan()" style="background-color:black">☰ Cuenta</button>
+        }
+    }
+
+    <script>
+        function openPan() {
+            document.getElementById("mySidepanel").style.width = "250px";
+        }
+
+        function closePan() {
+            document.getElementById("mySidepanel").style.width = "0";
+        }
+    </script>
+
+</body>
+</html>

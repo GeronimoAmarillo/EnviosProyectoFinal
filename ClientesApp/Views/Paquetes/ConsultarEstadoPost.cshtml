@@ -1,62 +1,218 @@
 ﻿@model EntidadesCompartidasCore.Paquete
 
+<link rel="stylesheet" href="~/css/Detalles.css" />
+
 @{
     ViewData["Title"] = "ConsultarEstadoPost";
 }
 
-<h2>ConsultarEstadoPost</h2>
+@{
+    string mensaje = "";
 
-@if (Model != null)
-{
+    if (TempData["Mensaje"] != null)
+    {
+        mensaje = TempData["Mensaje"].ToString();
+    }
+
+}
+
+@{
+    if (mensaje != "")
+    {
+        if (mensaje.ToLower().Contains("exito"))
+        {
+            <div id="toast"><div id="img">&#9989;</div><div id="desc">@mensaje</div></div>
+        }
+        else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid") || mensaje.ToLower().Contains("incorrecto"))
+        {
+            <div id="toast"><div id="img">&#10060;</div><div id="desc">@mensaje</div></div>
+        }
+        else
+        {
+            <div id="toast"><div id="img">&#10069;</div><div id="desc">@mensaje</div></div>
+        }
+
+    }
+
+}
+
+<h2 class="container">Estado Actual</h2>
+
+
+<div class="container">
+
+    <div id="btnContainer">
+        <button class="btn" onclick="listView()"><i class="fa fa-bars"></i> List</button>
+        <button class="btn active" onclick="gridView()"><i class="fa fa-th-large"></i> Grid</button>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="column" style="background-color:#aaa;">
+            <h2>@Html.DisplayNameFor(model => model.NumReferencia)</h2>
+            <h4>@Html.DisplayFor(model => model.NumReferencia)</h4>
+        </div>
+        <div class="column" style="background-color:#bbb;">
+            <h2>@Html.DisplayNameFor(model => model.FechaSalida)</h2>
+            <h4>@Html.DisplayFor(model => model.FechaSalida)</h4>
+        </div>
+    </div>
+
+    <div class="row">
+
+        @{
+            if (Model.Estado == "Levantado")
+            {
+                <div class="column" style="background-color:gold;">
+                    <h2>@Html.DisplayNameFor(model => model.Estado)</h2>
+                    <h4>@Html.DisplayFor(model => model.Estado)</h4>
+                </div>
+            }
+            else if (Model.Estado == "Entregado")
+            {
+                <div class="column" style="background-color:lightgreen;">
+                    <h2>@Html.DisplayNameFor(model => model.Estado)</h2>
+                    <h4>@Html.DisplayFor(model => model.Estado)</h4>
+                </div>
+            }
+            else
+            {
+                <div class="column" style="background-color:indianred;">
+                    <h2>@Html.DisplayNameFor(model => model.Estado)</h2>
+                    <h4>@Html.DisplayFor(model => model.Estado)</h4>
+                </div>
+            }
+        }
+
+        <div class="column" style="background-color:#ddd;">
+            <h2>@Html.DisplayNameFor(model => model.Ubicacion)</h2>
+            <h4>@Html.DisplayFor(model => model.Ubicacion)</h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column" style="background-color:#aaa;">
+            <h2>@Html.DisplayNameFor(model => model.Entrega)</h2>
+            <h4>@Html.DisplayFor(model => model.Entrega)</h4>
+        </div>
+        <div class="column" style="background-color:#ccc;">
+            <h2>@Html.DisplayNameFor(model => model.Cliente)</h2>
+            <h4>@Html.DisplayFor(model => model.Cliente)</h4>
+        </div>
+    </div>
 
     <div>
-        <h4>Paquete</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.NumReferencia)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.NumReferencia)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.FechaSalida)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.FechaSalida)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Estado)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Estado)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Ubicacion)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Ubicacion)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Entrega)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Entrega)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Cliente)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Cliente)
-            </dd>
-        </dl>
+        <a asp-action="ConsultarEstado" asp-controller="Paquetes" class="btn-group-xs">Volver</a>
     </div>
-}
-else
-{
-    <h4 class="danger">No existe en el sistema un paquete con el numero de referencia, verifique que el numero sea correcto.</h4>
-}
-
-<div>
-    <a asp-action="ConsultarEstado" asp-controller="Paquetes">Volver a intentar</a>
 </div>
+
+
+
+
+
+<script>
+    // Get the elements with class="column"
+    var elements = document.getElementsByClassName("column");
+
+    // Declare a loop variable
+    var i;
+
+    // List View
+    function listView() {
+        for (i = 0; i < elements.length; i++) {
+            elements[i].style.width = "100%";
+        }
+    }
+
+    // Grid View
+    function gridView() {
+        for (i = 0; i < elements.length; i++) {
+            elements[i].style.width = "50%";
+        }
+    }
+
+    /* Optional: Add active class to the current button (highlight it) */
+    var container = document.getElementById("btnContainer");
+    var btns = container.getElementsByClassName("btn");
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function () {
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            this.className += " active";
+        });
+    }
+</script>
+
+<script>
+
+    function launch_toast() {
+        var x = document.getElementById("toast")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+    }
+
+
+    window.onload = launch_toast;
+
+</script>
+
+@*<div class="container">
+
+
+        @if (Model != null)
+        {
+
+            <div>
+                <h4>Paquete</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.NumReferencia)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.NumReferencia)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FechaSalida)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.FechaSalida)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Estado)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Estado)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Ubicacion)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Ubicacion)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Entrega)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Entrega)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Cliente)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Cliente)
+                    </dd>
+                </dl>
+            </div>
+        }
+        else
+        {
+            <h4 class="danger">No existe en el sistema un paquete con el numero de referencia, verifique que el numero sea correcto.</h4>
+        }
+
+        <div>
+            <a asp-action="ConsultarEstado" asp-controller="Paquetes">Volver a intentar</a>
+        </div>
+
+    </div>*@
+

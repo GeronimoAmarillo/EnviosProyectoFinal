@@ -238,19 +238,19 @@ VALUES(1441, 144)
 INSERT INTO Casillas (Codigo, Rack)
 VALUES(1442, 144)
 
-INSERT INTO Gastos(Suma, Descripcion)
+INSERT INTO Gastos(Suma, Descripcion, Extra)
 VALUES(1000, 'Extinsion de plagas')
 
-INSERT INTO Gastos(Suma, Descripcion)
+INSERT INTO Gastos(Suma, Descripcion, Extra)
 VALUES(1000, 'Productos de limpieza')
 
-INSERT INTO Gastos(Suma, Descripcion)
+INSERT INTO Gastos(Suma, Descripcion, Extra)
 VALUES(1000, 'Pc nueva')
 
-INSERT INTO Gastos(Suma, Descripcion)
+INSERT INTO Gastos(Suma, Descripcion, Extra)
 VALUES(1000, 'Rack nuevo')
 
-INSERT INTO Gastos(Suma, Descripcion)
+INSERT INTO Gastos(Suma, Descripcion, Extra)
 VALUES(1000, 'Despido de Jose')
 
 INSERT INTO Impuestos(Nombre, Descripcion, Porcentaje)
@@ -262,16 +262,16 @@ VALUES('IVA', 'Impuesto', 20)
 INSERT INTO Impuestos(Nombre, Descripcion, Porcentaje)
 VALUES('BPS', 'Impuesto',8)
 
-INSERT INTO Ingresos(Suma, Descripcion)
+INSERT INTO Ingresos(Suma, Descripcion, Extra)
 VALUES(1000, 'Premio IVC')
 
-INSERT INTO Ingresos(Suma, Descripcion)
+INSERT INTO Ingresos(Suma, Descripcion, Extra)
 VALUES(1000, 'Inversion Envios SA')
 
-INSERT INTO Ingresos(Suma, Descripcion)
+INSERT INTO Ingresos(Suma, Descripcion, Extra)
 VALUES(1000, 'Venta de camioneta')
 
-INSERT INTO Ingresos(Suma, Descripcion)
+INSERT INTO Ingresos(Suma, Descripcion, Extra)
 VALUES(1000, 'Premio Anual')
 
 

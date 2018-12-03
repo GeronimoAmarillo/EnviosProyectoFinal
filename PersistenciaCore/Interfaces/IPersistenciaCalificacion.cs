@@ -10,5 +10,6 @@ namespace PersistenciaCore
     public interface IPersistenciaCalificacion
     {
         bool Calificar(Calificacion calificacion);
+        List<EntidadesCompartidasCore.Calificacion> ListarCalificaciones();
     }
 }

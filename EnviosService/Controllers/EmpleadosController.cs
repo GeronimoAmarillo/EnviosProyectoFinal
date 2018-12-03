@@ -38,11 +38,7 @@ namespace EnviosService.Controllers
         [Route("api/Empleados/Alta")]
         public JsonResult Empleado([FromBody] Administrador item)
         {
-           
-                    return Json(controladorEmpleado.AltaEmpleado(item), new Newtonsoft.Json.JsonSerializerSettings());
-            
-
-            
+            return Json(controladorEmpleado.AltaEmpleado(item), new Newtonsoft.Json.JsonSerializerSettings());
         }
         
         [HttpPost]
