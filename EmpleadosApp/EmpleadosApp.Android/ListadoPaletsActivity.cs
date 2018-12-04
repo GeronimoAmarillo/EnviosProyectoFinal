@@ -64,7 +64,7 @@ namespace EmpleadosApp.Droid
 
                 using (var httpClient = new HttpClient())
                 {
-                    var json = await httpClient.GetStringAsync("http://169.254.80.80:8080/api/Palets/Palets");
+                    var json = await httpClient.GetStringAsync(ConexionREST.ConexionPalets + "/Palets");
 
                     List<Palet> palets = null;
 

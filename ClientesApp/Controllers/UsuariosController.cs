@@ -868,14 +868,24 @@ namespace ClientesApp.Controllers
         [HttpGet]
         public ActionResult ModificarContrasenia()
         {
-
-            if (TempData["Mensaje"] != null)
+            try
             {
-                string mensaje = TempData["Mensaje"].ToString();
-                TempData["Mensaje"] = mensaje;
+                if (TempData["Mensaje"] != null)
+                {
+                    string mensaje = TempData["Mensaje"].ToString();
+                    TempData["Mensaje"] = mensaje;
+                }
+
+                return View();
+            }
+            catch
+            {
+                TempData["Mensaje"] = "Error al intentar modificar la contraseña.";
+
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            return View();
+            
         }
 
         [HttpPost]

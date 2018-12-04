@@ -105,6 +105,30 @@ namespace AdministradoresApp.Controllers
             
         }
 
+        [HttpGet]
+        public ActionResult ModificarContrasenia()
+        {
+
+            try
+            {
+                if (TempData["Mensaje"] != null)
+                {
+                    string mensaje = TempData["Mensaje"].ToString();
+                    TempData["Mensaje"] = mensaje;
+                }
+
+                return View();
+            }
+            catch
+            {
+                TempData["Mensaje"] = "Error al intentar modificar la contraseña.";
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> ModificarContrasenia([FromForm] DTUsuario datadelForm)
         {
