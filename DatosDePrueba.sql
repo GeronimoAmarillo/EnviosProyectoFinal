@@ -71,17 +71,17 @@ VALUES(33333333, 'C')
 
 
 
-INSERT INTO Cadetes(TipoLibreta, IdTelefono, CiEmpleado)
-VALUES('E', 123123123, 44444444)
+INSERT INTO Cadetes(TipoLibreta, CiEmpleado)
+VALUES('E', 44444444)
 
-INSERT INTO Cadetes(TipoLibreta, IdTelefono, CiEmpleado)
-VALUES('E', 321321321, 55555555)
+INSERT INTO Cadetes(TipoLibreta, CiEmpleado)
+VALUES('E', 55555555)
 
-INSERT INTO Cadetes(TipoLibreta, IdTelefono, CiEmpleado)
-VALUES('E', 123123123, 88888888)
+INSERT INTO Cadetes(TipoLibreta, CiEmpleado)
+VALUES('E', 88888888)
 
-INSERT INTO Cadetes(TipoLibreta, IdTelefono, CiEmpleado)
-VALUES('E', 321321321, 99999999)
+INSERT INTO Cadetes(TipoLibreta, CiEmpleado)
+VALUES('E', 99999999)
 
 
 
@@ -238,41 +238,41 @@ VALUES(1441, 144)
 INSERT INTO Casillas (Codigo, Rack)
 VALUES(1442, 144)
 
-INSERT INTO Gastos(Suma, Descripcion, Extra)
-VALUES(1000, 'Extinsion de plagas')
+INSERT INTO Gastos(Suma, Descripcion, Extra, fechaRegistro)
+VALUES(1000, 'Extinsion de plagas', 1, '2018-09-10 06:00:00.000')
 
-INSERT INTO Gastos(Suma, Descripcion, Extra)
-VALUES(1000, 'Productos de limpieza')
+INSERT INTO Gastos(Suma, Descripcion, Extra, fechaRegistro)
+VALUES(1000, 'Productos de limpieza', 1,'2018-09-10 06:00:00.000')
 
-INSERT INTO Gastos(Suma, Descripcion, Extra)
-VALUES(1000, 'Pc nueva')
+INSERT INTO Gastos(Suma, Descripcion, Extra, fechaRegistro)
+VALUES(1000, 'Pc nueva',1, '2018-09-10 06:00:00.000')
 
-INSERT INTO Gastos(Suma, Descripcion, Extra)
-VALUES(1000, 'Rack nuevo')
+INSERT INTO Gastos(Suma, Descripcion, Extra, fechaRegistro)
+VALUES(1000, 'Rack nuevo',1, '2018-09-10 06:00:00.000')
 
-INSERT INTO Gastos(Suma, Descripcion, Extra)
-VALUES(1000, 'Despido de Jose')
+INSERT INTO Gastos(Suma, Descripcion, Extra, fechaRegistro)
+VALUES(1000, 'Despido de Jose',1, '2018-09-10 06:00:00.000')
 
-INSERT INTO Impuestos(Nombre, Descripcion, Porcentaje)
-VALUES('IRPF', 'Impuesto', 12)
+INSERT INTO Impuestos(Nombre, Descripcion, Porcentaje, fechaRegistro)
+VALUES('IRPF', 'Impuesto', 12, '2018-09-10 06:00:00.000')
 
-INSERT INTO Impuestos(Nombre, Descripcion, Porcentaje)
-VALUES('IVA', 'Impuesto', 20)
+INSERT INTO Impuestos(Nombre, Descripcion, Porcentaje, fechaRegistro)
+VALUES('IVA', 'Impuesto', 20, '2018-09-10 06:00:00.000')
 
-INSERT INTO Impuestos(Nombre, Descripcion, Porcentaje)
-VALUES('BPS', 'Impuesto',8)
+INSERT INTO Impuestos(Nombre, Descripcion, Porcentaje, fechaRegistro)
+VALUES('BPS', 'Impuesto',8, '2018-09-10 06:00:00.000')
 
-INSERT INTO Ingresos(Suma, Descripcion, Extra)
-VALUES(1000, 'Premio IVC')
+INSERT INTO Ingresos(Suma, Descripcion, Extra, fechaRegistro)
+VALUES(1000, 'Premio IVC',1, '2018-09-10 06:00:00.000')
 
-INSERT INTO Ingresos(Suma, Descripcion, Extra)
-VALUES(1000, 'Inversion Envios SA')
+INSERT INTO Ingresos(Suma, Descripcion, Extra, fechaRegistro)
+VALUES(1000, 'Inversion Envios SA',1, '2018-09-10 06:00:00.000')
 
-INSERT INTO Ingresos(Suma, Descripcion, Extra)
-VALUES(1000, 'Venta de camioneta')
+INSERT INTO Ingresos(Suma, Descripcion, Extra, fechaRegistro)
+VALUES(1000, 'Venta de camioneta',1, '2018-09-10 06:00:00.000')
 
-INSERT INTO Ingresos(Suma, Descripcion, Extra)
-VALUES(1000, 'Premio Anual')
+INSERT INTO Ingresos(Suma, Descripcion, Extra, fechaRegistro)
+VALUES(1000, 'Premio Anual',1, '2018-09-10 06:00:00.000')
 
 
 INSERT INTO Vehiculos(Matricula, Marca, Modelo, Capacidad, Estado, Cadete)
@@ -281,17 +281,17 @@ VALUES('AAA1111', 'Toyota', 'Corola', 300, 'Excelente', 44444444)
 INSERT INTO Vehiculos(Matricula, Marca, Modelo, Capacidad, Estado, Cadete)
 VALUES('BBB2222', 'Chevrolet', 'Montana', 800, 'Nueva', 55555555)
 
-INSERT INTO Vehiculos(Matricula, Marca, Modelo, Capacidad, Estado, Cadete)
-VALUES('CCC3333', 'Yumbo', 'Shark', 30, 'Poco Desgastada', null)
+--INSERT INTO Vehiculos(Matricula, Marca, Modelo, Capacidad, Estado, Cadete)
+--VALUES('CCC3333', 'Yumbo', 'Shark', 30, 'Poco Desgastada', null)
 
-INSERT INTO Vehiculos(Matricula, Marca, Modelo, Capacidad, Estado, Cadete)
-VALUES('DDD4444', 'Yumbo', '4 Track', 70, 'Excelente', null)
+--INSERT INTO Vehiculos(Matricula, Marca, Modelo, Capacidad, Estado, Cadete)
+--VALUES('DDD4444', 'Yumbo', '4 Track', 70, 'Excelente', null)
 
-INSERT INTO Vehiculos(Matricula, Marca, Modelo, Capacidad, Estado, Cadete)
-VALUES('EEE5555', 'Jac', '1035', 1900, 'Excelente', null)
+--INSERT INTO Vehiculos(Matricula, Marca, Modelo, Capacidad, Estado, Cadete)
+--VALUES('EEE5555', 'Jac', '1035', 1900, 'Excelente', null)
 
-INSERT INTO Vehiculos(Matricula, Marca, Modelo, Capacidad, Estado, Cadete)
-VALUES('FFF6666', 'Jac', '1040', 2200, 'Excelente', null)
+--INSERT INTO Vehiculos(Matricula, Marca, Modelo, Capacidad, Estado, Cadete)
+--VALUES('FFF6666', 'Jac', '1040', 2200, 'Excelente', null)
 
 INSERT INTO Automobiles(MatriculaAuto, Puertas)
 VALUES('AAA1111', 4)
@@ -299,35 +299,35 @@ VALUES('AAA1111', 4)
 INSERT INTO Camionetas(MatriculaCamioneta, Cabina)
 VALUES('BBB2222', 'Unica')
 
-INSERT INTO Motos(MatriculaMoto, Cilindrada)
-VALUES('CCC3333', 150)
+--INSERT INTO Motos(MatriculaMoto, Cilindrada)
+--VALUES('CCC3333', 150)
 
-INSERT INTO Motos(MatriculaMoto, Cilindrada)
-VALUES('DDD4444', 125)
+--INSERT INTO Motos(MatriculaMoto, Cilindrada)
+--VALUES('DDD4444', 125)
 
-INSERT INTO Camiones(MatriculaCamion, Altura)
-VALUES('EEE5555', 2.7)
+--INSERT INTO Camiones(MatriculaCamion, Altura)
+--VALUES('EEE5555', 2.7)
 
-INSERT INTO Camiones(MatriculaCamion, Altura)
-VALUES('FFF6666', 2.5)
+--INSERT INTO Camiones(MatriculaCamion, Altura)
+--VALUES('FFF6666', 2.5)
 
-INSERT INTO Turnos(Codigo, Dia, Hora)
-VALUES('LUN0600', 'Lunes', 0600)
+INSERT INTO Turnos(Codigo, Dia, Hora, Eliminado)
+VALUES('LUN0600', 'Lunes', 0600, 0)
 
-INSERT INTO Turnos(Codigo, Dia, Hora)
-VALUES('MAR1000', 'Martes', 1000)
+INSERT INTO Turnos(Codigo, Dia, Hora, Eliminado)
+VALUES('MAR1000', 'Martes', 1000, 0)
 
-INSERT INTO Turnos(Codigo, Dia, Hora)
-VALUES('MIE1500', 'Miercoles', 1500)
+INSERT INTO Turnos(Codigo, Dia, Hora, Eliminado)
+VALUES('MIE1500', 'Miercoles', 1500, 0)
 
-INSERT INTO Turnos(Codigo, Dia, Hora)
-VALUES('JUE2000', 'Jueves', 2000)
+INSERT INTO Turnos(Codigo, Dia, Hora, Eliminado)
+VALUES('JUE2000', 'Jueves', 2000, 0)
 
-INSERT INTO Entregas(ClienteEmisor, ClienteReceptor, Fecha, LocalEmisor, LocalReceptor, NombreReceptor, Turno)
-VALUES(null, 66666666, '2018-09-10 06:00:00.000', 1, null, 'Damian Martinez', 'LUN0600')
+INSERT INTO Entregas(ClienteEmisor, ClienteReceptor, Fecha, LocalEmisor, LocalReceptor, NombreReceptor, Turno, Cadete)
+VALUES(null, 66666666, '2018-09-10 06:00:00.000', 1, null, 'Damian Martinez', 'LUN0600', 44444444)
 
-INSERT INTO Entregas(ClienteEmisor, ClienteReceptor, Fecha, LocalEmisor, LocalReceptor, NombreReceptor, Turno)
-VALUES(null, 66666666, '2018-09-11 10:00:00.000', 2, null, 'Diego Torres', 'MAR1000')
+INSERT INTO Entregas(ClienteEmisor, ClienteReceptor, Fecha, LocalEmisor, LocalReceptor, NombreReceptor, Turno, Cadete)
+VALUES(null, 66666666, '2018-09-11 10:00:00.000', 2, null, 'Diego Torres', 'MAR1000', 44444444)
 
 INSERT INTO Paquetes(Cliente, ClientesRUT, Entrega, EntregasCodigo, Estado, FechaSalida, NumReferencia, Ubicacion)
 values(66666666, 66666666, 1, 1, 'Levantado', '2018-09-10 06:00:00.000', 12341234, 'Optica 1')
