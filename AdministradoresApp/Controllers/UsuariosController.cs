@@ -39,8 +39,7 @@ namespace AdministradoresApp.Controllers
             }
             
         }
-
-        [HttpPost]
+        
         public IActionResult Logout()
         {
             try

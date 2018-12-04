@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2 class="container">Lista de Adelantos para el cliente seleccionado</h2>
 
 @{
     bool habilitado = ViewBag.Habilitado;
@@ -12,7 +12,7 @@
     if (habilitado)
     {
         <p>
-            <a asp-action="Alta">Create New</a>
+            <a asp-action="Alta">Registrar nuevo adelanto</a>
         </p>
     }
     else
@@ -23,33 +23,33 @@
     }
 }
 
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.fechaExpedido)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Empleado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Suma)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CantidadCuotas)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Saldado)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fechaExpedido)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Empleado)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Suma)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CantidadCuotas)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Saldado)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
         {
             <tr>
                 <td>
@@ -70,9 +70,10 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Saldado)
                 </td>
-                <td>
-                </td>
+                <td></td>
             </tr>
-        }
-    </tbody>
-</table>
+    }
+        </tbody>
+    </table>
+</div>
+
