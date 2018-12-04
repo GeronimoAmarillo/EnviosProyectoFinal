@@ -147,9 +147,6 @@
         <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; 2018 - ClientesApp</p>
-        </footer>
     </div>
 
     <environment include="Development">
@@ -198,6 +195,7 @@
             }
         }
     </script>
+    <p>@await Component.InvokeAsync("Footer")</p>
 
     @RenderSection("Scripts", required: false)
 </body>
