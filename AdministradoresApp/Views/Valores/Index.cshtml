@@ -29,166 +29,167 @@
 
 }
 
-<h2>Index</h2>
+<h2 class="container">Lista de Valores</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                <p>Listados</p>
-            </th>
-            <th>
-                <p>Altas</p>
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                @Html.ActionLink("Gastos", "ListarGastos", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Ingresos", "ListarIngresos", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Impuestos", "ListarImpuestos", new { /* id=item.PrimaryKey */ })
-            </td>
-            <td>
-                @Html.ActionLink("Gastos", "RegistrarGasto", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Ingresos", "RegistrarIngreso", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Impuestos", "RegistrarImpuesto", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <p>Listados</p>
+                </th>
+                <th>
+                    <p>Altas</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.ActionLink("Gastos", "ListarGastos", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Ingresos", "ListarIngresos", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Impuestos", "ListarImpuestos", new { /* id=item.PrimaryKey */ })
+                </td>
+                <td>
+                    @Html.ActionLink("Gastos", "RegistrarGasto", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Ingresos", "RegistrarIngreso", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Impuestos", "RegistrarImpuesto", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-@{
+    @{
 
-    if (gastos.Any())
-    {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayName("Id");
-                    </th>
-                    <th>
-                        @Html.DisplayName("Descripcion");
-                    </th>
-                    <th>
-                        @Html.DisplayName("Suma");
-                    </th>
-                    <th>
-                        @Html.DisplayName("Extra");
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var g in gastos)
-                {
-                <tr>
-                    <td>
-                        @Html.DisplayName(g.Id.ToString())
-                    </td>
-                    <td>
-                        @Html.DisplayName(g.Descripcion)
-                    </td>
-                    <td>
-                        @Html.DisplayName(g.Suma.ToString())
-                    </td>
-                    <td>
-                        @Html.DisplayName(g.Extra.ToString())
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-                }
-            </tbody>
-        </table>
-    }
-    else if (ingresos.Any())
-    {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayName("Id");
-                    </th>
-                    <th>
-                        @Html.DisplayName("Descripcion");
-                    </th>
-                    <th>
-                        @Html.DisplayName("Suma");
-                    </th>
-                    <th>
-                        @Html.DisplayName("Extra");
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var g in ingresos)
-                {
-                <tr>
-                    <td>
-                        @Html.DisplayName(g.Id.ToString())
-                    </td>
-                    <td>
-                        @Html.DisplayName(g.Descripcion)
-                    </td>
-                    <td>
-                        @Html.DisplayName(g.Suma.ToString())
-                    </td>
-                    <td>
-                        @Html.DisplayName(g.Extra.ToString())
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-                }
-            </tbody>
-        </table>
-    }
-    else
-    {
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayName("Id");
-                    </th>
-                    <th>
-                        @Html.DisplayName("Nombre");
-                    </th>
-                    <th>
-                        @Html.DisplayName("Descripcion");
-                    </th>
-                    <th>
-                        @Html.DisplayName("Porcentaje");
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var i in impuestos)
-                {
+        if (gastos.Any())
+        {
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>
-                            @Html.DisplayName(i.Id.ToString())
-                        </td>
-                        <td>
-                            @Html.DisplayName(i.Nombre)
-                        </td>
-                        <td>
-                            @Html.DisplayName(i.Descripcion)
-                        </td>
-                        <td>
-                            @Html.DisplayName(i.Porcentaje.ToString())
-                        </td>
-                        <td>
-                        </td>
+                        <th>
+                            @Html.DisplayName("Id");
+                        </th>
+                        <th>
+                            @Html.DisplayName("Descripcion");
+                        </th>
+                        <th>
+                            @Html.DisplayName("Suma");
+                        </th>
+                        <th>
+                            @Html.DisplayName("Extra");
+                        </th>
+                        <th></th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    }
+                </thead>
+                <tbody>
+                    @foreach (var g in gastos)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayName(g.Id.ToString())
+                            </td>
+                            <td>
+                                @Html.DisplayName(g.Descripcion)
+                            </td>
+                            <td>
+                                @Html.DisplayName(g.Suma.ToString())
+                            </td>
+                            <td>
+                                @Html.DisplayName(g.Extra.ToString())
+                            </td>
+                            <td></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else if (ingresos.Any())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayName("Id");
+                        </th>
+                        <th>
+                            @Html.DisplayName("Descripcion");
+                        </th>
+                        <th>
+                            @Html.DisplayName("Suma");
+                        </th>
+                        <th>
+                            @Html.DisplayName("Extra");
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var g in ingresos)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayName(g.Id.ToString())
+                            </td>
+                            <td>
+                                @Html.DisplayName(g.Descripcion)
+                            </td>
+                            <td>
+                                @Html.DisplayName(g.Suma.ToString())
+                            </td>
+                            <td>
+                                @Html.DisplayName(g.Extra.ToString())
+                            </td>
+                            <td></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
 
-}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayName("Id");
+                        </th>
+                        <th>
+                            @Html.DisplayName("Nombre");
+                        </th>
+                        <th>
+                            @Html.DisplayName("Descripcion");
+                        </th>
+                        <th>
+                            @Html.DisplayName("Porcentaje");
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var i in impuestos)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayName(i.Id.ToString())
+                            </td>
+                            <td>
+                                @Html.DisplayName(i.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayName(i.Descripcion)
+                            </td>
+                            <td>
+                                @Html.DisplayName(i.Porcentaje.ToString())
+                            </td>
+                            <td></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+    }
+    <a asp-action="Index" asp-controller="Home">Volver</a>
+</div>
+

@@ -3,98 +3,104 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2 class="container">Consultas de Registros</h2>
 
 @{
     List<SelectListItem> itemsAños = ViewBag.Años;
     List<SelectListItem> itemsMeses = ViewBag.Meses;
 }
 
-<h4>Consulte el registro de alguna de las formas que se presentan a continuación</h4>
+<h4 class="container">Consulte el registro de alguna de las formas que se presentan a continuación</h4>
 <hr />
 
-<h4>Registro Individual</h4>
+<h4 class="container">Registro Individual</h4>
 
-@using (Html.BeginForm("ConsultarRegistro", "Registros"))
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    <label>Seleccione el Año</label>
-                </th>
-                <th>
-                    <label>Seleccione el Mes</label>
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    @Html.DropDownList("Año", itemsAños)
-                </td>
-                <td>
-                    @Html.DropDownList("Mes", itemsMeses)
-                </td>
-                <td>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-default">Consultar</button>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-}
+<div class="container">
+
+    @using (Html.BeginForm("ConsultarRegistro", "Registros"))
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        <label>Seleccione el Año</label>
+                    </th>
+                    <th>
+                        <label>Seleccione el Mes</label>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DropDownList("Año", itemsAños)
+                    </td>
+                    <td>
+                        @Html.DropDownList("Mes", itemsMeses)
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-default">Consultar</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
 
 
-<h4>Registros en Rango</h4>
+    <h4>Registros en Rango</h4>
 
-@using (Html.BeginForm("ConsultarRegistros", "Registros"))
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    <label>Seleccione el Año Inicial</label>
-                </th>
-                <th>
-                    <label>Seleccione el Mes Inicial</label>
-                </th>
-                <th></th>
-                <th></th>
-                <th>
-                    <label>Seleccione el Año Final</label>
-                </th>
-                <th>
-                    <label>Seleccione el Mes Final</label>
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    @Html.DropDownList("AñoInicial", itemsAños)
-                </td>
-                <td>
-                    @Html.DropDownList("MesInicial", itemsMeses)
-                </td>
-                <td></td>
-                <td></td>
-                <td>
-                    @Html.DropDownList("AñoFinal", itemsAños)
-                </td>
-                <td>
-                    @Html.DropDownList("MesFinal", itemsMeses)
-                </td>
-                <td>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-default">Consultar</button>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-}
+    @using (Html.BeginForm("ConsultarRegistros", "Registros"))
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        <label>Seleccione el Año Inicial</label>
+                    </th>
+                    <th>
+                        <label>Seleccione el Mes Inicial</label>
+                    </th>
+                    <th></th>
+                    <th></th>
+                    <th>
+                        <label>Seleccione el Año Final</label>
+                    </th>
+                    <th>
+                        <label>Seleccione el Mes Final</label>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DropDownList("AñoInicial", itemsAños)
+                    </td>
+                    <td>
+                        @Html.DropDownList("MesInicial", itemsMeses)
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        @Html.DropDownList("AñoFinal", itemsAños)
+                    </td>
+                    <td>
+                        @Html.DropDownList("MesFinal", itemsMeses)
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-default">Consultar</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+
+    <a asp-action="Index" asp-controller="Home">Volver</a>
+</div>
+
 

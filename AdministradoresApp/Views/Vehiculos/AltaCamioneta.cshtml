@@ -4,11 +4,10 @@
     ViewData["Title"] = "AltaCamioneta";
 }
 
-<h2>AltaCamioneta</h2>
+<h2 class="container">Registrar Camioneta</h2>
 
-<h4>Camioneta</h4>
 <hr />
-<div class="row">
+<div class="container">
     <div class="col-md-4">
         <form asp-action="AltaCamioneta">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -52,10 +51,7 @@
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver</a>
 </div>
 
 @section Scripts {

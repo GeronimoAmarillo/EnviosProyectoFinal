@@ -4,11 +4,10 @@
     ViewData["Title"] = "Modificar";
 }
 
-<h2>Modificar</h2>
+<h2 class="container">Modificar Locales</h2>
 
-<h4>Local</h4>
 <hr />
-<div class="row">
+<div class="container">
     <div class="col-md-4">
         <form asp-action="Modificar">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -32,11 +31,9 @@
             </div>
         </form>
     </div>
+    <a asp-action="Index">Volver</a>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

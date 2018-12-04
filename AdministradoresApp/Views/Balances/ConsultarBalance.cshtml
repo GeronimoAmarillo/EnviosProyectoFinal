@@ -3,7 +3,7 @@
     ViewData["Title"] = "Balances";
 }
 
-<h2>Balances</h2>
+<h2 class="container">Balances</h2>
 
 <p></p>
 <p></p>
@@ -23,39 +23,42 @@
 
 <hr />
 <h3>Seleccione balance a generar:</h3>
-<div class="form-group">
-    <div class="col-md-4">
-        <button id="Anual" type="button" class="btn btn-primary">Balance Anual</button>
+<div class="container">
+    <div class="form-group">
+        <div class="col-md-4">
+            <button id="Anual" type="button" class="btn btn-primary">Balance Anual</button>
+        </div>
+        <div>
+            <button id="Mensual" type="button" class="btn btn-primary">Balance Mensual</button>
+        </div>
+        <br />
+        <div id="formAnual" style="display:none;">
+            @using (Html.BeginForm("ConsultarBalanceAnual", "Balances", FormMethod.Post))
+            {
+                <label>"Fecha Desde"</label>
+                <input type="date" name="fDesde" id="fDesde" />
+                <label>Fecha Hasta</label>
+                <input type="date" name="fHasta" id="fHasta" />
+                <input type="submit" class="btn btn-primary" value="Generar Anual" />
+            }
+        </div>
+        <div id="formMensual" style="display:none;">
+            @using (Html.BeginForm("ConsultarBalanceMensual", "Balances", FormMethod.Post))
+            {
+                <label>"Mes"</label>
+                <input type="text" name="mes" id="mes" />
+                <label>Año</label>
+                <input type="number" name="anio" id="anio" />
+                <input type="submit" class="btn btn-primary" value="Generar Mensual" />
+            }
+        </div>
     </div>
+
     <div>
-        <button id="Mensual" type="button" class="btn btn-primary">Balance Mensual</button>
-    </div>
-    <br />
-    <div id="formAnual" style="display:none;">
-        @using (Html.BeginForm("ConsultarBalanceAnual", "Balances", FormMethod.Post))
-        {
-        <label>"Fecha Desde"</label>
-        <input type="date" name="fDesde" id="fDesde" />
-        <label>Fecha Hasta</label>
-        <input type="date" name="fHasta" id="fHasta" />
-        <input type="submit" class="btn btn-primary" value="Generar Anual" />
-        }
-    </div>
-    <div id="formMensual" style="display:none;">
-        @using (Html.BeginForm("ConsultarBalanceMensual", "Balances", FormMethod.Post))
-        {
-        <label>"Mes"</label>
-        <input type="text" name="mes" id="mes" />
-        <label>Año</label>
-        <input type="number" name="anio" id="anio" />
-        <input type="submit" class="btn btn-primary" value="Generar Mensual" />
-        }
+        <a asp-action="Index" asp-controller="Home">Volver al inicio</a>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Volver al inicio</a>
-</div>
 
 
 <script language="javascript">

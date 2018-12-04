@@ -18,11 +18,10 @@
 }
 
 
-<h2>Alta</h2>
+<h2 class="container">Registro de Cliente</h2>
 
-<h4>Cliente</h4>
 <hr />
-<div class="row">
+<div class="container">
     <div class="col-md-4">
         <form asp-action="Alta">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -81,9 +80,10 @@
             </div>
         </form>
     </div>
+    <div>
+    <a asp-action="Index">Volver</a>
+</div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 

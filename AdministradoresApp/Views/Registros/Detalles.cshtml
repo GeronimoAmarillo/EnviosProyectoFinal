@@ -4,7 +4,7 @@
     ViewData["Title"] = "Detalles";
 }
 
-<h2>Detalles</h2>
+<h2 class="container">Detalles</h2>
 
 
 @{
@@ -14,7 +14,7 @@
     List<SelectListItem> itemsImpuestos = ViewBag.Impuestos;
 }
 
-<div>
+<div class="container">
     <h4>Registro</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -52,7 +52,7 @@
 </div>
 
 
-<div>
+<div class="container">
     <label>Ingresos</label>
     <br />
     @Html.ListBox("Ingresos", itemsIngresos)
@@ -69,7 +69,7 @@
                     
 
 
-<div>
+<div class="container">
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver</a>
 </div>

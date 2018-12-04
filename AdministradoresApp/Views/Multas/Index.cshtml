@@ -4,59 +4,63 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2 class="container">Lista de Multas</h2>
 
 @{
     Vehiculo vehiculoSeleccionado = ViewBag.Vehiculo;
 }
 
-<p>
-    @Html.ActionLink("Registrar nueva Multa para este vehiculo", "Registrar", new { matricula = vehiculoSeleccionado.Matricula })
-</p>
+<div class="container">
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Vehiculo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Suma)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Fecha)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Motivo)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    <p>
+        @Html.ActionLink("Registrar nueva Multa para este vehiculo", "Registrar", new { matricula = vehiculoSeleccionado.Matricula })
+    </p>
+
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Vehiculo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Suma)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Fecha)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Motivo)
-                </td>
-                <td>
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Vehiculo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Suma)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Fecha)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Motivo)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Vehiculo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Suma)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fecha)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Motivo)
+                    </td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a asp-action="Index" asp-controller="Home">Volver</a>
+</div>

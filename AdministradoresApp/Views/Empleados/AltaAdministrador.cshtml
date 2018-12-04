@@ -4,11 +4,10 @@
     ViewData["Title"] = "AltaAdministrador";
 }
 
-<h2>AltaAdministrador</h2>
+<h2 class="container">Registrar Administrador</h2>
 
-<h4>Administrador</h4>
 <hr />
-<div class="row">
+<div class="container">
     <div class="col-md-4">
         <form asp-action="AltaAdministrador">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -68,11 +67,12 @@
             </div>
         </form>
     </div>
+    <div>
+    <a asp-action="Index">Volver</a>
+</div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

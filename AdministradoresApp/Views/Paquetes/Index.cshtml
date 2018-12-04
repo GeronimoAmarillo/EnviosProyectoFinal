@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2 class="container">Lista de Reclamos</h2>
 
 <p>
     <br />
@@ -15,18 +15,19 @@
     <br />
 
 </p>
-<form id="form1" action="Paquetes/ListarReclamoporPaquete">
-    <div class="form-group">
-        <label>Ingrese aqui el numero de referencia</label>
-        <input type="text" name="numReferencia" class="form-control"/>
-        <br />
-        <input type="submit" name="Buscar" value="Buscar Reclamo" />
-        <input type="submit" name="Buscar" value="Volver" />
-    </div>
-</form>
-<table class="table">
-    <thead>
-        <tr>
+<div class="container">
+    <form id="form1" action="Paquetes/ListarReclamoporPaquete">
+        <div class="form-group">
+            <label>Ingrese aqui el numero de referencia</label>
+            <input type="text" name="numReferencia" class="form-control" />
+            <br />
+            <input type="submit" name="Buscar" value="Buscar Reclamo" />
+            <input type="submit" name="Buscar" value="Volver" />
+        </div>
+    </form>
+    <table class="table">
+        <thead>
+            <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.Id)
                 </th>
@@ -36,22 +37,27 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Paquete)
                 </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Comentario)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Paquete)
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Comentario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Paquete)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a asp-action="Index" asp-controller="Home">Volver</a>
+
+</div>
