@@ -11,15 +11,15 @@
     @{
         if (Model != null)
         {
-    <div id="mySidepanel" class="sidepanel">
-        <a href="javascript:void(0)" class="closebtn" onclick="closePan()">×</a>
-        <img src="~/images/UsuarioAzul.png" class="img-responsive" style="max-height:46px;max-width:46px; float:left;" />
-        <a asp-area="" asp-controller="Usuarios" asp-action="Logout" style="float:left">Logout</a>
-        <a asp-area="" asp-controller="Usuarios" asp-action="ModificarContrasenia" style="float:left;">Modificar User/Pass</a>
-        <a asp-controller="Usuarios" asp-action="ModificarEmail" style="float:left">Modificar Email de Contacto</a>
-    </div>
+            <div id="mySidepanel" class="sidepanel">
+                <a href="javascript:void(0)" class="closebtn" onclick="closePan()">×</a>
+                <img src="~/images/UsuarioAzul.png" class="img-responsive" style="max-height:46px;max-width:46px; float:left;" />
+                <a asp-area="" asp-controller="Usuarios" asp-action="Logout" style="float:left">Logout</a>
+                <a asp-area="" asp-controller="Usuarios" asp-action="ModificarContrasenia" style="float:left;">Modificar User/Pass</a>
+                <a asp-controller="Usuarios" asp-action="ModificarEmail" style="float:left">Modificar Email de Contacto</a>
+            </div>
 
-            <button class="openbtn" onclick="openPan()" style="background-color:#333; padding:0;margin:0"><img src="~/images/UsuarioAzul.png" style="max-height:46px;max-width:46px" /></button>
+            <button class="openbtn" onclick="openPan()" style="background-color:#ebebeb; padding:0;margin:0;overflow:hidden; color:#293d52">@Model.Nombre&nbsp;&nbsp;<img src="~/images/UsuarioAzul.png" style="max-height:46px;max-width:46px" /><i class="fa fa-caret-down" style="color:#293d52"></i></button>
         }
     }
 

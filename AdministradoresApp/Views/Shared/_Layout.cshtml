@@ -29,8 +29,7 @@
 
     <div class="menu" style="z-index:2; transition: .5s" id="menu">
         <div class="topnav" id="myTopnav" style="z-index:3">
-            <a asp-area="" asp-controller="Home" asp-action="Index" style="float:left; max-height:78px; max-width:78px; padding:0;margin:0"><img src="~/images/LogoNuevoBlanco.png" alt="Home" class="img-responsive" /></a>
-            <span style="font-size:32px;cursor:pointer;color:white; padding:0; margin:0; padding-left:10px" onclick="openNav()">&#9776;</span>@await Component.InvokeAsync("AccionesUsuario")
+            <span style="font-size:32px;cursor:pointer;color:#293d52; padding:0; margin:0; padding-left:10px" onclick="openNav()">&#9776;</span>@await Component.InvokeAsync("AccionesUsuario")
             @await Component.InvokeAsync("BotonesSesion")
             <a href="javascript:void(0);" class="icon" onclick="myFunction()">
                 <i class="fa fa-bars"></i>
@@ -60,7 +59,7 @@
             <a asp-area="" asp-controller="Empleados" asp-action="Index">Empleados</a>
         </div>
         <button style="font-size:20px" class="dropdown-btn">
-            <img src="~/images/Contabilidad.png" style="max-height:30px;max-width:30px" />
+            <img src="~/images/Contabilidad2.png" style="max-height:30px;max-width:30px" />
             Contabilidad
             <i class="fa fa-caret-down"></i>
         </button>
@@ -83,59 +82,11 @@
         </div>
     </div>
 
-    @*<div  class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-        <a asp-area="" asp-controller="Clientes" asp-action="Index">Clientes</a>
-        <a asp-area="" asp-controller="Locales" asp-action="Index">Locales</a>
-        <a asp-area="" asp-controller="Empleados" asp-action="Index">Empleados</a>
-        <a asp-area="" asp-controller="Turnos" asp-action="Index">Turnos</a>
-        <a asp-area="" asp-controller="Valores" asp-action="Index">Valores</a>
-        <a asp-area="" asp-controller="Vehiculos" asp-action="Index">Vehiculos</a>
-        <a asp-area="" asp-controller="Paquetes" asp-action="Index">Reclamos</a>
-        <a asp-area="" asp-controller="Registros" asp-action="Index">Registros Contables</a>
-        <a asp-area="" asp-controller="Balances" asp-action="ConsultarBalance">Balances</a>
-
-    </div>*@
-
-    @*<nav class="navbar navbar-inverse navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">AdministradoresApp</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li><a asp-area="" asp-controller="Clientes" asp-action="Index">Clientes</a></li>
-                        <li><a asp-area="" asp-controller="Locales" asp-action="Index">Locales</a></li>
-                        <li><a asp-area="" asp-controller="Empleados" asp-action="Index">Empleados</a></li>
-                        <li><a asp-area="" asp-controller="Turnos" asp-action="Index">Turnos</a></li>
-                        <li><a asp-area="" asp-controller="Valores" asp-action="Index">Valores</a></li>
-                        <li><a asp-area="" asp-controller="Vehiculos" asp-action="Index">Vehiculos</a></li>
-                        <li><a asp-area="" asp-controller="Paquetes" asp-action="Index">Reclamos</a></li>
-                        <li><a asp-area="" asp-controller="Registros" asp-action="Index">Registros Contables</a></li>
-                        <li><a asp-area="" asp-controller="Balances" asp-action="ConsultarBalance">Balances</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>@await Component.InvokeAsync("UsuarioLogueado")</li>
-                        <li>@await Component.InvokeAsync("BotonesSesion")</li>
-                    </ul>
-                </div>
-            </div>
-        </nav>*@
-
-    <div class="container body-content">
+    <div class="container">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2018 - AdministradoresApp</p>
-        </footer>
+        <div class="footer">
+            <p>Copyright 2019 Envios srl Service</p>
+        </div>
     </div>
 
     <environment include="Development">
