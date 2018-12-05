@@ -5,7 +5,15 @@
 }
 
 <h2 class="container">Balance Anual Generado</h2>
+@{
+    string mensaje = "";
 
+    if (TempData["Mensaje"] != null)
+    {
+        mensaje = TempData["Mensaje"].ToString();
+    }
+
+}
 <div class="container">
     <h4>Balance</h4>
     <hr />
@@ -92,9 +100,41 @@
         </tbody>
     </table>
     <div>
-    <a asp-action="Index">Volver</a>
+        <a asp-action="Index">Volver</a>
+    </div>
 </div>
-</div>
 
 
 
+@{
+    if (mensaje != "")
+    {
+        if (mensaje.ToLower().Contains("exito"))
+        {
+            <div id="toast"><div id="img">&#9989;</div><div id="desc">@mensaje</div></div>
+        }
+        else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid") || mensaje.ToLower().Contains("incorrecto"))
+        {
+            <div id="toast"><div id="img">&#10060;</div><div id="desc">@mensaje</div></div>
+        }
+        else
+        {
+            <div id="toast"><div id="img">&#10069;</div><div id="desc">@mensaje</div></div>
+        }
+
+    }
+
+}
+
+<script>
+
+    function launch_toast() {
+        var x = document.getElementById("toast")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+    }
+
+
+    window.onload = launch_toast;
+
+</script>

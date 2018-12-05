@@ -28,20 +28,19 @@ namespace AdministradoresApp.Controllers
 
                     List<Cliente> clientes = await controladorCliente.ListarClientes();
 
-                    string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
-
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, null);
-
-                    if (mensaje != null && mensaje != "")
+                    if (TempData["Mensaje"] != null)
                     {
-                        ViewBag.Message = mensaje;
+                        string mensaje = TempData["Mensaje"].ToString();
+                        TempData["Mensaje"] = mensaje;
                     }
 
                     return View(clientes);
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -50,7 +49,9 @@ namespace AdministradoresApp.Controllers
             }
             catch
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los clientes registrados");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los clientes registrados");
+
+                TempData["Mensaje"] = "Error al mostrar el formulario: No se pudieron listar los clientes registrados";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -63,19 +64,19 @@ namespace AdministradoresApp.Controllers
             {
                 if (ComprobarLogin() == "G")
                 {
-                    string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, null);
-
-                    if (mensaje != null && mensaje != "")
+                    if (TempData["Mensaje"] != null)
                     {
-                        ViewBag.Message = mensaje;
+                        string mensaje = TempData["Mensaje"].ToString();
+                        TempData["Mensaje"] = mensaje;
                     }
 
                     return View();
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -84,7 +85,9 @@ namespace AdministradoresApp.Controllers
             }
             catch
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario de Alta de Cliente.");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario de Alta de Cliente.");
+
+                TempData["Mensaje"] = "Error al mostrar el formulario de Alta de Cliente.";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -134,22 +137,39 @@ namespace AdministradoresApp.Controllers
                             }
                             catch (Exception ex)
                             {
-                                ViewBag.Message = "A pesar de que el alta se dio de forma exitosa, fallo el envio del mail al Cliente con sus credenciales de acceso al sistema!.";
+                                //ViewBag.Message = "A pesar de que el alta se dio de forma exitosa, fallo el envio del mail al Cliente con sus credenciales de acceso al sistema!.";
+
+                                TempData["Mensaje"] = "A pesar de que el alta se dio de forma exitosa, fallo el envio del mail al Cliente con sus credenciales de acceso al sistema!.";
+
                                 return RedirectToAction("Index");
                             }
 
-                            ViewBag.Message = "Cliente agregado exitosamente";
+                            //ViewBag.Message = "Cliente agregado exitosamente";
+
+                            TempData["Mensaje"] = "Cliente agregado exitosamente";
+
                             return RedirectToAction("Index");
 
                         }
                         else
                         {
-                            ViewBag.Message = "Datos incorrectos!.";
+                            //ViewBag.Message = "Datos incorrectos!.";
+
+                            TempData["Mensaje"] = "Datos incorrectos!.";
+
                             return View();
                         }
                     }
                     else
                     {
+
+                        if (TempData["Mensaje"] != null)
+                        {
+                            string mensaje = TempData["Mensaje"].ToString();
+                            TempData["Mensaje"] = mensaje;
+                        }
+
+
                         return View();
                     }
 
@@ -157,7 +177,9 @@ namespace AdministradoresApp.Controllers
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -165,7 +187,9 @@ namespace AdministradoresApp.Controllers
             }
             catch(Exception ex)
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar dar de alta el cliente." + ex.Message);
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar dar de alta el cliente." + ex.Message);
+
+                TempData["Mensaje"] = "Error al intentar dar de alta el cliente.";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -183,25 +207,37 @@ namespace AdministradoresApp.Controllers
 
                     if (unCliente != null)
                     {
+                        if (TempData["Mensaje"] != null)
+                        {
+                            string mensaje = TempData["Mensaje"].ToString();
+                            TempData["Mensaje"] = mensaje;
+                        }
+
                         return View(unCliente);
                     }
                     else
                     {
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "No existe el cliente que desea modificar");
+                        //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No existe el cliente que desea modificar");
+
+                        TempData["Mensaje"] = "No existe el cliente que desea modificar";
 
                         return RedirectToAction("Index", "Clientes", new { area = "" });
                     }
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
             }
             catch
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario de modificacion de Cliente.");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario de modificacion de Cliente.");
+
+                TempData["Mensaje"] = "Error al mostrar el formulario de modificacion de Cliente.";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -220,24 +256,38 @@ namespace AdministradoresApp.Controllers
                         bool exito = controladorUsuario.ModificarCliente(unCliente);
                         if (exito)
                         {
-                            ViewBag.Message = "Cliente modificado exitosamente";
+                            //ViewBag.Message = "Cliente modificado exitosamente";
+
+                            TempData["Mensaje"] = "Cliente modificado exitosamente";
+
                             return RedirectToAction("Index");
                         }
                         else
                         {
-                            ViewBag.Message = "Error al intentar modificar el cliente";
+                            //ViewBag.Message = "Error al intentar modificar el cliente";
+
+                            TempData["Mensaje"] = "Error al intentar modificar el cliente";
+
                             return View();
                         }
                     }
                     else
                     {
+                        if (TempData["Mensaje"] != null)
+                        {
+                            string mensaje = TempData["Mensaje"].ToString();
+                            TempData["Mensaje"] = mensaje;
+                        }
+
                         return View();
                     }
                     
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -245,7 +295,9 @@ namespace AdministradoresApp.Controllers
             }
             catch
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar modificar el cliente.");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar modificar el cliente.");
+
+                TempData["Mensaje"] = "Error al intentar modificar el cliente.";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }

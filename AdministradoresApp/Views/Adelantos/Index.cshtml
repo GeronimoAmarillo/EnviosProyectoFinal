@@ -7,6 +7,16 @@
 <h2 class="container">Lista de Adelantos para el cliente seleccionado</h2>
 
 @{
+    string mensaje = "";
+
+    if (TempData["Mensaje"] != null)
+    {
+        mensaje = TempData["Mensaje"].ToString();
+    }
+
+}
+
+@{
     bool habilitado = ViewBag.Habilitado;
 
     if (habilitado)
@@ -23,33 +33,33 @@
     }
 }
 
-        <div class="container">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Id)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.fechaExpedido)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Empleado)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Suma)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.CantidadCuotas)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Saldado)
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fechaExpedido)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Empleado)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Suma)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CantidadCuotas)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Saldado)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
             {
                 <tr>
                     <td>
@@ -72,10 +82,42 @@
                     </td>
                     <td></td>
                 </tr>
+            }
+        </tbody>
+    </table>
+
+    <a asp-action="Index" asp-controller="Empleados">Volver</a>
+</div>
+
+@{
+    if (mensaje != "")
+    {
+        if (mensaje.ToLower().Contains("exito"))
+        {
+            <div id="toast"><div id="img">&#9989;</div><div id="desc">@mensaje</div></div>
+        }
+        else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid") || mensaje.ToLower().Contains("incorrecto"))
+        {
+            <div id="toast"><div id="img">&#10060;</div><div id="desc">@mensaje</div></div>
+        }
+        else
+        {
+            <div id="toast"><div id="img">&#10069;</div><div id="desc">@mensaje</div></div>
+        }
+
     }
-                </tbody>
-            </table>
 
-            <a asp-action="Index" asp-controller="Empleados">Volver</a>
-        </div>
+}
 
+<script>
+
+    function launch_toast() {
+        var x = document.getElementById("toast")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+    }
+
+
+    window.onload = launch_toast;
+
+</script>

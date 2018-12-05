@@ -21,19 +21,15 @@ namespace AdministradoresApp.Controllers
         {
             try
             {
-                string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, null);
-
-                if (mensaje != null && mensaje != "")
-                {
-                    ViewBag.Message = mensaje;
-                }
+                descargarMensaje();
 
                 return View();
             }
             catch
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario de Logueo.");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario de Logueo.");
+
+                TempData["Mensaje"] = "Error al mostrar el formulario de Logueo.";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -48,18 +44,24 @@ namespace AdministradoresApp.Controllers
                 {
                     HttpContext.Session.Set<Usuario>(LOG_USER, null);
 
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "Usuario deslogueado exitosamente!.");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Usuario deslogueado exitosamente!.");
+
+                    TempData["Mensaje"] = "Usuario deslogueado exitosamente!.";
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "Accion Incorrecta: No existe un usuario previamente logueado!.");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Accion Incorrecta: No existe un usuario previamente logueado!.");
+
+                    TempData["Mensaje"] = "Accion Incorrecta: No existe un usuario previamente logueado!.";
                 }
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
             catch
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar desloguearse.");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar desloguearse.");
+
+                TempData["Mensaje"] = "Error al intentar desloguearse.";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -82,13 +84,17 @@ namespace AdministradoresApp.Controllers
 
                     HttpContext.Session.Set<Administrador>(LOG_USER, admin);
 
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "Usuario logueado exitosamente!.");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Usuario logueado exitosamente!.");
+
+                    TempData["Mensaje"] = "Usuario logueado exitosamente!.";
                 }
                 else
                 {
                     HttpContext.Session.Set<Usuario>(LOG_USER, null);
 
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "Usuario y/o contraseña invalidos.");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Usuario y/o contraseña invalidos.");
+
+                    TempData["Mensaje"] = "Usuario y/o contraseña invalidos.";
 
                     return RedirectToAction("Login", "Usuarios", new { area = "" });
                 }
@@ -97,7 +103,9 @@ namespace AdministradoresApp.Controllers
             }
             catch
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar Loguearse.");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar Loguearse.");
+
+                TempData["Mensaje"] = "Error al intentar Loguearse.";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -145,29 +153,68 @@ namespace AdministradoresApp.Controllers
                     IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
                     if (await controladorUsuario.ModificarContraseña(adminLogueado))
                     {
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "Contraseña modificada exitosamente!.");
+                        //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Contraseña modificada exitosamente!.");
+
+                        TempData["Mensaje"] = "Contraseña modificada exitosamente!.";
+
                         return RedirectToAction("Index", "Home", new { area = "" });
                     }
                     else
                     {
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar modificar la contraseña.");
+                        //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar modificar la contraseña.");
+
+                        TempData["Mensaje"] = "Error al intentar modificar la contraseña.";
+
                         return RedirectToAction("Index", "Home", new { area = "" });
                     }
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error o datos de contraseña invalidos.");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error o datos de contraseña invalidos.");
+
+                    TempData["Mensaje"] = "Error o datos de contraseña invalidos.";
+
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
             }
             catch
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar modificar la contraseña.");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar modificar la contraseña.");
+
+                TempData["Mensaje"] = "Error al intentar modificar la contraseña.";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
             
             
+        }
+
+        public void cargarMensaje(string mensaje)
+        {
+            try
+            {
+                TempData["Mensaje"] = mensaje;
+            }
+            catch
+            {
+                throw new Exception("Error al cargar el mensaje.");
+            }
+        }
+
+        public void descargarMensaje()
+        {
+            try
+            {
+                if (TempData["Mensaje"] != null)
+                {
+                    string mensaje = TempData["Mensaje"].ToString();
+                    TempData["Mensaje"] = mensaje;
+                }
+            }
+            catch
+            {
+                throw new Exception("Error al descargar el mensaje.");
+            }
         }
     }
 }

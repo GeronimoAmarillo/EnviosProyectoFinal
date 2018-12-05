@@ -22,14 +22,7 @@ namespace AdministradoresApp.Controllers
             {
                 if (ComprobarLogin() == "C")
                 {
-                    string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
-
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, null);
-
-                    if (mensaje != null && mensaje != "")
-                    {
-                        ViewBag.Message = mensaje;
-                    }
+                    descargarMensaje();
 
                     List<SelectListItem> itemsAños = new List<SelectListItem>();
                     List<SelectListItem> itemsMeses = new List<SelectListItem>();
@@ -56,7 +49,9 @@ namespace AdministradoresApp.Controllers
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -64,7 +59,9 @@ namespace AdministradoresApp.Controllers
             }
             catch
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario");
+
+                TempData["Mensaje"] = "Error al mostrar el formulario";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -118,11 +115,15 @@ namespace AdministradoresApp.Controllers
                     ViewBag.Gastos = itemsGastos;
                     ViewBag.Impuestos = itemsImpuestos;
 
+                    descargarMensaje();
+
                     return View(registro);
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -130,7 +131,9 @@ namespace AdministradoresApp.Controllers
             }
             catch
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario");
+
+                TempData["Mensaje"] = "Error al mostrar el formulario";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -162,20 +165,24 @@ namespace AdministradoresApp.Controllers
                             DateTime fechaFinal = Convert.ToDateTime(MesFinal + "/1/" + AñoFinal);
 
                             List<Registro> registros = await controladorBalance.ConsultarRegistros(fechaInicial, fechaFinal);
-                            
 
+                            descargarMensaje();
                             return View(registros);
                         }
                         else
                         {
-                            HttpContext.Session.Set<string>(SESSION_MENSAJE, "No puede seleccionar una combinacion mas antigua en el tiempo que la combinacion Inicial.");
+                            //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No puede seleccionar una combinacion mas antigua en el tiempo que la combinacion Inicial.");
+
+                            TempData["Mensaje"] = "No puede seleccionar una combinacion mas antigua en el tiempo que la combinacion Inicial.";
 
                             return RedirectToAction("Index", "Registros", new { area = "" });
                         }
                     }
                     else if (añof < añoi)
                     {
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, "No puede seleccionar como año final un valor inferior al año inicial.");
+                        //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No puede seleccionar como año final un valor inferior al año inicial.");
+
+                        TempData["Mensaje"] = "No puede seleccionar como año final un valor inferior al año inicial.";
 
                         return RedirectToAction("Index", "Registros", new { area = "" });
                     }
@@ -188,6 +195,7 @@ namespace AdministradoresApp.Controllers
 
                         List<Registro> registros = await controladorBalance.ConsultarRegistros(fechaInicial, fechaFinal);
 
+                        descargarMensaje();
 
                         return View(registros);
                     }
@@ -195,7 +203,9 @@ namespace AdministradoresApp.Controllers
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -203,7 +213,9 @@ namespace AdministradoresApp.Controllers
             }
             catch
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario");
+
+                TempData["Mensaje"] = "Error al mostrar el formulario";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -242,14 +254,7 @@ namespace AdministradoresApp.Controllers
                         itemsImpuestos.Add(new SelectListItem() { Text = "Nombre: " + i.Nombre + " - Porcentaje: " + i.Porcentaje.ToString() + " - Fecha Registrado: " + i.fechaRegistro.ToString(), Value = i.Id.ToString() });
                     }
 
-                    string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
-
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, null);
-
-                    if (mensaje != null && mensaje != "")
-                    {
-                        ViewBag.Message = mensaje;
-                    }
+                    descargarMensaje();
 
                     ViewBag.Ingresos = itemsIngresos;
                     ViewBag.Gastos = itemsGastos;
@@ -259,7 +264,9 @@ namespace AdministradoresApp.Controllers
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -267,7 +274,9 @@ namespace AdministradoresApp.Controllers
             }
             catch
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario");
+
+                TempData["Mensaje"] = "Error al mostrar el formulario";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -309,6 +318,34 @@ namespace AdministradoresApp.Controllers
             catch
             {
                 throw new Exception("Error al comprobar el logueo.");
+            }
+        }
+
+        public void cargarMensaje(string mensaje)
+        {
+            try
+            {
+                TempData["Mensaje"] = mensaje;
+            }
+            catch
+            {
+                throw new Exception("Error al cargar el mensaje.");
+            }
+        }
+
+        public void descargarMensaje()
+        {
+            try
+            {
+                if (TempData["Mensaje"] != null)
+                {
+                    string mensaje = TempData["Mensaje"].ToString();
+                    TempData["Mensaje"] = mensaje;
+                }
+            }
+            catch
+            {
+                throw new Exception("Error al descargar el mensaje.");
             }
         }
     }

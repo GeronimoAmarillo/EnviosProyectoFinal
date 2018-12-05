@@ -7,19 +7,15 @@
 <p></p>
 <p></p>
 <p></p>
+@{
+    string mensaje = "";
 
-@{ 
-    var mensaje = @ViewBag.Message;
-
-    if (mensaje != null && mensaje != "")
-    { 
-
-        <h3 class="text-info">@mensaje</h3>
-
+    if (TempData["Mensaje"] != null)
+    {
+        mensaje = TempData["Mensaje"].ToString();
     }
 
 }
-
 <h2 class="container">Lista de Locales</h2>
 
 <div class="container">
@@ -68,3 +64,35 @@
 
 </div>
 
+@{
+    if (mensaje != "")
+    {
+        if (mensaje.ToLower().Contains("exito"))
+        {
+            <div id="toast"><div id="img">&#9989;</div><div id="desc">@mensaje</div></div>
+        }
+        else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid") || mensaje.ToLower().Contains("incorrecto"))
+        {
+            <div id="toast"><div id="img">&#10060;</div><div id="desc">@mensaje</div></div>
+        }
+        else
+        {
+            <div id="toast"><div id="img">&#10069;</div><div id="desc">@mensaje</div></div>
+        }
+
+    }
+
+}
+
+<script>
+
+    function launch_toast() {
+        var x = document.getElementById("toast")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+    }
+
+
+    window.onload = launch_toast;
+
+</script>

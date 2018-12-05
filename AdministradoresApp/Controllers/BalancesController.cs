@@ -25,18 +25,28 @@ namespace AdministradoresApp.Controllers
             {
                 if (adminLogueado.Tipo == "C")
                 {
+                    if (TempData["Mensaje"] != null)
+                    {
+                        string mensaje = TempData["Mensaje"].ToString();
+                        TempData["Mensaje"] = mensaje;
+                    }
+
                     return View();
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "Para consultar balances el tipo de administrador debe ser contable.");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Para consultar balances el tipo de administrador debe ser contable.");
+
+                    TempData["Mensaje"] = "Para consultar balances el tipo de administrador debe ser contable.";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
             }
             else
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No estas logueado en el sistema.");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No estas logueado en el sistema.");
+
+                TempData["Mensaje"] = "No estas logueado en el sistema.";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -51,18 +61,28 @@ namespace AdministradoresApp.Controllers
                 Balance balanceARetornar = await controladorBalance.ConsultarBalanceMensual(mes, anio);
                 if (balanceARetornar != null)
                 {
+                    if (TempData["Mensaje"] != null)
+                    {
+                        string mensaje = TempData["Mensaje"].ToString();
+                        TempData["Mensaje"] = mensaje;
+                    }
+
                     return View(balanceARetornar);
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al consultar el balance.");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al consultar el balance.");
+
+                    TempData["Mensaje"] = "Error al consultar el balance.";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
             }
             catch
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al consultar el balance.");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al consultar el balance.");
+
+                TempData["Mensaje"] = "Error al consultar el balance.";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -77,18 +97,28 @@ namespace AdministradoresApp.Controllers
                 Balance balanceARetornar = await controladorBalance.ObtenerBalanceAnual(fDesde, fHasta);
                 if (balanceARetornar != null)
                 {
+                    if (TempData["Mensaje"] != null)
+                    {
+                        string mensaje = TempData["Mensaje"].ToString();
+                        TempData["Mensaje"] = mensaje;
+                    }
+
                     return View(balanceARetornar);
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al consultar el balance.");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al consultar el balance.");
+
+                    TempData["Mensaje"] = "Error al consultar el balance.";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
             }
             catch
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al consultar el balance.");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al consultar el balance.");
+
+                TempData["Mensaje"] = "Error al consultar el balance.";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
