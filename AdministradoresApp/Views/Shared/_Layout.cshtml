@@ -4,7 +4,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AdminisradoresApp</title>
-    <script src="toast.js"></script>
 
 
     <environment include="Development">
@@ -12,7 +11,6 @@
         <link rel="stylesheet" href="~/css/inicio.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <script src="main.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://www.w3schools.com/lib/w3.js"></script>
 
@@ -48,7 +46,7 @@
 
     <div class="sidenav" id="mySidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <img src="~/images/LogoNuevoBlanco.png" alt="Home" class="img-responsive" style="padding-left:13px;margin:0; padding-bottom:15px" />
+        <a asp-action="Index" asp-controller="Home"><img src="~/images/LogoNuevoBlanco.png" alt="Home" class="img-responsive" style="padding-left:13px;margin:0; padding-bottom:15px" /></a>
         <button style="font-size:20px" class="dropdown-btn">
             <i class="fa fa-fw fa-user"></i>
             Usuarios
@@ -76,7 +74,6 @@
         <div class="dropdown-container">
             <a asp-area="" asp-controller="Locales" asp-action="Index">Locales</a>
             <a asp-area="" asp-controller="Turnos" asp-action="Index">Turnos</a>
-            <a asp-area="" asp-controller="Valores" asp-action="Index">Valores</a>
             <a asp-area="" asp-controller="Vehiculos" asp-action="Index">Vehiculos</a>
             <a asp-area="" asp-controller="Paquetes" asp-action="Index">Reclamos</a>
         </div>

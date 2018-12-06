@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<EntidadesCompartidasCore.Registro>
-
+<script src="https://www.w3schools.com/lib/w3.js"></script>
 @{
     ViewData["Title"] = "ConsultarRegistros";
 }
@@ -12,55 +12,62 @@
     }
 
 }
+
 <h2 class="container">Consultar Registros</h2>
-<div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Fecha)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UtilidadBruta)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UtilidadOperacional)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UtilidadSinImpuestos)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UtilidadEjercicio)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+<div class="container">
+    <p>
+        <input oninput="w3.filterHTML('#id01', '.item', this.value)" placeholder="Busqueda multi-columna...">
+    </p>
+
+    <div class="table-responsive">
+        <table class="table-hover" id="id01">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Fecha)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UtilidadBruta)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UtilidadOperacional)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UtilidadSinImpuestos)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UtilidadEjercicio)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Detalles", "Detalles", new { mes = item.Fecha.Month, año = item.Fecha.Year }) |
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Fecha)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UtilidadBruta)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UtilidadOperacional)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UtilidadSinImpuestos)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UtilidadEjercicio)
+                    </th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+        {
+            <tr class="item">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UtilidadBruta)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UtilidadOperacional)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UtilidadSinImpuestos)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UtilidadEjercicio)
+                </td>
+                <td>
+                    @Html.ActionLink("Detalles", "Detalles", new { mes = item.Fecha.Month, año = item.Fecha.Year }) |
+                </td>
+            </tr>
+}
+            </tbody>
+        </table>
+    </div>
 
     <a asp-action="Index">Volver</a>
 </div>

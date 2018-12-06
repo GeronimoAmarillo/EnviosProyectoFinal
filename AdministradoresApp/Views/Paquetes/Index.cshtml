@@ -33,38 +33,45 @@
             <input type="submit" name="Buscar" value="Volver" />
         </div>
     </form>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Id)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Comentario)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Paquete)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+
+    <p>
+        <input oninput="w3.filterHTML('#id01', '.item', this.value)" placeholder="Busqueda multi-columna...">
+    </p>
+
+    <div class="table-responsive">
+        <table class="table-hover" id="id01">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Comentario)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Paquete)
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Comentario)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Paquete)
+                    </th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+        {
+            <tr class="item">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comentario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Paquete)
+                </td>
+            </tr>
+}
+            </tbody>
+        </table>
+    </div>
 
     <a asp-action="Index" asp-controller="Home">Volver</a>
 
