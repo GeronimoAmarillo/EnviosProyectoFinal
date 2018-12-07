@@ -12,7 +12,7 @@
         if (Model == null)
         {
             @*<a class="navbar-link" asp-area="" asp-controller="Usuarios" asp-action="Login" style="float:right; font-size:14px; padding:2px">Login</a>*@
-            <a onclick="document.getElementById('id01').style.display='block'" style="width:auto; float:right; padding:11px; font-size:17px">Login</a>
+            <a onclick="document.getElementById('id01').style.display='block'" style="width:auto; float:right; padding:14px; font-size:16px">Login</a>
 
             <div id="id01" class="modal">
 
@@ -37,7 +37,7 @@
 
                         <p></p>
 
-                        <input type="submit" value="Login" class="btn btn-default" />
+                        <button type="submit" style="background-color: #4CAF50;color: white;padding: 14px 20px;margin: 8px 0;border: none; cursor: pointer;width: 100%;">Login</button>
 
                         <div>
                             <a asp-action="RecuperarContraseña" asp-controller="Usuarios" class="btn-link" style="color:black">¿Olvidastes tu Contraseña?</a>
