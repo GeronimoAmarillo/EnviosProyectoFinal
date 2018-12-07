@@ -93,8 +93,10 @@ namespace AdministradoresApp.Controllers
         {
             try
             {
+
                 IControladorBalance controladorBalance = FabricaApps.GetControladorBalance();
                 Balance balanceARetornar = await controladorBalance.ObtenerBalanceAnual(fDesde, fHasta);
+
                 if (balanceARetornar != null)
                 {
                     if (TempData["Mensaje"] != null)

@@ -20,8 +20,9 @@
     <h4>Balance</h4>
     <hr />
     <dl class="dl-horizontal">
+
         <dt>
-            @Html.DisplayNameFor(model => model.Mes)
+            @Html.DisplayNameFor(model => model.UtilidadBrutaTotal)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.UtilidadBrutaTotal)
@@ -30,10 +31,22 @@
             @Html.DisplayNameFor(model => model.UtilidadEjercicioTotal)
         </dt>
         <dd>
+            @Html.DisplayFor(model => model.UtilidadEjercicioTotal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UtilidadOperacionalTotal)
+        </dt>
+        <dd>
             @Html.DisplayFor(model => model.UtilidadOperacionalTotal)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.UtilidadSinimpuestosTotal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UtilidadSinimpuestosTotal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Ingresos)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Ingresos)
@@ -42,13 +55,19 @@
             @Html.DisplayNameFor(model => model.IngresosExtra)
         </dt>
         <dd>
+            @Html.DisplayFor(model => model.IngresosExtra)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Gastos)
+        </dt>
+        <dd>
             @Html.DisplayFor(model => model.Gastos)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.GastosExtra)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Abierto)
+            @Html.DisplayFor(model => model.GastosExtra)
         </dd>
     </dl>
 </div>
@@ -107,7 +126,7 @@
         </table>
     </div>
     <div>
-        <a asp-action="Index">Volver</a>
+        <a asp-action="ConsultarBalance">Volver</a>
     </div>
 </div>
 

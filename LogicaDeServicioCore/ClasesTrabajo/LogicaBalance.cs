@@ -46,7 +46,7 @@ namespace LogicaDeServicioCore
                 utilidadSinimpuestosTotal += registro.UtilidadSinImpuestos;
                 foreach (Ingreso ingreso in registro.Ingresos)
                 {
-                    if (ingreso.Descripcion.Substring(0, 5) != "Extra")
+                    if (!(ingreso.Extra))
                     {
                         ingresosExtra += ingreso.Suma;
                     }
@@ -57,7 +57,7 @@ namespace LogicaDeServicioCore
                 }
                 foreach (Gasto gasto in registro.Gastos)
                 {
-                    if (gasto.Descripcion.Substring(0, 5) != "Extra")
+                    if (!(gasto.Extra))
                     {
                         gastosExtra += gasto.Suma;
                     }
@@ -110,11 +110,11 @@ namespace LogicaDeServicioCore
 
                 if (Meses.ContainsKey(mes.ToLower()))
                 {
-                    numeroMes = Meses[mes];
+                    numeroMes = Meses[mes.ToLower()];
                 }
 
                 bool abierto = numeroMes < DateTime.Today.Month ? false : true;
-                DateTime fechaInicio = Convert.ToDateTime(numeroMes + "/1/" + anio);
+                DateTime fechaInicio = Convert.ToDateTime( "1/" + numeroMes + "/"+ anio);
                 DateTime fechaFinal = new DateTime(fechaInicio.Year, fechaInicio.Month, DateTime.DaysInMonth(fechaInicio.Year, fechaInicio.Month));
                 List<Registro> RegistrosDelBalance = ObtenerRegistros(fechaInicio, fechaFinal);
                 decimal utilidadBrutaTotal = 0;
@@ -134,7 +134,7 @@ namespace LogicaDeServicioCore
                     utilidadSinimpuestosTotal += registro.UtilidadSinImpuestos;
                     foreach (Ingreso ingreso in registro.Ingresos)
                     {
-                        if(ingreso.Descripcion.Substring(0, 5) != "Extra")
+                        if(!ingreso.Extra)
                         {
                             ingresosExtra += ingreso.Suma;
                         }
@@ -145,7 +145,7 @@ namespace LogicaDeServicioCore
                     }
                     foreach(Gasto gasto in registro.Gastos)
                     {
-                        if(gasto.Descripcion.Substring(0, 5) != "Extra")
+                        if(!gasto.Extra)
                         {
                             gastosExtra += gasto.Suma;
                         }
