@@ -1,11 +1,9 @@
-﻿
+﻿@model List<Calificacion>
+
 @{
     ViewData["Title"] = "Home Page";
 }
 
-<p></p>
-<p></p>
-<p></p>
 
 @{
     string mensaje = "";
@@ -22,15 +20,15 @@
     {
         if (mensaje.ToLower().Contains("exito"))
         {
-            <div id="toast"><div id="img">&#9989;</div><div id="desc">@mensaje</div></div>
+            <div id="toast" style="z-index:4"><div id="img">&#9989;</div><div id="desc">@mensaje</div></div>
         }
         else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid") || mensaje.ToLower().Contains("incorrecto"))
         {
-            <div id="toast"><div id="img">&#10060;</div><div id="desc">@mensaje</div></div>
+            <div id="toast" style="z-index:4"><div id="img">&#10060;</div><div id="desc">@mensaje</div></div>
         }
         else
         {
-            <div id="toast"><div id="img">&#10069;</div><div id="desc">@mensaje</div></div>
+            <div id="toast" style="z-index:4"><div id="img">&#10069;</div><div id="desc">@mensaje</div></div>
         }
 
     }
@@ -38,7 +36,7 @@
 }
 
 
-<div class="carousel fade-carousel slide" data-ride="carousel" data-interval="4000" id="bs-carousel">
+<div class="carousel fade-carousel slide" data-ride="carousel" data-interval="4000" id="bs-carousel" style="z-index:1">
     <!-- Overlay -->
     <div class="overlay"></div>
     <!-- Indicators -->
@@ -54,34 +52,106 @@
             <div class="slide-1"></div>
             <div class="hero">
                 <hgroup>
-                    <h1>We are creative</h1>
-                    <h3>Get start your next awesome project</h3>
+                    <h1>Esfuerzo</h1>
+                    <h3>Trabajamos sin descanso para hacer nuestro trabajo en tiempo y forma</h3>
                 </hgroup>
-                <button class="btn btn-hero btn-lg" role="button">See all features</button>
             </div>
         </div>
         <div class="item slides">
             <div class="slide-2"></div>
             <div class="hero">
                 <hgroup>
-                    <h1>We are smart</h1>
-                    <h3>Get start your next awesome project</h3>
+                    <h1>adaptados al presente</h1>
+                    <h3>Le ofrecemos al cliente un conjunto de herramientas para controlar el flujo de sus paquetes de forma sencilla</h3>
                 </hgroup>
-                <button class="btn btn-hero btn-lg" role="button">See all features</button>
             </div>
         </div>
         <div class="item slides">
             <div class="slide-3"></div>
             <div class="hero">
                 <hgroup>
-                    <h1>We are amazing</h1>
-                    <h3>Get start your next awesome project</h3>
+                    <h1>Logistica</h1>
+                    <h3>Ofrecemos servicio de almacenaje administrado de forma digital para aumentar su nivel agilidad y seguridad</h3>
                 </hgroup>
-                <button class="btn btn-hero btn-lg" role="button">See all features</button>
             </div>
         </div>
     </div>
 </div>
+
+<div style="background-color:black">
+    <br />
+    <br />
+</div>
+
+
+<div class="carousel fade-carousel2 slide" data-ride="carousel" data-interval="4000" id="bs-carousel" style="z-index:1">
+    <!-- Overlay -->
+    <div class="overlay"></div>
+    <!-- Indicators -->
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item slides active">
+            <div class="slide-1"></div>
+            <div class="hero">
+                <hgroup>
+                    <h1>@Model[0].Clientes.Nombre</h1>
+                    <h3>@Model[0].Comentario</h3>
+                </hgroup>
+                @{ 
+                    if (Model[0].Puntaje == 5)
+                    {
+                        <img src="~/images/5 Estrellas.png" />
+                    }
+                    else
+                    { 
+                        <img src="~/images/4 Estrellas.png" />
+                    }
+                }
+                
+            </div>
+        </div>
+        <div class="item slides">
+            <div class="slide-2"></div>
+            <div class="hero">
+                <hgroup>
+                    <h1>@Model[1].Clientes.Nombre</h1>
+                    <h3>@Model[1].Comentario</h3>
+                </hgroup>
+                @{ 
+                    if (Model[1].Puntaje == 5)
+                    {
+                        <img src="~/images/5 Estrellas.png" />
+                    }
+                    else
+                    { 
+                        <img src="~/images/4 Estrellas.png" />
+                    }
+                }
+            </div>
+        </div>
+        <div class="item slides">
+            <div class="slide-3"></div>
+            <div class="hero">
+                
+                <hgroup>
+                    <h1>@Model[2].Clientes.Nombre</h1>
+                    <h3>@Model[2].Comentario</h3>
+                </hgroup>
+                @{ 
+                    if (Model[2].Puntaje == 5)
+                    {
+                        <img src="~/images/5 Estrellas.png" />
+                    }
+                    else
+                    { 
+                        <img src="~/images/4 Estrellas.png" />
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @*<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
@@ -122,11 +192,11 @@
     </a>
     </div>*@
 
-<div>
+@*<div>
 
-    @await Component.InvokeAsync("Calificar")
+        @await Component.InvokeAsync("Calificar")
 
-</div>
+    </div>*@
 
 
 <script>

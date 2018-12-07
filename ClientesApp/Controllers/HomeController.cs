@@ -25,9 +25,33 @@ namespace ClientesApp.Controllers
 
                 List<Calificacion> calificaciones = await controladorCalificacion.ListarCalificaciones();
 
-                HttpContext.Session.Set<List<Calificacion>>(SESSION_CALIFICACIONES, calificaciones);
+                List<Calificacion> calificacionesSeleccionadas = calificaciones.Where(x => x.Puntaje == 5 || x.Puntaje == 4).OrderByDescending(x=> x.Puntaje).ToList();
 
-                return View();
+                List<Calificacion> calificacionesUI = new List<Calificacion>();
+
+                if (calificacionesSeleccionadas.Count >= 2)
+                {
+                    if (calificacionesSeleccionadas.Count >= 3)
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            calificacionesUI.Add(calificacionesSeleccionadas[i]);
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < 2; i++)
+                        {
+                            calificacionesUI.Add(calificacionesSeleccionadas[i]);
+                        }
+                    }
+                    
+                }
+
+                
+
+
+                return View(calificacionesUI);
             }
             catch
             {
