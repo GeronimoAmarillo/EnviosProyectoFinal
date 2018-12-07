@@ -20,36 +20,46 @@ namespace AdministradoresApp.Controllers
         [HttpGet]
         public ActionResult ConsultarBalance()
         {
-            Administrador adminLogueado = HttpContext.Session.Get<Administrador>(LOG_USER);
-            if (adminLogueado != null)
+            try
             {
-                if (adminLogueado.Tipo == "C")
+                Administrador adminLogueado = HttpContext.Session.Get<Administrador>(LOG_USER);
+                if (adminLogueado != null)
                 {
-                    if (TempData["Mensaje"] != null)
+                    if (adminLogueado.Tipo == "C")
                     {
-                        string mensaje = TempData["Mensaje"].ToString();
-                        TempData["Mensaje"] = mensaje;
-                    }
+                        if (TempData["Mensaje"] != null)
+                        {
+                            string mensaje = TempData["Mensaje"].ToString();
+                            TempData["Mensaje"] = mensaje;
+                        }
 
-                    return View();
+                        return View();
+                    }
+                    else
+                    {
+                        //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Para consultar balances el tipo de administrador debe ser contable.");
+
+                        TempData["Mensaje"] = "Para consultar balances el tipo de administrador debe ser contable.";
+
+                        return RedirectToAction("Index", "Home", new { area = "" });
+                    }
                 }
                 else
                 {
-                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Para consultar balances el tipo de administrador debe ser contable.");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No estas logueado en el sistema.");
 
-                    TempData["Mensaje"] = "Para consultar balances el tipo de administrador debe ser contable.";
+                    TempData["Mensaje"] = "No estas logueado en el sistema.";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
             }
-            else
+            catch
             {
-                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No estas logueado en el sistema.");
-
-                TempData["Mensaje"] = "No estas logueado en el sistema.";
+                TempData["Mensaje"] = "Error al mostrar el formulario";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
+            
         }
 
         [HttpPost("ConsultarBalanceMensual")]
@@ -84,7 +94,7 @@ namespace AdministradoresApp.Controllers
 
                 TempData["Mensaje"] = "Error al consultar el balance.";
 
-                return RedirectToAction("Index", "Home", new { area = "" });
+                return RedirectToAction("ConsultarBalance", "Balances", new { area = "" });
             }
         }
 
@@ -122,7 +132,7 @@ namespace AdministradoresApp.Controllers
 
                 TempData["Mensaje"] = "Error al consultar el balance.";
 
-                return RedirectToAction("Index", "Home", new { area = "" });
+                return RedirectToAction("ConsultarBalance", "Balances", new { area = "" });
             }
         }
 
