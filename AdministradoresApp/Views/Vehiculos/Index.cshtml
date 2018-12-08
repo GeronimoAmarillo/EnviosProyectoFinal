@@ -1,120 +1,170 @@
 ﻿@model IEnumerable<EntidadesCompartidasCore.Vehiculo>
-
+<script src="https://www.w3schools.com/lib/w3.js"></script>
 @{
     ViewData["Title"] = "Index";
 }
+@{
+    string mensaje = "";
 
-<h2>Index</h2>
+    if (TempData["Mensaje"] != null)
+    {
+        mensaje = TempData["Mensaje"].ToString();
+    }
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                <p>Listados</p>
-            </th>
-            <th>
-                <p>Altas</p>
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                @Html.ActionLink("Autos", "ListarAutos", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Camiones", "ListarCamiones", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Camionetas", "ListarCamionetas", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Motos", "ListarMotos", new { /* id=item.PrimaryKey */ })
-            </td>
-            <td>
-                @Html.ActionLink("Autos", "AltaAuto", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Camiones", "AltaCamion", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Camionetas", "AltaCamioneta", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Motos", "AltaMoto", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-    </tbody>
-</table>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Matricula)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Marca)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Modelo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Capacidad)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cadete)
-            </th>
-            <th>
-                <label>Tipo</label>
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model)
-{
-
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Matricula)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Marca)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Modelo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Capacidad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cadete)
-            </td>
-            <td>
-                @{ 
-                    if (item is Automobil)
-                    { 
-                        <label> Auto</label>
-                    }
-                    else if (item is Camion)
-                    { 
-                        <label>Camion</label>
-                    }
-                    else if (item is Camioneta)
-                    { 
-                        <label>Camioneta</label>
-                    }
-                    else if(item is Moto)
-                    { 
-                        <label>Moto</label>
-                    }
-                }
-            </td>
-            
-            <td>
-                @Html.ActionLink("Modificar", "Modificar", new { matricula = item.Matricula }) |
-                @Html.ActionLink("Eliminar", "BajaVehiculo", new { matricula = item.Matricula }) |
-                @Html.ActionLink("Reparaciones", "IrReparaciones", new { matricula = item.Matricula }) |
-                @Html.ActionLink("Multas", "IrMultas", new { matricula = item.Matricula })
-
-            </td>
-        </tr>
-        
 }
-    </tbody>
-</table>
+<h2 class="container">Lista de Vehiculos</h2>
+
+<div class="container">
+
+    <div class="table-responsive">
+        <table class="table-hover" id="id01">
+            <thead>
+                <tr>
+                    <th>
+                        <p>Listados</p>
+                    </th>
+                    <th>
+                        <p>Altas</p>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.ActionLink("Todos", "Index", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Autos", "ListarAutos", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Camiones", "ListarCamiones", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Camionetas", "ListarCamionetas", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Motos", "ListarMotos", new { /* id=item.PrimaryKey */ })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Autos", "AltaAuto", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Camiones", "AltaCamion", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Camionetas", "AltaCamioneta", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Motos", "AltaMoto", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table-hover" id="id01">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Matricula)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Marca)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Modelo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Capacidad)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Estado)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cadete)
+                    </th>
+                    <th>
+                        <label>Tipo</label>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+        {
+
+            <tr class="item">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Matricula)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Marca)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Modelo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Capacidad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cadete)
+                </td>
+                <td>
+                    @{
+                if (item is Automobil)
+                {
+                    <label> Auto</label>
+        }
+        else if (item is Camion)
+        {
+            <label>Camion</label>
+}
+else if (item is Camioneta)
+{
+        <label>Camioneta</label>
+}
+else if (item is Moto)
+{
+        <label>Moto</label>
+}
+                    }
+                </td>
+
+                <td>
+                    @Html.ActionLink("Modificar", "Modificar", new { matricula = item.Matricula }) |
+                    @Html.ActionLink("Eliminar", "BajaVehiculo", new { matricula = item.Matricula }) |
+                    @Html.ActionLink("Reparaciones", "IrReparaciones", new { matricula = item.Matricula }) |
+                    @Html.ActionLink("Multas", "IrMultas", new { matricula = item.Matricula })
+
+                </td>
+            </tr>
+
+}
+            </tbody>
+        </table>
+    </div>
+
+    <a asp-action="Index" asp-controller="Home">Volver</a>
+</div>
+@{
+    if (mensaje != "")
+    {
+        if (mensaje.ToLower().Contains("exito"))
+        {
+            <div id="toast"><div id="img">&#9989;</div><div id="desc">@mensaje</div></div>
+        }
+        else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid") || mensaje.ToLower().Contains("incorrecto"))
+        {
+            <div id="toast"><div id="img">&#10060;</div><div id="desc">@mensaje</div></div>
+        }
+        else
+        {
+            <div id="toast"><div id="img">&#10069;</div><div id="desc">@mensaje</div></div>
+        }
+
+    }
+
+}
+
+<script>
+
+    function launch_toast() {
+        var x = document.getElementById("toast")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+    }
+
+
+    window.onload = launch_toast;
+
+</script>

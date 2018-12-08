@@ -40,5 +40,32 @@ namespace LogicaDeAppsCore
                 throw new Exception("ERROR!: " + ex.Message);
             }
         }
+
+        public async Task<List<Calificacion>> ListarCalificaciones()
+        {
+            try
+            {
+                //http://localhost:8080/
+
+                var httpClient = new HttpClient();
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionCalificaciones + "/Listar");
+
+                List<Calificacion> calificaciones = null;
+
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Objects
+                };
+
+                calificaciones = JsonConvert.DeserializeObject<List<Calificacion>>(json, settings);
+
+                return calificaciones;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Se produjo un error al intentar listar las calificaciones.");
+            }
+        }
     }
 }

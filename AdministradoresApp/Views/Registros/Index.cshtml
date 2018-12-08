@@ -2,99 +2,149 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h2>Index</h2>
+<script src="https://www.w3schools.com/lib/w3.js"></script>
+<h2 class="container">Consultas de Registros</h2>
 
 @{
     List<SelectListItem> itemsAños = ViewBag.Años;
     List<SelectListItem> itemsMeses = ViewBag.Meses;
 }
+@{
+    string mensaje = "";
 
-<h4>Consulte el registro de alguna de las formas que se presentan a continuación</h4>
+    if (TempData["Mensaje"] != null)
+    {
+        mensaje = TempData["Mensaje"].ToString();
+    }
+
+}
+<h4 class="container">Consulte el registro de alguna de las formas que se presentan a continuación</h4>
 <hr />
 
-<h4>Registro Individual</h4>
+<h4 class="container">Registro Individual</h4>
 
-@using (Html.BeginForm("ConsultarRegistro", "Registros"))
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    <label>Seleccione el Año</label>
-                </th>
-                <th>
-                    <label>Seleccione el Mes</label>
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    @Html.DropDownList("Año", itemsAños)
-                </td>
-                <td>
-                    @Html.DropDownList("Mes", itemsMeses)
-                </td>
-                <td>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-default">Consultar</button>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<div class="container">
+
+    @using (Html.BeginForm("ConsultarRegistro", "Registros"))
+    {
+        <div class="table-responsive">
+            <table class="table-hover" id="id01">
+                <thead>
+                    <tr>
+                        <th>
+                            <label>Seleccione el Año</label>
+                        </th>
+                        <th>
+                            <label>Seleccione el Mes</label>
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DropDownList("Año", itemsAños)
+                        </td>
+                        <td>
+                            @Html.DropDownList("Mes", itemsMeses)
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default">Consultar</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    }
+
+
+    <h4>Registros en Rango</h4>
+
+    @using (Html.BeginForm("ConsultarRegistros", "Registros"))
+    {
+        <div class="table-responsive">
+            <table class="table-hover" id="id01">
+                <thead>
+                    <tr>
+                        <th>
+                            <label>Seleccione el Año Inicial</label>
+                        </th>
+                        <th>
+                            <label>Seleccione el Mes Inicial</label>
+                        </th>
+                        <th></th>
+                        <th></th>
+                        <th>
+                            <label>Seleccione el Año Final</label>
+                        </th>
+                        <th>
+                            <label>Seleccione el Mes Final</label>
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DropDownList("AñoInicial", itemsAños)
+                        </td>
+                        <td>
+                            @Html.DropDownList("MesInicial", itemsMeses)
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            @Html.DropDownList("AñoFinal", itemsAños)
+                        </td>
+                        <td>
+                            @Html.DropDownList("MesFinal", itemsMeses)
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default">Consultar</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    }
+
+    <a asp-action="Index" asp-controller="Home">Volver</a>
+</div>
+
+
+@{
+    if (mensaje != "")
+    {
+        if (mensaje.ToLower().Contains("exito"))
+        {
+            <div id="toast"><div id="img">&#9989;</div><div id="desc">@mensaje</div></div>
+        }
+        else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid") || mensaje.ToLower().Contains("incorrecto"))
+        {
+            <div id="toast"><div id="img">&#10060;</div><div id="desc">@mensaje</div></div>
+        }
+        else
+        {
+            <div id="toast"><div id="img">&#10069;</div><div id="desc">@mensaje</div></div>
+        }
+
+    }
+
 }
 
+<script>
 
-<h4>Registros en Rango</h4>
+    function launch_toast() {
+        var x = document.getElementById("toast")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+    }
 
-@using (Html.BeginForm("ConsultarRegistros", "Registros"))
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    <label>Seleccione el Año Inicial</label>
-                </th>
-                <th>
-                    <label>Seleccione el Mes Inicial</label>
-                </th>
-                <th></th>
-                <th></th>
-                <th>
-                    <label>Seleccione el Año Final</label>
-                </th>
-                <th>
-                    <label>Seleccione el Mes Final</label>
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    @Html.DropDownList("AñoInicial", itemsAños)
-                </td>
-                <td>
-                    @Html.DropDownList("MesInicial", itemsMeses)
-                </td>
-                <td></td>
-                <td></td>
-                <td>
-                    @Html.DropDownList("AñoFinal", itemsAños)
-                </td>
-                <td>
-                    @Html.DropDownList("MesFinal", itemsMeses)
-                </td>
-                <td>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-default">Consultar</button>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-}
 
+    window.onload = launch_toast;
+
+</script>

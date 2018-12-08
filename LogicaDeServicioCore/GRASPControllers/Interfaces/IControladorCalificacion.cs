@@ -10,5 +10,6 @@ namespace LogicaDeServicioCore
     public interface IControladorCalificacion
     {
         bool Calificar(Calificacion cal);
+        List<EntidadesCompartidasCore.Calificacion> ListarCalificaciones();
     }
 }

@@ -108,18 +108,27 @@ namespace LogicaDeAppsCore
                 var httpClient = new HttpClient();
 
                 var EnvioJson = JsonConvert.SerializeObject(unUsuario);
-                
-                HttpResponseMessage retorno = await httpClient.PostAsync("http://localhost:8080/api/Clientes/Alta", new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
-                
-                var contentResult = retorno.Content.ReadAsStringAsync();
 
-                if (contentResult.Result.ToUpper() == "TRUE")
+                if (FabricaApps.GetControladorCliente().BuscarCliente(((Cliente)unUsuario).RUT) == null)
                 {
-                    return true;
+                    HttpResponseMessage retorno;
+
+                    retorno = await httpClient.PostAsync(ConexionREST.ConexionClientes + "/Alta", new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
+
+                    var contentResult = retorno.Content.ReadAsStringAsync();
+
+                    if (contentResult.Result.ToUpper() == "TRUE")
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
-                    return false;
+                    throw new Exception("Ya existe un Cliente con los Datos Ingresados");
                 }
             }
             catch(Exception ex)
@@ -160,15 +169,15 @@ namespace LogicaDeAppsCore
 
                 if(pusuario is Administrador)
                 {
-                     cadena = "http://localhost:8080/Api/Usuarios/ModificarContraseniaAdmin";
+                     cadena = ConexionREST.ConexionUsuarios+"/ModificarContraseniaAdmin";
                 }
                 else if(pusuario is Cliente)
                 {
-                    cadena = "http://localhost:8080/Api/Usuarios/ModificarContraseniaCliente";
+                    cadena = ConexionREST.ConexionUsuarios + "/ModificarContraseniaCliente";
                 }
                 else
                 {
-                    cadena = "http://localhost:8080/Api/Usuarios/ModificarContraseniaCadete";
+                    cadena = ConexionREST.ConexionUsuarios + "/ModificarContraseniaCadete";
                 }
                 var retorno = await httpClient.PostAsync(cadena, new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
                 var contentResult = retorno.Content.ReadAsStringAsync();
@@ -284,7 +293,7 @@ namespace LogicaDeAppsCore
                 var httpClient = new HttpClient();
                 var EnvioJson = JsonConvert.SerializeObject(pUsuario);
 
-                HttpResponseMessage retorno = await httpClient.PostAsync("http://localhost:8080/api/Usuarios/Usuario", new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
+                HttpResponseMessage retorno = await httpClient.PostAsync(ConexionREST.ConexionUsuarios + "/Usuario", new StringContent(EnvioJson, Encoding.UTF8, "application/json"));
                 string resultado = await retorno.Content.ReadAsStringAsync();
 
                 if (retorno.IsSuccessStatusCode && resultado == "true")

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using EntidadesCompartidasCore;
 using LogicaDeServicioCore;
+using Newtonsoft.Json;
 
 namespace EnviosService.Controllers
 {
@@ -23,7 +24,12 @@ namespace EnviosService.Controllers
         [Route("api/Balances/Balance")]
         public JsonResult Balance(string mes, int año)
         {
-            return Json(controladorBalance.ConsultarBalanceMensual(mes, año), new Newtonsoft.Json.JsonSerializerSettings());
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+
+            return Json(controladorBalance.ConsultarBalanceMensual(mes, año), settings);
         }
 
         [HttpGet("{año}")]
@@ -32,11 +38,13 @@ namespace EnviosService.Controllers
             return Json(controladorBalance.ConsultarBalanceAnual(año), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
-        [HttpGet("{fechaDesde, fechaHasta}")]
+        [HttpGet("{diaI, mesI, añoI, diaF, mesF, añoF}")]
         [Route("api/Balances/ObtenerBalanceAnual")]
-        public JsonResult BalanceAnual(DateTime fechaDesde, DateTime fechaHasta)
+        public JsonResult BalanceAnual(int diaI, int mesI, int añoI, int diaF, int mesF, int añoF)
         {
-            return Json(controladorBalance.ObtenerBalanceAnual(fechaDesde, fechaHasta), new Newtonsoft.Json.JsonSerializerSettings());
+            DateTime fechaInicial = Convert.ToDateTime(diaI + "/" + mesI+ "/" + añoI);
+            DateTime fechaFinal = Convert.ToDateTime(diaF + "/" + mesF + "/" + añoF);
+            return Json(controladorBalance.ObtenerBalanceAnual(fechaInicial, fechaFinal), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
 

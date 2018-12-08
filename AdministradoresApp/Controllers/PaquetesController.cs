@@ -34,14 +34,8 @@ namespace AdministradoresApp.Controllers
 
                     HttpContext.Session.Set<List<Reclamo>>(SESSSION_RECLAMOS, reclamos);
 
-                    string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
+                    descargarMensaje();
 
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, null);
-
-                    if (mensaje != null && mensaje != "")
-                    {
-                        ViewBag.Message = mensaje;
-                    }
                     List<Reclamo> filtrados = HttpContext.Session.Get<List<Reclamo>>(SESSION_FILTRADOS);
 
                     if (filtrados != null)
@@ -57,7 +51,9 @@ namespace AdministradoresApp.Controllers
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -65,7 +61,9 @@ namespace AdministradoresApp.Controllers
             }
             catch(Exception ex)
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los reclamos");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los reclamos");
+
+                TempData["Mensaje"] = "Error al mostrar el formulario: No se pudieron listar los reclamos";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -109,39 +107,79 @@ namespace AdministradoresApp.Controllers
         }
         public ActionResult ListarReclamoporPaquete(int numReferencia,string Buscar)
         {
-            if (ComprobarLogin() == "G")
+            try
             {
-                switch (Buscar)
+                if (ComprobarLogin() == "G")
                 {
-                    case "Buscar Reclamo":
-                        List<Reclamo> reclamosF = new List<Reclamo>();
-                        List<Reclamo> reclamos = HttpContext.Session.Get<List<Reclamo>>(SESSSION_RECLAMOS);
+                    switch (Buscar)
+                    {
+                        case "Buscar Reclamo":
+                            List<Reclamo> reclamosF = new List<Reclamo>();
+                            List<Reclamo> reclamos = HttpContext.Session.Get<List<Reclamo>>(SESSSION_RECLAMOS);
 
-                        foreach (Reclamo r in reclamos)
-                        {
-                            if (r.Paquete == numReferencia)
+                            foreach (Reclamo r in reclamos)
                             {
-                                reclamosF.Add(r);
+                                if (r.Paquete == numReferencia)
+                                {
+                                    reclamosF.Add(r);
+                                }
                             }
-                        }
 
-                        HttpContext.Session.Set<List<Reclamo>>(SESSION_FILTRADOS, reclamosF);
+                            HttpContext.Session.Set<List<Reclamo>>(SESSION_FILTRADOS, reclamosF);
 
-                        return RedirectToAction("Index", "Paquetes", new { area = "" });
+                            return RedirectToAction("Index", "Paquetes", new { area = "" });
 
-                    case "Volver":
-                        HttpContext.Session.Set<List<Reclamo>>(SESSION_FILTRADOS, null);
-                        return RedirectToAction("Index", "Paquetes", new { area = "" });
+                        case "Volver":
+                            HttpContext.Session.Set<List<Reclamo>>(SESSION_FILTRADOS, null);
+                            return RedirectToAction("Index", "Paquetes", new { area = "" });
+                    }
+                    return RedirectToAction("Index", "Paquetes", new { area = "" });
                 }
+                else
+                {
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+            }
+            catch
+            {
+                TempData["Mensaje"] = "Error al mostrar el formulario";
+
                 return RedirectToAction("Index", "Paquetes", new { area = "" });
             }
-            else
+            
+
+        }
+
+        public void cargarMensaje(string mensaje)
+        {
+            try
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
-
-                return RedirectToAction("Index", "Home", new { area = "" });
+                TempData["Mensaje"] = mensaje;
             }
+            catch
+            {
+                throw new Exception("Error al cargar el mensaje.");
+            }
+        }
 
+        public void descargarMensaje()
+        {
+            try
+            {
+                if (TempData["Mensaje"] != null)
+                {
+                    string mensaje = TempData["Mensaje"].ToString();
+                    TempData["Mensaje"] = mensaje;
+                }
+            }
+            catch
+            {
+                throw new Exception("Error al descargar el mensaje.");
+            }
         }
     }
 }

@@ -87,8 +87,12 @@ namespace EmpleadosApp.Droid
 
                 
                 Cadete cadeteLogueado = JsonConvert.DeserializeObject<Cadete>(user);
-                cadeteLogueado.Longitud = position.Longitude.ToString();
-                cadeteLogueado.Latitud = position.Latitude.ToString();
+
+                string longitud = position.Longitude.ToString().Replace(",", ".");
+                string latitud = position.Latitude.ToString().Replace(",", ".");
+
+                cadeteLogueado.Longitud = longitud;
+                cadeteLogueado.Latitud = latitud;
                 string cadeteM = JsonConvert.SerializeObject(cadeteLogueado);
 
                 

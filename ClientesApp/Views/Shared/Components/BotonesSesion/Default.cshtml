@@ -1,18 +1,66 @@
 ﻿@model Usuario
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/login.css" />
+</head>
+<body>
 
-@{
-    if (Model != null)
-    {
-        <form asp-controller="Usuarios" asp-action="Logout" method="post" class="btn-link">
-            <div>
-                <input type="submit" value="Logout" class="btn-link" />
+    @{
+        if (Model == null)
+        {
+            @*<a class="navbar-link" asp-area="" asp-controller="Usuarios" asp-action="Login" style="float:right; font-size:14px; padding:2px">Login</a>*@
+            <a onclick="document.getElementById('id01').style.display='block'" style="width:auto; float:right; padding:15px; font-size:16px">Login</a>
+
+            <div id="id01" class="modal">
+
+                <form class="modal-content animate" asp-action="Login" asp-controller="Usuarios">
+
+                    <div class="imgcontainer">
+                        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+                        <img src="~/images/LogoConLeyenda.png" alt="Avatar" class="avatar" style="width:250px; height:150px">
+                    </div>
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="container">
+
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input asp-for="NombreUsuario" placeholder="Ingrese su nombre de usuario" class="form-control" />
+                        <span asp-validation-for="NombreUsuario" class="text-danger"></span>
+
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input type="password" asp-for="Contraseña" placeholder="Ingrese su contraseña de acceso" class="form-control" />
+                        <span asp-validation-for="Contraseña" class="text-danger"></span>
+
+                        <p></p>
+
+                        <button type="submit" style="background-color: #4CAF50;color: white;padding: 14px 20px;margin: 8px 0;border: none; cursor: pointer;width: 100%;">Login</button>
+
+                        <div>
+                            <a asp-action="RecuperarContraseña" asp-controller="Usuarios" class="btn-link" style="color:black">¿Olvidastes tu Contraseña?</a>
+                        </div>
+
+                    </div>
+
+                </form>
             </div>
-        </form>
-        @Html.ActionLink("Modificar Nombre de Usuario y/o Contraseña", "ModificarContrasenia", "Usuarios");
+        }
+    }
 
-    }
-    else
-    {
-        <a class="btn-link" asp-area="" asp-controller="Usuarios" asp-action="Login">Login</a>
-    }
-}
+    <script>
+        // Get the modal
+        var modal = document.getElementById('id01');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html> 

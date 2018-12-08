@@ -16,21 +16,16 @@ namespace AdministradoresApp.Controllers
         public IActionResult Index()
         {
             try
-            { 
-                string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
-
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, null);
-
-                if (mensaje != null && mensaje != "")
-                {
-                    ViewBag.Message = mensaje;
-                }
+            {
+                descargarMensaje();
 
                 return View();
             }
             catch
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Locales registrados");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Locales registrados");
+
+                TempData["Mensaje"] = "Error al mostrar el formulario";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -54,6 +49,34 @@ namespace AdministradoresApp.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public void cargarMensaje(string mensaje)
+        {
+            try
+            {
+                TempData["Mensaje"] = mensaje;
+            }
+            catch
+            {
+                throw new Exception("Error al cargar el mensaje.");
+            }
+        }
+
+        public void descargarMensaje()
+        {
+            try
+            {
+                if (TempData["Mensaje"] != null)
+                {
+                    string mensaje = TempData["Mensaje"].ToString();
+                    TempData["Mensaje"] = mensaje;
+                }
+            }
+            catch
+            {
+                throw new Exception("Error al descargar el mensaje.");
+            }
         }
     }
 }

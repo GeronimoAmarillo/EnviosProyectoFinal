@@ -16,9 +16,14 @@ namespace LogicaDeAppsCore
         {
             try
             {
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Objects
+                };
+
                 var httpClient = new HttpClient();
                 var json = await httpClient.GetStringAsync(ConexionREST.ConexionBalances + "/Balance?mes=" + mes + "&año=" + año);
-                Balance balanceARetornar = JsonConvert.DeserializeObject<Balance>(json);
+                Balance balanceARetornar = JsonConvert.DeserializeObject<Balance>(json, settings);
                 return balanceARetornar;
             }
             catch (Exception ex)
@@ -46,8 +51,19 @@ namespace LogicaDeAppsCore
         {
             try
             {
+
+                //string fechaI = fechaInicio.Month + "/" + fechaInicio.Day + "/" + fechaInicio.Year;
+
+                //string fechaF = fechaFinal.Month + "/" + fechaFinal.Day + "/" + fechaFinal.Year;
+
+                //string parametroI = DateTime.ParseExact(fechaInicio.ToString(), "yy/MM/dd HH:mm:ss",CultureInfo.InvariantCulture).ToString();
+                //string parametroF = DateTime.ParseExact(fechaFinal.ToString(), "yy/MM/dd HH:mm:ss", CultureInfo.InvariantCulture).ToString();
+
+
                 var httpClient = new HttpClient();
-                var json = await httpClient.GetStringAsync(ConexionREST.ConexionBalances + "/ObtenerBalanceAnual?fechaInicio=" + fechaInicio + "&fechaFinal=" + fechaFinal);
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionBalances + 
+                    "/ObtenerBalanceAnual?diaI=" + fechaInicio.Day + "&mesI=" + fechaInicio.Month + "&añoI="+ fechaInicio.Year +
+                    "&diaF=" + fechaFinal.Day + "&mesF=" + fechaFinal.Month + "&añoF=" + fechaFinal.Year);
                 Balance balanceARetornar = JsonConvert.DeserializeObject<Balance>(json);
                 return balanceARetornar;
             }

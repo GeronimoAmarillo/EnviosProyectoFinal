@@ -106,7 +106,7 @@ namespace EmpleadosApp.Droid
                 //ip correcta: 169.254.80.80
                 using (var httpClient = new HttpClient())
                 {
-                    var json = await httpClient.GetStringAsync("http://169.254.80.80:8080/api/Usuarios/LoginDroid?" + "usuario=" + user + "&contrasenia=" + pass);
+                    var json = await httpClient.GetStringAsync(ConexionREST.ConexionUsuarios + "/LoginDroid?" + "usuario=" + user + "&contrasenia=" + pass);
 
                     Usuario usuarioLogueado = null;
                     Administrador admin = null;

@@ -1,97 +1,185 @@
 ﻿@model EntidadesCompartidasCore.Geolocalizacion
 
+<link rel="stylesheet" href="~/css/DetallesMini.css" />
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+
 @{
     ViewData["Title"] = "IniciarTrackeoPost";
 }
 
-<h2>IniciarTrackeoPost</h2>
+@{
+    string mensaje = "";
 
-<div>
-    <h4>Paquete</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Paquete.NumReferencia)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Paquete.NumReferencia)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Paquete.FechaSalida)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Paquete.FechaSalida)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Paquete.Estado)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Paquete.Estado)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Paquete.Entrega)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Paquete.Entrega)
-        </dd>
-    </dl>
-</div>
+    if (TempData["Mensaje"] != null)
+    {
+        mensaje = TempData["Mensaje"].ToString();
+    }
 
-<div>
-    <h4>Cadete</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Cadete.Nombre)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Cadete.Nombre)
-        </dd>
-    </dl>
-</div>
-
+}
 
 @{
-    if (ViewBag.Entregado == true)
+    if (mensaje != "")
     {
-        <h4>El paquete ya fue entregado!</h4>
+        if (mensaje.ToLower().Contains("exito"))
+        {
+            <div id="toast"><div id="img">&#9989;</div><div id="desc">@mensaje</div></div>
+        }
+        else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid") || mensaje.ToLower().Contains("incorrecto"))
+        {
+            <div id="toast"><div id="img">&#10060;</div><div id="desc">@mensaje</div></div>
+        }
+        else
+        {
+            <div id="toast"><div id="img">&#10069;</div><div id="desc">@mensaje</div></div>
+        }
+
     }
-    else
-    {
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <style>
-                /* Set the size of the div element that contains the map */
-                #map {
-                    height: 400px; /* The height is 400 pixels */
-                    width: 100%; /* The width is the width of the web page */
-                }
-            </style>
-        </head>
-        <body>
-            <h3>Su paquete se encuentra:</h3>
-            <!--The div element for the map -->
-            <div id="map"></div>
-            <script>
-// Initialize and add the map
-function initMap() {
-  // The location of Uluru
-  var uluru = {lat: @Model.Cadete.Latitud, lng: @Model.Cadete.Longitud};
-  // The map, centered at Uluru
-  var map = new google.maps.Map(
-      document.getElementById('map'), {zoom: 4, center: uluru});
-  // The marker, positioned at Uluru
-  var marker = new google.maps.Marker({position: uluru, map: map});
+
 }
-            </script>
-            <script async defer
-                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBR1LCjF2r_Xy7XfWrRdjlrqF54gkdYQ8&callback=initMap">
-            </script>
-        </body>
-    </html>
-}
-}
+            <div>
+                <a asp-action="IniciarTrackeo" asp-controller="Paquetes" class="btn-group-xs"><img class="img-responsive" src="~/images/892646.png" style="max-width:50px; max-height:50px" /></a>
+            </div>
+<h2 class="container">Ubicacion Actual de su Paquete</h2>
+
+<div class="container">
+
+    <div id="btnContainer">
+        <button class="btn" onclick="listView()"><i class="fa fa-bars"></i> List</button>
+        <button class="btn active" onclick="gridView()"><i class="fa fa-th-large"></i> Grid</button>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="column" style="background-color:#aaa;">
+            <h4>@Html.DisplayNameFor(model => model.Paquete.NumReferencia)</h4>
+            <h6>@Html.DisplayFor(model => model.Paquete.NumReferencia)</h6>
+        </div>
+        <div class="column" style="background-color:#bbb;">
+            <h4>@Html.DisplayNameFor(model => model.Paquete.FechaSalida)</h4>
+            <h6>@Html.DisplayFor(model => model.Paquete.FechaSalida)</h6>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column" style="background-color:#ccc;">
+            <h4>@Html.DisplayNameFor(model => model.Paquete.Estado)</h4>
+            <h6>@Html.DisplayFor(model => model.Paquete.Estado)</h6>
+        </div>
+        <div class="column" style="background-color:#ddd;">
+            <h4>@Html.DisplayNameFor(model => model.Paquete.Ubicacion)</h4>
+            <h6>@Html.DisplayFor(model => model.Paquete.Ubicacion)</h6>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column" style="background-color:#aaa;">
+            <h4>@Html.DisplayNameFor(model => model.Paquete.Entrega)</h4>
+            <h6>@Html.DisplayFor(model => model.Paquete.Entrega)</h6>
+        </div>
+        <div class="column" style="background-color:#ccc;">
+            <h4>@Html.DisplayNameFor(model => model.Paquete.Cliente)</h4>
+            <h6>@Html.DisplayFor(model => model.Paquete.Cliente)</h6>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column" style="background-color:#ccc;">
+            <h4>Nombre del Cadete Transportista</h4>
+            <h6>@Html.DisplayFor(model => model.Cadete.Nombre)</h6>
+        </div>
+
+    </div>
+
+
+    @{
+        if (ViewBag.Entregado == true)
+        {
+            <h4>El paquete ya fue entregado!</h4>
+        }
+        else
+        {
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <style>
+                    /* Set the size of the div element that contains the map */
+                    #map {
+                        height: 400px; /* The height is 400 pixels */
+                        width: 100%; /* The width is the width of the web page */
+                    }
+                </style>
+            </head>
+            <body>
+                <h3>Su paquete se encuentra:</h3>
+                <!--The div element for the map -->
+                <div id="map"></div>
+                <script>
+            // Initialize and add the map
+            function initMap() {
+            // The location of Uluru
+            var uluru = {lat: @Model.Cadete.Latitud, lng: @Model.Cadete.Longitud};
+            // The map, centered at Uluru
+            var map = new google.maps.Map(
+            document.getElementById('map'), {zoom: 4, center: uluru});
+            // The marker, positioned at Uluru
+            var marker = new google.maps.Marker({position: uluru, map: map});
+            }
+                </script>
+                <script async defer
+                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBR1LCjF2r_Xy7XfWrRdjlrqF54gkdYQ8&callback=initMap">
+                </script>
+            </body>
+        </html>
+    }
+    }
 
 
 
+</div>
+
+
+
+<script>
+    // Get the elements with class="column"
+    var elements = document.getElementsByClassName("column");
+
+    // Declare a loop variable
+    var i;
+
+    // List View
+    function listView() {
+        for (i = 0; i < elements.length; i++) {
+            elements[i].style.width = "100%";
+        }
+    }
+
+    // Grid View
+    function gridView() {
+        for (i = 0; i < elements.length; i++) {
+            elements[i].style.width = "50%";
+        }
+    }
+
+    /* Optional: Add active class to the current button (highlight it) */
+    var container = document.getElementById("btnContainer");
+    var btns = container.getElementsByClassName("btn");
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function () {
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            this.className += " active";
+        });
+    }
+</script>
+
+<script>
+
+    function launch_toast() {
+        var x = document.getElementById("toast")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+    }
+
+
+    window.onload = launch_toast;
+
+</script>

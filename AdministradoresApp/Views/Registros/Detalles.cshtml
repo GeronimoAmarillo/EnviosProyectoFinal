@@ -1,20 +1,49 @@
 ﻿@model EntidadesCompartidasCore.Registro
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
 @{
     ViewData["Title"] = "Detalles";
 }
 
-<h2>Detalles</h2>
+<h2 class="container">Detalles</h2>
+@{
+    string mensaje = "";
+
+    if (TempData["Mensaje"] != null)
+    {
+        mensaje = TempData["Mensaje"].ToString();
+    }
+
+}
 
 
 @{
-
+    List<Ingreso> ingresos = Model.Ingresos;
+    List<Gasto> gastos = Model.Gastos;
+    List<Impuesto> impuestos = Model.Impuestos;
     List<SelectListItem> itemsIngresos = ViewBag.Ingresos;
     List<SelectListItem> itemsGastos = ViewBag.Gastos;
     List<SelectListItem> itemsImpuestos = ViewBag.Impuestos;
+
+    decimal totalIngresos = 0;
+    decimal totalGastos = 0;
+
+
+    foreach (Gasto g in gastos)
+    {
+        totalGastos += g.Suma;
+    }
+
+    foreach (Ingreso i in ingresos)
+    {
+        totalIngresos += i.Suma;
+    }
+
+    decimal totalGastos2 = totalGastos;
+
+
 }
 
-<div>
+<div class="container">
     <h4>Registro</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -49,10 +78,18 @@
             @Html.DisplayFor(model => model.UtilidadEjercicio)
         </dd>
     </dl>
+
+    <canvas id="popChart" style="max-height:500px; max-width:500px"></canvas>
+
+    <br />
+    <br />
+
+    <canvas id="popChart2" style="max-height:700px; max-width:700px"></canvas>
+
 </div>
 
 
-<div>
+<div class="container">
     <label>Ingresos</label>
     <br />
     @Html.ListBox("Ingresos", itemsIngresos)
@@ -65,11 +102,86 @@
     <label>Impuestos</label>
     <br />
     @Html.ListBox("Impuestos", itemsImpuestos)
-</div>    
-                    
-
-
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
 </div>
+
+
+
+<div class="container">
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Volver</a>
+</div>
+@{
+    if (mensaje != "")
+    {
+        if (mensaje.ToLower().Contains("exito"))
+        {
+            <div id="toast"><div id="img">&#9989;</div><div id="desc">@mensaje</div></div>
+        }
+        else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid") || mensaje.ToLower().Contains("incorrecto"))
+        {
+            <div id="toast"><div id="img">&#10060;</div><div id="desc">@mensaje</div></div>
+        }
+        else
+        {
+            <div id="toast"><div id="img">&#10069;</div><div id="desc">@mensaje</div></div>
+        }
+
+    }
+
+}
+
+<script>
+
+    function launch_toast() {
+        var x = document.getElementById("toast")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+    }
+
+
+    window.onload = launch_toast;
+
+    
+    var popCanvas = $("#popChart");
+    var popCanvas = document.getElementById("popChart");
+    var popCanvas = document.getElementById("popChart").getContext("2d");
+
+    
+    var barChart = new Chart(popCanvas, {
+        type: 'bar',
+        data: {
+            labels: ['Ingresos', 'Gastos'],
+            datasets: [{
+                label: 'Valores Registrados',
+                data: [@totalIngresos + @totalGastos],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)'
+                ]
+                }]
+        }
+    });
+
+    var popCanvas2 = $("#popChart2");
+    var popCanvas2 = document.getElementById("popChart2");
+    var popCanvas2 = document.getElementById("popChart2").getContext("2d");
+
+    
+    var barChart = new Chart(popCanvas2, {
+        type: 'bar',
+        data: {
+            labels: ['Utilidad Bruta', 'Utilidad Operacional', 'Utilidad sin Impuestos', 'Utilidad del Ejercicio'],
+            datasets: [{
+                label: 'Utilidades',
+                data: [@Model.UtilidadBruta + @Model.UtilidadOperacional + @Model.UtilidadSinImpuestos + @Model.UtilidadEjercicio],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)'
+                ]
+                }]
+        }
+    });
+
+</script>

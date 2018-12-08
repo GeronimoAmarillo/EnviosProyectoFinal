@@ -101,7 +101,7 @@ namespace EmpleadosApp.Droid
                     using (var httpClient = new HttpClient())
                     {
 
-                        string url = "http://169.254.80.80:8080/api/Palets/Palet";
+                        string url = ConexionREST.ConexionPalets +"/Palet";
 
                         var content = new StringContent(JsonConvert.SerializeObject(paletAgregar), Encoding.UTF8, "application/json");
 

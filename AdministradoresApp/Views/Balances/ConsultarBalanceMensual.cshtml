@@ -1,17 +1,28 @@
 ﻿@model EntidadesCompartidasCore.Balance
-
+<script src="https://www.w3schools.com/lib/w3.js"></script>
 @{
     ViewData["Title"] = "Consultar Balance Mensual";
 }
 
-<h2>Consultar Balance Mensual</h2>
+<h2 class="container">Consultar Balance Mensual</h2>
 
-<div>
+@{
+    string mensaje = "";
+
+    if (TempData["Mensaje"] != null)
+    {
+        mensaje = TempData["Mensaje"].ToString();
+    }
+
+}
+
+<div class="container">
     <h4>Balance</h4>
     <hr />
     <dl class="dl-horizontal">
+
         <dt>
-            @Html.DisplayNameFor(model => model.Mes)
+            @Html.DisplayNameFor(model => model.UtilidadBrutaTotal)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.UtilidadBrutaTotal)
@@ -20,10 +31,22 @@
             @Html.DisplayNameFor(model => model.UtilidadEjercicioTotal)
         </dt>
         <dd>
+            @Html.DisplayFor(model => model.UtilidadEjercicioTotal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UtilidadOperacionalTotal)
+        </dt>
+        <dd>
             @Html.DisplayFor(model => model.UtilidadOperacionalTotal)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.UtilidadSinimpuestosTotal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UtilidadSinimpuestosTotal)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Ingresos)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Ingresos)
@@ -32,67 +55,111 @@
             @Html.DisplayNameFor(model => model.IngresosExtra)
         </dt>
         <dd>
+            @Html.DisplayFor(model => model.IngresosExtra)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Gastos)
+        </dt>
+        <dd>
             @Html.DisplayFor(model => model.Gastos)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.GastosExtra)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Abierto)
+            @Html.DisplayFor(model => model.GastosExtra)
         </dd>
     </dl>
 </div>
 
-<div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.Label("Fecha")
-                </th>
-                <th>
-                    @Html.Label("Utilidad Bruta")
-                </th>
-                <th>
-                    @Html.Label("Utilidad Operacional")
-                </th>
-                <th>
-                    @Html.Label("Utilidad Sin Impuestos")
-                </th>
-                <th>
-                    @Html.Label("Utilidad Ejercicio")
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Registros)
-            {
+<div class="container">
+    <p>
+        <input oninput="w3.filterHTML('#id01', '.item', this.value)" placeholder="Busqueda multi-columna...">
+    </p>
+    <div class="table-responsive">
+        <table class="table-hover" id="id01">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Fecha)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UtilidadBruta)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UtilidadOperacional)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UtilidadSinImpuestos)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UtilidadEjercicio)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Detalles", "Detalles", new { mes = item.Fecha.Month, año = item.Fecha.Year }) |
-                    </td>
+                    <th>
+                        @Html.Label("Fecha")
+                    </th>
+                    <th>
+                        @Html.Label("Utilidad Bruta")
+                    </th>
+                    <th>
+                        @Html.Label("Utilidad Operacional")
+                    </th>
+                    <th>
+                        @Html.Label("Utilidad Sin Impuestos")
+                    </th>
+                    <th>
+                        @Html.Label("Utilidad Ejercicio")
+                    </th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Registros)
+                {
+                    <tr class="item">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fecha)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UtilidadBruta)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UtilidadOperacional)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UtilidadSinImpuestos)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UtilidadEjercicio)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Detalles", "Detalles", new { mes = item.Fecha.Month, año = item.Fecha.Year }) |
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <a asp-action="ConsultarBalance">Volver</a>
+    </div>
 </div>
 
-<div>
-    <a asp-action="Index">Volver</a>
-</div>
+
+@{
+    if (mensaje != "")
+    {
+        if (mensaje.ToLower().Contains("exito"))
+        {
+            <div id="toast"><div id="img">&#9989;</div><div id="desc">@mensaje</div></div>
+        }
+        else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid") || mensaje.ToLower().Contains("incorrecto"))
+        {
+            <div id="toast"><div id="img">&#10060;</div><div id="desc">@mensaje</div></div>
+        }
+        else
+        {
+            <div id="toast"><div id="img">&#10069;</div><div id="desc">@mensaje</div></div>
+        }
+
+    }
+
+}
+
+<script>
+
+    function launch_toast() {
+        var x = document.getElementById("toast")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+    }
+
+
+    window.onload = launch_toast;
+
+</script>

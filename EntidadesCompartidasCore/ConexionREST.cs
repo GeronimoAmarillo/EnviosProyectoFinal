@@ -36,7 +36,8 @@ namespace EntidadesCompartidasCore
         //static string conexionTurnos = "https://enviosservice.azurewebsites.net/api/Turnos";
         //static string conexionPaquetes = "https://enviosservice.azurewebsites.net/api/Paquetes";
         //static string conexionBalances = "https://enviosservice.azurewebsites.net/api/Balances";
-        //static string conexionPaquetes = "https://enviosservice.azurewebsites.net/api/Paquete";
+        //static string conexionEmpleados = "https://enviosservice.azurewebsites.net/api/Empleados";
+        //static string conexionCalificaciones = "https://enviosservice.azurewebsites.net/api/Calificaciones";
 
 
         public static string ConexionValores { get => conexionValores; }

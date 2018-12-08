@@ -4,59 +4,60 @@
     ViewData["Title"] = "Modificar Nombre de Usuario y/o Contraseña";
 }
 
-<h2>Modificar Nombre de Usuario y/o Contraseña</h2>
+<h2 class="container">Modificar Nombre de Usuario y/o Contraseña</h2>
 
 <p></p>
 <p></p>
 <p></p>
 
 @{
-    var mensaje = @ViewBag.Message;
+    string mensaje = "";
 
-    if (mensaje != null && mensaje != "")
+    if (TempData["Mensaje"] != null)
     {
-
-        <h3 class="text-info">@mensaje</h3>
-
+        mensaje = TempData["Mensaje"].ToString();
     }
 
 }
 
 <hr />
-<div class="form-group">
-    <div class="col-md-4">
-        <form asp-controller="Usuarios" asp-action="ModificarContrasenia" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="NombreUsuario" class="control-label"></label>
-                <input asp-for="NombreUsuario" class="form-control" name="NombreUsuario" id="NombreUsuario"/>
-                <span asp-validation-for="NombreUsuario" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NuevoNombreUsuario" class="control-label"></label>
-                <input asp-for="NuevoNombreUsuario" class="form-control" name="NuevoNombreUsuario" id="NuevoNombreUsuario"/>
-                <span asp-validation-for="NuevoNombreUsuario" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Contraseña" class="control-label"></label>
-                <input asp-for="Contraseña" class="form-control" name="Contraseña" id="Contraseña" />
-                <span asp-validation-for="Contraseña" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NuevaContrasenia" class="control-label"></label>
-                <input asp-for="NuevaContrasenia" class="form-control" name="NuevaContrasenia" id="NuevaContrasenia" />
-                <span asp-validation-for="NuevaContrasenia" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Modificar" id="submit" name="submit" class="btn btn-default" />
-            </div>
-        </form>
+<div class="container">
+    <div class="form-group">
+        <div class="col-md-4">
+            <form asp-controller="Usuarios" asp-action="ModificarContrasenia" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label>Nombre de Usuario Actual</label>
+                    <input asp-for="NombreUsuario" class="form-control" name="NombreUsuario" id="NombreUsuario" />
+                    <span asp-validation-for="NombreUsuario" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Nombre de Usuario nuevo</label>
+                    <input asp-for="NuevoNombreUsuario" class="form-control" name="NuevoNombreUsuario" id="NuevoNombreUsuario" />
+                    <span asp-validation-for="NuevoNombreUsuario" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Contraseña Actual</label>
+                    <input type="password" asp-for="Contraseña" class="form-control" name="Contraseña" id="Contraseña" />
+                    <span asp-validation-for="Contraseña" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Nueva Contraseña</label>
+                    <input type="password" asp-for="NuevaContrasenia" class="form-control" name="NuevaContrasenia" id="NuevaContrasenia" />
+                    <span asp-validation-for="NuevaContrasenia" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Modificar" id="submit" name="submit" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index" asp-controller="Home">Volver al inicio</a>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Volver al inicio</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
@@ -70,4 +71,35 @@
             return false;
         }
     }
+</script>@{
+    if (mensaje != "")
+    {
+        if (mensaje.ToLower().Contains("exito"))
+        {
+            <div id="toast"><div id="img">&#9989;</div><div id="desc">@mensaje</div></div>
+        }
+        else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid") || mensaje.ToLower().Contains("incorrecto"))
+        {
+            <div id="toast"><div id="img">&#10060;</div><div id="desc">@mensaje</div></div>
+        }
+        else
+        {
+            <div id="toast"><div id="img">&#10069;</div><div id="desc">@mensaje</div></div>
+        }
+
+    }
+
+}
+
+<script>
+
+    function launch_toast() {
+        var x = document.getElementById("toast")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+    }
+
+
+    window.onload = launch_toast;
+
 </script>
