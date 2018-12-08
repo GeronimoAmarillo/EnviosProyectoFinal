@@ -24,32 +24,36 @@ namespace ClientesApp.Controllers
                 IControladorCalificacion controladorCalificacion = FabricaApps.GetControladorCalificacion();
 
                 List<Calificacion> calificaciones = await controladorCalificacion.ListarCalificaciones();
-
-                List<Calificacion> calificacionesSeleccionadas = calificaciones.Where(x => x.Puntaje == 5 || x.Puntaje == 4).OrderByDescending(x=> x.Puntaje).ToList();
-
                 List<Calificacion> calificacionesUI = new List<Calificacion>();
-
-                if (calificacionesSeleccionadas.Count >= 2)
+                if (calificaciones != null)
                 {
-                    if (calificacionesSeleccionadas.Count >= 3)
+                    if (calificaciones.Any())
                     {
-                        for (int i = 0; i < 3; i++)
+                        List<Calificacion> calificacionesSeleccionadas = calificaciones.Where(x => x.Puntaje == 5 || x.Puntaje == 4).OrderByDescending(x => x.Puntaje).ToList();
+
+                        
+
+                        if (calificacionesSeleccionadas.Count >= 2)
                         {
-                            calificacionesUI.Add(calificacionesSeleccionadas[i]);
+                            if (calificacionesSeleccionadas.Count >= 3)
+                            {
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    calificacionesUI.Add(calificacionesSeleccionadas[i]);
+                                }
+                            }
+                            else
+                            {
+                                for (int i = 0; i < 2; i++)
+                                {
+                                    calificacionesUI.Add(calificacionesSeleccionadas[i]);
+                                }
+                            }
+
                         }
+
                     }
-                    else
-                    {
-                        for (int i = 0; i < 2; i++)
-                        {
-                            calificacionesUI.Add(calificacionesSeleccionadas[i]);
-                        }
-                    }
-                    
                 }
-
-                
-
 
                 return View(calificacionesUI);
             }
