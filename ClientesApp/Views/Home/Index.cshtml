@@ -55,6 +55,7 @@
                     <h1>Esfuerzo</h1>
                     <h3>Trabajamos sin descanso para hacer nuestro trabajo en tiempo y forma</h3>
                 </hgroup>
+                <button id="botonScrol1" class="btn btn-hero btn-lg" role="button" href="#uno" data-ancla="uno">Conoce mas</button>
             </div>
         </div>
         <div class="item slides">
@@ -64,6 +65,7 @@
                     <h1>adaptados al presente</h1>
                     <h3>Le ofrecemos al cliente un conjunto de herramientas para controlar el flujo de sus paquetes de forma sencilla</h3>
                 </hgroup>
+                <button id="botonScrol2" class="btn btn-hero btn-lg" role="button" href="#dos" data-ancla="dos">Conoce mas</button>
             </div>
         </div>
         <div class="item slides">
@@ -73,6 +75,7 @@
                     <h1>Logistica</h1>
                     <h3>Ofrecemos servicio de almacenaje administrado de forma digital para aumentar su nivel agilidad y seguridad</h3>
                 </hgroup>
+                <button id="botonScrol3" class="btn btn-hero btn-lg" role="button" href="#tres" data-ancla="tres">Conoce mas</button>
             </div>
         </div>
     </div>
@@ -97,17 +100,17 @@
                     <h1>@Model[0].Clientes.Nombre</h1>
                     <h3>@Model[0].Comentario</h3>
                 </hgroup>
-                @{ 
+                @{
                     if (Model[0].Puntaje == 5)
                     {
                         <img src="~/images/5 Estrellas.png" />
                     }
                     else
-                    { 
+                    {
                         <img src="~/images/4 Estrellas.png" />
                     }
                 }
-                
+
             </div>
         </div>
         <div class="item slides">
@@ -117,13 +120,13 @@
                     <h1>@Model[1].Clientes.Nombre</h1>
                     <h3>@Model[1].Comentario</h3>
                 </hgroup>
-                @{ 
+                @{
                     if (Model[1].Puntaje == 5)
                     {
                         <img src="~/images/5 Estrellas.png" />
                     }
                     else
-                    { 
+                    {
                         <img src="~/images/4 Estrellas.png" />
                     }
                 }
@@ -132,18 +135,18 @@
         <div class="item slides">
             <div class="slide-3"></div>
             <div class="hero">
-                
+
                 <hgroup>
                     <h1>@Model[2].Clientes.Nombre</h1>
                     <h3>@Model[2].Comentario</h3>
                 </hgroup>
-                @{ 
+                @{
                     if (Model[2].Puntaje == 5)
                     {
                         <img src="~/images/5 Estrellas.png" />
                     }
                     else
-                    { 
+                    {
                         <img src="~/images/4 Estrellas.png" />
                     }
                 }
@@ -152,6 +155,76 @@
     </div>
 </div>
 
+<A name="uno" id="uno"></A>
+
+<div class="row">
+    <div class="col-md-12 one-column-text">
+        <h2>Quiénes somos</h2>
+        <h3>
+            Somos una empresa seria y responsable dedicada al servicio de cadeteria y envios industriales, dedicamos nuestro esfuerzo completo para distribuir
+            los paquetes de nuestros clientes de forma rapida y controlada. 
+            Para mas informacion contactese con nosotros (informacion en el pie de la pagina)
+        </h3>
+
+    </div>
+</div>
+
+<div class="row photo-quote-left">
+    <div class="col-md-6 quote-content-left">
+        Dia y noche, fines de semana, fiestas, todo sea por complacer al cliente con nuestro servicio
+        <p>”Matias <span>”Socio Fundador</span></p>
+    </div>
+</div>
+
+
+
+
+<A name="dos" id="dos"></A>
+
+<div class="row">
+    <div class="col-md-12 one-column-text">
+        <h2>Adaptados al presente</h2>
+        <h3>
+            Ofrecemos servicios Online de facil uso, que permiten realizar el seguimiento sobre los paquetes registrados para el cliente en el sistema,
+            con una interface intuitiva y discreta, con la intencion de disponer la informacion sobre sus entregas y paquetes de una forma visualmente entendible y
+            agil.
+            Ademas nuestras herramientas online exclusivas para clientes, asi como este sitio, son adaptables a cualquier dispositivo movil, permitiendo hacer ameno y agil el uso de nuestros servicios
+            desde cualquier lugar, desde cualquier dispositivo. Para mas informacion contactese con nosotros (informacion en el pie de la pagina)
+        </h3>
+
+    </div>
+</div>
+
+<div class="row photo-quote-left">
+    <div class="col-md-6 quote-content-left">
+        Nuestra intencion es facilitarle al cliente las herramientas necesarias para controlar su flujo de paquetes, hasta desde su dispositivo movil.
+        <p>”Matias <span>”Socio Fundador</span></p>
+    </div>
+</div>
+
+
+<A name="tres" id="tres"></A>
+
+
+<div class="row">
+    <div class="col-md-12 one-column-text">
+        <h2>Logistica</h2>
+        <h3>
+            Contamos con un galpon divido en diferentes sectores especialmente climatizados para distintos tipos de cargas, con un manejo de estas ultimas agil y seguro,
+            mediante nuestro sistema de administracion logistica de campo, nuestros administradores logisticos dispondran en todo momento de la informacion de sus cargas,
+            realizaremos seguimiento de sus cargas para evitar accidentes o perdida de recursos. Aseguramos su deposito, evitando confusiones y agilizamos su retiro.
+            Para mas informacion contactese con nosotros (informacion en el pie de la pagina)
+        </h3>
+
+    </div>
+</div>
+
+<div class="row photo-quote-left">
+    <div class="col-md-6 quote-content-left">
+        Las cargas llegan, entran y salen de forma segura, prolija y lo mas agil posible gracias a nuestra aplicacion movil de campo.
+        <p>”Daniel <span>”Administrador Logistico</span></p>
+    </div>
+</div>
 
 @*<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
@@ -209,6 +282,33 @@
 
 
     window.onload = launch_toast;
+
+    $('#botonScrol1').click(function (e) {
+        e.preventDefault();		//evitar el eventos del enlace normal
+        var strAncla = $(this).attr('href'); //id del ancla
+        $('body,html').stop(true, true).animate({
+            scrollTop: $(strAncla).offset().top
+        }, 1000);
+
+    });
+
+    $('#botonScrol2').click(function (e) {
+        e.preventDefault();		//evitar el eventos del enlace normal
+        var strAncla = $(this).attr('href'); //id del ancla
+        $('body,html').stop(true, true).animate({
+            scrollTop: $(strAncla).offset().top
+        }, 1000);
+
+    });
+
+    $('#botonScrol3').click(function (e) {
+        e.preventDefault();		//evitar el eventos del enlace normal
+        var strAncla = $(this).attr('href'); //id del ancla
+        $('body,html').stop(true, true).animate({
+            scrollTop: $(strAncla).offset().top
+        }, 1000);
+
+    });
 
 </script>
 
