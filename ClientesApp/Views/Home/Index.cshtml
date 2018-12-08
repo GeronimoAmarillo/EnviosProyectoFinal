@@ -183,74 +183,81 @@
     <br />
 </div>
 
+@{
+    if (Model != null)
+    {
+        if (Model.Count >= 3)
+        {
+            <div class="carousel fade-carousel2 slide" data-ride="carousel" data-interval="4000" id="bs-carousel" style="z-index:1">
+                <!-- Overlay -->
+                <div class="overlay"></div>
+                <!-- Indicators -->
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    <div class="item slides active">
+                        <div class="slide-1"></div>
+                        <div class="hero">
+                            <hgroup>
+                                <h1>@Model[0].Clientes.Nombre</h1>
+                                <h3>@Model[0].Comentario</h3>
+                            </hgroup>
+                            @{
+                                if (Model[0].Puntaje == 5)
+                                {
+                                    <img src="~/images/5 Estrellas.png" />
+                                }
+                                else
+                                {
+                                    <img src="~/images/4 Estrellas.png" />
+                                }
+                            }
 
-<div class="carousel fade-carousel2 slide" data-ride="carousel" data-interval="4000" id="bs-carousel" style="z-index:1">
-    <!-- Overlay -->
-    <div class="overlay"></div>
-    <!-- Indicators -->
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner">
-        <div class="item slides active">
-            <div class="slide-1"></div>
-            <div class="hero">
-                <hgroup>
-                    <h1>@Model[0].Clientes.Nombre</h1>
-                    <h3>@Model[0].Comentario</h3>
-                </hgroup>
-                @{
-                    if (Model[0].Puntaje == 5)
-                    {
-                        <img src="~/images/5 Estrellas.png" />
-                    }
-                    else
-                    {
-                        <img src="~/images/4 Estrellas.png" />
-                    }
-                }
+                        </div>
+                    </div>
+                    <div class="item slides">
+                        <div class="slide-2"></div>
+                        <div class="hero">
+                            <hgroup>
+                                <h1>@Model[1].Clientes.Nombre</h1>
+                                <h3>@Model[1].Comentario</h3>
+                            </hgroup>
+                            @{
+                                if (Model[1].Puntaje == 5)
+                                {
+                                    <img src="~/images/5 Estrellas.png" />
+                                }
+                                else
+                                {
+                                    <img src="~/images/4 Estrellas.png" />
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="item slides">
+                        <div class="slide-3"></div>
+                        <div class="hero">
 
+                            <hgroup>
+                                <h1>@Model[2].Clientes.Nombre</h1>
+                                <h3>@Model[2].Comentario</h3>
+                            </hgroup>
+                            @{
+                                if (Model[2].Puntaje == 5)
+                                {
+                                    <img src="~/images/5 Estrellas.png" />
+                                }
+                                else
+                                {
+                                    <img src="~/images/4 Estrellas.png" />
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="item slides">
-            <div class="slide-2"></div>
-            <div class="hero">
-                <hgroup>
-                    <h1>@Model[1].Clientes.Nombre</h1>
-                    <h3>@Model[1].Comentario</h3>
-                </hgroup>
-                @{
-                    if (Model[1].Puntaje == 5)
-                    {
-                        <img src="~/images/5 Estrellas.png" />
-                    }
-                    else
-                    {
-                        <img src="~/images/4 Estrellas.png" />
-                    }
-                }
-            </div>
-        </div>
-        <div class="item slides">
-            <div class="slide-3"></div>
-            <div class="hero">
-
-                <hgroup>
-                    <h1>@Model[2].Clientes.Nombre</h1>
-                    <h3>@Model[2].Comentario</h3>
-                </hgroup>
-                @{
-                    if (Model[2].Puntaje == 5)
-                    {
-                        <img src="~/images/5 Estrellas.png" />
-                    }
-                    else
-                    {
-                        <img src="~/images/4 Estrellas.png" />
-                    }
-                }
-            </div>
-        </div>
-    </div>
-</div>
+        }
+    }
+}
 
 <div style="background-color:black">
     <br />
