@@ -824,8 +824,10 @@ h1 {
         }
 }
 
+
+
 .one-column-text {
-    padding: 80px 200px;
+    padding: 80px;
 }
 
 
@@ -877,3 +879,109 @@ h1 {
     display: block;
     margin: auto;
 }
+
+
+/*-----------------------------BLOQUE 2---------------------------------------*/
+.photo-with-button {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.photo-with-button-content {
+    color: #35556b;
+    padding-left: 170px;
+}
+
+    .photo-with-button-content h2 {
+        font-size: 46px;
+        font-weight: 300;
+        width: 600px;
+        margin-bottom: 30px;
+    }
+
+    .photo-with-button-content p {
+        font-size: 18px;
+        font-weight: 300;
+    }
+
+.btn-blue-large {
+    margin-top: 30px;
+    padding: 20px;
+    font-size: 24px;
+    font-weight: 600;
+    background-color: #35556b;
+    border-color: #35556b;
+}
+/*--------------------------TERMINA BLOQUE 2----------------------------------*/
+
+/*-----------------------------BLOQUE 2.1-------------------------------------*/
+.photo-with-button {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.photo-with-button-content {
+    color: #35556b;
+    padding-left: 170px;
+}
+
+    .photo-with-button-content h2 {
+        font-size: 46px;
+        font-weight: 300;
+        width: 600px;
+        margin-bottom: 30px;
+    }
+
+    .photo-with-button-content p {
+        font-size: 18px;
+        font-weight: 300;
+    }
+
+    .photo-with-button-content h4 {
+        color: #025167;
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    .photo-with-button-content a {
+        font-size: 14px;
+    }
+
+.btn-blue-large {
+    margin-top: 30px;
+    padding: 20px;
+    font-size: 24px;
+    font-weight: 600;
+    background-color: #35556b;
+    border-color: #35556b;
+}
+
+#row-below {
+    background-color: #f5bf52;
+    padding: 30px 150px;
+}
+
+    #row-below h3 {
+        color: #742832;
+        font-weight: 300;
+        text-align: center;
+        padding-bottom: 20px;
+    }
+
+    #row-below img {
+        margin: 0px;
+        width: 100px;
+        height: 84px;
+        float: left;
+    }
+
+    #row-below p {
+        font-weight: 300;
+        float: left;
+        color: #444;
+        font-size: 16px;
+        width: 180px;
+        padding-top: 15px;
+    }
+/*----------
