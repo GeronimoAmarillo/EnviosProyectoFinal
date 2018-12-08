@@ -17,8 +17,10 @@ namespace PersistenciaCore
         [Required]
         [StringLength(2)]
         public string TipoLibreta { get; set; }
-       
-        public long IdTelefono { get; set; }
+
+        public string Longitud { get; set; }
+
+        public string Latitud { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -29,5 +31,8 @@ namespace PersistenciaCore
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Vehiculos> Vehiculos { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Entregas> Entregas { get; set; }
     }
 }

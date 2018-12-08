@@ -16,6 +16,8 @@ namespace EntidadesCompartidasCore
         [Range(0, 2400)]
         public int Hora { get; set; }
         
+        public bool Eliminado { get; set; }
+
         public List<Entrega> Entregas { get; set; }
     }
 }

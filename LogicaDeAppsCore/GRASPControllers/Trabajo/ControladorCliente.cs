@@ -77,7 +77,7 @@ namespace LogicaDeAppsCore
             return cliente;
         }
 
-        public async Task<Cliente> BuscarCliente(int rut)
+        public async Task<Cliente> BuscarCliente(long rut)
         {
             try
             {

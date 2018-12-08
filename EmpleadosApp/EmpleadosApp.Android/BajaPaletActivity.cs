@@ -65,7 +65,7 @@ namespace EmpleadosApp.Droid
 
                 using (var httpClient = new HttpClient())
                 {
-                    var json = await httpClient.GetStringAsync("http://169.254.80.80:8080/api/Palets/Buscar?id=" + id);
+                    var json = await httpClient.GetStringAsync(ConexionREST.ConexionPalets + "/Buscar?id=" + id);
 
                     Palet palet = null;
 
@@ -103,7 +103,7 @@ namespace EmpleadosApp.Droid
                     using (var httpClient = new HttpClient())
                     {
 
-                        string url = "http://169.254.80.80:8080/api/Palets/Baja";
+                        string url = ConexionREST.ConexionPalets + "/Baja";
 
                         var content = new StringContent(JsonConvert.SerializeObject(paletSeleccionado), Encoding.UTF8, "application/json");
 

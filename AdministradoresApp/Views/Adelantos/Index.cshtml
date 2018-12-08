@@ -1,10 +1,20 @@
 ﻿@model IEnumerable<EntidadesCompartidasCore.Adelanto>
-
+<script src="https://www.w3schools.com/lib/w3.js"></script>
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2 class="container">Lista de Adelantos para el cliente seleccionado</h2>
+
+@{
+    string mensaje = "";
+
+    if (TempData["Mensaje"] != null)
+    {
+        mensaje = TempData["Mensaje"].ToString();
+    }
+
+}
 
 @{
     bool habilitado = ViewBag.Habilitado;
@@ -12,7 +22,7 @@
     if (habilitado)
     {
         <p>
-            <a asp-action="Alta">Create New</a>
+            <a asp-action="Alta">Registrar nuevo adelanto</a>
         </p>
     }
     else
@@ -23,59 +33,97 @@
     }
 }
 
+        <div class="container">
+            <p>
+                <input oninput="w3.filterHTML('#id01', '.item', this.value)" placeholder="Busqueda multi-columna...">
+            </p>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.fechaExpedido)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Empleado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Suma)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CantidadCuotas)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Saldado)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.fechaExpedido)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Empleado)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Suma)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CantidadCuotas)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Saldado)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                </td>
-            </tr>
+            <div class="table-responsive">
+                <table class="table-hover" id="id01">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.fechaExpedido)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Empleado)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Suma)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CantidadCuotas)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Saldado)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                {
+                    <tr class="item">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.fechaExpedido)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Empleado)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Suma)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CantidadCuotas)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Saldado)
+                        </td>
+                        <td></td>
+                    </tr>
         }
-    </tbody>
-</table>
+                    </tbody>
+                </table>
+            </div>
+
+            <a asp-action="Index" asp-controller="Empleados">Volver</a>
+        </div>
+
+@{
+    if (mensaje != "")
+    {
+        if (mensaje.ToLower().Contains("exito"))
+        {
+            <div id="toast"><div id="img">&#9989;</div><div id="desc">@mensaje</div></div>
+        }
+        else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid") || mensaje.ToLower().Contains("incorrecto"))
+        {
+            <div id="toast"><div id="img">&#10060;</div><div id="desc">@mensaje</div></div>
+        }
+        else
+        {
+            <div id="toast"><div id="img">&#10069;</div><div id="desc">@mensaje</div></div>
+        }
+
+    }
+
+}
+
+<script>
+
+    function launch_toast() {
+        var x = document.getElementById("toast")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+    }
+
+
+    window.onload = launch_toast;
+
+</script>

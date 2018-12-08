@@ -21,6 +21,8 @@ namespace EmpleadosApp.Droid
         private EditText etNumReferencia;
         private EditText etClienteReceptor;
         private EditText etLocalEmisor;
+        private EditText etCadeteTransportador;
+        private EditText etTurno;
         private Entrega entrega;
         private Button btnAsignar;
 
@@ -138,17 +140,54 @@ namespace EmpleadosApp.Droid
             etClienteReceptor = FindViewById<EditText>(Resource.Id.etClienteReceptor);
             etLocalEmisor = FindViewById<EditText>(Resource.Id.etLocalEmisor);
             etNumReferencia = FindViewById<EditText>(Resource.Id.etNumReferencia);
+            etCadeteTransportador = FindViewById<EditText>(Resource.Id.etCadeteTransportador);
+            etTurno = FindViewById<EditText>(Resource.Id.etTurno);
 
             if (entrega.ClienteEmisor != null)
             {
-                etClienteReceptor.Text = entrega.ClienteEmisor.ToString();
+                etClienteReceptor.Text = "Cliente: " + entrega.ClienteEmisor.ToString();
             }
             else
             {
-                etClienteReceptor.Text = entrega.ClienteReceptor.ToString();
+                etClienteReceptor.Text = "Local: " + entrega.ClienteReceptor.ToString();
             }
             
             etLocalEmisor.Text = entrega.Locales.Nombre;
+
+            if (entrega.Cadete != null)
+            {
+                etCadeteTransportador.Text = "Transporta: " + entrega.Cadete.ToString();
+            }
+            else
+            {
+                etCadeteTransportador.Text = "Transporta: Asignacion Automatica";
+            }
+
+            if (entrega.Cadete != null)
+            {
+                etCadeteTransportador.Text = "Transporta: " + entrega.Cadete.ToString();
+            }
+            else
+            {
+                etCadeteTransportador.Text = "Transporta: Asignacion Automatica";
+            }
+
+            if (entrega.Turno != null)
+            {
+                if (entrega.Turno != "")
+                {
+                    etTurno.Text = "Turno: " + entrega.Turno.ToString();
+                }
+                else
+                {
+                    etTurno.Text = "Turno: Asignacion Automatica";
+                }
+            }
+            else
+            {
+                etTurno.Text = "Turno: Asignacion Automatica";
+            }
+            
         }
 
         public void VerificarSesion()

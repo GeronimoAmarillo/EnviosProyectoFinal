@@ -12,7 +12,7 @@ namespace LogicaDeServicioCore
 
         List<Entrega> ListarEntregas();
 
-        bool Entregar(List<Entrega> entregasSelecciondas);
+        bool Entregar(EntidadesCompartidasCore.Entrega entrega);
 
         List<Cliente> ListarClientes();
 
@@ -24,6 +24,8 @@ namespace LogicaDeServicioCore
 
         Entrega BuscarEntrega(int codigo);
 
-        bool AltaEntrega(Entrega pEntrega);
+        bool AsignarEntrega(EntidadesCompartidasCore.Entrega pEntrega);
+
+        bool LevantarEntrega(EntidadesCompartidasCore.Entrega pEntrega);
     }
 }

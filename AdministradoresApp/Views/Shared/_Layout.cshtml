@@ -3,57 +3,87 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - AdministradoresApp</title>
+    <title>@ViewData["Title"] - AdminisradoresApp</title>
+
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/inicio.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://www.w3schools.com/lib/w3.js"></script>
+
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     </environment>
+
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">AdministradoresApp</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    <li><a asp-area="" asp-controller="Clientes" asp-action="Index">Clientes</a></li>
-                    <li><a asp-area="" asp-controller="Locales" asp-action="Index">Locales</a></li>
-                    <li><a asp-area="" asp-controller="Empleados" asp-action="Index">Empleados</a></li>
-                    <li><a asp-area="" asp-controller="Turnos" asp-action="Index">Turnos</a></li>
-                    <li><a asp-area="" asp-controller="Valores" asp-action="Index">Valores</a></li>
-                    <li><a asp-area="" asp-controller="Vehiculos" asp-action="Index">Vehiculos</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li>@await Component.InvokeAsync("UsuarioLogueado")</li>
-                    <li>@await  Component.InvokeAsync("BotonesSesion")</li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
-    <div class="container body-content">
+    <div class="menu" style="z-index:2; transition: .5s" id="menu">
+        <div class="topnav" id="myTopnav" style="z-index:3">
+            <span style="font-size:32px;cursor:pointer;color:#293d52; padding:0; margin:0; padding-left:10px" onclick="openNav()">&#9776;</span>@await Component.InvokeAsync("AccionesUsuario")
+            @await Component.InvokeAsync("BotonesSesion")
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="wrapper" style="z-index:1">
+
+        <div id="main" style="margin:0; padding:0">
+
+            @RenderBody()
+
+        </div>
+    </div>
+
+    <div class="sidenav" id="mySidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a asp-action="Index" asp-controller="Home"><img src="~/images/LogoNuevoBlanco.png" alt="Home" class="img-responsive" style="padding-left:13px;margin:0; padding-bottom:15px" /></a>
+        <button style="font-size:20px" class="dropdown-btn">
+            <i class="fa fa-fw fa-user"></i>
+            Usuarios
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-container">
+            <a asp-area="" asp-controller="Clientes" asp-action="Index">Clientes</a>
+            <a asp-area="" asp-controller="Empleados" asp-action="Index">Empleados</a>
+        </div>
+        <button style="font-size:20px" class="dropdown-btn">
+            <img src="~/images/Contabilidad2.png" style="max-height:30px;max-width:30px" />
+            Contabilidad
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-container">
+            <a asp-area="" asp-controller="Registros" asp-action="Index">Registros Contables</a>
+            <a asp-area="" asp-controller="Balances" asp-action="ConsultarBalance">Balances</a>
+            <a asp-area="" asp-controller="Valores" asp-action="Index">Valores</a>
+        </div>
+        <button style="font-size:20px" class="dropdown-btn">
+            <i class="fa fa-fw fa-home"></i>
+            General
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-container">
+            <a asp-area="" asp-controller="Locales" asp-action="Index">Locales</a>
+            <a asp-area="" asp-controller="Turnos" asp-action="Index">Turnos</a>
+            <a asp-area="" asp-controller="Vehiculos" asp-action="Index">Vehiculos</a>
+            <a asp-area="" asp-controller="Paquetes" asp-action="Index">Reclamos</a>
+        </div>
+    </div>
+
+    <div class="container">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2018 - AdministradoresApp</p>
-        </footer>
+        <div class="footer">
+            <p>Copyright 2019 Envios srl Service</p>
+        </div>
     </div>
 
     <environment include="Development">
@@ -76,6 +106,91 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
+
+
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+            document.getElementById("parallax").style.marginLeft = "250px";
+            document.getElementById("myTopnav").style.marginLeft = "250px";
+            document.getElementById("menu").style.marginLeft = "250px";
+            document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+            document.getElementById("parallax").style.marginLeft = "0";
+            document.getElementById("myTopnav").style.marginLeft = "0";
+            document.getElementById("menu").style.marginLeft = "0";
+            document.body.style.backgroundColor = "white";
+        }
+
+        function openPan() {
+            document.getElementById("mySidepanel").style.width = "250px";
+        }
+
+        function closePan() {
+            document.getElementById("mySidepanel").style.width = "0";
+        }
+
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+
+    </script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+        posicionarMenu();
+
+        $(window).scroll(function () {
+            posicionarMenu();
+        });
+
+        function posicionarMenu() {
+            var altura_del_header = $('.header').outerHeight(true);
+            var altura_del_menu = $('.menu').outerHeight(true);
+            var altura_del_topnav = $('.topnav').outerHeight(true);
+
+            if ($(window).scrollTop() >= altura_del_header + altura_del_topnav) {
+                $('.menu').addClass('fixed')
+                $('.wrapper').css('margin-top', altura_del_menu + 'px');
+            } else {
+                $('.menu').removeClass('fixed');
+                $('.wrapper').css('margin-top', '0');
+            }
+        }
+
+        if ($('#bannerContraste').is(":visible")) {
+            $('#bannerContraste').fadeIn(1000);
+        } else {
+            $('#bannerContraste').fadeOut(1000);
+        }
+
+        var dropdown = document.getElementsByClassName("dropdown-btn");
+        var i;
+
+        for (i = 0; i < dropdown.length; i++) {
+            dropdown[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "block") {
+                    dropdownContent.style.display = "none";
+                } else {
+                    dropdownContent.style.display = "block";
+                }
+            });
+        }
+
+    </script>
 
     @RenderSection("Scripts", required: false)
 </body>

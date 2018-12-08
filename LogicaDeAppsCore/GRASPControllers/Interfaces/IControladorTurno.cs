@@ -15,7 +15,7 @@ namespace LogicaDeAppsCore
 
         Task<Turno>BuscarTurno(string codigo);
 
-        bool ModificarTurno(Turno pTurno);
+        bool Eliminar(Turno pTurno);
 
         Turno GetTurno();
 

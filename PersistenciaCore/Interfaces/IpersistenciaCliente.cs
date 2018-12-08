@@ -34,6 +34,8 @@ namespace PersistenciaCore
 
         bool SetearCodigoRecuperacionContraseña(Cliente cliente);
 
+        bool ModificarContrasenia(Cliente unCliente);
+
         bool SetearCodigoModificarEmail(Cliente cliente);
     }
 }

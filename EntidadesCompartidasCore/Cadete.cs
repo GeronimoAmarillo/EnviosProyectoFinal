@@ -12,8 +12,11 @@ namespace EntidadesCompartidasCore
         [MinLength(1)]
         [MaxLength(3)]
         public string TipoLibreta { get; set; }
-        [Required]
-        public long IdTelefono { get; set; }
+
+        public string Longitud { get; set; }
+
+        public string Latitud { get; set; }
+
         [Required]
         [Range(1000000, 99999999)]
         public int CiEmpleado { get; set; }

@@ -94,7 +94,7 @@ namespace EmpleadosApp.Droid
 
         private void lvClientes_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            var intent = new Intent(this, typeof(AsignarPaqueteActivity));
+            var intent = new Intent(this, typeof(ListadoCadetesActivity));
             var id = (int)e.Id;
 
             entrega.ClienteEmisor = id;

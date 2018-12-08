@@ -9,10 +9,14 @@ namespace LogicaDeAppsCore
 {
     public interface IControladorBalance
     {
-        List<Balance> ConsultarBalanceAnual(int año);
+        Task<List<Balance>> ConsultarBalanceAnual(int año);
 
-        Balance ConsultarBalanceMensual(string mes, int año);
+        Task<Balance> ObtenerBalanceAnual(DateTime fechaDesde, DateTime fechaHasta);
 
-        List<Registro> ConsultarRegistros(string mes, int año);
+        Task<Balance> ConsultarBalanceMensual(string mes, int año);
+
+        Task<Registro> ConsultarRegistro(DateTime fecha);
+
+        Task<List<Registro>> ConsultarRegistros(DateTime fechaInicio, DateTime fechaFinal);
     }
 }

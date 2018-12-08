@@ -1,0 +1,108 @@
+﻿@model DTUsuario
+
+@{
+    ViewData["Title"] = "Modificar Nombre de Usuario y/o Contraseña";
+}
+<div>
+    <a asp-action="Index" asp-controller="Home" class="btn-group-xs"><img class="img-responsive" src="~/images/892646.png" style="max-width:50px; max-height:50px" /></a>
+</div>
+
+<h2 class="container">Modificar Nombre de Usuario y/o Contraseña</h2>
+
+<p></p>
+<p></p>
+<p></p>
+
+
+@{
+    string mensaje = "";
+
+    if (TempData["Mensaje"] != null)
+    {
+        mensaje = TempData["Mensaje"].ToString();
+    }
+
+}
+
+@{
+    if (mensaje != "")
+    {
+        if (mensaje.ToLower().Contains("exito"))
+        {
+            <div id="toast"><div id="img">&#9989;</div><div id="desc">@mensaje</div></div>
+        }
+        else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid") || mensaje.ToLower().Contains("incorrecto"))
+        {
+            <div id="toast"><div id="img">&#10060;</div><div id="desc">@mensaje</div></div>
+        }
+        else
+        {
+            <div id="toast"><div id="img">&#10069;</div><div id="desc">@mensaje</div></div>
+        }
+
+    }
+
+}
+
+
+<div class="container">
+
+    <div class="col-md-4">
+        <form asp-controller="Usuarios" asp-action="ModificarContrasenia" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Ingrese su actual nombre de usuario</label>
+                <input asp-for="NombreUsuario" class="form-control" name="NombreUsuario" id="NombreUsuario" />
+                <span asp-validation-for="NombreUsuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Ingrese su nuevo nombre de usuario</label>
+                <input asp-for="NuevoNombreUsuario" class="form-control" name="NuevoNombreUsuario" id="NuevoNombreUsuario" />
+                <span asp-validation-for="NuevoNombreUsuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Ingrese su contraseña actual</label>
+                <input asp-for="Contraseña" class="form-control" name="Contraseña" id="Contraseña" />
+                <span asp-validation-for="Contraseña" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Ingrese su nueva contraseña</label>
+                <input asp-for="NuevaContrasenia" class="form-control" name="NuevaContrasenia" id="NuevaContrasenia" />
+                <span asp-validation-for="NuevaContrasenia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Modificar" id="submit" name="submit" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+
+
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script language="javascript">
+
+    document.getElementById("submit").onclick = function () {
+        if (NombreUsuario.value == NuevoNombreUsuario.value || Contraseña.value == NuevaContrasenia.value) {
+            alert('EL Nombre de Usuario y la contraseña no pueden ser iguales al anterior')
+            return false;
+        }
+    }
+</script>
+
+<script>
+
+    function launch_toast() {
+        var x = document.getElementById("toast")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+    }
+
+
+    window.onload = launch_toast;
+
+</script>

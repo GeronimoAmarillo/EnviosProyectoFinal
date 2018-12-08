@@ -1,0 +1,110 @@
+﻿@model IEnumerable<EntidadesCompartidasCore.Reclamo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+@{
+    string mensaje = "";
+
+    if (TempData["Mensaje"] != null)
+    {
+        mensaje = TempData["Mensaje"].ToString();
+    }
+
+}
+<h2 class="container">Lista de Reclamos</h2>
+
+<p>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+</p>
+<div class="container">
+    <form id="form1" action="Paquetes/ListarReclamoporPaquete">
+        <div class="form-group">
+            <label>Ingrese aqui el numero de referencia</label>
+            <input type="text" name="numReferencia" class="form-control" />
+            <br />
+            <input type="submit" name="Buscar" value="Buscar Reclamo" />
+            <input type="submit" name="Buscar" value="Volver" />
+        </div>
+    </form>
+
+    <p>
+        <input oninput="w3.filterHTML('#id01', '.item', this.value)" placeholder="Busqueda multi-columna...">
+    </p>
+
+    <div class="table-responsive">
+        <table class="table-hover" id="id01">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Comentario)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Paquete)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+        {
+            <tr class="item">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comentario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Paquete)
+                </td>
+            </tr>
+}
+            </tbody>
+        </table>
+    </div>
+
+    <a asp-action="Index" asp-controller="Home">Volver</a>
+
+</div>
+@{
+    if (mensaje != "")
+    {
+        if (mensaje.ToLower().Contains("exito"))
+        {
+            <div id="toast"><div id="img">&#9989;</div><div id="desc">@mensaje</div></div>
+        }
+        else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid") || mensaje.ToLower().Contains("incorrecto"))
+        {
+            <div id="toast"><div id="img">&#10060;</div><div id="desc">@mensaje</div></div>
+        }
+        else
+        {
+            <div id="toast"><div id="img">&#10069;</div><div id="desc">@mensaje</div></div>
+        }
+
+    }
+
+}
+
+<script>
+
+    function launch_toast() {
+        var x = document.getElementById("toast")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+    }
+
+
+    window.onload = launch_toast;
+
+</script>

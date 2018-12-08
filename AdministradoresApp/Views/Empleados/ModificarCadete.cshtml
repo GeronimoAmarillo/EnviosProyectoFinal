@@ -3,12 +3,19 @@
 @{
     ViewData["Title"] = "ModificarCadete";
 }
+@{
+    string mensaje = "";
 
-<h2>ModificarCadete</h2>
+    if (TempData["Mensaje"] != null)
+    {
+        mensaje = TempData["Mensaje"].ToString();
+    }
 
-<h4>Cadete</h4>
+}
+<h2 class="container">Modificar Cadete</h2>
+
 <hr />
-<div class="row">
+<div class="container">
     <div class="col-md-4">
         <form asp-action="ModificarCadete">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -17,14 +24,19 @@
                 <input asp-for="TipoLibreta" class="form-control" />
                 <span asp-validation-for="TipoLibreta" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="IdTelefono" class="control-label"></label>
-                <input asp-for="IdTelefono" class="form-control" />
-                <span asp-validation-for="IdTelefono" class="text-danger"></span>
+            <div class="form-group" hidden>
+                <label asp-for="Latitud" class="control-label"></label>
+                <input asp-for="Latitud" class="form-control" />
+                <span asp-validation-for="Latitud" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" hidden>
+                <label asp-for="Longitud" class="control-label"></label>
+                <input asp-for="Longitud" class="form-control" />
+                <span asp-validation-for="Longitud" class="text-danger"></span>
+            </div>
+            <div class="form-group" hidden>
                 <label asp-for="CiEmpleado" class="control-label"></label>
-                <input asp-for="CiEmpleado" class="form-control" />
+                <input asp-for="CiEmpleado" class="form-control" readonly />
                 <span asp-validation-for="CiEmpleado" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -32,27 +44,27 @@
                 <input asp-for="Sueldo" class="form-control" />
                 <span asp-validation-for="Sueldo" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" hidden>
                 <label asp-for="IdUsuario" class="control-label"></label>
                 <input asp-for="IdUsuario" class="form-control" />
                 <span asp-validation-for="IdUsuario" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Ci" class="control-label"></label>
-                <input asp-for="Ci" class="form-control" />
+                <input asp-for="Ci" class="form-control" readonly />
                 <span asp-validation-for="Ci" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
+                <input asp-for="Id" class="form-control" readonly />
                 <span asp-validation-for="Id" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" hidden>
                 <label asp-for="NombreUsuario" class="control-label"></label>
                 <input asp-for="NombreUsuario" class="form-control" />
                 <span asp-validation-for="NombreUsuario" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" hidden>
                 <label asp-for="Contraseña" class="control-label"></label>
                 <input asp-for="Contraseña" class="form-control" />
                 <span asp-validation-for="Contraseña" class="text-danger"></span>
@@ -77,12 +89,12 @@
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" hidden>
                 <label asp-for="CodigoRecuperacionContraseña" class="control-label"></label>
                 <input asp-for="CodigoRecuperacionContraseña" class="form-control" />
                 <span asp-validation-for="CodigoRecuperacionContraseña" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" hidden>
                 <label asp-for="CodigoModificarEmail" class="control-label"></label>
                 <input asp-for="CodigoModificarEmail" class="form-control" />
                 <span asp-validation-for="CodigoModificarEmail" class="text-danger"></span>
@@ -92,12 +104,43 @@
             </div>
         </form>
     </div>
+
+    <a asp-action="Index">Volver</a>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+@{
+    if (mensaje != "")
+    {
+        if (mensaje.ToLower().Contains("exito"))
+        {
+            <div id="toast"><div id="img">&#9989;</div><div id="desc">@mensaje</div></div>
+        }
+        else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid") || mensaje.ToLower().Contains("incorrecto"))
+        {
+            <div id="toast"><div id="img">&#10060;</div><div id="desc">@mensaje</div></div>
+        }
+        else
+        {
+            <div id="toast"><div id="img">&#10069;</div><div id="desc">@mensaje</div></div>
+        }
+
+    }
+
+}
+
+<script>
+
+    function launch_toast() {
+        var x = document.getElementById("toast")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+    }
+
+
+    window.onload = launch_toast;
+
+</script>

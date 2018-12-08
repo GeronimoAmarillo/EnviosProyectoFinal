@@ -13,7 +13,7 @@ namespace LogicaDeServicioCore
 
         Turno BuscarTurno(string codigo);
 
-        bool ModificarTurno(Turno pTurno);
+        bool EliminarTurno(Turno pTurno);
 
         bool AltaTurno(Turno turno);
 

@@ -3,12 +3,19 @@
 @{
     ViewData["Title"] = "Modificar";
 }
+@{
+    string mensaje = "";
 
-<h2>Modificar</h2>
+    if (TempData["Mensaje"] != null)
+    {
+        mensaje = TempData["Mensaje"].ToString();
+    }
 
-<h4>Local</h4>
+}
+<h2 class="container">Modificar Locales</h2>
+
 <hr />
-<div class="row">
+<div class="container">
     <div class="col-md-4">
         <form asp-action="Modificar">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -32,12 +39,42 @@
             </div>
         </form>
     </div>
+    <a asp-action="Index">Volver</a>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+@{
+    if (mensaje != "")
+    {
+        if (mensaje.ToLower().Contains("exito"))
+        {
+            <div id="toast"><div id="img">&#9989;</div><div id="desc">@mensaje</div></div>
+        }
+        else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid") || mensaje.ToLower().Contains("incorrecto"))
+        {
+            <div id="toast"><div id="img">&#10060;</div><div id="desc">@mensaje</div></div>
+        }
+        else
+        {
+            <div id="toast"><div id="img">&#10069;</div><div id="desc">@mensaje</div></div>
+        }
+
+    }
+
+}
+
+<script>
+
+    function launch_toast() {
+        var x = document.getElementById("toast")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+    }
+
+
+    window.onload = launch_toast;
+
+</script>

@@ -12,13 +12,27 @@ namespace LogicaDeServicioCore
         
         public List<EntidadesCompartidasCore.Entrega> ListarEntregas()
         {
-            return new List<EntidadesCompartidasCore.Entrega>();
+            try
+            {
+                return LogicaEntrega.ListarEntregas();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar las entregas." + ex);
+            }
         }
 
 
-        public bool Entregar(List<EntidadesCompartidasCore.Entrega> entregasSeleccionadas)
+        public bool Entregar(EntidadesCompartidasCore.Entrega entrega)
         {
-            return true;
+            try
+            {
+                return LogicaEntrega.Entregar(entrega);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar realizar la entrega." + ex);
+            }
         }
 
         public List<EntidadesCompartidasCore.Cliente> ListarClientes()
@@ -67,13 +81,25 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public bool AltaEntrega(EntidadesCompartidasCore.Entrega pEntrega)
+        public bool AsignarEntrega(EntidadesCompartidasCore.Entrega pEntrega)
         {
             try
             {
-                return LogicaEntrega.AltaEntega(pEntrega);
+                return LogicaEntrega.AsignarEntrega(pEntrega);
             }
             catch(Exception ex)
+            {
+                throw new Exception("Error al intentar dar de alta la entrega." + ex);
+            }
+        }
+
+        public bool LevantarEntrega(EntidadesCompartidasCore.Entrega pEntrega)
+        {
+            try
+            {
+                return LogicaEntrega.LevantarEntrega(pEntrega);
+            }
+            catch (Exception ex)
             {
                 throw new Exception("Error al intentar dar de alta la entrega." + ex);
             }

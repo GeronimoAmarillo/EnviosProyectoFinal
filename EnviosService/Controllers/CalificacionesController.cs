@@ -6,11 +6,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using EntidadesCompartidasCore;
 using LogicaDeServicioCore;
+using Newtonsoft.Json;
 
 namespace EnviosService.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Calificaciones")]
+    
     public class CalificacionesController : Controller
     {
         private IControladorCalificacion controladorCalificacion;
@@ -19,12 +20,24 @@ namespace EnviosService.Controllers
         {
             controladorCalificacion = FabricaServicio.GetControladorCalificacion();
         }
-
+        [Route("api/Calificaciones/Calificar")]
         [HttpPost]
         public JsonResult Calificacion([FromBody] Calificacion cal)
         {
-            return Json(controladorCalificacion.Calificar(cal.Puntaje, cal.Comentario, cal.RutCliente));
+            return Json(controladorCalificacion.Calificar(cal));
         }
-        
+
+        [Route("api/Calificaciones/Listar")]
+        [HttpGet]
+        public JsonResult Calificaciones()
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+
+            return Json(controladorCalificacion.ListarCalificaciones(), settings);
+        }
+
     }
 }

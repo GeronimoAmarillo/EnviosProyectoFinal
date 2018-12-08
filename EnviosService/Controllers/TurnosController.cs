@@ -38,11 +38,11 @@ namespace EnviosService.Controllers
         {
             return Json(controladorTurno.ExisteTurno(dia,hora), new Newtonsoft.Json.JsonSerializerSettings());
         }
-        [Route("api/Turnos/Modificar")]
+        [Route("api/Turnos/Eliminar")]
         [HttpPost]
         public JsonResult Modificar([FromBody] Turno item)
         {
-            return Json(controladorTurno.ModificarTurno(item), new Newtonsoft.Json.JsonSerializerSettings());
+            return Json(controladorTurno.EliminarTurno(item), new Newtonsoft.Json.JsonSerializerSettings());
         }
        
         [HttpPost]

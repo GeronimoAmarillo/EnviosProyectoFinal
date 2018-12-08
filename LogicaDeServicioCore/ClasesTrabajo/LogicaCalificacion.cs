@@ -10,17 +10,33 @@ namespace LogicaDeServicioCore
 {
     public class LogicaCalificacion
     {
-        public static bool Calificar(int puntaje, string comentario, long rutCliente)
+        public static bool Calificar(Calificacion cal)
         {
-            bool exito = false;
-            Calificacion nuevaCalificacion = new Calificacion()
+            
+            try
             {
-                Puntaje = puntaje,
-                Comentario = comentario,
-                RutCliente = rutCliente
-            };
-            exito = FabricaPersistencia.GetPersistenciaCalificacion().Calificar(nuevaCalificacion);
-            return exito;
+                bool exito = false;
+                exito = FabricaPersistencia.GetPersistenciaCalificacion().Calificar(cal);
+                return exito;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al realizar la calificacion." + ex.Message);
+            }
+        }
+
+        public static List<EntidadesCompartidasCore.Calificacion> ListarCalificaciones()
+        {
+            try
+            {
+                
+                return FabricaPersistencia.GetPersistenciaCalificacion().ListarCalificaciones();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar las calificaciones." + ex.Message);
+            }
         }
     }
 }

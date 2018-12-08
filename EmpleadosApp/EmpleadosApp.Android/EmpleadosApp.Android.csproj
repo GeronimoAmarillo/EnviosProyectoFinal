@@ -15,7 +15,7 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
+    <AndroidUseLatestPlatformSdk>true</AndroidUseLatestPlatformSdk>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,6 +48,7 @@
     <AotAssemblies>false</AotAssemblies>
     <EnableLLVM>false</EnableLLVM>
     <BundleAssemblies>false</BundleAssemblies>
+    <AndroidLinkMode>None</AndroidLinkMode>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
@@ -63,6 +64,12 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>11.0.2</Version>
     </PackageReference>
+    <PackageReference Include="Plugin.Permissions">
+      <Version>3.0.0.12</Version>
+    </PackageReference>
+    <PackageReference Include="Xam.Plugin.Geolocator">
+      <Version>4.5.0.6</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="3.2.0.871581" />
     <PackageReference Include="Xamarin.Android.Support.Design" Version="25.4.0.2" />
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="25.4.0.2" />
@@ -71,18 +78,25 @@
     <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="25.4.0.2" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adaptadores\AdaptadorCadetes.cs" />
     <Compile Include="Adaptadores\AdaptadorClientes.cs" />
+    <Compile Include="Adaptadores\AdaptadorEntregasAsignadas.cs" />
+    <Compile Include="Adaptadores\AdaptadorEntregasLevantadas.cs" />
     <Compile Include="Adaptadores\AdaptadorLocales.cs" />
     <Compile Include="Adaptadores\AdaptadorPalets.cs" />
     <Compile Include="Adaptadores\AdaptadorPaquetes.cs" />
     <Compile Include="Adaptadores\AdaptadorRacks.cs" />
     <Compile Include="Adaptadores\AdaptadorSectores.cs" />
+    <Compile Include="Adaptadores\AdaptadorTurnos.cs" />
     <Compile Include="AltaPalletActivity.cs" />
     <Compile Include="AsignarPaqueteActivity.cs" />
     <Compile Include="AsyncHelper.cs" />
     <Compile Include="BajaPaletActivity.cs" />
+    <Compile Include="EntregarAsignadaActivity.cs" />
+    <Compile Include="EntregarLevantadaActivity.cs" />
     <Compile Include="IngresoReceptorActivity.cs" />
     <Compile Include="InicioActivity.cs" />
+    <Compile Include="ListadoCadetesActivity.cs" />
     <Compile Include="ListadoClientesActivity.cs" />
     <Compile Include="ListadoClientesPaqueteActivity.cs" />
     <Compile Include="ListadoClientesPaqueteAsignarActivity.cs" />
@@ -91,10 +105,13 @@
     <Compile Include="ListadoPaletsActivity.cs" />
     <Compile Include="ListadoRacksActivity.cs" />
     <Compile Include="ListadoSectoresActivity.cs" />
+    <Compile Include="ListadoTurnosActivity.cs" />
+    <Compile Include="ListarEntregasActivity.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="NuevoPaqueteActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServicioGeolocalizacion.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -154,6 +171,33 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\IngresoDeReceptor.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ListarEntregasActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\EntregaAsignadaRow.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\EntregaLevantadaRow.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\EntregarAsignadaActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\EntregarLevantadaActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ListadoCadetesActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\CadeteRow.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ListadoTurnosActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\TurnoRow.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

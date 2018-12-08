@@ -15,10 +15,12 @@ namespace EnviosService.Controllers
     public class EntregasController : Controller
     {
         private IControladorEntrega controladorEntrega;
+        private IControladorEmpleado controladorEmpleado;
 
         public EntregasController()
         {
             controladorEntrega = FabricaServicio.GetControladorEntrega();
+            controladorEmpleado = FabricaServicio.GetControladorEmpleado();
         }
 
         [Route("api/Entregas/Listar")]
@@ -35,16 +37,23 @@ namespace EnviosService.Controllers
             return Json(controladorEntrega.BuscarEntrega(codigo), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
-        [Route("api/Entregas/Alta")]
+        [Route("api/Entregas/Asignar")]
         [HttpPost]
-        public JsonResult Entrega([FromBody] Entrega item)
+        public JsonResult Asignar([FromBody] Entrega item)
         {
-            return Json(controladorEntrega.AltaEntrega(item));
+            return Json(controladorEntrega.AsignarEntrega(item));
+        }
+
+        [Route("api/Entregas/Levantar")]
+        [HttpPost]
+        public JsonResult Levantar([FromBody] Entrega item)
+        {
+            return Json(controladorEntrega.LevantarEntrega(item));
         }
 
         [Route("api/Entregas/Entregar")]
         [HttpPost]
-        public JsonResult Entregas([FromBody] List<Entrega> item)
+        public JsonResult Entregas([FromBody] Entrega item)
         {
             return Json(controladorEntrega.Entregar(item));
         }
@@ -54,6 +63,18 @@ namespace EnviosService.Controllers
         public JsonResult Locales()
         {
             return Json(controladorEntrega.ListarLocales(), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
+        [HttpGet]
+        [Route("api/Entregas/Cadetes")]
+        public JsonResult Cadetes()
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+
+            return Json((controladorEmpleado.ListarCadetes()), settings);
         }
 
         [Route("api/Entregas/Clientes")]

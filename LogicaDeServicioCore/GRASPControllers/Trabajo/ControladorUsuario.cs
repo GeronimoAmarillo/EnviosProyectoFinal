@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EntidadesCompartidasAndroid;
 using EntidadesCompartidasCore;
 
 namespace LogicaDeServicioCore
 {
     class ControladorUsuario : IControladorUsuario
     {
-        public bool AltaUsuario(Usuario unUsuario)
+        public bool AltaUsuario(EntidadesCompartidasCore.Usuario unUsuario)
         {
             try
             {
@@ -32,7 +33,7 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public bool SetearCodigoRecuperarContraseña(Usuario unUsuario)
+        public bool SetearCodigoRecuperarContraseña(EntidadesCompartidasCore.Usuario unUsuario)
         {
             try
             {
@@ -44,7 +45,7 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public bool SetearCodigoModificarEmail(Usuario unUsuario)
+        public bool SetearCodigoModificarEmail(EntidadesCompartidasCore.Usuario unUsuario)
         {
             try
             {
@@ -92,19 +93,19 @@ namespace LogicaDeServicioCore
 
         }
 
-        public bool EnviarMail(Usuario usuario)
+        public bool EnviarMail(EntidadesCompartidasCore.Usuario usuario)
         {
             return true;
         }
 
-        public Usuario BuscarUsuario(string mail)
+        public EntidadesCompartidasCore.Usuario BuscarUsuario(string mail)
         {
-            return new Usuario();
+            return new EntidadesCompartidasCore.Usuario();
         }
 
-        public Usuario Login(string user, string pass)
+        public EntidadesCompartidasCore.Usuario Login(string user, string pass)
         {
-            Usuario usuarioLogueado = new Usuario();
+            EntidadesCompartidasCore.Usuario usuarioLogueado = new EntidadesCompartidasCore.Usuario();
             try
             {
                 usuarioLogueado = LogicaUsuario.Login(user, pass);
@@ -116,6 +117,20 @@ namespace LogicaDeServicioCore
                 throw new Exception("Error al loguear el Usuario" + ex.Message);
             }
         }
+
+        public EntidadesCompartidasAndroid.Usuario LoginDroid(string user, string pass)
+        {
+            try
+            {
+                return LogicaUsuario.LoginDroid(user, pass);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al loguear el Usuario" + ex.Message);
+            }
+        }
+
+        
 
         public bool ModificarNombreUsuario(string user)
         {
@@ -138,7 +153,7 @@ namespace LogicaDeServicioCore
             return true;
         }
 
-        public bool ModificarUsuario(Usuario pUsuario)
+        public bool ModificarUsuario(EntidadesCompartidasCore.Usuario pUsuario)
         {
             try
             {
@@ -151,9 +166,9 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public bool ModificarContrasenia(Administrador unAdmin)
+        public bool ModificarContrasenia(EntidadesCompartidasCore.Usuario unUsuario)
         {
-            return LogicaUsuario.ModificarContrasenia(unAdmin);
+            return LogicaUsuario.ModificarContrasenia(unUsuario);
         }
     }
 }

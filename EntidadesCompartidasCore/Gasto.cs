@@ -13,7 +13,13 @@ namespace EntidadesCompartidasCore
         [MinLength(5)]
         [MaxLength(500)]
         public string Descripcion { get; set; }
+
+        [Required]
+        public bool Extra { get; set; }
+
         [Required]
         public decimal Suma { get; set; }
+        [Required]
+        public DateTime fechaRegistro { get; set; }
     }
 }

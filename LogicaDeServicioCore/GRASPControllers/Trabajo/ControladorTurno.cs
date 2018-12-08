@@ -36,16 +36,16 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public bool ModificarTurno(Turno pTurno)
+        public bool EliminarTurno(Turno pTurno)
         {
             try
             {
-                return LogicaTurno.ModificarTurno(pTurno);
+                return LogicaTurno.Eliminar(pTurno);
             }
 
             catch
             {
-                throw new Exception("Error al intentar dar de modificar el turno.");
+                throw new Exception("Error al intentar dar de baja el turno.");
             }
         }
 

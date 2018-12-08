@@ -9,6 +9,8 @@ namespace LogicaDeServicioCore
 {
     public interface IControladorEmpleado
     {
+        Geolocalizacion ConsultarLocalizacion(int numReferencia, int rut);
+
         bool ExisteEmpleado(int ci);
 
         Empleado BuscarEmpleado(int ci);
@@ -20,5 +22,7 @@ namespace LogicaDeServicioCore
         bool AltaEmpleado(Empleado pEmpleado);
 
         List<Empleado> Listar();
+
+        List<EntidadesCompartidasAndroid.Cadete> ListarCadetes();
     }
 }

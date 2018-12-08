@@ -7,8 +7,6 @@ namespace EntidadesCompartidasCore
     public partial class Registro
     {
         [Required]
-        public int Id { get; set; }
-        [Required]
         public DateTime Fecha { get; set; }
         [Required]
         public decimal UtilidadBruta { get; set; }
@@ -18,9 +16,12 @@ namespace EntidadesCompartidasCore
         public decimal UtilidadSinImpuestos { get; set; }
         [Required]
         public decimal UtilidadEjercicio { get; set; }
-        [Required]
-        public int BalanceId { get; set; }
+        
 
-        public Balance Balances { get; set; }
+        public List<Ingreso> Ingresos { get; set; }
+
+        public List<Gasto> Gastos { get; set; }
+
+        public List<Impuesto> Impuestos { get; set; }
     }
 }

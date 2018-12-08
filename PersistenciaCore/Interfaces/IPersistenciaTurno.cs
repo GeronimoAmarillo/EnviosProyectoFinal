@@ -13,7 +13,7 @@ namespace PersistenciaCore
 
         List<EntidadesCompartidasCore.Turno> ListarTurnos();
 
-        bool ModificarTurno(EntidadesCompartidasCore.Turno turno);
+        bool EliminarTurno(EntidadesCompartidasCore.Turno turno);
         Turnos IdentificarTurno(string diaSemana, int hora);
         EntidadesCompartidasCore.Turno BuscarTurno(string codigo);
 

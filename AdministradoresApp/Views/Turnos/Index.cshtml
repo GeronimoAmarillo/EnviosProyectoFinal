@@ -1,46 +1,97 @@
 ﻿@model IEnumerable<EntidadesCompartidasCore.Turno>
-
+<script src="https://www.w3schools.com/lib/w3.js"></script>
 @{
     ViewData["Title"] = "Index";
 }
+@{
+    string mensaje = "";
 
-<h2>Index</h2>
+    if (TempData["Mensaje"] != null)
+    {
+        mensaje = TempData["Mensaje"].ToString();
+    }
 
-<p>
-    <a asp-action="Alta">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Codigo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Dia)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Hora)
-                </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Dia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Hora)
-            </td>
-            <td>
-                @Html.ActionLink("Modificar", "Modificar", new { codigo=item.Codigo }) |
-                @Html.ActionLink("Eliminar", "Eliminar", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
 }
-    </tbody>
-</table>
+<h2 class="container">Lista de Turnos</h2>
+<div class="container">
+
+    <p>
+        <a asp-action="Alta">Registrar nuevo turno</a>
+    </p>
+
+    <p>
+        <input oninput="w3.filterHTML('#id01', '.item', this.value)" placeholder="Busqueda multi-columna...">
+    </p>
+
+    <div class="table-responsive">
+        <table class="table-hover" id="id01">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Codigo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Dia)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Hora)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+        {
+            <tr class="item">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Codigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hora)
+                </td>
+                <td>
+                    @Html.ActionLink("Eliminar", "Eliminar", new { codigo = item.Codigo })
+                </td>
+            </tr>
+}
+            </tbody>
+        </table>
+    </div>
+
+    <a asp-action="Index" asp-controller="Home">Volver</a>
+</div>
+@{
+    if (mensaje != "")
+    {
+        if (mensaje.ToLower().Contains("exito"))
+        {
+            <div id="toast"><div id="img">&#9989;</div><div id="desc">@mensaje</div></div>
+        }
+        else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid") || mensaje.ToLower().Contains("incorrecto"))
+        {
+            <div id="toast"><div id="img">&#10060;</div><div id="desc">@mensaje</div></div>
+        }
+        else
+        {
+            <div id="toast"><div id="img">&#10069;</div><div id="desc">@mensaje</div></div>
+        }
+
+    }
+
+}
+
+<script>
+
+    function launch_toast() {
+        var x = document.getElementById("toast")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+    }
+
+
+    window.onload = launch_toast;
+
+</script>

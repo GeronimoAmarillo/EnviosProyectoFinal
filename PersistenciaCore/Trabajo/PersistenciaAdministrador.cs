@@ -258,6 +258,7 @@ namespace PersistenciaCore
                     adminR.Tipo = a.Tipo;
                     adminR.CodigoRecuperacionContraseña = a.Empleados.Usuarios.CodigoRecuperacionContraseña;
                     adminR.CodigoModificarEmail = a.Empleados.Usuarios.CodigoModificarEmail;
+                    adminR.Contraseña = a.Empleados.Usuarios.Contraseña;
 
                     adminsResultado.Add(adminR);
                 }

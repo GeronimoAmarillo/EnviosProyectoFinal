@@ -10,6 +10,8 @@ namespace PersistenciaCore
     {
         bool AltaCadete(EntidadesCompartidasCore.Cadete cadete);
 
+        Cadete ConsultarLocalizacion(int numReferencia);
+
         bool VerificarCodigoContraseña(string email, string codigo);
 
         bool VerificarCodigoEmail(string email, string codigo);

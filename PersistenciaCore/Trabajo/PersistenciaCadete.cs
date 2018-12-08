@@ -10,6 +10,48 @@ namespace PersistenciaCore
 {
     class PersistenciaCadete:IPersistenciaCadete
     {
+        public Cadete ConsultarLocalizacion(int numReferencia)
+        {
+            try
+            {
+                Cadetes cadete = new Cadetes();
+                Entregas entrega = null;
+                Paquetes paquete = null;
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    entrega = dbConnection.Entregas.Include("Cadetes").FirstOrDefault(x => x.Paquetes.Any(y => y.NumReferencia == numReferencia) || x.Paquetes1.Any(y => y.NumReferencia == numReferencia));
+                    
+                    cadete = dbConnection.Cadetes.Include("Empleados.Usuarios").Where(x => x.CiEmpleado == entrega.Cadete).FirstOrDefault();
+                }
+
+                Cadete cadeteResultado = new Cadete();
+
+                if (cadete != null)
+                {
+
+                    cadeteResultado.Ci = cadete.CiEmpleado;
+                    cadeteResultado.CiEmpleado = cadete.CiEmpleado;
+                    cadeteResultado.Email = cadete.Empleados.Usuarios.Email;
+                    cadeteResultado.Id = cadete.Empleados.Usuarios.Id;
+                    cadeteResultado.Nombre = cadete.Empleados.Usuarios.Nombre;
+                    cadeteResultado.Telefono = cadete.Empleados.Usuarios.Telefono;
+                    cadeteResultado.Latitud = cadete.Latitud;
+                    cadeteResultado.Longitud = cadete.Longitud;
+                }
+
+                return cadeteResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el cadete." + ex.Message);
+            }
+        }
+
         public bool AltaCadete(EntidadesCompartidasCore.Cadete cadete)
         {
             try
@@ -19,7 +61,8 @@ namespace PersistenciaCore
 
                 
                 cadeteNuevo.CiEmpleado = cadete.Ci;
-                cadeteNuevo.IdTelefono = cadete.IdTelefono;
+                cadeteNuevo.Latitud = cadete.Latitud;
+                cadeteNuevo.Longitud = cadete.Longitud;
                 cadeteNuevo.TipoLibreta = cadete.TipoLibreta;
                 cadeteNuevo.Empleados = new Empleados();
                 cadeteNuevo.Empleados.Sueldo = cadete.Sueldo;
@@ -227,7 +270,7 @@ namespace PersistenciaCore
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    cadetes = dbConnection.Cadetes.Include("Empleados.Usuarios").ToList();
+                    cadetes = dbConnection.Cadetes.Include("Empleados.Usuarios").Include("Vehiculos").ToList();
                 }
 
                 List<Cadete> cadetesResultado = new List<Cadete>();
@@ -245,10 +288,13 @@ namespace PersistenciaCore
                     cadeteR.NombreUsuario = a.Empleados.Usuarios.NombreUsuario;
                     cadeteR.Sueldo = a.Empleados.Sueldo;
                     cadeteR.Telefono = a.Empleados.Usuarios.Telefono;
-                    cadeteR.IdTelefono = a.IdTelefono;
+                    cadeteR.Latitud = a.Latitud;
+                    cadeteR.Longitud = a.Longitud;
                     cadeteR.TipoLibreta = a.TipoLibreta;
                     cadeteR.CodigoRecuperacionContraseña = a.Empleados.Usuarios.CodigoRecuperacionContraseña;
                     cadeteR.CodigoModificarEmail = a.Empleados.Usuarios.CodigoModificarEmail;
+                    cadeteR.Contraseña = a.Empleados.Usuarios.Contraseña;
+                    cadeteR.Vehiculos = TransformarVehiculos(a.Vehiculos);
 
                     cadetesResultado.Add(cadeteR);
                 }
@@ -258,6 +304,34 @@ namespace PersistenciaCore
             catch (Exception ex)
             {
                 throw new Exception("Error al listar los cadetes." + ex.Message);
+            }
+        }
+
+        private List<Vehiculo> TransformarVehiculos(ICollection<Vehiculos> vehiculosP)
+        {
+            try
+            {
+                List<Vehiculo> vehiculos = new List<Vehiculo>();
+
+                foreach (Vehiculos c in vehiculosP)
+                {
+                    
+                    Vehiculo cN = new Vehiculo();
+
+                    cN.Capacidad = c.Capacidad;
+                    cN.Estado = c.Estado;
+                    cN.Marca = c.Marca;
+                    cN.Matricula = c.Matricula;
+                    cN.Modelo = c.Modelo;
+
+                    vehiculos.Add(cN);
+                }
+
+                return vehiculos;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al Listar los Vehiculos." + ex.Message);
             }
         }
 
@@ -342,7 +416,8 @@ namespace PersistenciaCore
                 PersistenciaCore.Cadetes cadeteNuevo = new PersistenciaCore.Cadetes();
 
                 cadeteNuevo.CiEmpleado = cadete.Ci;
-                cadeteNuevo.IdTelefono = cadete.IdTelefono;
+                cadeteNuevo.Latitud = cadete.Latitud;
+                cadeteNuevo.Longitud = cadete.Longitud;
                 cadeteNuevo.TipoLibreta = cadete.TipoLibreta;
 
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
@@ -366,14 +441,16 @@ namespace PersistenciaCore
 
                             dbContextTransaction.Commit();
 
+                            return true;
+
                         }
                         catch (Exception ex)
                         {
                             dbContextTransaction.Rollback();
+                            return false;
                         }
                     }
-
-                    return true;
+                    
                 }
 
             }
@@ -412,7 +489,8 @@ namespace PersistenciaCore
                     cadeteR.Ci = l.Empleados.Ci;
                     cadeteR.Contraseña = l.Empleados.Usuarios.Contraseña;
                     cadeteR.Email = l.Empleados.Usuarios.Email;
-                    cadeteR.IdTelefono = l.IdTelefono;
+                    cadeteR.Latitud = l.Latitud;
+                    cadeteR.Longitud = l.Longitud;
                     cadeteR.NombreUsuario = l.Empleados.Usuarios.NombreUsuario;
                     cadeteR.Sueldo = l.Empleados.Sueldo;
                     cadeteR.Telefono = l.Empleados.Usuarios.Telefono;
@@ -430,6 +508,7 @@ namespace PersistenciaCore
                 throw new Exception("Error al listar los cadetes disponibles." + ex.Message);
             }
         }
+        
 
         public bool BajaCadete(int ci)
         {
@@ -456,7 +535,8 @@ namespace PersistenciaCore
 
                 cadNuevo.CiEmpleado = cadete.Ci;
                 cadNuevo.TipoLibreta = cadete.TipoLibreta;
-                cadNuevo.IdTelefono = cadete.IdTelefono;
+                cadNuevo.Latitud = cadete.Latitud;
+                cadNuevo.Longitud = cadete.Longitud;
 
 
                 var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
@@ -532,7 +612,8 @@ namespace PersistenciaCore
                     cadeteResultado.NombreUsuario = cadete.Empleados.Usuarios.NombreUsuario;
                     cadeteResultado.Sueldo = cadete.Empleados.Sueldo;
                     cadeteResultado.Telefono = cadete.Empleados.Usuarios.Telefono;
-                    cadeteResultado.IdTelefono = cadete.IdTelefono;
+                    cadeteResultado.Latitud = cadete.Latitud;
+                    cadeteResultado.Longitud = cadete.Longitud;
                     cadeteResultado.CodigoRecuperacionContraseña = cadete.Empleados.Usuarios.CodigoRecuperacionContraseña;
                     cadeteResultado.CodigoModificarEmail = cadete.Empleados.Usuarios.CodigoModificarEmail;
                 }

@@ -38,21 +38,13 @@ namespace AdministradoresApp.Controllers
 
                     HttpContext.Session.Set<List<Vehiculo>>(SESSSION_VEHICULOS, vehiculos);
 
-                    string mensaje = HttpContext.Session.Get<string>(SESSION_MENSAJE);
-
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, null);
-
-                    if (mensaje != null && mensaje != "")
-                    {
-                        ViewBag.Message = mensaje;
-                    }
+                    descargarMensaje();
 
                     List<Vehiculo> filtrados = HttpContext.Session.Get<List<Vehiculo>>(SESSION_FILTRADOS);
 
                     if (filtrados != null)
                     {
                         HttpContext.Session.Set<List<Vehiculo>>(SESSION_FILTRADOS, null);
-
                         return View(filtrados);
                     }
                     else
@@ -62,7 +54,9 @@ namespace AdministradoresApp.Controllers
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -70,7 +64,9 @@ namespace AdministradoresApp.Controllers
             }
             catch (Exception ex)
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Vehiculos registrados");
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Vehiculos registrados");
+
+                TempData["Mensaje"] = "Error al mostrar el formulario: No se pudieron listar los Vehiculos registrados";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -79,23 +75,35 @@ namespace AdministradoresApp.Controllers
 
         public async Task<ActionResult> BajaVehiculo(string matricula)
         {
-            if (ComprobarLogin() == "G")
+            try
             {
-                IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
+                if (ComprobarLogin() == "G")
+                {
+                    IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
 
-                Vehiculo vehiculo = await controladorVehiculo.BuscarVehiculo(matricula);
+                    Vehiculo vehiculo = await controladorVehiculo.BuscarVehiculo(matricula);
 
-                HttpContext.Session.Set<Vehiculo>(SESSION_BAJA, vehiculo);
+                    HttpContext.Session.Set<Vehiculo>(SESSION_BAJA, vehiculo);
+                    descargarMensaje();
+                    return View(vehiculo);
 
-                return View(vehiculo);
+                }
+                else
+                {
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
             }
-            else
+            catch
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                TempData["Mensaje"] = "Error al mostrar el formulario";
 
-                return RedirectToAction("Index", "Home", new { area = "" });
+                return RedirectToAction("Index", "Vehiculos", new { area = "" });
             }
+            
 
         }
 
@@ -130,7 +138,8 @@ namespace AdministradoresApp.Controllers
 
                     if (mensaje != "")
                     {
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                        //HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                        TempData["Mensaje"] = mensaje;
                     }
 
                     return RedirectToAction("Index");
@@ -138,7 +147,9 @@ namespace AdministradoresApp.Controllers
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -147,7 +158,9 @@ namespace AdministradoresApp.Controllers
             }
             catch (Exception ex)
             {
-                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+                TempData["Mensaje"] = "Error al mostrar el formulario";
+
+                return RedirectToAction("Index", "Vehiculos", new { area = "" });
             }
 
         }
@@ -156,35 +169,47 @@ namespace AdministradoresApp.Controllers
 
         public async Task<ActionResult> AltaAuto()
         {
-            if (ComprobarLogin() == "G")
+            try
             {
-                HttpContext.Session.Set<Automobil>(SESSSION_ALTA, new Automobil());
-
-                IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
-
-                List<Cadete> cadetes = await controladorVehiculo.ListarCadetesDisponibles();
-
-                List<SelectListItem> items = new List<SelectListItem>();
-
-                foreach (Cadete c in cadetes)
+                if (ComprobarLogin() == "G")
                 {
-                    SelectListItem item = new SelectListItem();
-                    item.Text = "Nombre: " + c.Nombre + " - Cedula: " + c.Ci + ".";
-                    item.Value = c.CiEmpleado.ToString();
+                    HttpContext.Session.Set<Automobil>(SESSSION_ALTA, new Automobil());
 
-                    items.Add(item);
+                    IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
+
+                    List<Cadete> cadetes = await controladorVehiculo.ListarCadetesDisponibles();
+
+                    List<SelectListItem> items = new List<SelectListItem>();
+
+                    foreach (Cadete c in cadetes)
+                    {
+                        SelectListItem item = new SelectListItem();
+                        item.Text = "Nombre: " + c.Nombre + " - Cedula: " + c.Ci + ".";
+                        item.Value = c.CiEmpleado.ToString();
+
+                        items.Add(item);
+                    }
+
+                    ViewBag.Cadetes = items;
+                    descargarMensaje();
+                    return View();
                 }
+                else
+                {
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-                ViewBag.Cadetes = items;
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
 
-                return View();
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
             }
-            else
+            catch
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                TempData["Mensaje"] = "Error al mostrar el formulario";
 
-                return RedirectToAction("Index", "Home", new { area = "" });
+                return RedirectToAction("Index", "Vehiculos", new { area = "" });
             }
+            
 
         }
 
@@ -214,7 +239,8 @@ namespace AdministradoresApp.Controllers
 
                     if (mensaje != "")
                     {
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                        //HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                        TempData["Mensaje"] = mensaje;
                     }
 
                     return RedirectToAction("Index");
@@ -222,7 +248,9 @@ namespace AdministradoresApp.Controllers
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -231,25 +259,39 @@ namespace AdministradoresApp.Controllers
             }
             catch (Exception ex)
             {
-                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+                TempData["Mensaje"] = "Error al mostrar el formulario";
+
+                return RedirectToAction("Index", "Vehiculos", new { area = "" });
             }
 
         }
 
         public ActionResult AltaCamion()
         {
-            if (ComprobarLogin() == "G")
+            try
             {
-                HttpContext.Session.Set<Camion>(SESSSION_ALTA, new Camion());
+                if (ComprobarLogin() == "G")
+                {
+                    HttpContext.Session.Set<Camion>(SESSSION_ALTA, new Camion());
+                    descargarMensaje();
+                    return View();
+                }
+                else
+                {
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-                return View();
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
             }
-            else
+            catch
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                TempData["Mensaje"] = "Error al mostrar el formulario";
 
-                return RedirectToAction("Index", "Home", new { area = "" });
+                return RedirectToAction("Index", "Vehiculos", new { area = "" });
             }
+            
 
         }
 
@@ -265,8 +307,7 @@ namespace AdministradoresApp.Controllers
 
                     string mensaje = "";
 
-                    if (ModelState.IsValid)
-                    {
+                    
                         bool exito = controladorVehiculo.AltaVehiculo(camion);
 
                         if (exito)
@@ -277,11 +318,11 @@ namespace AdministradoresApp.Controllers
                         {
                             mensaje = "Se produjo un error al dar de alta el vehiculo!.";
                         }
-                    }
 
                     if (mensaje != "")
                     {
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                        //HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                        TempData["Mensaje"] = mensaje;
                     }
 
                     return RedirectToAction("Index");
@@ -289,7 +330,8 @@ namespace AdministradoresApp.Controllers
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -298,24 +340,37 @@ namespace AdministradoresApp.Controllers
             }
             catch (Exception ex)
             {
-                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+                TempData["Mensaje"] = "Error al mostrar el formulario";
+
+                return RedirectToAction("Index", "Vehiculos", new { area = "" });
             }
 
         }
 
         public ActionResult AltaCamioneta()
         {
-            if (ComprobarLogin() == "G")
+            try
             {
-                HttpContext.Session.Set<Camioneta>(SESSSION_ALTA, new Camioneta());
+                if (ComprobarLogin() == "G")
+                {
+                    HttpContext.Session.Set<Camioneta>(SESSSION_ALTA, new Camioneta());
+                    descargarMensaje();
+                    return View();
+                }
+                else
+                {
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-                return View();
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
             }
-            else
+            catch
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                TempData["Mensaje"] = "Error al mostrar el formulario";
 
-                return RedirectToAction("Index", "Home", new { area = "" });
+                return RedirectToAction("Index", "Vehiculos", new { area = "" });
             }
 
         }
@@ -331,9 +386,7 @@ namespace AdministradoresApp.Controllers
                     IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
 
                     string mensaje = "";
-
-                    if (ModelState.IsValid)
-                    {
+                    
                         bool exito = controladorVehiculo.AltaVehiculo(camioneta);
 
                         if (exito)
@@ -344,11 +397,11 @@ namespace AdministradoresApp.Controllers
                         {
                             mensaje = "Se produjo un error al dar de alta el vehiculo!.";
                         }
-                    }
 
                     if (mensaje != "")
                     {
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                        //HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                        TempData["Mensaje"] = mensaje;
                     }
 
                     return RedirectToAction("Index");
@@ -356,7 +409,8 @@ namespace AdministradoresApp.Controllers
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -365,25 +419,40 @@ namespace AdministradoresApp.Controllers
             }
             catch (Exception ex)
             {
-                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+                TempData["Mensaje"] = "Error al mostrar el formulario";
+
+                return RedirectToAction("Index", "Vehiculos", new { area = "" });
             }
 
         }
 
         public ActionResult AltaMoto()
         {
-            if (ComprobarLogin() == "G")
+            try
             {
-                HttpContext.Session.Set<Moto>(SESSSION_ALTA, new Moto());
+                if (ComprobarLogin() == "G")
+                {
+                    HttpContext.Session.Set<Moto>(SESSSION_ALTA, new Moto());
+                    descargarMensaje();
+                    return View();
+                }
+                else
+                {
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-                return View();
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
             }
-            else
+            catch
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                TempData["Mensaje"] = "Error al mostrar el formulario";
 
-                return RedirectToAction("Index", "Home", new { area = "" });
+                return RedirectToAction("Index", "Vehiculos", new { area = "" });
             }
+
+           
 
         }
 
@@ -398,9 +467,7 @@ namespace AdministradoresApp.Controllers
                     IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
 
                     string mensaje = "";
-
-                    if (ModelState.IsValid)
-                    {
+                    
                         bool exito = controladorVehiculo.AltaVehiculo(moto);
 
                         if (exito)
@@ -411,11 +478,12 @@ namespace AdministradoresApp.Controllers
                         {
                             mensaje = "Se produjo un error al dar de alta el vehiculo!.";
                         }
-                    }
 
                     if (mensaje != "")
                     {
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                        //HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+
+                        TempData["Mensaje"] = mensaje;
                     }
 
                     return RedirectToAction("Index");
@@ -423,7 +491,9 @@ namespace AdministradoresApp.Controllers
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -432,53 +502,68 @@ namespace AdministradoresApp.Controllers
             }
             catch (Exception ex)
             {
-                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+                TempData["Mensaje"] = "Error al mostrar el formulario";
+
+                return RedirectToAction("Index", "Vehiculos", new { area = "" });
             }
         }
 
         public ActionResult Modificar(string matricula)
         {
-            if (ComprobarLogin() == "G")
+            try
             {
-                List<Vehiculo> vehiculos = HttpContext.Session.Get<List<Vehiculo>>(SESSSION_VEHICULOS);
-                Vehiculo vehiculo = vehiculos.FirstOrDefault(x => x.Matricula == matricula);
-                DTVehiculo vehiculoaEditar = new DTVehiculo()
-                {
-                    Matricula = vehiculo.Matricula,
-                    Marca = vehiculo.Marca,
-                    Modelo = vehiculo.Modelo,
-                    Capacidad = vehiculo.Capacidad,
-                    Estado = vehiculo.Estado,
-                    Cadete = vehiculo.Cadete
-                };
-                if (vehiculo is Moto)
-                {
-                    vehiculoaEditar.Cilindrada = ((Moto)vehiculo).Cilindrada;
-                    vehiculoaEditar.Tipo = "Moto";
-                }
-                if (vehiculo is Camioneta)
-                {
-                    vehiculoaEditar.Cabina = ((Camioneta)vehiculo).Cabina;
-                    vehiculoaEditar.Tipo = "Camioneta";
-                }
-                if (vehiculo is Automobil)
-                {
-                    vehiculoaEditar.Puertas = ((Automobil)vehiculo).Puertas;
-                    vehiculoaEditar.Tipo = "Automobil";
-                }
-                if (vehiculo is Camion)
-                {
-                    vehiculoaEditar.Altura = ((Camion)vehiculo).Altura;
-                    vehiculoaEditar.Tipo = "Camion";
-                }
-                return View(vehiculoaEditar);
-            }
-            else
-            {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-                return RedirectToAction("Index", "Home", new { area = "" });
+                if (ComprobarLogin() == "G")
+                {
+                    List<Vehiculo> vehiculos = HttpContext.Session.Get<List<Vehiculo>>(SESSSION_VEHICULOS);
+                    Vehiculo vehiculo = vehiculos.FirstOrDefault(x => x.Matricula == matricula);
+                    DTVehiculo vehiculoaEditar = new DTVehiculo()
+                    {
+                        Matricula = vehiculo.Matricula,
+                        Marca = vehiculo.Marca,
+                        Modelo = vehiculo.Modelo,
+                        Capacidad = vehiculo.Capacidad,
+                        Estado = vehiculo.Estado,
+                        Cadete = vehiculo.Cadete
+                    };
+                    if (vehiculo is Moto)
+                    {
+                        vehiculoaEditar.Cilindrada = ((Moto)vehiculo).Cilindrada;
+                        vehiculoaEditar.Tipo = "Moto";
+                    }
+                    if (vehiculo is Camioneta)
+                    {
+                        vehiculoaEditar.Cabina = ((Camioneta)vehiculo).Cabina;
+                        vehiculoaEditar.Tipo = "Camioneta";
+                    }
+                    if (vehiculo is Automobil)
+                    {
+                        vehiculoaEditar.Puertas = ((Automobil)vehiculo).Puertas;
+                        vehiculoaEditar.Tipo = "Automobil";
+                    }
+                    if (vehiculo is Camion)
+                    {
+                        vehiculoaEditar.Altura = ((Camion)vehiculo).Altura;
+                        vehiculoaEditar.Tipo = "Camion";
+                    }
+                    return View(vehiculoaEditar);
+                }
+                else
+                {
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
             }
+            catch
+            {
+                TempData["Mensaje"] = "Error al mostrar el formulario";
+
+                return RedirectToAction("Index", "Vehiculos", new { area = "" });
+            }
+
         }
 
         [HttpPost]
@@ -519,21 +604,26 @@ namespace AdministradoresApp.Controllers
 
                     if (mensaje != "")
                     {
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                        //HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                        TempData["Mensaje"] = mensaje;
                     }
 
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
             }
             catch (Exception ex)
             {
-                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+                TempData["Mensaje"] = "Error al mostrar el formulario";
+
+                return RedirectToAction("Index", "Vehiculos", new { area = "" });
             }
         }
 
@@ -575,21 +665,26 @@ namespace AdministradoresApp.Controllers
 
                     if (mensaje != "")
                     {
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                        //HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                        TempData["Mensaje"] = mensaje;
                     }
 
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
             }
             catch (Exception ex)
             {
-                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+                TempData["Mensaje"] = "Error al mostrar el formulario";
+
+                return RedirectToAction("Index", "Vehiculos", new { area = "" });
             }
         }
 
@@ -631,21 +726,26 @@ namespace AdministradoresApp.Controllers
 
                     if (mensaje != "")
                     {
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                        //HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                        TempData["Mensaje"] = mensaje;
                     }
 
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
             }
             catch (Exception ex)
             {
-                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+                TempData["Mensaje"] = "Error al mostrar el formulario";
+
+                return RedirectToAction("Index", "Vehiculos", new { area = "" });
             }
         }
 
@@ -687,171 +787,252 @@ namespace AdministradoresApp.Controllers
 
                     if (mensaje != "")
                     {
-                        HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+                        //HttpContext.Session.Set<string>(SESSION_MENSAJE, mensaje);
+
+                        TempData["Mensaje"] = mensaje;
                     }
 
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                    HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
             }
             catch (Exception ex)
             {
-                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+                TempData["Mensaje"] = "Error al mostrar el formulario";
+
+                return RedirectToAction("Index", "Vehiculos", new { area = "" });
             }
         }
 
         public ActionResult ListarAutos()
         {
-            if (ComprobarLogin() == "G")
+            try
             {
-                List<Vehiculo> autos = new List<Vehiculo>();
-                List<Vehiculo> vehiculos = HttpContext.Session.Get<List<Vehiculo>>(SESSSION_VEHICULOS);
 
-                foreach (Vehiculo v in vehiculos)
+                if (ComprobarLogin() == "G")
                 {
-                    if (v is Automobil)
-                    {
-                        autos.Add((Automobil)v);
-                    }
-                }
+                    List<Vehiculo> autos = new List<Vehiculo>();
+                    List<Vehiculo> vehiculos = HttpContext.Session.Get<List<Vehiculo>>(SESSSION_VEHICULOS);
 
-                HttpContext.Session.Set<List<Vehiculo>>(SESSION_FILTRADOS, autos);
+                    foreach (Vehiculo v in vehiculos)
+                    {
+                        if (v is Automobil)
+                        {
+                            autos.Add((Automobil)v);
+                        }
+                    }
+
+                    HttpContext.Session.Set<List<Vehiculo>>(SESSION_FILTRADOS, autos);
+
+                    return RedirectToAction("Index", "Vehiculos", new { area = "" });
+                }
+                else
+                {
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+            }
+            catch
+            {
+                TempData["Mensaje"] = "Error al mostrar el formulario";
 
                 return RedirectToAction("Index", "Vehiculos", new { area = "" });
             }
-            else
-            {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-                return RedirectToAction("Index", "Home", new { area = "" });
-            }
 
         }
         public ActionResult ListarCamiones()
         {
-            if (ComprobarLogin() == "G")
+            try
             {
-                List<Vehiculo> camiones = new List<Vehiculo>();
-                List<Vehiculo> vehiculos = HttpContext.Session.Get<List<Vehiculo>>(SESSSION_VEHICULOS);
-
-                foreach (Vehiculo v in vehiculos)
+                if (ComprobarLogin() == "G")
                 {
-                    if (v is Camion)
-                    {
-                        camiones.Add((Camion)v);
-                    }
-                }
+                    List<Vehiculo> camiones = new List<Vehiculo>();
+                    List<Vehiculo> vehiculos = HttpContext.Session.Get<List<Vehiculo>>(SESSSION_VEHICULOS);
 
-                HttpContext.Session.Set<List<Vehiculo>>(SESSION_FILTRADOS, camiones);
+                    foreach (Vehiculo v in vehiculos)
+                    {
+                        if (v is Camion)
+                        {
+                            camiones.Add((Camion)v);
+                        }
+                    }
+
+                    HttpContext.Session.Set<List<Vehiculo>>(SESSION_FILTRADOS, camiones);
+
+                    return RedirectToAction("Index", "Vehiculos", new { area = "" });
+                }
+                else
+                {
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+            }
+            catch
+            {
+                TempData["Mensaje"] = "Error al mostrar el formulario";
 
                 return RedirectToAction("Index", "Vehiculos", new { area = "" });
             }
-            else
-            {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
-
-                return RedirectToAction("Index", "Home", new { area = "" });
-            }
-
         }
 
 
 
         public ActionResult ListarCamionetas()
         {
-            if (ComprobarLogin() == "G")
+            try
             {
-                List<Vehiculo> camionetas = new List<Vehiculo>();
-                List<Vehiculo> vehiculos = HttpContext.Session.Get<List<Vehiculo>>(SESSSION_VEHICULOS);
 
-                foreach (Vehiculo v in vehiculos)
+                if (ComprobarLogin() == "G")
                 {
-                    if (v is Camioneta)
-                    {
-                        camionetas.Add((Camioneta)v);
-                    }
-                }
+                    List<Vehiculo> camionetas = new List<Vehiculo>();
+                    List<Vehiculo> vehiculos = HttpContext.Session.Get<List<Vehiculo>>(SESSSION_VEHICULOS);
 
-                HttpContext.Session.Set<List<Vehiculo>>(SESSION_FILTRADOS, camionetas);
+                    foreach (Vehiculo v in vehiculos)
+                    {
+                        if (v is Camioneta)
+                        {
+                            camionetas.Add((Camioneta)v);
+                        }
+                    }
+
+                    HttpContext.Session.Set<List<Vehiculo>>(SESSION_FILTRADOS, camionetas);
+
+                    return RedirectToAction("Index", "Vehiculos", new { area = "" });
+                }
+                else
+                {
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+            }
+            catch
+            {
+                TempData["Mensaje"] = "Error al mostrar el formulario";
 
                 return RedirectToAction("Index", "Vehiculos", new { area = "" });
             }
-            else
-            {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-                return RedirectToAction("Index", "Home", new { area = "" });
-            }
         }
 
         public ActionResult ListarMotos()
         {
-            if (ComprobarLogin() == "G")
+            try
             {
-                List<Vehiculo> motos = new List<Vehiculo>();
-                List<Vehiculo> vehiculos = HttpContext.Session.Get<List<Vehiculo>>(SESSSION_VEHICULOS);
-
-                foreach (Vehiculo v in vehiculos)
+                if (ComprobarLogin() == "G")
                 {
-                    if (v is Moto)
-                    {
-                        motos.Add((Moto)v);
-                    }
-                }
+                    List<Vehiculo> motos = new List<Vehiculo>();
+                    List<Vehiculo> vehiculos = HttpContext.Session.Get<List<Vehiculo>>(SESSSION_VEHICULOS);
 
-                HttpContext.Session.Set<List<Vehiculo>>(SESSION_FILTRADOS, motos);
+                    foreach (Vehiculo v in vehiculos)
+                    {
+                        if (v is Moto)
+                        {
+                            motos.Add((Moto)v);
+                        }
+                    }
+
+                    HttpContext.Session.Set<List<Vehiculo>>(SESSION_FILTRADOS, motos);
+
+                    return RedirectToAction("Index", "Vehiculos", new { area = "" });
+                }
+                else
+                {
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+            }
+            catch
+            {
+                TempData["Mensaje"] = "Error al mostrar el formulario";
 
                 return RedirectToAction("Index", "Vehiculos", new { area = "" });
             }
-            else
-            {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-                return RedirectToAction("Index", "Home", new { area = "" });
-            }
+            
         }
 
         public ActionResult IrReparaciones(string matricula)
         {
-            if (ComprobarLogin() == "G")
+            try
             {
 
-                HttpContext.Session.Set<string>(SESSSION_SELECCIONADO, null);
+                if (ComprobarLogin() == "G")
+                {
 
-                HttpContext.Session.Set<string>(SESSSION_SELECCIONADO, matricula);
+                    HttpContext.Session.Set<string>(SESSSION_SELECCIONADO, null);
 
-                return RedirectToAction("Index", "Reparaciones", new { area = "" });
+                    HttpContext.Session.Set<string>(SESSSION_SELECCIONADO, matricula);
+
+                    return RedirectToAction("Index", "Reparaciones", new { area = "" });
+                }
+                else
+                {
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
             }
-            else
+            catch
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                TempData["Mensaje"] = "Error al mostrar el formulario";
 
-                return RedirectToAction("Index", "Home", new { area = "" });
+                return RedirectToAction("Index", "Vehiculos", new { area = "" });
             }
+
         }
 
         public ActionResult IrMultas(string matricula)
         {
-            if (ComprobarLogin() == "G")
+            try
             {
 
-                HttpContext.Session.Set<string>(SESSSION_SELECCIONADO, null);
+                if (ComprobarLogin() == "G")
+                {
 
-                HttpContext.Session.Set<string>(SESSSION_SELECCIONADO, matricula);
+                    HttpContext.Session.Set<string>(SESSSION_SELECCIONADO, null);
 
-                return RedirectToAction("Index", "Multas", new { area = "" });
+                    HttpContext.Session.Set<string>(SESSSION_SELECCIONADO, matricula);
+
+                    return RedirectToAction("Index", "Multas", new { area = "" });
+                }
+                else
+                {
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
             }
-            else
+            catch
             {
-                HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                TempData["Mensaje"] = "Error al mostrar el formulario";
 
-                return RedirectToAction("Index", "Home", new { area = "" });
+                return RedirectToAction("Index", "Vehiculos", new { area = "" });
             }
+
         }
 
         public string ComprobarLogin()
@@ -888,6 +1069,34 @@ namespace AdministradoresApp.Controllers
             catch
             {
                 throw new Exception("Error al comprobar el logueo.");
+            }
+        }
+
+        public void cargarMensaje(string mensaje)
+        {
+            try
+            {
+                TempData["Mensaje"] = mensaje;
+            }
+            catch
+            {
+                throw new Exception("Error al cargar el mensaje.");
+            }
+        }
+
+        public void descargarMensaje()
+        {
+            try
+            {
+                if (TempData["Mensaje"] != null)
+                {
+                    string mensaje = TempData["Mensaje"].ToString();
+                    TempData["Mensaje"] = mensaje;
+                }
+            }
+            catch
+            {
+                throw new Exception("Error al descargar el mensaje.");
             }
         }
     }

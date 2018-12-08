@@ -11,20 +11,14 @@ namespace LogicaDeAppsCore
 {
     class ControladorCalificacion:IControladorCalificacion
     {
-        public bool Calificar(int puntaje, string comentario, long rutCliente)
+        public bool Calificar(Calificacion cal)
         {
             try
             {
-                Calificacion cal = new Calificacion()
-                {
-                    Puntaje = puntaje,
-                    Comentario = comentario,
-                    RutCliente = rutCliente
-                };
 
                 HttpClient client = new HttpClient();
 
-                string url = ConexionREST.ConexionAdelantos + "/Adelanto";
+                string url = ConexionREST.ConexionCalificaciones + "/Calificar";
 
                 var content = new StringContent(JsonConvert.SerializeObject(cal), Encoding.UTF8, "application/json");
 
@@ -44,6 +38,33 @@ namespace LogicaDeAppsCore
             catch (Exception ex)
             {
                 throw new Exception("ERROR!: " + ex.Message);
+            }
+        }
+
+        public async Task<List<Calificacion>> ListarCalificaciones()
+        {
+            try
+            {
+                //http://localhost:8080/
+
+                var httpClient = new HttpClient();
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionCalificaciones + "/Listar");
+
+                List<Calificacion> calificaciones = null;
+
+                JsonSerializerSettings settings = new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Objects
+                };
+
+                calificaciones = JsonConvert.DeserializeObject<List<Calificacion>>(json, settings);
+
+                return calificaciones;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Se produjo un error al intentar listar las calificaciones.");
             }
         }
     }

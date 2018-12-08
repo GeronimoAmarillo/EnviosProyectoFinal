@@ -11,6 +11,95 @@ namespace LogicaDeServicioCore
     public class LogicaUsuario
     {
 
+        private static EntidadesCompartidasAndroid.Usuario TransformarUserAAndroid(EntidadesCompartidasCore.Usuario userCore)
+        {
+            try
+            {
+
+                if (userCore is EntidadesCompartidasCore.Administrador)
+                {
+                    try
+                    {
+                        EntidadesCompartidasAndroid.Administrador adminR = new EntidadesCompartidasAndroid.Administrador();
+
+                        adminR.Direccion = userCore.Direccion;
+                        adminR.Email = userCore.Email;
+                        adminR.Id = userCore.Id;
+                        adminR.Tipo = ((EntidadesCompartidasCore.Administrador)userCore).Tipo;
+                        adminR.Nombre = userCore.Nombre;
+                        adminR.NombreUsuario = userCore.NombreUsuario;
+                        adminR.Telefono = userCore.Telefono;
+                        adminR.Ci = ((EntidadesCompartidasCore.Administrador)userCore).Ci;
+                        adminR.CiEmpleado = ((EntidadesCompartidasCore.Administrador)userCore).CiEmpleado;
+                        adminR.Contraseña = userCore.Contraseña;
+
+                        return adminR;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error al transformar el administrador.");
+                    }
+                }
+                else if (userCore is EntidadesCompartidasCore.Cadete)
+                {
+                    try
+                    {
+                        EntidadesCompartidasAndroid.Cadete adminR = new EntidadesCompartidasAndroid.Cadete();
+
+                        adminR.Direccion = userCore.Direccion;
+                        adminR.Email = userCore.Email;
+                        adminR.Id = userCore.Id;
+                        adminR.TipoLibreta = ((EntidadesCompartidasCore.Cadete)userCore).TipoLibreta;
+                        adminR.Nombre = userCore.Nombre;
+                        adminR.NombreUsuario = userCore.NombreUsuario;
+                        adminR.Telefono = userCore.Telefono;
+                        adminR.Ci = ((EntidadesCompartidasCore.Cadete)userCore).Ci;
+                        adminR.CiEmpleado = ((EntidadesCompartidasCore.Cadete)userCore).CiEmpleado;
+                        adminR.Contraseña = userCore.Contraseña;
+
+                        return adminR;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error al transformar el cadete.");
+                    }
+                }
+                else if (userCore is EntidadesCompartidasCore.Cliente)
+                {
+                    try
+                    {
+                        EntidadesCompartidasAndroid.Cliente adminR = new EntidadesCompartidasAndroid.Cliente();
+
+                        adminR.Direccion = userCore.Direccion;
+                        adminR.Email = userCore.Email;
+                        adminR.Id = userCore.Id;
+                        adminR.Mensualidad = ((EntidadesCompartidasCore.Cliente)userCore).Mensualidad;
+                        adminR.Nombre = userCore.Nombre;
+                        adminR.NombreUsuario = userCore.NombreUsuario;
+                        adminR.Telefono = userCore.Telefono;
+                        adminR.RUT = ((EntidadesCompartidasCore.Cliente)userCore).RUT;
+                        adminR.Contraseña = userCore.Contraseña;
+
+                        return adminR;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error al transformar el cliente.");
+                    }
+                }
+                else
+                {
+                    return new EntidadesCompartidasAndroid.Usuario();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al intentar comprobar la existencia del Local con los datos ingresados.");
+            }
+        }
+
+
         public static bool VerificarCodigoContraseña(string email, string codigo)
         {
             try
@@ -27,6 +116,42 @@ namespace LogicaDeServicioCore
                 throw new Exception(ex.Message);
             }
 
+        }
+
+        public static EntidadesCompartidasAndroid.Usuario LoginDroid(string user, string pass)
+        {
+            EntidadesCompartidasAndroid.Usuario usuarioLogueado = new EntidadesCompartidasAndroid.Usuario();
+            EntidadesCompartidasCore.Usuario userCore = new EntidadesCompartidasCore.Usuario();
+
+            try
+            {
+                userCore = Login(user, pass);
+
+                usuarioLogueado = TransformarUserAAndroid(userCore);
+
+                return usuarioLogueado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al loguear el Usuario" + ex.Message);
+            }
+        }
+
+        public static Geolocalizacion ConsultarLocalizacion(int numReferencia, int rut)
+        {
+            try
+            {
+                Geolocalizacion geo = new Geolocalizacion();
+                geo.Cadete = FabricaPersistencia.GetPersistenciaCadete().ConsultarLocalizacion(numReferencia);
+                geo.Paquete = FabricaPersistencia.GetPersistenciaPaquete().BuscarPaqueteIndividual(numReferencia, rut);
+
+                return geo;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public static bool VerificarCodigoEmail(string email, string codigo)
@@ -299,11 +424,15 @@ namespace LogicaDeServicioCore
 
         }
 
-        public static bool ModificarContrasenia(Administrador unAdmin)
+        public static bool ModificarContrasenia(Usuario unUsuario)
         {
             try
             {
-                return FabricaPersistencia.GetPersistenciaAdministrador().ModificarContrasenia(unAdmin);
+                if(unUsuario is Administrador)
+                    return FabricaPersistencia.GetPersistenciaAdministrador().ModificarContrasenia((Administrador)unUsuario);
+                else
+                    return FabricaPersistencia.GetPersistenciaCliente().ModificarContrasenia((Cliente)unUsuario);
+
             }
             catch (Exception ex)
             {
@@ -367,8 +496,91 @@ namespace LogicaDeServicioCore
 
         public static List<EntidadesCompartidasCore.Cadete> ListarCadetesDisponibles()
         {
-            List<EntidadesCompartidasCore.Cadete> lista = new List<EntidadesCompartidasCore.Cadete>();
-            return lista;
+            try
+            {
+                List<EntidadesCompartidasCore.Cadete> lista = new List<EntidadesCompartidasCore.Cadete>();
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los cadetes." + ex.Message);
+            }
+            
+        }
+
+        public static List<EntidadesCompartidasAndroid.Cadete> ListarCadetes()
+        {
+
+            try
+            {
+                List<Cadete> cadetesNormales = FabricaPersistencia.GetPersistenciaCadete().ListarCadetes();
+                return TransformarCadetesAndroid(cadetesNormales);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los cadetes." + ex.Message);
+            }
+
+        }
+
+        private static List<EntidadesCompartidasAndroid.Cadete> TransformarCadetesAndroid(List<Cadete> cadetesNormales)
+        {
+            try
+            {
+                List<EntidadesCompartidasAndroid.Cadete> cadetes = new List<EntidadesCompartidasAndroid.Cadete>();
+
+                foreach (Cadete c in cadetesNormales)
+                {
+                    EntidadesCompartidasAndroid.Cadete cN = new EntidadesCompartidasAndroid.Cadete();
+
+                    cN.Ci = c.Ci;
+                    cN.CiEmpleado = c.CiEmpleado;
+                    cN.Direccion = c.Direccion;
+                    cN.Email = c.Email;
+                    cN.Id = c.Id;
+                    cN.Nombre = c.Nombre;
+                    cN.NombreUsuario = c.NombreUsuario;
+                    cN.Telefono = c.Telefono;
+                    cN.TipoLibreta = c.TipoLibreta;
+                    cN.Vehiculos = TransformarVehiculos(c.Vehiculos);
+
+                    cadetes.Add(cN);
+                }
+
+                return cadetes;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al Listar los Cadetes." + ex.Message);
+            }
+        }
+
+        private static List<EntidadesCompartidasAndroid.Vehiculo> TransformarVehiculos(List<EntidadesCompartidasCore.Vehiculo> vehiculosP)
+        {
+            try
+            {
+                List<EntidadesCompartidasAndroid.Vehiculo> vehiculos = new List<EntidadesCompartidasAndroid.Vehiculo>();
+
+                foreach (EntidadesCompartidasCore.Vehiculo c in vehiculosP)
+                {
+
+                    EntidadesCompartidasAndroid.Vehiculo cN = new EntidadesCompartidasAndroid.Vehiculo();
+
+                    cN.Capacidad = c.Capacidad;
+                    cN.Estado = c.Estado;
+                    cN.Marca = c.Marca;
+                    cN.Matricula = c.Matricula;
+                    cN.Modelo = c.Modelo;
+
+                    vehiculos.Add(cN);
+                }
+
+                return vehiculos;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al Listar los Vehiculos." + ex.Message);
+            }
         }
 
         public static List<EntidadesCompartidasCore.Cliente> ListarClientes()
@@ -501,7 +713,7 @@ namespace LogicaDeServicioCore
 
         public static string CrearContrasenia()
         {
-            const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_@*#.";
+            const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
             StringBuilder res = new StringBuilder();
             Random rnd = new Random();
             int charNum = 1;

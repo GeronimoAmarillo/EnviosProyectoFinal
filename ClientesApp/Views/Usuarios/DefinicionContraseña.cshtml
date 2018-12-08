@@ -5,29 +5,64 @@
     ViewData["Title"] = "DefinicionContraseña";
 }
 
-<h2>DefinicionContraseña</h2>
+@{
+    string mensaje = "";
 
-<h2>Definir Nueva Contraseña</h2>
+    if (TempData["Mensaje"] != null)
+    {
+        mensaje = TempData["Mensaje"].ToString();
+    }
 
-<h4>Datos de nueva contraseña</h4>
-<hr />
-
-@using (Html.BeginForm("DefinicionContraseñaPost", "Usuarios"))
-{
-    <div class="form-group">
-        <label>Mail solicitante</label>
-        <input type="text" name="email" class="form-control" value=@ViewBag.Email readonly />
-        <br />
-    </div>
-    <div class="form-group">
-        <label>Ingrese su nueva contraseña</label>
-        <input type="text" name="contraseña" class="form-control" />
-        <br />
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-default">Modificar Contraseña</button>
-    </div>
 }
+
+@{
+    if (mensaje != "")
+    {
+        if (mensaje.ToLower().Contains("exito"))
+        {
+            <div id="toast"><div id="img">&#9989;</div><div id="desc">@mensaje</div></div>
+        }
+        else if (mensaje.ToLower().Contains("error") || mensaje.ToLower().Contains("invalid") || mensaje.ToLower().Contains("incorrecto"))
+        {
+            <div id="toast"><div id="img">&#10060;</div><div id="desc">@mensaje</div></div>
+        }
+        else
+        {
+            <div id="toast"><div id="img">&#10069;</div><div id="desc">@mensaje</div></div>
+        }
+
+    }
+
+}
+            <div>
+                <a asp-action="Index" asp-controller="Home" class="btn-group-xs"><img class="img-responsive" src="~/images/892646.png" style="max-width:50px; max-height:50px" /></a>
+            </div>
+
+<h2 class="container">Definir Nueva Contraseña</h2>
+
+<div class="container">
+
+    @using (Html.BeginForm("DefinicionContraseñaPost", "Usuarios"))
+    {
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Mail solicitante</label>
+            <input type="text" name="email" class="form-control" value=@ViewBag.Email readonly />
+            <br />
+        </div>
+        <div class="form-group">
+            <label>Ingrese su nueva contraseña</label>
+            <input type="text" name="contraseña" class="form-control" />
+            <br />
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-default">Modificar Contraseña</button>
+        </div>
+    </div>
+        
+    }
+
+</div>
 
 
 @*<div class="row">
@@ -49,6 +84,17 @@
         </div>
     </div>*@
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
+<script>
+
+    function launch_toast() {
+        var x = document.getElementById("toast")
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
+    }
+
+
+    window.onload = launch_toast;
+
+</script>

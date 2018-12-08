@@ -5,52 +5,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ClientesApp</title>
 
+
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/inicio.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://www.w3schools.com/lib/w3.js"></script>
+
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     </environment>
+
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">ClientesApp</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Paquetes" asp-action="Index">Paquetes Enviados</a></li>
-                    <li><a asp-area="" asp-controller="Paquetes" asp-action="ListarRecibidos">Paquetes Recibidos</a></li>
-                    <li><a asp-area="" asp-controller="Paquetes" asp-action="ConsultarEstado">Estado de Paquete</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li>@await Component.InvokeAsync("UsuarioLogueado")</li>
-                    <li>@await Component.InvokeAsync("BotonesSesion")</li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2018 - ClientesApp</p>
-        </footer>
+    <div class="topnav" id="myTopnav" style="z-index:3">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enviosclientes.azurewebsites.net/" style="background-color:black"><img src="~/images/fa-facebook-square.png" style="max-height:14px; max-width:14px; padding:0; margin:0" /></a>
+        <a href="https://twitter.com/home?status=Ingresa%20a%20Envios%20SRL%20y%20conoce%20la%20empresa%20de%20env%C3%ADos%20industriales%20mas%20comprometida%20con%20el%20cliente%20y%20el%20avance%20tecnol%C3%B3gico,%20dando%20clic%20en%20el%20siguiente%20enlace%3A%0Ahttps%3A//enviosclientes.azurewebsites.net/%0A" style="background-color:black"><img src="~/images/Twitter.png" style="max-height:14px; max-width:14px; padding:0; margin:0" /></a>
+        <a href="https://plus.google.com/share?url=https%3A//enviosclientes.azurewebsites.net/" style="background-color:black"><img src="~/images/fa-google-plus.png" style="max-height:14px; max-width:14px; padding:0; margin:0" /></a>
+        <a href="mailto:enviosservice2018@gmail.com?" style="background-color:black"><img src="~/images/fa-envelope-o.png" style="max-height:14px; max-width:14px; padding:0; margin:0" /></a>
+        @await Component.InvokeAsync("ContactUs")
+        @await Component.InvokeAsync("ContactUsPost")
+        @await Component.InvokeAsync("BotonesSesion")
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>
     </div>
+
+    <div class="header">
+        <div class="parallax" id="parallax">
+        <div style="padding:70px;overflow:hidden"><a asp-area="" asp-controller="Home" asp-action="Index" style="float:left;"><img src="~/images/LogoNuevoColor.png" alt="Home" class="img-responsive" /></a><img id="bannerContraste" src="~/images/BannerContraste.png" alt="Home" class="banner" style="float:left" /> </div>
+        </div>
+    </div>
+
+    <div class="menu" style="z-index:2; transition: .5s" id="menu">
+        <div style="background-color:black">
+            <span style="font-size:35px;cursor:pointer;color:white; padding-left:10px" onclick="openNav()">&#9776;</span>@await Component.InvokeAsync("AccionesUsuario")
+        </div>
+    </div>
+
+    <div class="wrapper" style="z-index:1">
+
+        <div id="main" style="margin:0; padding:0">
+
+            @RenderBody()
+            <section id="footer">
+                <div class="container">
+                    <div class="row text-center text-xs-center text-sm-left text-md-left">
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <h5>Contactanos</h5>
+                            <ul class="list-unstyled quick-links">
+                                <li>Telefono 1:</li>
+                                <li>Telefono 2:</li>
+                                <li>Correo: </li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <h5>Comparte nuestro sitio</h5>
+                            <ul class="list-unstyled quick-links">
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4">
+                            <h5>Nuestros horarios y localidad</h5>
+                            <ul class="list-unstyled quick-links">
+                                <li>Nos encontramos en</li>
+                                <li>Calle 1 y Chimborazo</li>
+                                <li>a 3 pazos del MC Donalds del ovelizco</li>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
+                            <ul class="list-unstyled list-inline social text-center">
+                                <li class="list-inline-item"><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enviosclientes.azurewebsites.net/"><i class="fa fa-facebook"><img src="~/images/fa-facebook-square.png" style="max-height:17px; max-width:17px; padding:0; margin:0" /></i></a></li>
+                                <li class="list-inline-item"><a href="https://twitter.com/home?status=Ingresa%20a%20Envios%20SRL%20y%20conoce%20la%20empresa%20de%20env%C3%ADos%20industriales%20mas%20comprometida%20con%20el%20cliente%20y%20el%20avance%20tecnol%C3%B3gico,%20dando%20clic%20en%20el%20siguiente%20enlace%3A%0Ahttps%3A//enviosclientes.azurewebsites.net/%0A"><i class="fa fa-twitter"><img src="~/images/Twitter.png" style="max-height:17px; max-width:17px; padding:0; margin:0" /></i></a></li>
+                                <li class="list-inline-item"><a href="https://plus.google.com/share?url=https%3A//enviosclientes.azurewebsites.net/"><i class="fa fa-google-plus"><img src="~/images/fa-google-plus.png" style="max-height:17px; max-width:17px; padding:0; margin:0" /></i></a></li>
+                                <li class="list-inline-item"><a href="mailto:enviosservice2018@gmail.com?" target="_blank"><i class="fa fa-envelope"><img src="~/images/fa-envelope-o.png" style="max-height:17px; max-width:17px; padding:0; margin:0" /></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <p style="text-align:center; color:white">Copyright 2018 EnviosService</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+
+    @*<div class="icon-bar" id="redes">
+            <a href="#" class="fa fa-facebook"></a>
+            <a href="#" class="fa fa-twitter"></a>
+            @await Component.InvokeAsync("BotonesSesion")
+        </div>*@
+
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a asp-area="" asp-controller="Paquetes" asp-action="Index">Paquetes Enviados</a>
+        <a asp-area="" asp-controller="Paquetes" asp-action="ListarRecibidos">Paquetes Recibidos</a>
+        <a asp-area="" asp-controller="Paquetes" asp-action="ConsultarEstado">Estado de Paquete</a>
+        <a asp-area="" asp-controller="Paquetes" asp-action="IniciarReclamo">Realizar Reclamo</a>
+        <a asp-area="" asp-controller="Paquetes" asp-action="IniciarTrackeo">Localizar Paquete</a>
+        <a asp-area="" asp-controller="Calificaciones" asp-action="Calificar">Calificar Servicio</a>
+
+    </div>
+
+
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -72,6 +148,75 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+            document.getElementById("parallax").style.marginLeft = "250px";
+            document.getElementById("myTopnav").style.marginLeft = "250px";
+            document.getElementById("menu").style.marginLeft = "250px";
+            document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+            document.getElementById("parallax").style.marginLeft = "0";
+            document.getElementById("myTopnav").style.marginLeft = "0";
+            document.getElementById("menu").style.marginLeft = "0";
+            document.body.style.backgroundColor = "white";
+        }
+
+        function openPan() {
+            document.getElementById("mySidepanel").style.width = "300px";
+        }
+
+        function closePan() {
+            document.getElementById("mySidepanel").style.width = "0";
+        }
+
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+
+    </script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+        posicionarMenu();
+
+        $(window).scroll(function () {
+            posicionarMenu();
+        });
+
+        function posicionarMenu() {
+            var altura_del_header = $('.header').outerHeight(true);
+            var altura_del_menu = $('.menu').outerHeight(true);
+            var altura_del_topnav = $('.topnav').outerHeight(true);
+
+            if ($(window).scrollTop() >= altura_del_header + altura_del_topnav) {
+                $('.menu').addClass('fixed')
+                $('.wrapper').css('margin-top', altura_del_menu + 'px');
+            } else {
+                $('.menu').removeClass('fixed');
+                $('.wrapper').css('margin-top', '0');
+            }
+        }
+
+        if ($('#bannerContraste').is(":visible")) {
+            $('#bannerContraste').fadeIn(1000);
+        } else {
+            $('#bannerContraste').fadeOut(1000);
+        }
+
+    </script>
+
 
     @RenderSection("Scripts", required: false)
 </body>

@@ -144,7 +144,9 @@ namespace LogicaDeAppsCore
 
                 string url = ConexionREST.ConexionEmpleados + "/ModificarCadete";
 
-                var content = new StringContent(JsonConvert.SerializeObject(pEmpleado), Encoding.UTF8, "application/json");
+                string json = JsonConvert.SerializeObject(pEmpleado);
+
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
 
                 var result = client.PostAsync(url, content).Result;
 

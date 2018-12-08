@@ -11,12 +11,63 @@ namespace LogicaDeServicioCore
     {
         public List<EntidadesCompartidasCore.Balance> ConsultarBalanceAnual(int año)
         {
-            return new List<EntidadesCompartidasCore.Balance>();
+            try
+            {
+                return LogicaBalance.ObtenerBalancesAnuales(año);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al generar el balance: " + ex.Message);
+            }
+        }
+
+        public Balance ObtenerBalanceAnual(DateTime fechaDesde, DateTime FechaHasta)
+        {
+            try
+            {
+                return LogicaBalance.ObtenerBalanceAnual(fechaDesde, FechaHasta);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al generar el balance: " + ex.Message);
+            }
         }
 
         public EntidadesCompartidasCore.Balance ConsultarBalanceMensual(string mes, int año)
         {
-            return new EntidadesCompartidasCore.Balance();
+            try
+            {
+                return LogicaBalance.BuscarBalance(mes, año);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al generar el balance: " + ex.Message);
+            }
         }
+
+        public Registro ObtenerRegistro(DateTime fecha)
+        {
+            try
+            {
+                return LogicaBalance.ObtenerRegistro(fecha);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Error al generar el registro: " + ex.Message);
+            }
+        }
+
+        public List<Registro> ObtenerRegistros(DateTime fechaInicio, DateTime fechaFinal)
+        {
+            try
+            {
+                return LogicaBalance.ObtenerRegistros(fechaInicio, fechaFinal);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al generar los registro: " + ex.Message);
+            }
+        }
+
     }
 }
