@@ -24,7 +24,7 @@ namespace LogicaDeAppsCore
                 //http://localhost:8080/
 
                 var httpClient = new HttpClient();
-                var json = await httpClient.GetStringAsync("http://localhost:8080/api/Empleados/ExisteEmpleado?" + "ci=" + ci);
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionEmpleados + "/ExisteEmpleado?" + "ci=" + ci);
 
                 bool existe = false;
 
@@ -88,7 +88,7 @@ namespace LogicaDeAppsCore
 
 
             var httpClient = new HttpClient();
-            var json = await httpClient.GetStringAsync("http://localhost:8080/api/Empleados/Empleado?" + "ci=" + cedula);
+            var json = await httpClient.GetStringAsync(ConexionREST.ConexionEmpleados + "/Empleado?" + "ci=" + cedula);
 
             emp = JsonConvert.DeserializeObject<Empleado>(json);
 
@@ -212,7 +212,7 @@ namespace LogicaDeAppsCore
                     throw new Exception("El empleado que desea dar de alta ya existe en el sistema.");
                 }
 
-                string url = "http://localhost:8080/api/Empleados/Alta";
+                string url = ConexionREST.ConexionEmpleados + "/Alta";
 
                 var content = new StringContent(JsonConvert.SerializeObject(pEmpleado), Encoding.UTF8, "application/json");
 
@@ -248,7 +248,7 @@ namespace LogicaDeAppsCore
                     throw new Exception("El empleado que desea dar de alta ya existe en el sistema.");
                 }
 
-                string url = "http://localhost:8080/api/Empleados/AltaCadete";
+                string url = ConexionREST.ConexionEmpleados + "/AltaCadete";
 
                 var content = new StringContent(JsonConvert.SerializeObject(pEmpleado), Encoding.UTF8, "application/json");
 

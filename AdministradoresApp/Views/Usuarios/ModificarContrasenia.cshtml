@@ -28,6 +28,7 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label>Nombre de Usuario Actual</label>
+                    <p class="danger">Campo requerido en cualquier caso</p>
                     <input asp-for="NombreUsuario" class="form-control" name="NombreUsuario" id="NombreUsuario" />
                     <span asp-validation-for="NombreUsuario" class="text-danger"></span>
                 </div>
@@ -38,6 +39,7 @@
                 </div>
                 <div class="form-group">
                     <label>Contraseña Actual</label>
+                    <p class="danger">Campo requerido en cualquier caso</p>
                     <input type="password" asp-for="Contraseña" class="form-control" name="Contraseña" id="Contraseña" />
                     <span asp-validation-for="Contraseña" class="text-danger"></span>
                 </div>
@@ -67,7 +69,7 @@
 
     document.getElementById("submit").onclick = function () {
         if (NombreUsuario.value == NuevoNombreUsuario.value || Contraseña.value == NuevaContrasenia.value) {
-            alert('EL Nombre de Usuario y la contraseña no pueden ser iguales al anterior')
+            alert('El nombre de usuario y la contraseña actual son obligatorios y los nuevos no pueden ser iguales a los actuales ')
             return false;
         }
     }

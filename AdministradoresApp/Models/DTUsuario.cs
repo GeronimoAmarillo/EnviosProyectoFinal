@@ -12,15 +12,17 @@ namespace AdministradoresApp.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "El nombre de usuario es obligatorio")]
+        [MinLength(3, ErrorMessage = "El nombre de usuario no puede tener menos de 3 caracteres")]
+        [MaxLength(100, ErrorMessage = "El nombre de usuario no puede tener mas de 100 caracteres")]
         public string NombreUsuario { get; set; }
-
-        [Required(ErrorMessage = "El nuevo nombre de usuario es obligatorio")]
+        
         public string NuevoNombreUsuario { get; set; }
 
         [Required(ErrorMessage = "La contraseña es obligatoria")]
+        [MinLength(8, ErrorMessage = "La contraseña no puede tener menos de 8 caracteres")]
+        [MaxLength(25, ErrorMessage = "La contraseña no puede tener mas de 25 caracteres")]
         public string Contraseña { get; set; }
-
-        [Required(ErrorMessage = "La contraseña nueva es obligatoria")]
+        
         public string NuevaContrasenia { get; set; }
 
         public string Nombre { get; set; }

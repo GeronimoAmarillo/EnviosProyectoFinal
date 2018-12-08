@@ -96,7 +96,7 @@ namespace AdministradoresApp.Controllers
 
                     TempData["Mensaje"] = "Usuario y/o contraseña invalidos.";
 
-                    return RedirectToAction("Login", "Usuarios", new { area = "" });
+                    return RedirectToAction("Index", "Home", new { area = "" });
                 }
 
                 return RedirectToAction("Index", "Home", new { area = "" });
@@ -150,12 +150,13 @@ namespace AdministradoresApp.Controllers
                         adminLogueado.Contraseña = string.IsNullOrEmpty(datadelForm.NuevaContrasenia) ? adminLogueado.Contraseña : datadelForm.NuevaContrasenia;
                         adminLogueado.NombreUsuario = string.IsNullOrEmpty(datadelForm.NuevoNombreUsuario) ? adminLogueado.NombreUsuario : datadelForm.NuevoNombreUsuario;
                     }
+
                     IControladorUsuario controladorUsuario = FabricaApps.GetControladorUsuario();
                     if (await controladorUsuario.ModificarContraseña(adminLogueado))
                     {
                         //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Contraseña modificada exitosamente!.");
 
-                        TempData["Mensaje"] = "Contraseña modificada exitosamente!.";
+                        TempData["Mensaje"] = "Contraseña/User modificada exitosamente!.";
 
                         return RedirectToAction("Index", "Home", new { area = "" });
                     }

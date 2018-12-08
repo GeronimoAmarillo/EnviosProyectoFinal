@@ -86,7 +86,7 @@ namespace AdministradoresApp.Controllers
             {
                 //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Locales registrados");
 
-                TempData["Mensaje"] = "Error al mostrar el formulario: No se pudieron listar los Locales registrados";
+                TempData["Mensaje"] = "Error al mostrar el formulario: No se pudieron listar los Empleados registrados";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -119,7 +119,7 @@ namespace AdministradoresApp.Controllers
             {
                 //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario: No se pudieron listar los Locales registrados");
 
-                TempData["Mensaje"] = "Error al mostrar el formulario: No se pudieron listar los Locales registrados";
+                TempData["Mensaje"] = "Error al mostrar el formulario: No se pudieron listar los Empleados registrados";
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
@@ -482,11 +482,11 @@ namespace AdministradoresApp.Controllers
                     if (exito)
                     {
                         controladorEmpleado.SetEmpleado(null);
-                        mensaje = "El local se dio de alta con exito!.";
+                        mensaje = "El administrador se dio de alta con exito!.";
                     }
                     else
                     {
-                        mensaje = "Se produjo un error al dar de alta el local!.";
+                        mensaje = "Se produjo un error al dar de alta el administrador!.";
                     }
 
                     if (mensaje != "")
@@ -658,11 +658,11 @@ namespace AdministradoresApp.Controllers
                     if (exito)
                     {
                         controladorEmpleado.SetEmpleado(null);
-                        mensaje = "El local se dio de alta con exito!.";
+                        mensaje = "El cadete se dio de alta con exito!.";
                     }
                     else
                     {
-                        mensaje = "Se produjo un error al dar de alta el local!.";
+                        mensaje = "Se produjo un error al dar de alta el cadete!.";
                     }
 
 

@@ -28,7 +28,7 @@ namespace LogicaDeAppsCore
                 //http://localhost:8080/
 
                 var httpClient = new HttpClient();
-                var json = await httpClient.GetStringAsync("http://localhost:8080/api/Turnos/ExisteTurno?" + "dia=" + dia + "&hora=" + hora);
+                var json = await httpClient.GetStringAsync(ConexionREST.ConexionTurnos + "/ExisteTurno?" + "dia=" + dia + "&hora=" + hora);
 
                 bool existe = false;
 
@@ -123,7 +123,7 @@ namespace LogicaDeAppsCore
                     throw new Exception("El turno que desea dar de alta ya existe en el sistema.");
                 }
 
-                string url = "http://localhost:8080/api/Turnos/Alta";
+                string url = ConexionREST.ConexionTurnos + "/Turnos/Alta";
 
                 var content = new StringContent(JsonConvert.SerializeObject(turno), Encoding.UTF8, "application/json");
 
