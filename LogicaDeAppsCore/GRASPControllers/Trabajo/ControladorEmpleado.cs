@@ -102,7 +102,7 @@ namespace LogicaDeAppsCore
 
                 HttpClient client = new HttpClient();
 
-                if (ExisteEmpleado(pEmpleado.Ci).ToString().ToUpper() == "TRUE")
+                if (ExisteEmpleado(pEmpleado.Ci).ToString().ToUpper() == "FALSE")
                 {
                     throw new Exception("El empleado que desea modificar no existe en el sistema.");
                 }

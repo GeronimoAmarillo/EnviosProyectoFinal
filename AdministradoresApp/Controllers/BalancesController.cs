@@ -6,6 +6,7 @@ using EntidadesCompartidasCore;
 using LogicaDeAppsCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace AdministradoresApp.Controllers
 {
@@ -115,6 +116,123 @@ namespace AdministradoresApp.Controllers
                         TempData["Mensaje"] = mensaje;
                     }
 
+                    List<DateTime> mesesIncluidos = new List<DateTime>();
+
+                    int mesInicial = fDesde.Month;
+                    int añoInicial = fDesde.Year;
+                    int mesFinal = fHasta.Month;
+                    int añoFinal = fHasta.Year;
+
+                    if (añoFinal == añoInicial)
+                    {
+                        int indice = mesInicial;
+
+                        while (indice <= mesFinal)
+                        {
+                            mesesIncluidos.Add(Convert.ToDateTime("1/" + indice + "/" + añoInicial));
+
+                            indice++;
+                        }
+                    }
+                    else
+                    {
+                        bool finalAlcanzado = false;
+                        int indiceMes = mesInicial;
+                        int indiceAño = añoInicial;
+
+                        while (finalAlcanzado == false)
+                        {
+                            if (indiceMes == mesFinal && indiceAño == añoFinal)
+                            {
+                                mesesIncluidos.Add(Convert.ToDateTime("1/" + indiceMes + "/" + indiceAño));
+
+                                finalAlcanzado = true;
+                            }
+                            else
+                            {
+                                mesesIncluidos.Add(Convert.ToDateTime("1/" + indiceMes + "/" + indiceAño));
+
+                                if (indiceMes == 12)
+                                {
+                                    indiceAño++;
+                                    indiceMes = 0;
+                                }
+
+                                indiceMes++;
+                            }
+                        }
+                    }
+
+
+                    List<UtilidadesBrutasTotales> ubt = new List<UtilidadesBrutasTotales>();
+                    List<UtilidadesOperacionalesTotales> uot = new List<UtilidadesOperacionalesTotales>();
+                    List<UtilidadesSinImpuestosTotales> usit = new List<UtilidadesSinImpuestosTotales>();
+                    List<UtilidadesDelEjercicioTotales> udet = new List<UtilidadesDelEjercicioTotales>();
+
+                    var jsonUbt = "";
+                    var jsonUot = "";
+                    var jsonUsit = "";
+                    var jsonUdet = "";
+
+                    foreach (DateTime d in mesesIncluidos)
+                    {
+
+                        jsonUbt += "[";
+
+                        List<Registro> registrosDelMes = balanceARetornar.Registros.Where(x => x.Fecha.Month == d.Month && x.Fecha.Year == d.Year).ToList();
+
+                        foreach (Registro r in registrosDelMes)
+                        {
+
+                            UtilidadesBrutasTotales uti = new UtilidadesBrutasTotales
+                            {
+                                fecha = ("x" + d.ToShortDateString().Substring(2)),
+                                suma = r.UtilidadBruta
+                            };
+
+                            ubt.Add(uti);
+
+                            UtilidadesOperacionalesTotales utio = new UtilidadesOperacionalesTotales()
+                            {
+                                fecha = ("x" + d.ToShortDateString().Substring(2)),
+                                suma = r.UtilidadOperacional
+                            };
+
+                            uot.Add(utio);
+
+                            UtilidadesSinImpuestosTotales utisi = new UtilidadesSinImpuestosTotales
+                            {
+                                fecha = ("x" + d.ToShortDateString().Substring(2)),
+                                suma = r.UtilidadSinImpuestos
+                            };
+
+                            usit.Add(utisi);
+
+                            UtilidadesDelEjercicioTotales utie = new UtilidadesDelEjercicioTotales
+                            {
+                                fecha = ("x" + d.ToShortDateString().Substring(2)),
+                                suma = r.UtilidadEjercicio
+                            };
+
+                            udet.Add(utie);
+
+                        }
+                        
+                    }
+
+
+                    var utilidadesBrutas = JsonConvert.SerializeObject(ubt);
+                    var utilidadesOp = JsonConvert.SerializeObject(uot);
+                    var utilidadesSImp = JsonConvert.SerializeObject(usit);
+                    var utilidadesEjercicio = JsonConvert.SerializeObject(udet);
+
+
+                    TempData["UBT"] = utilidadesBrutas;
+                    TempData["UOT"] = utilidadesOp;
+                    TempData["USIT"] = utilidadesSImp;
+                    TempData["UDET"] = utilidadesEjercicio;
+                    ViewBag.UB = utilidadesBrutas;
+
                     return View(balanceARetornar);
                 }
                 else
@@ -134,6 +252,36 @@ namespace AdministradoresApp.Controllers
 
                 return RedirectToAction("ConsultarBalance", "Balances", new { area = "" });
             }
+        }
+
+
+
+        //CLASES PARA EL JSON DE CHARTS.JS----------------------------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------------------------------------------------------------
+
+
+        public class UtilidadesBrutasTotales
+        {
+            public string fecha { get; set; }
+            public decimal suma { get; set; }
+        }
+
+        public class UtilidadesOperacionalesTotales
+        {
+            public string fecha { get; set; }
+            public decimal suma { get; set; }
+        }
+
+        public class UtilidadesSinImpuestosTotales
+        {
+            public string fecha { get; set; }
+            public decimal suma { get; set; }
+        }
+
+        public class UtilidadesDelEjercicioTotales
+        {
+            public string fecha { get; set; }
+            public decimal suma { get; set; }
         }
 
     }

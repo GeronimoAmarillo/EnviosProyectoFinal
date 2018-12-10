@@ -1,5 +1,9 @@
 ﻿@model EntidadesCompartidasCore.Balance
 <script src="https://www.w3schools.com/lib/w3.js"></script>
+<script type="text/javascript" src="~/js/site.js"></script>
+<script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+
 @{
     ViewData["Title"] = "Consultar Balance Anual";
 }
@@ -12,13 +16,18 @@
     {
         mensaje = TempData["Mensaje"].ToString();
     }
+    
+    var ubt = TempData["UBT"];
+    string uot = TempData["UOT"].ToString();
+    string usit = TempData["USIT"].ToString();
+    string udet = TempData["UDET"].ToString();
 
 }
 <div class="container">
     <h4>Balance</h4>
     <hr />
     <dl class="dl-horizontal">
-        
+
         <dt>
             @Html.DisplayNameFor(model => model.UtilidadBrutaTotal)
         </dt>
@@ -71,9 +80,43 @@
 </div>
 
 <div class="container">
+
+    <h2>Fluctuacion de las utilidades brutas</h2>
+
+    <canvas id="lineChartBlueGreen" style="max-height:200px; max-width:200px"></canvas>
+
+    <br />
+    <br />
+    <br />
+
+    <h2>Fluctuacion de las utilidades operacionales</h2>
+
+    <canvas id="lineChartPinkOrange" style="max-height:200px; max-width:200px"></canvas>
+
+    <br />
+    <br />
+    <br />
+
+    <h2>Fluctuacion de las utilidades sin impuestos</h2>
+
+    <canvas id="lineChartOrangeYellow" style="max-height:200px; max-width:200px"></canvas>
+
+    <br />
+    <br />
+    <br />
+
+    <h2>Fluctuacion de las utilidades del ejercicio</h2>
+
+    <canvas id="lineChartVioletRed" style="max-height:200px; max-width:200px"></canvas>
+
+
+    <h2>Registros declarados para el ejercicio consultado</h2>
+
+
     <p>
         <input oninput="w3.filterHTML('#id01', '.item', this.value)" placeholder="Busqueda multi-columna...">
     </p>
+
     <div class="table-responsive">
         <table class="table-hover" id="id01">
             <thead>
@@ -150,7 +193,7 @@
 
 }
 
-<script>
+            <script>
 
     function launch_toast() {
         var x = document.getElementById("toast")
@@ -161,4 +204,148 @@
 
     window.onload = launch_toast;
 
-</script>
+
+
+    //this is the function to create the line chart
+    function drawLineChart(div_id, results, yColumn, yLabel, xAxes, firstColour, secondColour, thirdColour, fourthColour) {
+        var ctx = document.getElementById(div_id).getContext("2d");
+        var width = window.innerWidth || document.body.clientWidth;
+        var gradientStroke = ctx.createLinearGradient(0, 0, width, 0);
+        gradientStroke.addColorStop(0, firstColour);
+        gradientStroke.addColorStop(0.3, secondColour);
+        gradientStroke.addColorStop(0.6, thirdColour);
+        gradientStroke.addColorStop(1, fourthColour);
+
+        var labels = results.map(function (item) {
+            return item[xAxes];
+        });
+        var data = results.map(function (item) {
+            return item[yColumn];
+        });
+
+        var myChart = new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: yLabel,
+                        borderColor: gradientStroke,
+                        pointBorderColor: gradientStroke,
+                        pointBackgroundColor: gradientStroke,
+                        pointHoverBackgroundColor: gradientStroke,
+                        pointHoverBorderColor: gradientStroke,
+                        pointBorderWidth: 8,
+                        pointHoverRadius: 8,
+                        pointHoverBorderWidth: 1,
+                        pointRadius: 3,
+                        fill: false,
+                        borderWidth: 4,
+                        data: data
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    position: "none"
+                },
+                scales: {
+                    yAxes: [
+                        {
+                            ticks: {
+                                fontFamily: "Roboto Mono",
+                                fontColor: "#556F7B",
+                                fontStyle: "bold",
+                                beginAtZero: true,
+                                maxTicksLimit: 5,
+                                padding: 20
+                            },
+                            gridLines: {
+                                drawTicks: false,
+                                display: false,
+                                drawBorder: false
+                            }
+                        }
+                    ],
+                    xAxes: [
+                        {
+                            gridLines: {
+                                zeroLineColor: "transparent"
+                            },
+                            ticks: {
+                                padding: 20,
+                                fontColor: "#556F7B",
+                                fontStyle: "bold",
+                                fontFamily: "Roboto Mono"
+                            },
+                            gridLines: {
+                                drawTicks: false,
+                                display: false,
+                                drawBorder: false
+                            }
+                        }
+                    ]
+                }
+            }
+        });
+    }
+                //[{ "fecha": "x/01/2018", "suma": -8000.0000 }, { "fecha": "x/02/2018", "suma": 231512.0000 }, { "fecha": "x/03/2018", "suma": 0.0 }]
+    var result =  @ubt;
+    var result2 = [{ "fecha": "x/01/2018", "suma": -8000.0000 }, { "fecha": "x/02/2018", "suma": 231512.0000 }, { "fecha": "x/03/2018", "suma": 0.0 }]
+    var result3 = [{ "fecha": "x/01/2018", "suma": -8000.0000 }, { "fecha": "x/02/2018", "suma": 230512.0000 }, { "fecha": "x/03/2018", "suma": 0.0 }]
+    var result4 = [{ "fecha": "x/01/2018", "suma": -8000.0000 }, { "fecha": "x/02/2018", "suma": 138307.2000 }, { "fecha": "x/03/2018", "suma": 0.0 }]
+
+    //this is to initialise the charts
+    function drawCharts() {
+        drawLineChart(
+            "lineChartBlueGreen",
+            result,
+            "suma",
+            "Suma del registro",
+            "fecha",
+            "#7C4DFF",
+            "#448AFF",
+            "#00BCD4",
+            "#1DE9B6"
+        );
+        drawLineChart(
+            "lineChartPinkOrange",
+            result2,
+            "suma",
+            "Suma del registro",
+            "fecha",
+            "#F44336",
+            "#F50057",
+            "#FF4081",
+            "#FF9100"
+        );
+        drawLineChart(
+            "lineChartOrangeYellow",
+            result3,
+            "suma",
+            "Suma del registro",
+            "fecha",
+            "#F44336",
+            "#F50057",
+            "#FF4081",
+            "#FF9100"
+        );
+        drawLineChart(
+            "lineChartVioletRed",
+            result4,
+            "suma",
+            "Suma del registro",
+            "fecha",
+            "#F44336",
+            "#F50057",
+            "#FF4081",
+            "#FF9100"
+        );
+    }
+
+    window.onload = drawCharts;
+
+
+            </script>

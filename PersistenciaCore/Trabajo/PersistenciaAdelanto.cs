@@ -58,6 +58,8 @@ namespace PersistenciaCore
 
                     if(adelanto != null)
                     {
+                        bool añoNuevo = false;
+
                         int mesActual = DateTime.Now.Month;
                         int anioActual = DateTime.Now.Year;
 
@@ -71,6 +73,8 @@ namespace PersistenciaCore
 
                         if ((mesExpedido + cuotas) >= 12)
                         {
+                            añoNuevo = true;
+
                             mesCalculado = (mesExpedido + cuotas) - 12;
                             anioCalculado = anioExpedido + 1;
                         }
@@ -80,10 +84,55 @@ namespace PersistenciaCore
                             anioCalculado = anioExpedido;
                         }
 
-                        if (mesActual < mesCalculado && anioActual == anioCalculado)
+                        if (Convert.ToDateTime("01/" + mesActual + "/" + anioActual) > Convert.ToDateTime("01/" + mesCalculado + "/" + anioCalculado))
+                        {
+                            adelantoSaldado = true;
+                        }
+                        else
                         {
                             adelantoSaldado = false;
                         }
+
+                        //if (añoNuevo)
+                        //{
+                        //    if (mesActual + cuotas > 12)
+                        //    {
+                        //        mesActual = mesActual + cuotas - 12;
+
+                        //        if (mesActual > mesCalculado)
+                        //        {
+                        //            adelantoSaldado = true;
+                        //        }
+                        //        else
+                        //        {
+                        //            adelantoSaldado = false;
+                        //        }
+                        //    }
+                        //    else
+                        //    {
+                        //        if (mesActual > mesCalculado)
+                        //        {
+                        //            adelantoSaldado = true;
+                        //        }
+                        //        else
+                        //        {
+                        //            adelantoSaldado = false;
+                        //        }
+                        //    }
+                            
+                        //}
+                        //else
+                        //{
+                        //    if (mesActual < mesCalculado && anioActual == anioCalculado)
+                        //    {
+                        //        adelantoSaldado = false;
+                        //    }
+                        //    else
+                        //    {
+                        //        adelantoSaldado = true;
+                        //    }
+                        //}
+                        
                     }
 
                     return adelantoSaldado;

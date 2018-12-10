@@ -13,6 +13,7 @@ namespace EntidadesCompartidasCore
         [MinLength(1)]
         [MaxLength(150)]
         public string Nombre { get; set; }
+        [Required]
         [MinLength(5)]
         [MaxLength(250)]
         public string Direccion { get; set; }

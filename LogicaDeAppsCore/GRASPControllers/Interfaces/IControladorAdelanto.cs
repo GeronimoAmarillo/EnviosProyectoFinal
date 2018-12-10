@@ -21,7 +21,7 @@ namespace LogicaDeAppsCore
 
         Task<Empleado> SeleccionarEmpleado(int cedula);
 
-        bool RealizarAdelanto(Adelanto pAdelanto);
+        Task<bool> RealizarAdelanto(Adelanto pAdelanto);
 
         Task<List<Adelanto>> ListarAdelantos();
 

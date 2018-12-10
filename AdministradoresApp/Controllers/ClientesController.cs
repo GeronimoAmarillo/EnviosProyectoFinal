@@ -181,7 +181,7 @@ namespace AdministradoresApp.Controllers
 
                     TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
 
-                    return RedirectToAction("Index", "Home", new { area = "" });
+                    return RedirectToAction("Index", "Clientes", new { area = "" });
                 }
                 
             }

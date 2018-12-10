@@ -82,33 +82,42 @@ namespace AdministradoresApp.Controllers
 
         public ActionResult Alta()
         {
-            if (ComprobarLogin() == "G")
+            try
             {
-                int ci = HttpContext.Session.Get<int>(EMPLEADO_SELECCIONADO);
-
-                ViewBag.Empleado = ci;
-
-                if (TempData["Mensaje"] != null)
+                if (ComprobarLogin() == "G")
                 {
-                    string mensaje = TempData["Mensaje"].ToString();
-                    TempData["Mensaje"] = mensaje;
+                    int ci = HttpContext.Session.Get<int>(EMPLEADO_SELECCIONADO);
+
+                    ViewBag.Empleado = ci;
+
+                    if (TempData["Mensaje"] != null)
+                    {
+                        string mensaje = TempData["Mensaje"].ToString();
+                        TempData["Mensaje"] = mensaje;
+                    }
+
+                    return View();
+                }
+                else
+                {
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
                 }
 
-                return View();
             }
-            else
+            catch
             {
-                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+                TempData["Mensaje"] = "Error al mostrar el formulario";
 
-                TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
-
-                return RedirectToAction("Index", "Home", new { area = "" });
+                return RedirectToAction("Index", "Adelantos", new { area = "" });
             }
-
         }
 
         [HttpPost]
-        public ActionResult Alta([FromForm]Adelanto adelanto)
+        public async Task<ActionResult> Alta([FromForm]Adelanto adelanto)
         {
             try
             {
@@ -121,7 +130,7 @@ namespace AdministradoresApp.Controllers
 
                     if (ModelState.IsValid)
                     {
-                        bool exito = controladorAdelanto.RealizarAdelanto(adelanto);
+                        bool exito = await controladorAdelanto.RealizarAdelanto(adelanto);
 
                         if (exito)
                         {
@@ -154,7 +163,9 @@ namespace AdministradoresApp.Controllers
             }
             catch (Exception ex)
             {
-                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+                TempData["Mensaje"] = "Error: " + ex.Message;
+
+                return RedirectToAction("Index", "Adelantos", new { area = "" });
             }
 
         }

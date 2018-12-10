@@ -411,7 +411,7 @@ namespace ClientesApp.Controllers
 
                     Paquete paquete = await controladorPaquete.BuscarPaqueteIndividual(numReferencia, cliente.RUT);
 
-                    if (paquete != null)
+                    if (paquete != null && paquete.NumReferencia != 0)
                     {
 
                         if (TempData["Mensaje"] != null)
@@ -426,7 +426,7 @@ namespace ClientesApp.Controllers
                     {
                         //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No existe el paquete seleccionado");
 
-                        TempData["Mensaje"] = "No existe el paquete seleccionado";
+                        TempData["Mensaje"] = "No existe el paquete seleccionado o no ha sido registrado aun";
 
                         return RedirectToAction("ConsultarEstado", "Paquetes", new { area = "" });
                     }

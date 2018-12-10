@@ -87,29 +87,38 @@ namespace LogicaDeAppsCore
             }
         }
 
-        public bool RealizarAdelanto(Adelanto pAdelanto)
+        public async Task<bool> RealizarAdelanto(Adelanto pAdelanto)
         {
             try
             {
+                bool inhabilitado = await FabricaApps.GetControladorAdelanto().verificarAdelantoSaldado(pAdelanto.Empleado);
 
-                HttpClient client = new HttpClient();
-                
-                string url = ConexionREST.ConexionAdelantos + "/Adelanto";
-
-                var content = new StringContent(JsonConvert.SerializeObject(pAdelanto), Encoding.UTF8, "application/json");
-
-                var result = client.PostAsync(url, content).Result;
-
-                var contentResult = result.Content.ReadAsStringAsync();
-
-                if (contentResult.Result.ToUpper() == "TRUE")
+                if (inhabilitado)
                 {
-                    return true;
+                    HttpClient client = new HttpClient();
+
+                    string url = ConexionREST.ConexionAdelantos + "/Adelanto";
+
+                    var content = new StringContent(JsonConvert.SerializeObject(pAdelanto), Encoding.UTF8, "application/json");
+
+                    var result = client.PostAsync(url, content).Result;
+
+                    var contentResult = result.Content.ReadAsStringAsync();
+
+                    if (contentResult.Result.ToUpper() == "TRUE")
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
-                    return false;
+                    throw new Exception("El empleado tiene un adelanto por vencer.");
                 }
+                
             }
             catch (Exception ex)
             {

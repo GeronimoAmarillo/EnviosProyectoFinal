@@ -576,5 +576,7 @@ namespace AdministradoresApp.Controllers
                 throw new Exception("Error al descargar el mensaje.");
             }
         }
+
+
     }
 }
