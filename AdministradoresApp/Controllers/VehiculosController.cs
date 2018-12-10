@@ -214,7 +214,7 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult AltaAuto([FromForm]Automobil auto)
+        public async Task<ActionResult> AltaAuto([FromForm]Automobil auto)
         {
             try
             {
@@ -226,7 +226,7 @@ namespace AdministradoresApp.Controllers
                     string mensaje = "";
 
 
-                    bool exito = controladorVehiculo.AltaVehiculo(auto);
+                    bool exito = await controladorVehiculo.AltaVehiculo(auto);
 
                     if (exito)
                     {
@@ -259,9 +259,9 @@ namespace AdministradoresApp.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Mensaje"] = "Error al mostrar el formulario";
+                TempData["Mensaje"] = "Error: " + ex.Message ;
 
-                return RedirectToAction("Index", "Vehiculos", new { area = "" });
+                return RedirectToAction("AltaAuto", "Vehiculos", new { area = "" });
             }
 
         }
@@ -296,7 +296,7 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult AltaCamion([FromForm]Camion camion)
+        public async Task<ActionResult> AltaCamion([FromForm]Camion camion)
         {
             try
             {
@@ -308,7 +308,7 @@ namespace AdministradoresApp.Controllers
                     string mensaje = "";
 
                     
-                        bool exito = controladorVehiculo.AltaVehiculo(camion);
+                        bool exito = await controladorVehiculo.AltaVehiculo(camion);
 
                         if (exito)
                         {
@@ -340,9 +340,9 @@ namespace AdministradoresApp.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Mensaje"] = "Error al mostrar el formulario";
+                TempData["Mensaje"] = "Error: " + ex.Message;
 
-                return RedirectToAction("Index", "Vehiculos", new { area = "" });
+                return RedirectToAction("AltaCamion", "Vehiculos", new { area = "" });
             }
 
         }
@@ -376,7 +376,7 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult AltaCamioneta([FromForm]Camioneta camioneta)
+        public async Task<ActionResult> AltaCamioneta([FromForm]Camioneta camioneta)
         {
             try
             {
@@ -387,7 +387,7 @@ namespace AdministradoresApp.Controllers
 
                     string mensaje = "";
                     
-                        bool exito = controladorVehiculo.AltaVehiculo(camioneta);
+                        bool exito = await controladorVehiculo.AltaVehiculo(camioneta);
 
                         if (exito)
                         {
@@ -419,9 +419,9 @@ namespace AdministradoresApp.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Mensaje"] = "Error al mostrar el formulario";
+                TempData["Mensaje"] = "Error: " + ex.Message;
 
-                return RedirectToAction("Index", "Vehiculos", new { area = "" });
+                return RedirectToAction("AltaCamioneta", "Vehiculos", new { area = "" });
             }
 
         }
@@ -457,7 +457,7 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult AltaMoto([FromForm]Moto moto)
+        public async Task<ActionResult> AltaMoto([FromForm]Moto moto)
         {
             try
             {
@@ -468,7 +468,7 @@ namespace AdministradoresApp.Controllers
 
                     string mensaje = "";
                     
-                        bool exito = controladorVehiculo.AltaVehiculo(moto);
+                        bool exito = await controladorVehiculo.AltaVehiculo(moto);
 
                         if (exito)
                         {
@@ -502,9 +502,9 @@ namespace AdministradoresApp.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Mensaje"] = "Error al mostrar el formulario";
+                TempData["Mensaje"] = "Error: " + ex.Message;
 
-                return RedirectToAction("Index", "Vehiculos", new { area = "" });
+                return RedirectToAction("AltaMoto", "Vehiculos", new { area = "" });
             }
         }
 
@@ -682,7 +682,7 @@ namespace AdministradoresApp.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Mensaje"] = "Error al mostrar el formulario";
+                TempData["Mensaje"] = "Error: " + ex.Message;
 
                 return RedirectToAction("Index", "Vehiculos", new { area = "" });
             }
@@ -743,7 +743,7 @@ namespace AdministradoresApp.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Mensaje"] = "Error al mostrar el formulario";
+                TempData["Mensaje"] = "Error: " + ex.Message;
 
                 return RedirectToAction("Index", "Vehiculos", new { area = "" });
             }
@@ -805,7 +805,7 @@ namespace AdministradoresApp.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Mensaje"] = "Error al mostrar el formulario";
+                TempData["Mensaje"] = "Error: " + ex.Message;
 
                 return RedirectToAction("Index", "Vehiculos", new { area = "" });
             }

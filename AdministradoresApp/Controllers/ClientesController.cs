@@ -155,7 +155,7 @@ namespace AdministradoresApp.Controllers
                         {
                             //ViewBag.Message = "Datos incorrectos!.";
 
-                            TempData["Mensaje"] = "Datos incorrectos!.";
+                            TempData["Mensaje"] = "Verifique que no esta ingresando datos de un Cliente ya registrado!.";
 
                             return View();
                         }
@@ -189,7 +189,7 @@ namespace AdministradoresApp.Controllers
             {
                 //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al intentar dar de alta el cliente." + ex.Message);
 
-                TempData["Mensaje"] = "Error al intentar dar de alta el cliente.";
+                TempData["Mensaje"] = "Error: " + ex.Message;
 
                 return RedirectToAction("Index", "Home", new { area = "" });
             }

@@ -64,6 +64,10 @@ namespace AdministradoresApp.Controllers
             {
                 ViewBag.Matricula = matricula;
 
+                HttpContext.Session.Set<string>("Matricula", matricula);
+
+                
+
                 descargarMensaje();
 
                 return View();
@@ -89,10 +93,15 @@ namespace AdministradoresApp.Controllers
 
                     IControladorReparacion controladorReparacion = FabricaApps.GetControladorReparacion();
 
+                    
+                    
                     string mensaje = "";
 
                     if (ModelState.IsValid)
                     {
+
+                        HttpContext.Session.Set<string>("Matricula", null);
+
                         bool exito = controladorReparacion.RegistrarReparacion(reparacion);
 
                         if (exito)
@@ -106,6 +115,11 @@ namespace AdministradoresApp.Controllers
                     }
                     else
                     {
+                        string matricula = HttpContext.Session.Get<string>("Matricula");
+
+
+                        ViewBag.Matricula = matricula;
+
                         return View();
                     }
 

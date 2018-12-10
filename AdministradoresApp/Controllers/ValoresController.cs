@@ -314,7 +314,7 @@ namespace AdministradoresApp.Controllers
 
 
         [HttpPost]
-        public ActionResult RegistrarIngreso([FromForm]Ingreso ingreso, [FromForm]string cliente)
+        public async Task<ActionResult> RegistrarIngreso([FromForm]Ingreso ingreso, [FromForm]string cliente)
         {
             try
             {
@@ -350,6 +350,23 @@ namespace AdministradoresApp.Controllers
                         {
                             mensaje = "Se produjo un error al dar de alta el ingreso!.";
                         }
+                    }
+                    else
+                    {
+                        IControladorCliente controladorCliente = FabricaApps.GetControladorCliente();
+                        
+                        List<Cliente> clientes = await controladorCliente.ListarClientes();
+                        
+                        List<SelectListItem> itemsClientes = new List<SelectListItem>();
+
+                        foreach (Cliente c in clientes)
+                        {
+                            itemsClientes.Add(new SelectListItem() { Text = c.RUT + " - " + c.Nombre, Value = c.RUT.ToString() });
+                        }
+
+                        ViewBag.Clientes = itemsClientes;
+
+                        return View();
                     }
 
                     if (mensaje != "")

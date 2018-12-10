@@ -4,7 +4,7 @@
     ViewData["Title"] = "Eliminar";
 }
 
-<h2 class="container">Eliminar Turno</h2>
+
 @{
     string mensaje = "";
 
@@ -14,7 +14,12 @@
     }
 
 }
-<h3 class="container">Esta seguro de que desea eliminar este turno?</h3>
+
+
+
+<h2 class="container">Eliminar</h2>
+
+<h3 class="container">Seguro de que desea eliminar este turno?</h3>
 <div class="container">
     <h4>Turno</h4>
     <hr />
@@ -35,38 +40,24 @@
             @Html.DisplayNameFor(model => model.Hora)
         </dt>
         <dd>
-            @{
-                if (Model.Hora.ToString().Length == 3)
-                {
-                    Html.Display("0" + Model.Hora.ToString()[0] + ":" + Model.Hora.ToString()[1] + Model.Hora.ToString()[2]);
-                }
-                else if (Model.Hora.ToString().Length == 2)
-                {
-                    Html.Display("00:" + Model.Hora.ToString()[0] + Model.Hora.ToString()[1]);
-                }
-                else if (Model.Hora.ToString().Length == 1)
-                {
-                    Html.Display("00:0" + Model.Hora.ToString()[0]);
-                }
-                else
-                {
-                    Html.Display(Model.Hora.ToString()[0] + Model.Hora.ToString()[1] + ":" + Model.Hora.ToString()[2] + Model.Hora.ToString()[3]);
-                }
-            }
+            @Html.DisplayFor(model => model.Hora)
         </dd>
-        <dt hidden>
+        <dt>
             @Html.DisplayNameFor(model => model.Eliminado)
         </dt>
-        <dd hidden>
+        <dd>
             @Html.DisplayFor(model => model.Eliminado)
         </dd>
     </dl>
 
     <form asp-action="Eliminar">
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Volver</a>
+        <input type="submit" value="Eliminar" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
     </form>
 </div>
+
+
+
 @{
     if (mensaje != "")
     {

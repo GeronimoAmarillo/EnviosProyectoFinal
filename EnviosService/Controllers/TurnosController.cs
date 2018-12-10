@@ -49,7 +49,7 @@ namespace EnviosService.Controllers
         [Route("api/Turnos/Alta")]
         public JsonResult Turno([FromBody] Turno item)
         {         
-                    return Json(controladorTurno.AltaTurno(item), new Newtonsoft.Json.JsonSerializerSettings());
+            return Json(controladorTurno.AltaTurno(item), new Newtonsoft.Json.JsonSerializerSettings());
         }
     }
 }

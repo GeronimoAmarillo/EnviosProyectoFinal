@@ -110,7 +110,7 @@ namespace LogicaDeAppsCore
             turno = pTurno;
         }
 
-        public bool RegistrarTurno()
+        public async Task<bool> RegistrarTurno()
         {
             try
             {
@@ -118,18 +118,29 @@ namespace LogicaDeAppsCore
                 HttpClient client = new HttpClient();
                 Turno turno = GetTurno();
 
-                if (ExisteTurno(turno.Dia, turno.Hora.ToString()).ToString().ToUpper() == "FALSE")
+                bool existe = await ExisteTurno(turno.Dia, turno.Hora.ToString());
+
+                if ( existe.ToString().ToUpper() == "TRUE")
                 {
                     throw new Exception("El turno que desea dar de alta ya existe en el sistema.");
                 }
 
-                string url = ConexionREST.ConexionTurnos + "/Turnos/Alta";
+                string url = ConexionREST.ConexionTurnos + "/Alta";
 
                 var content = new StringContent(JsonConvert.SerializeObject(turno), Encoding.UTF8, "application/json");
 
                 var result = client.PostAsync(url, content).Result;
 
-                return result.IsSuccessStatusCode;
+                var contentResult = result.Content.ReadAsStringAsync();
+
+                if (contentResult.Result.ToUpper() == "TRUE")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception ex)
             {

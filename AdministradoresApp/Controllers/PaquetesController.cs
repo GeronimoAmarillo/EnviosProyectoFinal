@@ -28,26 +28,11 @@ namespace AdministradoresApp.Controllers
                 {
                     IControladorPaquete controladorPaquete = FabricaApps.GetControladorPaquete();
 
-                    HttpContext.Session.Set<List<Reclamo>>(SESSSION_RECLAMOS, null);
-
                     List<EntidadesCompartidasCore.Reclamo> reclamos = await controladorPaquete.ListarReclamos();
-
-                    HttpContext.Session.Set<List<Reclamo>>(SESSSION_RECLAMOS, reclamos);
-
+                    
                     descargarMensaje();
-
-                    List<Reclamo> filtrados = HttpContext.Session.Get<List<Reclamo>>(SESSION_FILTRADOS);
-
-                    if (filtrados != null)
-                    {
-                        HttpContext.Session.Set<List<Reclamo>>(SESSION_FILTRADOS, null);
-
-                        return View(filtrados);
-                    }
-                    else
-                    {
-                        return View(reclamos);
-                    }
+                    
+                    return View(reclamos);
                 }
                 else
                 {

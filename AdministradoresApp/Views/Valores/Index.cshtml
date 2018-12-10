@@ -116,7 +116,7 @@
                                     @Html.DisplayName(g.Descripcion)
                                 </td>
                                 <td>
-                                    @Html.DisplayName(g.Suma.ToString())
+                                    @Html.DisplayFor(modelitem => g.Suma)
                                 </td>
                                 <td>
                                     @Html.DisplayName(g.Extra.ToString())
@@ -160,7 +160,7 @@
                                     @Html.DisplayName(g.Descripcion)
                                 </td>
                                 <td>
-                                    @Html.DisplayName(g.Suma.ToString())
+                                    @Html.DisplayFor(modelitem => g.Suma)
                                 </td>
                                 <td>
                                     @Html.DisplayName(g.Extra.ToString())
@@ -207,7 +207,7 @@
                         @Html.DisplayName(i.Descripcion)
                     </td>
                     <td>
-                        @Html.DisplayName(i.Porcentaje.ToString())
+                         @Html.DisplayFor(modelitem => i.Porcentaje)
                     </td>
                     <td></td>
                 </tr>

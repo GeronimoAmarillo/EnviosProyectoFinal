@@ -21,7 +21,7 @@ namespace LogicaDeAppsCore
 
         void SetTurno(Turno pTurno);
 
-        bool RegistrarTurno();
+        Task<bool> RegistrarTurno();
 
         Task<List<Turno>> ListarTurnos();
 

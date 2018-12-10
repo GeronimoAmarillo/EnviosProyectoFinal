@@ -35,7 +35,7 @@ namespace LogicaDeAppsCore
 
         Vehiculo ContemplarTipo();
 
-        bool AltaVehiculo(Vehiculo pVehiculo);
+        Task<bool> AltaVehiculo(Vehiculo pVehiculo);
 
         Task<List<Vehiculo>> ListarVehiculos();
 

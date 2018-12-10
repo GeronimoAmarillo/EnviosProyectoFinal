@@ -1,5 +1,6 @@
 ﻿@model EntidadesCompartidasCore.Registro
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
+<script type="text/javascript" src="~/js/site.js"></script>
+<script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
 @{
     ViewData["Title"] = "ConsultarRegistro";
 }
@@ -148,7 +149,7 @@
             labels: ['Ingresos', 'Gastos'],
             datasets: [{
                 label: 'Valores Registrados',
-                data: [@totalIngresos + @totalGastos],
+                data: [@totalIngresos , @totalGastos],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.6)',
                     'rgba(54, 162, 235, 0.6)'
@@ -168,7 +169,7 @@
             labels: ['Utilidad Bruta', 'Utilidad Operacional', 'Utilidad sin Impuestos', 'Utilidad del Ejercicio'],
             datasets: [{
                 label: 'Utilidades',
-                data: [@Model.UtilidadBruta + @Model.UtilidadOperacional + @Model.UtilidadSinImpuestos + @Model.UtilidadEjercicio],
+                data: [@Model.UtilidadBruta , @Model.UtilidadOperacional , @Model.UtilidadSinImpuestos , @Model.UtilidadEjercicio],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.6)',
                     'rgba(54, 162, 235, 0.6)',

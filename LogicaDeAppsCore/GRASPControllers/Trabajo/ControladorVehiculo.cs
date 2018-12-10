@@ -188,16 +188,18 @@ namespace LogicaDeAppsCore
             return new Vehiculo();
         }
 
-        public bool AltaVehiculo(Vehiculo pVehiculo)
+        public async Task<bool> AltaVehiculo(Vehiculo pVehiculo)
         {
             try
             {
 
                 HttpClient client = new HttpClient();
 
-                if (ExisteVehiculo(pVehiculo.Matricula).ToString().ToUpper() == "TRUE")
+                bool existe = await ExisteVehiculo(pVehiculo.Matricula);
+
+                if (existe.ToString().ToUpper() == "TRUE")
                 {
-                    throw new Exception("El vehiculo que desea dar de alta ya existe en el sistema.");
+                    throw new Exception("El vehiculo que desea dar de alta ya existe.");
                 }
 
                 string url = "";

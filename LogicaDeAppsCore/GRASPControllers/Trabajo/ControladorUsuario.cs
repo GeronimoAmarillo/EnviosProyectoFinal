@@ -18,11 +18,11 @@ namespace LogicaDeAppsCore
 
         public string CrearContrasenia()
         {
-            const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_@*#.";
+            const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
             StringBuilder res = new StringBuilder();
             Random rnd = new Random();
             int charNum = 1;
-            while (charNum < 25)
+            while (charNum < 24)
             {
                 res.Append(valid[rnd.Next(valid.Length)]);
                 charNum++;
@@ -109,7 +109,9 @@ namespace LogicaDeAppsCore
 
                 var EnvioJson = JsonConvert.SerializeObject(unUsuario);
 
-                if (FabricaApps.GetControladorCliente().BuscarCliente(((Cliente)unUsuario).RUT) == null)
+                Cliente cliente = await FabricaApps.GetControladorCliente().BuscarCliente(((Cliente)unUsuario).RUT);
+
+                if (cliente == null || cliente.RUT == 0)
                 {
                     HttpResponseMessage retorno;
 
@@ -133,7 +135,7 @@ namespace LogicaDeAppsCore
             }
             catch(Exception ex)
             {
-                throw new Exception("Error al intentar dar de alta el Usuario: " + ex.Message);
+                throw new Exception("Error: " + ex.Message);
             }
         }
 

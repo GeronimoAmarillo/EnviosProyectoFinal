@@ -92,7 +92,7 @@ namespace AdministradoresApp.Controllers
 
 
         [HttpPost]
-        public ActionResult Alta([FromForm]Turno turno)
+        public async Task<ActionResult> Alta([FromForm]Turno turno)
         {
             try
             {
@@ -116,7 +116,7 @@ namespace AdministradoresApp.Controllers
 
                         string mensaje = "";
 
-                        bool exito = controladorTurno.RegistrarTurno();
+                        bool exito = await controladorTurno.RegistrarTurno();
 
                         if (exito)
                         {
@@ -156,7 +156,7 @@ namespace AdministradoresApp.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Mensaje"] = "Error al mostrar el formulario";
+                TempData["Mensaje"] = "Error: " + ex.Message;
 
                 return RedirectToAction("Index", "Turnos", new { area = "" });
             }
@@ -207,19 +207,12 @@ namespace AdministradoresApp.Controllers
                 {
 
                     Turno turnomodificar = HttpContext.Session.Get<Turno>(SESSSION_MODIFICAR);
-
-                    turnomodificar.Codigo = turno.Codigo;
-                    turnomodificar.Dia = turno.Dia;
-                    turnomodificar.Entregas = turno.Entregas;
-                    turnomodificar.Hora = turno.Hora;
-                    turnomodificar.Eliminado = true;
+                    
                     
                     IControladorTurno controladorTurno = FabricaApps.GetControladorTurno();
 
                     string mensaje = "";
-
-                    if (ModelState.IsValid)
-                    {
+                    
                         bool exito = controladorTurno.Eliminar(turnomodificar);
 
                         if (exito)
@@ -231,7 +224,6 @@ namespace AdministradoresApp.Controllers
                         {
                             mensaje = "Se produjo un error al dar de baja el turno!.";
                         }
-                    }
 
                     if (mensaje != "")
                     {
