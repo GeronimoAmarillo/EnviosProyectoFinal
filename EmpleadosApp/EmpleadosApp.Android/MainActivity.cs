@@ -13,12 +13,18 @@ using Android.Content;
 using EntidadesCompartidasAndroid;
 using Plugin.CurrentActivity;
 using Plugin.Permissions;
+using System.Net;
 
 namespace EmpleadosApp.Droid
 {
     [Activity(Label = "Login", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : Activity
     {
+        
+        public bool AcceptAllCertifications(object sender, System.Security.Cryptography.X509Certificates.X509Certificate certification, System.Security.Cryptography.X509Certificates.X509Chain chain, System.Net.Security.SslPolicyErrors sslPolicyErrors)
+        {
+            return true;
+        }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
@@ -31,6 +37,7 @@ namespace EmpleadosApp.Droid
             base.OnCreate(bundle);
             try
             {
+
                 Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, bundle);
                 SetContentView(Resource.Layout.MainActivity);
 
@@ -103,9 +110,12 @@ namespace EmpleadosApp.Droid
         {
             try
             {
+                ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(AcceptAllCertifications);
+
                 //ip correcta: 169.254.80.80
                 using (var httpClient = new HttpClient())
                 {
+
                     var json = await httpClient.GetStringAsync(ConexionREST.ConexionUsuarios + "/LoginDroid?" + "usuario=" + user + "&contrasenia=" + pass);
 
                     Usuario usuarioLogueado = null;
@@ -147,5 +157,6 @@ namespace EmpleadosApp.Droid
                 return null;
             }
         }
+        
     }
 }

@@ -6,13 +6,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using LogicaDeAppsCore;
 using EntidadesCompartidasCore;
-using System.Net.Mail;
 using ClientesApp.Models;
+using Microsoft.Extensions.Configuration;
+using System.Net.Mail;
+using SendGrid.Helpers.Mail;
+using SendGrid;
 
 namespace ClientesApp.Controllers
 {
     public class UsuariosController : Controller
     {
+        private readonly IConfiguration _configuration;
+
+        public UsuariosController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public static string LOG_USER = "UsuarioLogueado";
 
         public static string SESSION_MENSAJE = "Mensaje";
@@ -238,14 +248,27 @@ namespace ClientesApp.Controllers
 
                             SmtpClient smtp = new SmtpClient();
                             smtp.Host = "smtp.gmail.com";
-                            smtp.Port = 25;
+                            smtp.Port = 587;
                             smtp.EnableSsl = true;
-                            smtp.UseDefaultCredentials = true;
+                            smtp.UseDefaultCredentials = false;
                             string correoPropio = "enviosservice2018@gmail.com";
                             string contraseñaCorreo = "MatiasPabloGero";
                             smtp.Credentials = new System.Net.NetworkCredential(correoPropio, contraseñaCorreo);
 
                             smtp.Send(mail);
+
+                            //var client = new SendGridClient("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");
+                            //var from = new EmailAddress("enviosservice2018@gmail.com", "Example User 1");
+                            //List<EmailAddress> tos = new List<EmailAddress>
+                            //{
+                            //    new EmailAddress("geronimoamarillo29@gmail.com", "Geronimo Amarillo")
+                            //};
+
+                            //var subject = "Hello world email from Sendgrid ";
+                            //var htmlContent = "<strong>Hello world with HTML content</strong>";
+                            //var displayRecipients = false; // set this to true if you want recipients to see each others mail id 
+                            //var msg = MailHelper.CreateSingleEmailToMultipleRecipients(from, tos, subject, cliente.CodigoModificarEmail.ToString(), htmlContent, false);
+                            //var response = await client.SendEmailAsync(msg);
 
                             //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Se envio un correo de confirmación a " + emailViejo + " con los pasos a seguir para confirmar la actualización.");
 
@@ -268,12 +291,75 @@ namespace ClientesApp.Controllers
                         }
                         else
                         {
+
+                            MailMessage mail = new MailMessage();
+                            mail.From = new MailAddress("enviosservice2018@gmail.com");
+                            mail.To.Add(emailViejo);
+                            mail.Subject = "Cambio de eMail de contacto - EnviosService";
+                            mail.Body = "Hola " + cliente.Nombre + ", Hemos comenzado el proceso de actualizacion de email de contacto como solicitastes! \n " +
+                                "para confirmar el remplazo de la siguiente direccion de correo: " + cliente.Email + ", en lugar de: " + emailViejo + " ingrese en siguiente codigo de confirmacion: " + clienteXemail.CodigoModificarEmail;
+                            mail.IsBodyHtml = true;
+                            mail.Priority = MailPriority.Normal;
+
+                            SmtpClient smtp = new SmtpClient();
+                            smtp.Host = "smtp.gmail.com";
+                            smtp.Port = 587;
+                            smtp.EnableSsl = true;
+                            smtp.UseDefaultCredentials = false;
+                            string correoPropio = "enviosservice2018@gmail.com";
+                            string contraseñaCorreo = "MatiasPabloGero";
+                            smtp.Credentials = new System.Net.NetworkCredential(correoPropio, contraseñaCorreo);
+
+                            smtp.Send(mail);
+
+                            //var client = new SendGridClient("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");
+                            //var from = new EmailAddress("enviosservice2018@gmail.com", "Example User 1");
+                            //List<EmailAddress> tos = new List<EmailAddress>
+                            //{
+                            //    new EmailAddress("geronimoamarillo29@gmail.com", "Geronimo Amarillo")
+                            //};
+
+                            //var subject = "Hello world email from Sendgrid ";
+                            //var htmlContent = "<strong>Hello world with HTML content</strong>";
+                            //var displayRecipients = false; // set this to true if you want recipients to see each others mail id 
+                            //var msg = MailHelper.CreateSingleEmailToMultipleRecipients(from, tos, subject, cliente.CodigoModificarEmail.ToString(), htmlContent, false);
+                            //var response = await client.SendEmailAsync(msg);
+
                             TempData["Mensaje"] = "No se pudo generar el codigo de confirmacion para el usuario con email: " + emailViejo + ".";
 
                             //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No se pudo generar el codigo de confirmacion para el usuario con email: " + emailViejo + ".");
 
                             return RedirectToAction("Index", "Home", new { area = "" });
                         }
+                    }
+                    else
+                    {
+                        MailMessage mail = new MailMessage();
+                        mail.From = new MailAddress("enviosservice2018@gmail.com");
+                        mail.To.Add(emailViejo);
+                        mail.Subject = "Cambio de eMail de contacto - EnviosService";
+                        mail.Body = "Hola " + cliente.Nombre + ", Hemos comenzado el proceso de actualizacion de email de contacto como solicitastes! \n " +
+                            "para confirmar el remplazo de la siguiente direccion de correo: " + cliente.Email + ", en lugar de: " + emailViejo + " ingrese en siguiente codigo de confirmacion: " + clienteXemail.CodigoModificarEmail;
+                        mail.IsBodyHtml = true;
+                        mail.Priority = MailPriority.Normal;
+
+                        SmtpClient smtp = new SmtpClient();
+                        smtp.Host = "smtp.gmail.com";
+                        smtp.Port = 587;
+                        smtp.EnableSsl = true;
+                        smtp.UseDefaultCredentials = false;
+                        string correoPropio = "enviosservice2018@gmail.com";
+                        string contraseñaCorreo = "MatiasPabloGero";
+                        smtp.Credentials = new System.Net.NetworkCredential(correoPropio, contraseñaCorreo);
+
+                        smtp.Send(mail);
+
+
+                        TempData["Mensaje"] = "Previamente ya se envio un correo con el codigo para definir su nuevo email a " + emailViejo + ".";
+
+                        HttpContext.Session.Set<string>(SESSION_CODIGO, clienteXemail.Email);
+
+                        return RedirectToAction("IngresarCodigoEmail", "Usuarios", new { area = "" });
                     }
 
                     return RedirectToAction("Index", "Home", new { area = "" });
@@ -592,7 +678,7 @@ namespace ClientesApp.Controllers
 
                         SmtpClient smtp = new SmtpClient();
                         smtp.Host = "smtp.gmail.com";
-                        smtp.Port = 25;
+                        smtp.Port = 587;
                         smtp.EnableSsl = true;
                         smtp.UseDefaultCredentials = true;
                         string correoPropio = "enviosservice2018@gmail.com";
