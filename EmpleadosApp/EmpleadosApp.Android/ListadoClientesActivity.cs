@@ -11,6 +11,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using EntidadesCompartidasAndroid;
+using ModernHttpClient;
 using Newtonsoft.Json;
 
 namespace EmpleadosApp.Droid
@@ -68,7 +69,7 @@ namespace EmpleadosApp.Droid
             {
                 //http://169.254.80.80:8080
 
-                using (var httpClient = new HttpClient())
+                using (var httpClient = new HttpClient(new NativeMessageHandler()))
                 {
                     var json = await httpClient.GetStringAsync(ConexionREST.ConexionPalets + "/Clientes");
 

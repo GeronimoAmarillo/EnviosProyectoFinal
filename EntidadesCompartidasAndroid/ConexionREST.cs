@@ -23,7 +23,7 @@ namespace EntidadesCompartidasAndroid
         static string conexionRaiz = "https://enviosservice.azurewebsites.net/api/";
         static string conexionLocales = "https://enviosservice.azurewebsites.net/api/Locales";
         static string conexionPalets = "https://enviosservice.azurewebsites.net/api/Palets";
-        static string conexionUsuarios = "https://enviosservice.azurewebsites.net:587/api/Usuarios";
+        static string conexionUsuarios = "https://enviosservice.azurewebsites.net/api/Usuarios";
         static string conexionVehiculos = "https://enviosservice.azurewebsites.net/api/Vehiculos";
         static string conexionValores = "https://enviosservice.azurewebsites.net/api/Valores";
         static string conexionClientes = "https://enviosservice.azurewebsites.net/api/Clientes";

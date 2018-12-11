@@ -26,6 +26,7 @@ namespace EmpleadosApp.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::ModernHttpClient.Resource.String.library_name = global::EmpleadosApp.Droid.Resource.String.library_name;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::EmpleadosApp.Droid.Resource.Attribute.actionBarSize;
 		}
 		
@@ -4089,6 +4090,9 @@ namespace EmpleadosApp.Droid
 			
 			// aapt resource value: 0x7f090038
 			public const int character_counter_pattern = 2131296312;
+			
+			// aapt resource value: 0x7f09003e
+			public const int library_name = 2131296318;
 			
 			// aapt resource value: 0x7f090000
 			public const int mr_button_content_description = 2131296256;

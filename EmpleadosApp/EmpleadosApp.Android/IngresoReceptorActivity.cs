@@ -12,6 +12,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using EntidadesCompartidasAndroid;
+using ModernHttpClient;
 using Newtonsoft.Json;
 
 namespace EmpleadosApp.Droid
@@ -73,7 +74,7 @@ namespace EmpleadosApp.Droid
                 try
                 {
 
-                    using (var httpClient = new HttpClient())
+                    using (var httpClient = new HttpClient(new NativeMessageHandler()))
                     {
 
                         string url = ConexionREST.ConexionEntregas + "/Entregar";

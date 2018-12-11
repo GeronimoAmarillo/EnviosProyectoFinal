@@ -14,6 +14,7 @@ using EntidadesCompartidasAndroid;
 using Plugin.CurrentActivity;
 using Plugin.Permissions;
 using System.Net;
+using ModernHttpClient;
 
 namespace EmpleadosApp.Droid
 {
@@ -21,10 +22,10 @@ namespace EmpleadosApp.Droid
     public class MainActivity : Activity
     {
         
-        public bool AcceptAllCertifications(object sender, System.Security.Cryptography.X509Certificates.X509Certificate certification, System.Security.Cryptography.X509Certificates.X509Chain chain, System.Net.Security.SslPolicyErrors sslPolicyErrors)
-        {
-            return true;
-        }
+        //public bool AcceptAllCertifications(object sender, System.Security.Cryptography.X509Certificates.X509Certificate certification, System.Security.Cryptography.X509Certificates.X509Chain chain, System.Net.Security.SslPolicyErrors sslPolicyErrors)
+        //{
+        //    return true;
+        //}
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
@@ -110,10 +111,10 @@ namespace EmpleadosApp.Droid
         {
             try
             {
-                ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(AcceptAllCertifications);
+                //ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(AcceptAllCertifications);
 
                 //ip correcta: 169.254.80.80
-                using (var httpClient = new HttpClient())
+                using (var httpClient = new HttpClient(new NativeMessageHandler()))
                 {
 
                     var json = await httpClient.GetStringAsync(ConexionREST.ConexionUsuarios + "/LoginDroid?" + "usuario=" + user + "&contrasenia=" + pass);

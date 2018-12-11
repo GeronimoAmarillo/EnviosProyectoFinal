@@ -13,6 +13,7 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using EntidadesCompartidasAndroid;
+using ModernHttpClient;
 using Newtonsoft.Json;
 using Plugin.Geolocator;
 
@@ -96,7 +97,7 @@ namespace EmpleadosApp.Droid
                 string cadeteM = JsonConvert.SerializeObject(cadeteLogueado);
 
                 
-                using (var httpClient = new HttpClient())
+                using (var httpClient = new HttpClient(new NativeMessageHandler()))
                 {
                     string url = ConexionREST.ConexionEmpleados + "/ModificarCadete";
 
