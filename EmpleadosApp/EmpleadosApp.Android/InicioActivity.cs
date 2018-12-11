@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 
 using Android.App;
@@ -11,6 +12,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using EntidadesCompartidasAndroid;
+using ModernHttpClient;
 using Newtonsoft.Json;
 
 namespace EmpleadosApp.Droid
@@ -215,6 +217,23 @@ namespace EmpleadosApp.Droid
 
                         entrega.Cadete = cadeteLogueado.Ci;
 
+                        DateTime fechaActual = DateTime.Now;
+
+                        var culture = new System.Globalization.CultureInfo("es-ES");
+                        string dia = culture.DateTimeFormat.GetDayName(fechaActual.DayOfWeek);
+
+                        string horaString = fechaActual.ToShortTimeString();
+
+                        string horaStringInt = horaString.Substring(0, 2) + horaString.Substring(3, 2);
+
+                        int hora = Convert.ToInt32(horaStringInt);
+
+                        Turno turnoCandidato = IdentificarTurno(dia, hora);
+
+                        string turno = turnoCandidato.Codigo;
+
+                        entrega.Turno = turno;
+
                         Intent intent = new Intent(this, typeof(ListadoLocalesActivity));
                         intent.PutExtra("EntregaCreacion", Newtonsoft.Json.JsonConvert.SerializeObject(entrega));
                         intent.PutExtra("Nueva", true);
@@ -400,6 +419,121 @@ namespace EmpleadosApp.Droid
                 return "";
             }
 
+        }
+
+        public Turno IdentificarTurno(string diaSemana, int hora)
+        {
+            try
+            {
+                Turno turnoCandidato = new Turno();
+                List<Turno> turnos = new List<Turno>();
+
+                turnos = AsyncHelper.RunSync<List<Turno>>(() => ListarTurnos());
+                
+                turnos.OrderBy(x => x.Hora);
+
+                turnos = turnos.Where(x => x.Dia.ToLower() == diaSemana.ToLower()).ToList();
+
+                if (turnos != null)
+                {
+                    if (turnos.Count == 1)
+                    {
+                        turnoCandidato = turnos[0];
+                    }
+                    else if (turnos.Count == 0)
+                    {
+                        throw new Exception("No existen Turnos el dia de hoy.");
+                    }
+                    else
+                    {
+                        for (int t = 0; t < turnos.Count; t++)
+                        {
+                            if (turnos[t].Hora < hora)
+                            {
+                                turnoCandidato = turnos[t];
+                            }
+                            else
+                            {
+                                if (t == 0)
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    turnoCandidato = turnos[t - 1];
+                                }
+
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    throw new Exception("Error al identificar el turno.");
+                }
+                
+
+                return turnoCandidato;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al identificar el turno." + ex.Message);
+            }
+        }
+
+        private async System.Threading.Tasks.Task<List<Turno>> ListarTurnos()
+        {
+            try
+            {
+                //http://169.254.80.80:8080
+
+                using (var httpClient = new HttpClient(new NativeMessageHandler()))
+                {
+                    var json = await httpClient.GetStringAsync(ConexionREST.ConexionTurnos + "/Turnos");
+
+                    List<Turno> turnos = null;
+
+                    turnos = JsonConvert.DeserializeObject<List<Turno>>(json);
+
+                    //foreach (Turno t in turnos)
+                    //{
+                    //    if (t.Codigo.Substring(0, 3).ToUpper() == "LUN")
+                    //    {
+                    //        t.Id = Convert.ToInt32("1" + t.Codigo.Substring(3, 4));
+                    //    }
+                    //    if (t.Codigo.Substring(0, 3).ToUpper() == "MAR")
+                    //    {
+                    //        t.Id = Convert.ToInt32("2" + t.Codigo.Substring(3, 4));
+                    //    }
+                    //    if (t.Codigo.Substring(0, 3).ToUpper() == "MIE")
+                    //    {
+                    //        t.Id = Convert.ToInt32("3" + t.Codigo.Substring(3, 4));
+                    //    }
+                    //    if (t.Codigo.Substring(0, 3).ToUpper() == "JUE")
+                    //    {
+                    //        t.Id = Convert.ToInt32("4" + t.Codigo.Substring(3, 4));
+                    //    }
+                    //    if (t.Codigo.Substring(0, 3).ToUpper() == "VIE")
+                    //    {
+                    //        t.Id = Convert.ToInt32("5" + t.Codigo.Substring(3, 4));
+                    //    }
+                    //    if (t.Codigo.Substring(0, 3).ToUpper() == "SAB")
+                    //    {
+                    //        t.Id = Convert.ToInt32("6" + t.Codigo.Substring(3, 4));
+                    //    }
+                    //    if (t.Codigo.Substring(0, 3).ToUpper() == "DOM")
+                    //    {
+                    //        t.Id = Convert.ToInt32("7" + t.Codigo.Substring(3, 4));
+                    //    }
+                    //}
+
+                    return turnos;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Se produjo un error al intentar listar los turnos.");
+            }
         }
     }
 }

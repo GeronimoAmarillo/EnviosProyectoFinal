@@ -113,7 +113,7 @@ namespace EmpleadosApp.Droid
             {
                 //ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(AcceptAllCertifications);
 
-                //ip correcta: 169.254.80.80
+                //ip correcta: 169.254.80.80 
                 using (var httpClient = new HttpClient(new NativeMessageHandler()))
                 {
 

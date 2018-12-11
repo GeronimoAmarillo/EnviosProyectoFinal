@@ -194,6 +194,11 @@ namespace PersistenciaCore
                             }
                             if (e.Paquetes1 != null)
                             {
+                                if (e.Paquetes == null || e.Paquetes.Count == 0)
+                                {
+                                    entregaResultado.Paquetes = TransformarPaquetesInversa(e.Paquetes1);
+                                }
+
                                 entregaResultado.Paquetes1 = TransformarPaquetesInversa(e.Paquetes1);
                             }
 
@@ -346,22 +351,22 @@ namespace PersistenciaCore
 
                 }*/
 
-                DateTime fechaActual = DateTime.Now;
+                //DateTime fechaActual = DateTime.Now;
 
-                var culture = new System.Globalization.CultureInfo("es-ES");
-                string dia = culture.DateTimeFormat.GetDayName(fechaActual.DayOfWeek);
+                //var culture = new System.Globalization.CultureInfo("es-ES");
+                //string dia = culture.DateTimeFormat.GetDayName(fechaActual.DayOfWeek);
 
-                string horaString = fechaActual.ToShortTimeString();
+                //string horaString = fechaActual.ToShortTimeString();
 
-                string horaStringInt = horaString.Substring(0, 2) + horaString.Substring(3, 2);
+                //string horaStringInt = horaString.Substring(0, 2) + horaString.Substring(3, 2);
 
-                int hora = Convert.ToInt32(horaStringInt);
+                //int hora = Convert.ToInt32(horaStringInt);
 
-                Turnos turnoCandidato = FabricaPersistencia.GetPersistenciaTurno().IdentificarTurno(dia, hora);
+                //Turnos turnoCandidato = FabricaPersistencia.GetPersistenciaTurno().IdentificarTurno(dia, hora);
                 
-                string turno = turnoCandidato.Codigo;
+                //string turno = turnoCandidato.Codigo;
 
-                entregaAgregar.Turno = turno;
+                entregaAgregar.Turno = entrega.Turno;
 
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
