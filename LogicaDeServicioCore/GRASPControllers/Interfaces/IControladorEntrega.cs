@@ -10,7 +10,7 @@ namespace LogicaDeServicioCore
     public interface IControladorEntrega
     {
 
-        List<Entrega> ListarEntregas();
+        List<Entrega> ListarEntregas(int cadete);
 
         bool Entregar(EntidadesCompartidasCore.Entrega entrega);
 

@@ -22,11 +22,11 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public static List<Entrega> ListarEntregas()
+        public static List<Entrega> ListarEntregas(int cadete)
         {
             try
             {
-                return FabricaPersistencia.GetPersistenciaEntrega().ListarEntregas();
+                return FabricaPersistencia.GetPersistenciaEntrega().ListarEntregas(cadete);
             }
             catch (Exception ex)
             {

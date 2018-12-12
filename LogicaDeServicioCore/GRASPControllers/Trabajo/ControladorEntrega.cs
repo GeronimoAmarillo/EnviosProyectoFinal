@@ -10,11 +10,11 @@ namespace LogicaDeServicioCore
     class ControladorEntrega:IControladorEntrega
     {
         
-        public List<EntidadesCompartidasCore.Entrega> ListarEntregas()
+        public List<EntidadesCompartidasCore.Entrega> ListarEntregas(int cadete)
         {
             try
             {
-                return LogicaEntrega.ListarEntregas();
+                return LogicaEntrega.ListarEntregas(cadete);
             }
             catch (Exception ex)
             {

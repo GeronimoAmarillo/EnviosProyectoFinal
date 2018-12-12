@@ -425,6 +425,7 @@ namespace EmpleadosApp.Droid
         {
             try
             {
+                string diaSemanaAdaptado = diaSemana.Replace("é", "e");
                 Turno turnoCandidato = new Turno();
                 List<Turno> turnos = new List<Turno>();
 
@@ -432,7 +433,13 @@ namespace EmpleadosApp.Droid
                 
                 turnos.OrderBy(x => x.Hora);
 
-                turnos = turnos.Where(x => x.Dia.ToLower() == diaSemana.ToLower()).ToList();
+                foreach (Turno t in turnos)
+                {
+                    string dia = t.Dia.Replace("é", "e");
+                    t.Dia = dia;
+                }
+
+                turnos = turnos.Where(x => x.Dia.ToLower() == diaSemanaAdaptado.ToLower()).ToList();
 
                 if (turnos != null)
                 {

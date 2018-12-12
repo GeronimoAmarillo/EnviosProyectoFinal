@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 namespace EnviosService.Controllers
 {
     [Produces("application/json")]
-    
+
     public class EntregasController : Controller
     {
         private IControladorEntrega controladorEntrega;
@@ -24,10 +24,10 @@ namespace EnviosService.Controllers
         }
 
         [Route("api/Entregas/Listar")]
-        [HttpGet]
-        public JsonResult Entregas(int ci)
+        [HttpGet("{cadete}")]
+        public JsonResult Entregas(int cadete)
         {
-            return Json(controladorEntrega.ListarEntregas(), new Newtonsoft.Json.JsonSerializerSettings());
+            return Json(controladorEntrega.ListarEntregas(cadete), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
         [Route("api/Entregas/Buscar")]

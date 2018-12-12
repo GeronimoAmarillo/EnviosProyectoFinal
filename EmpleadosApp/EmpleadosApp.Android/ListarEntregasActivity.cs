@@ -34,6 +34,12 @@ namespace EmpleadosApp.Droid
 
             SetContentView(Resource.Layout.ListarEntregasActivity);
 
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(Application);
+            string json = prefs.GetString("UsuarioLogueado", "N/L");
+
+            Cadete cadeteLogueado = JsonConvert.DeserializeObject<Cadete>(json);
+
+
             try
             {
                 entregas = new List<Entrega>();
@@ -42,7 +48,7 @@ namespace EmpleadosApp.Droid
                 {
                     try
                     {
-                        entregas = AsyncHelper.RunSync<List<Entrega>>(() => ListarEntregas());
+                        entregas = AsyncHelper.RunSync<List<Entrega>>(() => ListarEntregas(cadeteLogueado.Ci));
                     }
                     catch (Exception ex)
                     {
@@ -69,14 +75,14 @@ namespace EmpleadosApp.Droid
             }
         }
 
-        private async Task<List<Entrega>> ListarEntregas()
+        private async Task<List<Entrega>> ListarEntregas(int cadete)
         {
             try
             {
 
                 using (var httpClient = new HttpClient(new NativeMessageHandler()))
                 {
-                    var json = await httpClient.GetStringAsync(ConexionREST.ConexionEntregas + "/Listar");
+                    var json = await httpClient.GetStringAsync(ConexionREST.ConexionEntregas + "/Listar?cadete=" + cadete);
 
                     List<Entrega> entregas = null;
 
