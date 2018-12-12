@@ -288,7 +288,7 @@ namespace AdministradoresApp.Controllers
                 HttpContext.Session.Set<Ingreso>(SESSSION_ALTA, controladorIngreso.GetIngreso());
                 
                 List<SelectListItem> itemsClientes = new List<SelectListItem>();
-                
+                itemsClientes.Add(new SelectListItem() { Text = "Seleccione un cliente", Value = "N" });
                 foreach (Cliente c in clientes)
                 {
                     itemsClientes.Add(new SelectListItem() { Text = c.RUT + " - " + c.Nombre, Value = c.RUT.ToString() });
@@ -320,16 +320,26 @@ namespace AdministradoresApp.Controllers
             {
                 if (ComprobarLogin() == "C")
                 {
-
-                    long rutCliente = Convert.ToInt64(cliente);
-
+                    long? rutCliente = null;
                     Ingreso ingresoAlta = HttpContext.Session.Get<Ingreso>(SESSSION_ALTA);
 
+
+                    if (!(ingreso.Extra))
+                    {
+                        rutCliente = Convert.ToInt64(cliente);
+                        ingresoAlta.RUT = rutCliente;
+                    }
+                    else
+                    {
+                        ingresoAlta.RUT = null;
+                    }
+                    
                     ingresoAlta.Suma = ingreso.Suma;
-                    ingresoAlta.RUT = rutCliente;
                     ingresoAlta.Descripcion = ingreso.Descripcion;
                     ingresoAlta.Extra = ingreso.Extra;
                     ingresoAlta.Id = 0;
+
+                    
 
                     IControladorIngreso controladorIngreso = FabricaApps.GetControladorIngreso();
 

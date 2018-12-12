@@ -14,8 +14,8 @@
         public decimal Mensualidad { get; set; }
 
         [Required]
-        [MinLength(7)]
-        [MaxLength(150)]
+        [MinLength(7, ErrorMessage = "El mail no es valido")]
+        [MaxLength(150, ErrorMessage = "El mail no es valido")]
         public string EmailViejo { get; set; }
 
         public List<Calificacion> Calificaciones { get; set; }

@@ -10,7 +10,7 @@ namespace EntidadesCompartidasCore
         [Range(50, 1000)]
         public decimal Cilindrada { get; set; }
         [Required]
-        [StringLength(7)]
+        [StringLength(7, ErrorMessage = "la matricula debe poseer 7 caracteres")]
         public string MatriculaMoto { get; set; }
 
         public virtual Vehiculo Vehiculos { get; set; }

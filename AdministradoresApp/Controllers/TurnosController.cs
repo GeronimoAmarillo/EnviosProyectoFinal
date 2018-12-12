@@ -10,6 +10,8 @@ using AdministradoresApp.Models;
 using Microsoft.AspNetCore.Session;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 namespace AdministradoresApp.Controllers
 {
 
@@ -69,6 +71,20 @@ namespace AdministradoresApp.Controllers
 
                     HttpContext.Session.Set<Turno>(SESSSION_ALTA, controladorTurno.GetTurno());
 
+                    List<SelectListItem> dias = new List<SelectListItem>();
+
+                    //A, B, C, D, E, F, G1, G2, G3 y H
+
+                    dias.Add(new SelectListItem() { Text = "Lunes", Value = "Lunes" });
+                    dias.Add(new SelectListItem() { Text = "Martes", Value = "Martes" });
+                    dias.Add(new SelectListItem() { Text = "Miercoles", Value = "Miercoles" });
+                    dias.Add(new SelectListItem() { Text = "Jueves", Value = "Jueves" });
+                    dias.Add(new SelectListItem() { Text = "Viernes", Value = "Viernes" });
+                    dias.Add(new SelectListItem() { Text = "Sabado", Value = "Sabado" });
+                    dias.Add(new SelectListItem() { Text = "Domingo", Value = "Domingo" });
+
+                    ViewBag.Dias = dias;
+
                     return View();
                 }
                 else
@@ -92,7 +108,7 @@ namespace AdministradoresApp.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> Alta([FromForm]Turno turno)
+        public async Task<ActionResult> Alta([FromForm]Turno turno, [FromForm] string dia)
         {
             try
             {
@@ -105,8 +121,8 @@ namespace AdministradoresApp.Controllers
 
                         Turno turnoAlta = HttpContext.Session.Get<Turno>(SESSSION_ALTA);
 
-                        turnoAlta.Codigo = "" + turno.Dia.Substring(0, 3).ToUpper() + turno.Hora.ToString().ToUpper() + "";
-                        turnoAlta.Dia = turno.Dia;
+                        turnoAlta.Codigo = "" + dia.Substring(0, 3).ToUpper() + turno.Hora.ToString().ToUpper() + "";
+                        turnoAlta.Dia = dia;
                         turnoAlta.Hora = turno.Hora;
                         turnoAlta.Eliminado = false;
 

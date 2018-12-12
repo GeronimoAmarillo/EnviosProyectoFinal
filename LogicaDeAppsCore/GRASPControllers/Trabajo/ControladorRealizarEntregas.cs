@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using EntidadesCompartidasCore;
+using Newtonsoft.Json;
 
 namespace LogicaDeAppsCore
 {
@@ -24,9 +26,26 @@ namespace LogicaDeAppsCore
             return new List<Cliente>();
         }
 
-        public List<Cadete> ListarCadetesDisponibles()
+        public async Task<List<Cadete>> ListarCadetesDisponibles()
         {
-            return new List<Cadete>();
+            try
+            {
+
+                using (var httpClient = new HttpClient())
+                {
+                    var json = await httpClient.GetStringAsync(ConexionREST.ConexionEntregas + "/Cadetes");
+
+                    List<Cadete> cadetes = null;
+
+                    cadetes = JsonConvert.DeserializeObject<List<Cadete>>(json);
+
+                    return cadetes;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Se produjo un error al intentar listar los cadetes.");
+            }
         }
 
         public List<Cliente> GetClientes()

@@ -10,8 +10,8 @@ namespace EntidadesCompartidasCore
         [Required]
         public int Id { get; set; }
         [Required]
-        [MinLength(5)]
-        [MaxLength(500)]
+        [MinLength(5, ErrorMessage = "debe ingresar una descripcion un poco mas descriptiva")]
+        [MaxLength(500, ErrorMessage = "debe ingresar una descripcion mas simple")]
         public string Descripcion { get; set; }
 
         [Required]

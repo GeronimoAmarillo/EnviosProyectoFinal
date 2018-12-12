@@ -16,7 +16,7 @@ namespace EntidadesCompartidasCore
         [Required]
         public DateTime Fecha { get; set; }
         [Required]
-        [MinLength(4)]
+        [MinLength(4, ErrorMessage = "debe ingresar una descripcion un poco mas descriptiva")]
         public string Motivo { get; set; }
 
         public Vehiculo Vehiculos { get; set; }

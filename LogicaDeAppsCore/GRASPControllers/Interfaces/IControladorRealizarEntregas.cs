@@ -11,7 +11,7 @@ namespace LogicaDeAppsCore
     {
         List<Cliente> ListarClientes();
 
-        List<Cadete> ListarCadetesDisponibles();
+        Task<List<Cadete>> ListarCadetesDisponibles();
 
         List<Cliente> GetClientes();
 

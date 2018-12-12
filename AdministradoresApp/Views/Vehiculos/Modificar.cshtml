@@ -12,6 +12,10 @@
     }
 
 }
+
+@{
+    var listItemCadetes = ViewBag.Cadetes;
+}
 <h2 class="container">Modificar Vehiculo</h2>
 
 <div class="container">
@@ -49,10 +53,14 @@
                         <input asp-for="Estado" class="form-control" />
                         <span asp-validation-for="Estado" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" hidden>
                         <label asp-for="Cadete" class="control-label"></label>
-                        <input asp-for="Cadete" class="form-control" />
+                        <input asp-for="Cadete" class="form-control"/>
                         <span asp-validation-for="Cadete" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" id="campoRut">
+                        <label>Seleccione el Cadete</label>
+                        @Html.DropDownList("cadete", new SelectList(listItemCadetes, "Value", "Text"))
                     </div>
                     <div class="form-group">
                         <label asp-for="Cilindrada" class="control-label"></label>
@@ -103,10 +111,14 @@
                         <input asp-for="Estado" class="form-control" />
                         <span asp-validation-for="Estado" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" hidden>
                         <label asp-for="Cadete" class="control-label"></label>
                         <input asp-for="Cadete" class="form-control" />
                         <span asp-validation-for="Cadete" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" id="campoRut">
+                        <label>Seleccione el Cadete</label>
+                        @Html.DropDownList("cadete", new SelectList(listItemCadetes, "Value", "Text"))
                     </div>
                     <div class="form-group">
                         <label asp-for="Cabina" class="control-label"></label>
@@ -157,10 +169,14 @@
                         <input asp-for="Estado" class="form-control" />
                         <span asp-validation-for="Estado" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" hidden>
                         <label asp-for="Cadete" class="control-label"></label>
                         <input asp-for="Cadete" class="form-control" />
                         <span asp-validation-for="Cadete" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" id="campoRut">
+                        <label>Seleccione el Cadete</label>
+                        @Html.DropDownList("cadete", new SelectList(listItemCadetes, "Value", "Text"))
                     </div>
                     <div class="form-group">
                         <label asp-for="Altura" class="control-label"></label>
@@ -211,10 +227,14 @@
                         <input asp-for="Estado" class="form-control" />
                         <span asp-validation-for="Estado" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" hidden>
                         <label asp-for="Cadete" class="control-label"></label>
                         <input asp-for="Cadete" class="form-control" />
                         <span asp-validation-for="Cadete" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" id="campoRut">
+                        <label>Seleccione el Cadete</label>
+                        @Html.DropDownList("cadete", new SelectList(listItemCadetes, "Value", "Text"))
                     </div>
                     <div class="form-group">
                         <label asp-for="Puertas" class="control-label"></label>

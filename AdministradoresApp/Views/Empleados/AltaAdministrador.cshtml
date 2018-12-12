@@ -12,18 +12,26 @@
     }
 
 }
+
+@{
+    var listItemTipos = ViewBag.Tipo;
+}
+
 <h2 class="container">Registrar Administrador</h2>
 
 <hr />
-<div class="container">
+<div class="container" onload="set_tipoinicial()">
     <div class="col-md-4">
         <form asp-action="AltaAdministrador">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group" hidden>
                 <label asp-for="Tipo" class="control-label"></label>
-                <input asp-for="Tipo" class="form-control" />
-                <label class="text-danger">Ingrese: G / C / L (General, Contable o Logistico, Respectivamente) </label>
+                <input id="tipo" asp-for="Tipo" class="form-control" />
                 <span asp-validation-for="Tipo" class="text-danger"></span>
+            </div>
+            <div class="form-group" id="campoRut">
+                <label>Seleccione el Tipo</label>
+                @Html.DropDownList("tipo", new SelectList(listItemTipos, "Value", "Text"), new { @id = "tipos", @onchange = "set_tipo()"})
             </div>
             <div class="form-group">
                 <label asp-for="Sueldo" class="control-label"></label>
@@ -71,7 +79,7 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input id="botonEnvio" type="submit" value="Create" class="btn btn-default" />
             </div>
         </form>
     </div>
@@ -113,6 +121,26 @@
         setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
     }
 
+    function set_tipo() {
+        var e = document.getElementById("tipos");
+        var strTipo = e.options[e.selectedIndex].value;
+        var e = document.getElementById("tipo");
+        e.value = strTipo;
+    }
+
+    function set_tipoinicial() {
+        var e = document.getElementById("tipo");
+        e.value = "G";
+    }
+
+    document.getElementById("botonEnvio").onclick = function () {
+        var e = document.getElementById("tipos");
+        var strTipo = e.options[e.selectedIndex].value;
+        if (strTipo == "N") {
+            alert('Debe seleccionar un tipo de Administrador!')
+            return false;
+        }
+    }
 
     window.onload = launch_toast;
 

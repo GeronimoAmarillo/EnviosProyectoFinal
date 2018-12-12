@@ -177,20 +177,11 @@ namespace AdministradoresApp.Controllers
 
                     IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
 
-                    List<Cadete> cadetes = await controladorVehiculo.ListarCadetesDisponibles();
-
-                    List<SelectListItem> items = new List<SelectListItem>();
-
-                    foreach (Cadete c in cadetes)
-                    {
-                        SelectListItem item = new SelectListItem();
-                        item.Text = "Nombre: " + c.Nombre + " - Cedula: " + c.Ci + ".";
-                        item.Value = c.CiEmpleado.ToString();
-
-                        items.Add(item);
-                    }
+                    List<SelectListItem> items = await cadetesDDL();
+                    
 
                     ViewBag.Cadetes = items;
+
                     descargarMensaje();
                     return View();
                 }
@@ -214,12 +205,16 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AltaAuto([FromForm]Automobil auto)
+        public async Task<ActionResult> AltaAuto([FromForm]Automobil auto, [FromForm]string cadete)
         {
             try
             {
                 if (ComprobarLogin() == "G")
                 {
+
+                    int cadeteInt = Convert.ToInt32(cadete);
+
+                    auto.Cadete = cadeteInt;
 
                     IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
 
@@ -266,13 +261,19 @@ namespace AdministradoresApp.Controllers
 
         }
 
-        public ActionResult AltaCamion()
+        public async Task<ActionResult> AltaCamion()
         {
             try
             {
                 if (ComprobarLogin() == "G")
                 {
                     HttpContext.Session.Set<Camion>(SESSSION_ALTA, new Camion());
+
+                    List<SelectListItem> items = await cadetesDDL();
+
+
+                    ViewBag.Cadetes = items;
+
                     descargarMensaje();
                     return View();
                 }
@@ -296,16 +297,19 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AltaCamion([FromForm]Camion camion)
+        public async Task<ActionResult> AltaCamion([FromForm]Camion camion, [FromForm] string cadete)
         {
             try
             {
                 if (ComprobarLogin() == "G")
                 {
 
+                    int cadeteInt = Convert.ToInt32(cadete);
+                    camion.Cadete = cadeteInt;
                     IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
 
                     string mensaje = "";
+
 
                     
                         bool exito = await controladorVehiculo.AltaVehiculo(camion);
@@ -347,13 +351,19 @@ namespace AdministradoresApp.Controllers
 
         }
 
-        public ActionResult AltaCamioneta()
+        public async Task<ActionResult> AltaCamioneta()
         {
             try
             {
                 if (ComprobarLogin() == "G")
                 {
                     HttpContext.Session.Set<Camioneta>(SESSSION_ALTA, new Camioneta());
+
+                    List<SelectListItem> items = await cadetesDDL();
+
+
+                    ViewBag.Cadetes = items;
+
                     descargarMensaje();
                     return View();
                 }
@@ -376,12 +386,15 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AltaCamioneta([FromForm]Camioneta camioneta)
+        public async Task<ActionResult> AltaCamioneta([FromForm]Camioneta camioneta, [FromForm] string cadete)
         {
             try
             {
                 if (ComprobarLogin() == "G")
                 {
+                    int cadeteInt = Convert.ToInt32(cadete);
+
+                    camioneta.Cadete = cadeteInt;
 
                     IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
 
@@ -426,13 +439,18 @@ namespace AdministradoresApp.Controllers
 
         }
 
-        public ActionResult AltaMoto()
+        public async Task<ActionResult> AltaMoto()
         {
             try
             {
                 if (ComprobarLogin() == "G")
                 {
                     HttpContext.Session.Set<Moto>(SESSSION_ALTA, new Moto());
+                    List<SelectListItem> items = await cadetesDDL();
+
+
+                    ViewBag.Cadetes = items;
+
                     descargarMensaje();
                     return View();
                 }
@@ -457,12 +475,15 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AltaMoto([FromForm]Moto moto)
+        public async Task<ActionResult> AltaMoto([FromForm]Moto moto, [FromForm] string cadete)
         {
             try
             {
                 if (ComprobarLogin() == "G")
                 {
+                    int cadeteInt = Convert.ToInt32(cadete);
+
+                    moto.Cadete = cadeteInt;
 
                     IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
 
@@ -508,7 +529,7 @@ namespace AdministradoresApp.Controllers
             }
         }
 
-        public ActionResult Modificar(string matricula)
+        public async Task<ActionResult> Modificar(string matricula)
         {
             try
             {
@@ -546,6 +567,12 @@ namespace AdministradoresApp.Controllers
                         vehiculoaEditar.Altura = ((Camion)vehiculo).Altura;
                         vehiculoaEditar.Tipo = "Camion";
                     }
+
+                    List<SelectListItem> items = await cadetesDDL();
+
+
+                    ViewBag.Cadetes = items;
+
                     return View(vehiculoaEditar);
                 }
                 else
@@ -567,13 +594,18 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult ModificarCamioneta([FromForm]DTVehiculo unVehiculo)
+        public ActionResult ModificarCamioneta([FromForm]DTVehiculo unVehiculo, [FromForm] string cadete)
         {
             try
             {
                 string mensaje = "";
                 if (ComprobarLogin() == "G")
                 {
+
+                    int cadeteInt = Convert.ToInt32(cadete);
+
+                    unVehiculo.Cadete = cadeteInt;
+
                     IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
 
                     if (ModelState.IsValid)
@@ -628,13 +660,18 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult ModificarCamion([FromForm]DTVehiculo unVehiculo)
+        public ActionResult ModificarCamion([FromForm]DTVehiculo unVehiculo, [FromForm] string cadete)
         {
             try
             {
                 string mensaje = "";
                 if (ComprobarLogin() == "G")
                 {
+
+                    int cadeteInt = Convert.ToInt32(cadete);
+
+                    unVehiculo.Cadete = cadeteInt;
+
                     IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
 
                     if (ModelState.IsValid)
@@ -689,13 +726,18 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult ModificarMoto([FromForm]DTVehiculo unVehiculo)
+        public ActionResult ModificarMoto([FromForm]DTVehiculo unVehiculo, [FromForm] string cadete)
         {
             try
             {
                 string mensaje = "";
                 if (ComprobarLogin() == "G")
                 {
+
+                    int cadeteInt = Convert.ToInt32(cadete);
+
+                    unVehiculo.Cadete = cadeteInt;
+
                     IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
 
                     if (ModelState.IsValid)
@@ -750,13 +792,19 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult ModificarAutomobil([FromForm]DTVehiculo unVehiculo)
+        public ActionResult ModificarAutomobil([FromForm]DTVehiculo unVehiculo, [FromForm] string cadete)
         {
             try
             {
                 string mensaje = "";
                 if (ComprobarLogin() == "G")
                 {
+
+                    int cadeteInt = Convert.ToInt32(cadete);
+
+                    unVehiculo.Cadete = cadeteInt;
+
+
                     IControladorVehiculo controladorVehiculo = FabricaApps.GetControladorVehiculo();
 
                     if (ModelState.IsValid)
@@ -1097,6 +1145,30 @@ namespace AdministradoresApp.Controllers
             catch
             {
                 throw new Exception("Error al descargar el mensaje.");
+            }
+        }
+
+        public async Task<List<SelectListItem>> cadetesDDL()
+        {
+            try
+            {
+                IControladorRealizarEntregas cE = FabricaApps.GetControladorRealizarEntregas();
+
+                List<Cadete> cadetes = await cE.ListarCadetesDisponibles();
+
+                List<SelectListItem> cadetesItem = new List<SelectListItem>();
+
+                foreach (Cadete c in cadetes)
+                {
+                    cadetesItem.Add(new SelectListItem() { Text = c.Ci + " - " + c.Nombre, Value = c.Ci.ToString() });
+                }
+
+                return cadetesItem;
+            }
+            catch
+            {
+                throw new Exception("Error al obtener los cadetes");
+
             }
         }
     }

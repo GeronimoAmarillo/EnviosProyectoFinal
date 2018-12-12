@@ -128,13 +128,24 @@
                 </td>
                 <td>
                     @{
-                if (item is Administrador)
-                {
-                    <label> Administradores</label>
-        }
-        else if (item is Cadete)
-        {
-            <label>Cadetes</label>
+                        if (item is Administrador)
+                        {
+                            if (((Administrador)item).Tipo == "G")
+                            {
+                                <label> Administrador General</label>
+                            }
+                            if (((Administrador)item).Tipo == "C")
+                            {
+                                <label> Administrador Contable</label>
+                            }
+                            if (((Administrador)item).Tipo == "L")
+                            {
+                                <label> Administrador Logistico</label>
+                            }
+                        }
+                        else if (item is Cadete)
+                        {
+            <label>Cadete</label>
 }
                     }
                 </td>

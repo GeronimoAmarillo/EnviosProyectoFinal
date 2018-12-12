@@ -43,6 +43,11 @@
                 <input asp-for="fechaRegistro" class="form-control" />
                 <span asp-validation-for="fechaRegistro" class="text-danger"></span>
             </div>
+            <div class="form-group" hidden>
+                <label asp-for="RUT" class="control-label"></label>
+                <input id="cliente" asp-for="RUT" class="form-control" />
+                <span asp-validation-for="RUT" class="text-danger"></span>
+            </div>
 
             <div class="form-group">
                 <div class="checkbox">
@@ -53,11 +58,10 @@
             </div>
             <div class="form-group" id="campoRut">
                 <label>Seleccione el Cliente</label>
-                @Html.DropDownList("cliente", new SelectList(listItemsCliente, "Value", "Text"))
+                @Html.DropDownList("cliente", new SelectList(listItemsCliente, "Value", "Text"), new { @id = "clientes", @onchange = "set_cliente()" })
             </div>
-
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input id="botonEnvio" type="submit" value="Create" class="btn btn-default" />
             </div>
         </form>
     </div>
@@ -71,6 +75,7 @@
         $('#extra').change(function () {
             if (this.checked) {
                 $("#campoRut").hide();
+
             } else {
                 $("#campoRut").show();
             }
@@ -105,6 +110,29 @@
         setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
     }
 
+    
+    function set_tipo() {
+        var e = document.getElementById("clientes");
+        var strCliente = e.options[e.selectedIndex].value;
+        var e = document.getElementById("cliente");
+        e.value = strCliente;
+    }
+
+    document.getElementById("botonEnvio").onclick = function () {
+        var e = document.getElementById("clientes");
+        var strCliente = e.options[e.selectedIndex].value;
+        if ($('#extra').checked) { 
+            return true
+        }
+        else (!$('#extra').checked) {
+            if (strCliente === "N") { 
+                alert('Debe seleccionar un Cliente')
+                return false;
+            }
+            
+        }
+        
+    }
 
     window.onload = launch_toast;
 

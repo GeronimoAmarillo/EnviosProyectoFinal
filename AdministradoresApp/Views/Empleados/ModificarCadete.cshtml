@@ -12,6 +12,10 @@
     }
 
 }
+
+@{
+    var listItemTiposLibreta = ViewBag.TipoLibreta;
+}
 <h2 class="container">Modificar Cadete</h2>
 
 <hr />
@@ -19,10 +23,14 @@
     <div class="col-md-4">
         <form asp-action="ModificarCadete">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group" hidden>
                 <label asp-for="TipoLibreta" class="control-label"></label>
-                <input asp-for="TipoLibreta" class="form-control" />
+                <input id="tipo" asp-for="TipoLibreta" class="form-control" />
                 <span asp-validation-for="TipoLibreta" class="text-danger"></span>
+            </div>
+            <div class="form-group" id="campoRut">
+                <label>Seleccione el Tipo de Libreta</label>
+                @Html.DropDownList("tipoLibreta", new SelectList(listItemTiposLibreta, "Value", "Text"), new { @id = "tipos", @onchange = "set_tipo()" })
             </div>
             <div class="form-group" hidden>
                 <label asp-for="Latitud" class="control-label"></label>
@@ -140,6 +148,27 @@
         setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
     }
 
+
+    function set_tipo() {
+        var e = document.getElementById("tipos");
+        var strTipo = e.options[e.selectedIndex].value;
+        var e = document.getElementById("tipo");
+        e.value = strTipo;
+    }
+
+    function set_tipoinicial() {
+        var e = document.getElementById("tipo");
+        e.value = "A";
+    }
+
+    document.getElementById("botonEnvio").onclick = function () {
+        var e = document.getElementById("tipos");
+        var strTipo = e.options[e.selectedIndex].value;
+        if (strTipo == "N") {
+            alert('Debe seleccionar un tipo de Libreta!')
+            return false;
+        }
+    }
 
     window.onload = launch_toast;
 

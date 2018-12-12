@@ -202,6 +202,15 @@ namespace AdministradoresApp.Controllers
                             TempData["Mensaje"] = mensaje;
                         }
 
+                        List<SelectListItem> tipos = new List<SelectListItem>();
+
+                        tipos.Add(new SelectListItem() { Text = "Seleccione un Tipo", Value = "N" });
+                        tipos.Add(new SelectListItem() { Text = "General", Value = "G" });
+                        tipos.Add(new SelectListItem() { Text = "Logistico", Value = "L" });
+                        tipos.Add(new SelectListItem() { Text = "Contable", Value = "C" });
+
+                        ViewBag.Tipo = tipos;
+
                         return View(emp);
                     }
                     else
@@ -248,6 +257,24 @@ namespace AdministradoresApp.Controllers
 
                         descargarMensaje();
 
+                        List<SelectListItem> tipos = new List<SelectListItem>();
+
+                        //A, B, C, D, E, F, G1, G2, G3 y H
+
+                        tipos.Add(new SelectListItem() { Text = "Seleccione un Tipo de Libreta", Value = "N" });
+                        tipos.Add(new SelectListItem() { Text = "A", Value = "A" });
+                        tipos.Add(new SelectListItem() { Text = "B", Value = "B" });
+                        tipos.Add(new SelectListItem() { Text = "C", Value = "C" });
+                        tipos.Add(new SelectListItem() { Text = "D", Value = "D" });
+                        tipos.Add(new SelectListItem() { Text = "E", Value = "E" });
+                        tipos.Add(new SelectListItem() { Text = "F", Value = "F" });
+                        tipos.Add(new SelectListItem() { Text = "G1", Value = "G1" });
+                        tipos.Add(new SelectListItem() { Text = "G2", Value = "G2" });
+                        tipos.Add(new SelectListItem() { Text = "G3", Value = "G3" });
+                        tipos.Add(new SelectListItem() { Text = "H", Value = "H" });
+
+                        ViewBag.TipoLibreta = tipos;
+
                         return View(emp);
                     }
                     else
@@ -279,7 +306,7 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult ModificarAdmin([FromForm]Administrador empleado)
+        public ActionResult ModificarAdmin([FromForm]Administrador empleado, [FromForm]string tipo)
         {
             try
             {
@@ -296,7 +323,7 @@ namespace AdministradoresApp.Controllers
                     empModificar.NombreUsuario = empleado.NombreUsuario;
                     empModificar.Sueldo = empleado.Sueldo;
                     empModificar.Telefono = empleado.Telefono;
-                    empModificar.Tipo = empleado.Tipo;
+                    empModificar.Tipo = tipo;
                     empModificar.Email = empleado.Email;
                     empModificar.Direccion = empleado.Direccion;
                     empModificar.Contraseña = empleado.Contraseña;
@@ -351,7 +378,7 @@ namespace AdministradoresApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult ModificarCadete([FromForm]Cadete empleado)
+        public ActionResult ModificarCadete([FromForm]Cadete empleado, [FromForm] string tipoLibreta)
         {
             try
             {
@@ -368,7 +395,7 @@ namespace AdministradoresApp.Controllers
                     empModificar.Ci = empleado.Ci;
                     empModificar.Sueldo = empleado.Sueldo;
                     empModificar.Telefono = empleado.Telefono;
-                    empModificar.TipoLibreta = empleado.TipoLibreta;
+                    empModificar.TipoLibreta = tipoLibreta;
                     empModificar.Latitud = empleado.Latitud;
                     empModificar.Longitud = empleado.Longitud;
                     empModificar.Email = empleado.Email;
@@ -433,6 +460,15 @@ namespace AdministradoresApp.Controllers
 
                     HttpContext.Session.Set<Administrador>(SESSSION_ALTA, controladorEmpleado.GetEmpleadoAdm());
 
+                    List<SelectListItem> tipos = new List<SelectListItem>();
+
+                    tipos.Add(new SelectListItem() { Text = "Seleccione un Tipo", Value = "N" });
+                    tipos.Add(new SelectListItem() { Text = "General", Value = "G" });
+                    tipos.Add(new SelectListItem() { Text = "Logistico", Value = "L" });
+                    tipos.Add(new SelectListItem() { Text = "Contable", Value = "C" });
+
+                    ViewBag.Tipo = tipos;
+
                     return View();
                 }
                 else
@@ -453,7 +489,7 @@ namespace AdministradoresApp.Controllers
            
         }    
         [HttpPost]
-        public ActionResult AltaAdministrador([FromForm]Administrador administrador)
+        public ActionResult AltaAdministrador([FromForm]Administrador administrador, [FromForm]string tipo)
         {
             try
             {
@@ -468,7 +504,7 @@ namespace AdministradoresApp.Controllers
                     adm.NombreUsuario = administrador.NombreUsuario;
                     adm.Sueldo = administrador.Sueldo;
                     adm.Telefono = administrador.Telefono;
-                    adm.Tipo = administrador.Tipo;
+                    adm.Tipo = tipo;
                     adm.Email = administrador.Email;
                     adm.Direccion = administrador.Direccion;
                     adm.Contraseña = administrador.Contraseña;
@@ -524,6 +560,22 @@ namespace AdministradoresApp.Controllers
             {
                 if (ComprobarLogin() == "G")
                 {
+                    List<SelectListItem> tipos = new List<SelectListItem>();
+
+                    //A, B, C, D, E, F, G1, G2, G3 y H
+                    tipos.Add(new SelectListItem() { Text = "Seleccione un Tipo de Libreta", Value = "N" });
+                    tipos.Add(new SelectListItem() { Text = "A", Value = "A" });
+                    tipos.Add(new SelectListItem() { Text = "B", Value = "B" });
+                    tipos.Add(new SelectListItem() { Text = "C", Value = "C" });
+                    tipos.Add(new SelectListItem() { Text = "D", Value = "D" });
+                    tipos.Add(new SelectListItem() { Text = "E", Value = "E" });
+                    tipos.Add(new SelectListItem() { Text = "F", Value = "F" });
+                    tipos.Add(new SelectListItem() { Text = "G1", Value = "G1" });
+                    tipos.Add(new SelectListItem() { Text = "G2", Value = "G2" });
+                    tipos.Add(new SelectListItem() { Text = "G3", Value = "G3" });
+                    tipos.Add(new SelectListItem() { Text = "H", Value = "H" });
+
+                    ViewBag.TipoLibreta = tipos;
 
                     return View();
                 }
@@ -627,7 +679,7 @@ namespace AdministradoresApp.Controllers
 
 
         [HttpPost]
-        public ActionResult AltaCadete([FromForm]Cadete administrador)
+        public ActionResult AltaCadete([FromForm]Cadete administrador, [FromForm] string tipoLibreta)
         {
             try
             {
@@ -644,7 +696,7 @@ namespace AdministradoresApp.Controllers
                     adm.Telefono = administrador.Telefono;
                     adm.Latitud = administrador.Latitud;
                     adm.Longitud = administrador.Longitud;
-                    adm.TipoLibreta = administrador.TipoLibreta;
+                    adm.TipoLibreta = tipoLibreta;
                     adm.Email = administrador.Email;
                     adm.Direccion = administrador.Direccion;
                     adm.Contraseña = administrador.Contraseña;

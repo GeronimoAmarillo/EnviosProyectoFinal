@@ -9,7 +9,7 @@ namespace EntidadesCompartidasCore
         [Required]
         public string Cabina { get; set; }
         [Required]
-        [StringLength(7)]
+        [StringLength(7, ErrorMessage = "la matricula debe poseer 7 caracteres")]
         public string MatriculaCamioneta { get; set; }
 
         public Vehiculo Vehiculos { get; set; }

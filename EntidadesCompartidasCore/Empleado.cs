@@ -14,7 +14,7 @@ namespace EntidadesCompartidasCore
         [Required]
         public int IdUsuario { get; set; }
         [Required]
-        [Range(1000000, 99999999)]
+        [Range(1000000, 99999999, ErrorMessage = "la cedula no tiene un formato valido")]
         public int Ci { get; set; }
         
         public  List<Adelanto> Adelantos { get; set; }

@@ -15,7 +15,7 @@ namespace EntidadesCompartidasCore
         public int Empleado { get; set; }
 
         [Required]
-        [Range(1000, Double.MaxValue)]
+        [Range(100, Double.MaxValue)]
         public decimal Suma { get; set; }
 
         [Required]

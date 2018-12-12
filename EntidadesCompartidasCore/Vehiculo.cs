@@ -7,7 +7,7 @@ namespace EntidadesCompartidasCore
     public partial class Vehiculo
     {
         [Required]
-        [StringLength(7)]
+        [StringLength(7, ErrorMessage = "la matricula debe poseer 7 caracteres")]
         public string Matricula { get; set; }
         [Required]
         [MinLength(2)]
