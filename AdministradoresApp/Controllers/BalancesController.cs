@@ -40,7 +40,7 @@ namespace AdministradoresApp.Controllers
                     {
                         //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Para consultar balances el tipo de administrador debe ser contable.");
 
-                        TempData["Mensaje"] = "Para consultar balances el tipo de administrador debe ser contable.";
+                        TempData["Mensaje"] = "No hay un usuario Contable logueado.";
 
                         return RedirectToAction("Index", "Home", new { area = "" });
                     }

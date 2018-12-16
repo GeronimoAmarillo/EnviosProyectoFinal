@@ -18,11 +18,16 @@
 }
 <h2 class="container">Lista de Locales</h2>
 
+<p class="container"><a asp-action="Alta">Registrar nuevo local</a></p>
+
 <div class="container">
 
-        <a asp-action="Alta">Registrar nuevo local</a>
+    
 
-        <input oninput="w3.filterHTML('#id01', '.item', this.value)" placeholder="Busqueda multi-columna...">
+    <input oninput="w3.filterHTML('#id01', '.item', this.value)" placeholder="Busqueda multi-columna...">
+    <br />
+    <br />
+    <br />
 
     <div class="table-responsive">
         <table class="table-hover" id="id01">
@@ -42,22 +47,22 @@
             </thead>
             <tbody>
                 @foreach (var item in Model)
-        {
-            <tr class="item">
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Direccion)
-                </td>
-                <td>
-                    @Html.ActionLink("Modificar", "Modificar", new { id = item.Id }) |
-                </td>
-            </tr>
-}
+                {
+                    <tr class="item">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Direccion)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Modificar", "Modificar", new { id = item.Id }) |
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>

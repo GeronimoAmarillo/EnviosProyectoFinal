@@ -51,7 +51,7 @@ namespace AdministradoresApp.Controllers
                 {
                     //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
+                    TempData["Mensaje"] = "No hay un usuario de tipo Contable logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -123,7 +123,7 @@ namespace AdministradoresApp.Controllers
                 {
                     //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
+                    TempData["Mensaje"] = "No hay un usuario de tipo Contable logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -205,7 +205,7 @@ namespace AdministradoresApp.Controllers
                 {
                     //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
+                    TempData["Mensaje"] = "No hay un usuario de tipo Contable logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }
@@ -266,7 +266,7 @@ namespace AdministradoresApp.Controllers
                 {
                     //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
 
-                    TempData["Mensaje"] = "No hay un usuario de tipo Administrador General logueado en el sistema";
+                    TempData["Mensaje"] = "No hay un usuario de tipo Contable logueado en el sistema";
 
                     return RedirectToAction("Index", "Home", new { area = "" });
                 }

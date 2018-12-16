@@ -258,9 +258,15 @@ table {
     border: 1px solid #ddd;
 }
 
-th, td {
-    text-align: left;
-    padding: 8px;
+
+
+.table-responsive th, td {
+    text-align:center;
+    border-collapse:separate;
+    border-color:dimgray;
+    border-style:solid;
+    background-color:ghostwhite
+
 }
 
 
