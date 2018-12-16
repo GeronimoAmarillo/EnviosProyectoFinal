@@ -104,6 +104,32 @@
         </div>
     </div>
 
+    @{
+        if (Model.Estado.ToLower() == "entregado")
+        {
+            if (Model.Entregas != null)
+            {
+                <div class="row">
+                    <div class="column" style="background-color:#aaa;">
+                        <h2>@Html.DisplayName("Lo recibió ")</h2>
+                        <h4>@Html.DisplayFor(model => model.Entregas.NombreReceptor)</h4>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="column" style="background-color:#aaa;">
+                        <h2>@Html.DisplayName("Lo recibió ")</h2>
+                        <h4>@Html.DisplayFor(model => model.Entregas1.NombreReceptor)</h4>
+                    </div>
+                </div>
+            }
+
+        }
+    }
+
+
 </div>
 
 
