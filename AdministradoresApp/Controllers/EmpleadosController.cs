@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using AdministradoresApp.Models;
 using EntidadesCompartidasCore;
@@ -489,7 +490,7 @@ namespace AdministradoresApp.Controllers
            
         }    
         [HttpPost]
-        public ActionResult AltaAdministrador([FromForm]Administrador administrador, [FromForm]string tipo)
+        public async Task<ActionResult> AltaAdministrador([FromForm]Administrador administrador, [FromForm]string tipo)
         {
             try
             {
@@ -518,6 +519,30 @@ namespace AdministradoresApp.Controllers
                     if (exito)
                     {
                         controladorEmpleado.SetEmpleado(null);
+
+                        Empleado adminAgregado = await FabricaApps.GetControladorEmpleado().BuscarEmpleado(administrador.Ci);
+
+                        MailMessage mail = new MailMessage();
+                        mail.From = new MailAddress("enviosservice2018@gmail.com");
+                        mail.To.Add(administrador.Email);
+                        mail.Subject = "Ha sido registrado en - EnviosService";
+                        mail.Body = "Hola " + administrador.Nombre + ", Le hemos registrado en el sistema como solicitó! \n " +
+                            "Sus credenciales de acceso al sistema son: - user: " + administrador.Email + ", - pass: " + adminAgregado.Contraseña;
+                        mail.IsBodyHtml = true;
+                        mail.Priority = MailPriority.Normal;
+
+                        SmtpClient smtp = new SmtpClient();
+                        smtp.Host = "smtp.gmail.com";
+                        smtp.Port = 25;
+                        smtp.EnableSsl = true;
+                        smtp.UseDefaultCredentials = true;
+                        string correoPropio = "enviosservice2018@gmail.com";
+                        string contraseñaCorreo = "MatiasPabloGero";
+                        smtp.Credentials = new System.Net.NetworkCredential(correoPropio, contraseñaCorreo);
+
+                        smtp.Send(mail);
+
+                        
                         mensaje = "El administrador se dio de alta con exito!.";
                     }
                     else
@@ -679,7 +704,7 @@ namespace AdministradoresApp.Controllers
 
 
         [HttpPost]
-        public ActionResult AltaCadete([FromForm]Cadete administrador, [FromForm] string tipoLibreta)
+        public async Task<ActionResult> AltaCadete([FromForm]Cadete administrador, [FromForm] string tipoLibreta)
         {
             try
             {
@@ -710,6 +735,30 @@ namespace AdministradoresApp.Controllers
                     if (exito)
                     {
                         controladorEmpleado.SetEmpleado(null);
+
+                        Empleado cadeteAgregado = await FabricaApps.GetControladorEmpleado().BuscarEmpleado(administrador.Ci);
+
+                        MailMessage mail = new MailMessage();
+                        mail.From = new MailAddress("enviosservice2018@gmail.com");
+                        mail.To.Add(administrador.Email);
+                        mail.Subject = "Ha sido registrado en - EnviosService";
+                        mail.Body = "Hola " + administrador.Nombre + ", Le hemos registrado en el sistema como solicitó! \n " +
+                            "Sus credenciales de acceso al sistema son: - user: " + administrador.Email + ", - pass: " + cadeteAgregado.Contraseña;
+                        mail.IsBodyHtml = true;
+                        mail.Priority = MailPriority.Normal;
+
+                        SmtpClient smtp = new SmtpClient();
+                        smtp.Host = "smtp.gmail.com";
+                        smtp.Port = 25;
+                        smtp.EnableSsl = true;
+                        smtp.UseDefaultCredentials = true;
+                        string correoPropio = "enviosservice2018@gmail.com";
+                        string contraseñaCorreo = "MatiasPabloGero";
+                        smtp.Credentials = new System.Net.NetworkCredential(correoPropio, contraseñaCorreo);
+
+                        smtp.Send(mail);
+
+
                         mensaje = "El cadete se dio de alta con exito!.";
                     }
                     else

@@ -1,5 +1,6 @@
 ﻿@model SortedList<string, string>
 <script src="https://www.w3schools.com/lib/w3.js"></script>
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -82,6 +83,8 @@
 
 
 
+
+
     @{
 
         if (gastos.Any())
@@ -102,27 +105,33 @@
                             <th>
                                 @Html.DisplayName("Extra");
                             </th>
+                            <th>
+                                @Html.DisplayName("Fecha Registrado");
+                            </th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var g in gastos)
                         {
-                            <tr class="item">
-                                <td>
-                                    @Html.DisplayName(g.Id.ToString())
-                                </td>
-                                <td>
-                                    @Html.DisplayName(g.Descripcion)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelitem => g.Suma)
-                                </td>
-                                <td>
-                                    @Html.DisplayName(g.Extra.ToString())
-                                </td>
-                                <td></td>
-                            </tr>
+                        <tr class="item">
+                            <td>
+                                @Html.DisplayName(g.Id.ToString())
+                            </td>
+                            <td>
+                                @Html.DisplayName(g.Descripcion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelitem => g.Suma)
+                            </td>
+                            <td>
+                                @Html.DisplayName(g.Extra.ToString())
+                            </td>
+                            <td>
+                                @Html.DisplayName(g.fechaRegistro.ToString())
+                            </td>
+                            <td></td>
+                        </tr>
                         }
                     </tbody>
                 </table>
@@ -146,27 +155,33 @@
                             <th>
                                 @Html.DisplayName("Extra");
                             </th>
+                            <th>
+                                @Html.DisplayName("Fecha Registrado");
+                            </th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var g in ingresos)
                         {
-                            <tr class="item">
-                                <td>
-                                    @Html.DisplayName(g.Id.ToString())
-                                </td>
-                                <td>
-                                    @Html.DisplayName(g.Descripcion)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelitem => g.Suma)
-                                </td>
-                                <td>
-                                    @Html.DisplayName(g.Extra.ToString())
-                                </td>
-                                <td></td>
-                            </tr>
+                        <tr class="item">
+                            <td>
+                                @Html.DisplayName(g.Id.ToString())
+                            </td>
+                            <td>
+                                @Html.DisplayName(g.Descripcion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelitem => g.Suma)
+                            </td>
+                            <td>
+                                @Html.DisplayName(g.Extra.ToString())
+                            </td>
+                            <td>
+                                @Html.DisplayName(g.fechaRegistro.ToString())
+                            </td>
+                            <td></td>
+                        </tr>
                         }
                     </tbody>
                 </table>
@@ -190,27 +205,33 @@
                             <th>
                                 @Html.DisplayName("Porcentaje");
                             </th>
+                            <th>
+                                @Html.DisplayName("Fecha Registrado");
+                            </th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var i in impuestos)
         {
-                <tr class="item">
-                    <td>
-                        @Html.DisplayName(i.Id.ToString())
-                    </td>
-                    <td>
-                        @Html.DisplayName(i.Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayName(i.Descripcion)
-                    </td>
-                    <td>
-                         @Html.DisplayFor(modelitem => i.Porcentaje)
-                    </td>
-                    <td></td>
-                </tr>
+                        <tr class="item">
+                            <td>
+                                @Html.DisplayName(i.Id.ToString())
+                            </td>
+                            <td>
+                                @Html.DisplayName(i.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayName(i.Descripcion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelitem => i.Porcentaje)
+                            </td>
+                            <td>
+                                @Html.DisplayName(i.fechaRegistro.ToString())
+                            </td>
+                            <td></td>
+                        </tr>
 }
                     </tbody>
                 </table>
@@ -251,5 +272,6 @@
 
 
     window.onload = launch_toast;
+    
 
 </script>
