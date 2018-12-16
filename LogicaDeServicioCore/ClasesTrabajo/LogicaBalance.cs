@@ -112,9 +112,8 @@ namespace LogicaDeServicioCore
                 {
                     numeroMes = Meses[mes.ToLower()];
                 }
-
-                bool abierto = numeroMes < DateTime.Today.Month ? false : true;
-                DateTime fechaInicio = Convert.ToDateTime( "1/" + numeroMes + "/"+ anio);
+                
+                DateTime fechaInicio = Convert.ToDateTime(numeroMes + "/1/" + anio);
                 DateTime fechaFinal = new DateTime(fechaInicio.Year, fechaInicio.Month, DateTime.DaysInMonth(fechaInicio.Year, fechaInicio.Month));
                 List<Registro> RegistrosDelBalance = ObtenerRegistros(fechaInicio, fechaFinal);
                 decimal utilidadBrutaTotal = 0;
@@ -160,7 +159,7 @@ namespace LogicaDeServicioCore
                 {
                     Mes = numeroMes,
                     Año = anio,
-                    Abierto = abierto,
+                    Abierto = true,
                     UtilidadBrutaTotal = utilidadBrutaTotal,
                     UtilidadOperacionalTotal = utilidadOperacionalTotal,
                     Ingresos = ingresos,
@@ -300,7 +299,7 @@ namespace LogicaDeServicioCore
 
                     while (indice <= mesFinal)
                     {
-                        mesesIncluidos.Add(Convert.ToDateTime("1/" + indice + "/" + añoInicial));
+                        mesesIncluidos.Add(Convert.ToDateTime(indice + "/1/" + añoInicial));
 
                         indice++;
                     }
@@ -315,13 +314,13 @@ namespace LogicaDeServicioCore
                     {
                         if (indiceMes == mesFinal && indiceAño == añoFinal)
                         {
-                            mesesIncluidos.Add(Convert.ToDateTime("1/" + indiceMes + "/" + indiceAño));
+                            mesesIncluidos.Add(Convert.ToDateTime(indiceMes + "/1/" + indiceAño));
 
                             finalAlcanzado = true;
                         }
                         else
                         {
-                            mesesIncluidos.Add(Convert.ToDateTime("1/" + indiceMes + "/" + indiceAño));
+                            mesesIncluidos.Add(Convert.ToDateTime(indiceMes + "/1/" + indiceAño));
 
                             if (indiceMes == 12)
                             {

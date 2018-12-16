@@ -42,8 +42,8 @@ namespace EnviosService.Controllers
         [Route("api/Balances/ObtenerBalanceAnual")]
         public JsonResult BalanceAnual(int diaI, int mesI, int añoI, int diaF, int mesF, int añoF)
         {
-            DateTime fechaInicial = Convert.ToDateTime(diaI + "/" + mesI+ "/" + añoI);
-            DateTime fechaFinal = Convert.ToDateTime(diaF + "/" + mesF + "/" + añoF);
+            DateTime fechaInicial = Convert.ToDateTime(mesI + "/" + diaI+ "/" + añoI);
+            DateTime fechaFinal = Convert.ToDateTime(mesF + "/" + diaF + "/" + añoF);
             return Json(controladorBalance.ObtenerBalanceAnual(fechaInicial, fechaFinal), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
