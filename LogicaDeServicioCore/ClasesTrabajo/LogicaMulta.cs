@@ -14,7 +14,24 @@ namespace LogicaDeServicioCore
         {
             try
             {
-                return FabricaPersistencia.GetPersistenciaMulta().RegistrarMulta(multa);
+                bool exito = FabricaPersistencia.GetPersistenciaMulta().RegistrarMulta(multa);
+
+                if (exito)
+                {
+                    Gasto gasto = new Gasto
+                    {
+                        Id = 0,
+                        Descripcion = "Multa: " + multa.Motivo,
+                        Extra = true,
+                        Suma = multa.Suma,
+                        fechaRegistro = DateTime.Now
+                    };
+
+                    FabricaPersistencia.GetPersistenciaGasto().RegistrarGasto(gasto);
+
+                }
+
+                return exito;
             }
             catch (Exception ex)
             {
