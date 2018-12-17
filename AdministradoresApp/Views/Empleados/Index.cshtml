@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<EntidadesCompartidasCore.Empleado>
 <script src="https://www.w3schools.com/lib/w3.js"></script>
+<link rel="stylesheet" href="~/css/inicio.css" />
+<link rel="stylesheet" href="~/css/awesome.css" />
 @{
     ViewData["Title"] = "Index";
 }
@@ -17,7 +19,7 @@
 <div class="container">
 
     <div class="table-responsive" >
-        <table class="table-hover" id="id02">
+        <table class="table-responsive table table-striped table-bordered table-sm" id="id02">
             <thead>
                 <tr>
                     <th>
@@ -53,10 +55,10 @@
     </p>
 
     <div class="table-responsive" >
-        <table class="table-hover" id="id01">
+        <table class="table-responsive table table-striped table-bordered table-sm" id="id01" style="overflow-y: scroll;">
             <thead>
-                <tr >
-                    <th>
+                <tr>
+                    <th hidden>
                         @Html.DisplayNameFor(model => model.Sueldo)
                     </th>
                     <th hidden>
@@ -65,7 +67,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Ci)
                     </th>
-                    <th>
+                    <th hidden>
                         @Html.DisplayNameFor(model => model.Id)
                     </th>
                     <th>
@@ -96,7 +98,7 @@
                 @foreach (var item in Model)
         {
             <tr class="item" >
-                <td >
+                <td hidden>
                     @Html.DisplayFor(modelItem => item.Sueldo)
                 </td>
                 <td hidden>
@@ -105,7 +107,7 @@
                 <td >
                     @Html.DisplayFor(modelItem => item.Ci)
                 </td>
-                <td >
+                <td hidden>
                     @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td >
@@ -132,15 +134,15 @@
                         {
                             if (((Administrador)item).Tipo == "G")
                             {
-                                <label> Administrador General</label>
+                                <label> Admin General</label>
                             }
                             if (((Administrador)item).Tipo == "C")
                             {
-                                <label> Administrador Contable</label>
+                                <label> Admin Contable</label>
                             }
                             if (((Administrador)item).Tipo == "L")
                             {
-                                <label> Administrador Logistico</label>
+                                <label> Admin Logistico</label>
                             }
                         }
                         else if (item is Cadete)
@@ -149,7 +151,7 @@
 }
                     }
                 </td>
-                <td>
+                <td style="padding:0">
                     @Html.ActionLink("Adelantos", "Adelantos", new { ci = item.Ci })
                     @Html.ActionLink("Modificar", "Modificar", new { ci = item.Ci })
                     @Html.ActionLink("Eliminar", "EliminarEmpleado", new { ci = item.Ci })

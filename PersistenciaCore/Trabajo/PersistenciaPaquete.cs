@@ -271,6 +271,13 @@ namespace PersistenciaCore
 
 
                     dbConnection.Reclamo.Add(reclamoAgregar);
+
+
+                    Paquetes paquete = dbConnection.Paquetes.Where(x => x.NumReferencia == reclamo.Paquete).FirstOrDefault();
+
+                    paquete.Estado = "Reclamado";
+
+                    dbConnection.Paquetes.Update(paquete);
                     dbConnection.SaveChanges();
 
                     return true;

@@ -6,6 +6,7 @@ using EntidadesCompartidasCore;
 using LogicaDeAppsCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ClientesApp.Controllers
 {
@@ -53,6 +54,14 @@ namespace ClientesApp.Controllers
                     estados.Add(new {Value = "Levantado", Text = "Levantado" });
                     estados.Add(new { Value = "Entregado", Text = "Entregado" });
                     estados.Add(new { Value = "Extraviado", Text = "Extraviado" });
+
+                    List<SelectListItem> itemsFiltro = new List<SelectListItem>();
+                    itemsFiltro.Add(new SelectListItem() { Text = "Todos", Value = "Todos" });
+                    itemsFiltro.Add(new SelectListItem() { Text = "Entregados", Value = "Entregado" });
+                    itemsFiltro.Add(new SelectListItem() { Text = "Levantados", Value = "Levantado" });
+                    itemsFiltro.Add(new SelectListItem() { Text = "Reclamados", Value = "Reclamado" });
+
+                    TempData["estados"] = itemsFiltro;
 
                     ViewBag.Estados = estados;
 

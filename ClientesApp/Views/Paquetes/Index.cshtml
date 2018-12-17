@@ -12,6 +12,8 @@
         mensaje = TempData["Mensaje"].ToString();
     }
 
+    List<SelectListItem> itemFiltros = (List<SelectListItem>)TempData["estados"];
+
 }
 
 @{
@@ -108,9 +110,14 @@
 
 <div class="container">
     <p>
-        <input oninput="w3.filterHTML('#id01', '.item', this.value)" placeholder="Busqueda multi-columna...">
+        Para filtrar sus paquetes ingrese la palabra clave en el siguiente cuadro de texto
     </p>
-    <div class="table-responsive">
+    <p>
+        <input id="filtro" oninput="w3.filterHTML('#id01', '.item', this.value)" placeholder="Busqueda multi-columna...">
+    </p>
+
+
+    <div class="table-responsive table table-striped table-bordered table-sm">
         <table class="table-hover" id="id01">
             <thead>
                 <tr>
@@ -132,35 +139,41 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Cliente)
                     </th>
+                    <th hidden>
+                        @Html.DisplayName("Todos")
+                    </th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr class="item">
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NumReferencia)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FechaSalida)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Estado)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Ubicacion)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Entrega)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Cliente)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Detalles", "Detalles", new { numReferencia = item.NumReferencia, accion = "Enviados" })
-                        </td>
-                    </tr>
+                <tr class="item">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumReferencia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaSalida)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Estado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ubicacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Entrega)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cliente)
+                    </td>
+                    <td hidden>
+                        @Html.DisplayName("Todos")
+                    </td>
+                    <td>
+                        @Html.ActionLink("Detalles", "Detalles", new { numReferencia = item.NumReferencia, accion = "Enviados" })
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
@@ -179,5 +192,13 @@
 
 
     window.onload = launch_toast;
+
+    $(document).ready(function () {
+        $('#id01').DataTable({
+            "paging": true,
+            "pagingType": "simple"// false to disable pagination (or any other option)
+        });
+        $('.dataTables_length').addClass('bs-select');
+    });
 
 </script>
