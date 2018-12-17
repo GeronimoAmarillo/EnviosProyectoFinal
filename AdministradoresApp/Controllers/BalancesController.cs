@@ -6,6 +6,7 @@ using EntidadesCompartidasCore;
 using LogicaDeAppsCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 
 namespace AdministradoresApp.Controllers
@@ -251,6 +252,119 @@ namespace AdministradoresApp.Controllers
                 TempData["Mensaje"] = "Error al consultar el balance.";
 
                 return RedirectToAction("ConsultarBalance", "Balances", new { area = "" });
+            }
+        }
+
+        public async Task<ActionResult> Detalles(int mes, int año)
+        {
+            try
+            {
+                if (ComprobarLogin() == "C")
+                {
+                    IControladorBalance controladorBalance = FabricaApps.GetControladorBalance();
+
+                    DateTime fecha = Convert.ToDateTime(mes + "/1/" + año);
+
+                    Registro registro = await controladorBalance.ConsultarRegistro(fecha);
+
+                    List<SelectListItem> itemsIngresos = new List<SelectListItem>();
+                    List<SelectListItem> itemsGastos = new List<SelectListItem>();
+                    List<SelectListItem> itemsImpuestos = new List<SelectListItem>();
+
+                    foreach (Ingreso i in registro.Ingresos)
+                    {
+                        itemsIngresos.Add(new SelectListItem() { Text = "Descripcion: " + i.Descripcion + " - Suma: " + i.Suma.ToString() + " - Fecha Registrado: " + i.fechaRegistro.ToString(), Value = i.Id.ToString() });
+                    }
+
+                    foreach (Gasto i in registro.Gastos)
+                    {
+                        itemsGastos.Add(new SelectListItem() { Text = "Descripcion: " + i.Descripcion + " - Suma: " + i.Suma.ToString() + " - Fecha Registrado: " + i.fechaRegistro.ToString(), Value = i.Id.ToString() });
+                    }
+
+                    foreach (Impuesto i in registro.Impuestos)
+                    {
+                        itemsImpuestos.Add(new SelectListItem() { Text = "Nombre: " + i.Nombre + " - Porcentaje: " + i.Porcentaje.ToString() + " - Fecha Registrado: " + i.fechaRegistro.ToString(), Value = i.Id.ToString() });
+                    }
+
+                    descargarMensaje();
+
+                    ViewBag.Ingresos = itemsIngresos;
+                    ViewBag.Gastos = itemsGastos;
+                    ViewBag.Impuestos = itemsImpuestos;
+
+                    return View(registro);
+                }
+                else
+                {
+                    //HttpContext.Session.Set<string>(SESSION_MENSAJE, "No hay un usuario de tipo Administrador General logueado en el sistema");
+
+                    TempData["Mensaje"] = "No hay un usuario de tipo Contable logueado en el sistema";
+
+                    return RedirectToAction("Index", "Home", new { area = "" });
+                }
+
+            }
+            catch
+            {
+                //HttpContext.Session.Set<string>(SESSION_MENSAJE, "Error al mostrar el formulario");
+
+                TempData["Mensaje"] = "Error al mostrar el formulario";
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+
+        }
+
+        public string ComprobarLogin()
+        {
+            try
+            {
+                Administrador administrador = HttpContext.Session.Get<Administrador>(LOG_USER);
+
+                if (administrador != null)
+                {
+
+                    if (administrador.Tipo.ToUpper() == "G")
+                    {
+                        return "G";
+                    }
+                    else if (administrador.Tipo.ToUpper() == "C")
+                    {
+                        return "C";
+                    }
+                    else if (administrador.Tipo.ToUpper() == "L")
+                    {
+                        return "L";
+                    }
+                    else
+                    {
+                        return "Valor invalido.";
+                    }
+                }
+                else
+                {
+                    return "";
+                }
+            }
+            catch
+            {
+                throw new Exception("Error al comprobar el logueo.");
+            }
+        }
+
+        public void descargarMensaje()
+        {
+            try
+            {
+                if (TempData["Mensaje"] != null)
+                {
+                    string mensaje = TempData["Mensaje"].ToString();
+                    TempData["Mensaje"] = mensaje;
+                }
+            }
+            catch
+            {
+                throw new Exception("Error al descargar el mensaje.");
             }
         }
 

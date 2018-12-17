@@ -18,11 +18,11 @@
 @{
     Vehiculo vehiculoSeleccionado = ViewBag.Vehiculo;
 }
-
+<p class="container">
+    @Html.ActionLink("Registrar nueva Reparación para este vehiculo", "AltaReparacion", new { matricula = vehiculoSeleccionado.Matricula })
+</p>
 <div class="container">
-    <p>
-        @Html.ActionLink("Registrar nueva Reparación para este vehiculo", "AltaReparacion", new { matricula = vehiculoSeleccionado.Matricula })
-    </p>
+    
 
     <p>
         <input oninput="w3.filterHTML('#id01', '.item', this.value)" placeholder="Busqueda multi-columna...">
