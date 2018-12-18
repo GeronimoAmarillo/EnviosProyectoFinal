@@ -23,13 +23,7 @@ namespace EmpleadosApp.Droid
         private Entrega entrega;
         private EditText etReceptor;
         private Button btnConfirmarReceptor;
-
-        protected override void OnStart()
-        {
-            base.OnStart();
-            var intent = new Intent(this, typeof(ServicioGeolocalizacion));
-            StartService(intent);
-        }
+        
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {

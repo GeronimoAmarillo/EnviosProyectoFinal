@@ -26,14 +26,6 @@ namespace EmpleadosApp.Droid
         //{
         //    return true;
         //}
-        protected override void OnStart()
-        {
-            base.OnStart();
-            var intent = new Intent(this, typeof(ServicioGeolocalizacion));
-            StartService(intent);
-        }
-        
-
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);

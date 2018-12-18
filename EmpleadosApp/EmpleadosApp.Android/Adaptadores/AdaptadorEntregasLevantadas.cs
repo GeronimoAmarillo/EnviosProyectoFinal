@@ -44,18 +44,63 @@ namespace EmpleadosApp.Droid.Adaptadores
                     if (item.Paquetes.Where(x => x.Estado == "Reclamado").Any() || item.Paquetes1.Where(x => x.Estado == "Reclamado").Any())
                     {
                         convertView = contexto.LayoutInflater.Inflate(Resource.Layout.EntregaLevantadaReclamadaRow, null);
+
+                    }
+                    else
+                    {
+                        convertView = contexto.LayoutInflater.Inflate(Resource.Layout.EntregaLevantadaRow, null);
+
                     }
                 }
                 else
                 {
                     convertView = contexto.LayoutInflater.Inflate(Resource.Layout.EntregaLevantadaRow, null);
+
+                }
+            }
+            else
+            {
+                if (item.Paquetes != null || item.Paquetes1 != null)
+                {
+                    if (item.Paquetes.Where(x => x.Estado == "Reclamado").Any() || item.Paquetes1.Where(x => x.Estado == "Reclamado").Any())
+                    {
+                        convertView = contexto.LayoutInflater.Inflate(Resource.Layout.EntregaLevantadaReclamadaRow, null);
+
+                    }
+                    else
+                    {
+                        convertView = contexto.LayoutInflater.Inflate(Resource.Layout.EntregaLevantadaRow, null);
+
+                    }
+                }
+                else
+                {
+                    convertView = contexto.LayoutInflater.Inflate(Resource.Layout.EntregaLevantadaRow, null);
+
                 }
             }
 
-
-            convertView.FindViewById<TextView>(Resource.Id.tvCodigoEntregaLevantada).Text = item.Codigo.ToString();
-            convertView.FindViewById<TextView>(Resource.Id.tvLocalEmisorEntregaLevantada).Text = item.Locales.Nombre.ToString();
-            convertView.FindViewById<TextView>(Resource.Id.tvDestinoEntregaLevantada).Text = item.Clientes1.Direccion.ToString();
+            if (item.Paquetes != null || item.Paquetes1 != null)
+            {
+                if (item.Paquetes.Where(x => x.Estado == "Reclamado").Any() || item.Paquetes1.Where(x => x.Estado == "Reclamado").Any())
+                {
+                    convertView.FindViewById<TextView>(Resource.Id.tvCodigoEntregaLevantadaR).Text = item.Codigo.ToString();
+                    convertView.FindViewById<TextView>(Resource.Id.tvLocalEmisorEntregaLevantadaR).Text = item.Locales.Nombre.ToString();
+                    convertView.FindViewById<TextView>(Resource.Id.tvDestinoEntregaLevantadaR).Text = item.Clientes1.Direccion.ToString();
+                }
+                else
+                {
+                    convertView.FindViewById<TextView>(Resource.Id.tvCodigoEntregaLevantada).Text = item.Codigo.ToString();
+                    convertView.FindViewById<TextView>(Resource.Id.tvLocalEmisorEntregaLevantada).Text = item.Locales.Nombre.ToString();
+                    convertView.FindViewById<TextView>(Resource.Id.tvDestinoEntregaLevantada).Text = item.Clientes1.Direccion.ToString();
+                }
+            }
+            else
+            {
+                convertView.FindViewById<TextView>(Resource.Id.tvCodigoEntregaLevantada).Text = item.Codigo.ToString();
+                convertView.FindViewById<TextView>(Resource.Id.tvLocalEmisorEntregaLevantada).Text = item.Locales.Nombre.ToString();
+                convertView.FindViewById<TextView>(Resource.Id.tvDestinoEntregaLevantada).Text = item.Clientes1.Direccion.ToString();
+            }
 
             return convertView;
         }

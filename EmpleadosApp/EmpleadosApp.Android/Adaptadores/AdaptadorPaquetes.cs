@@ -42,18 +42,40 @@ namespace EmpleadosApp.Droid.Adaptadores
                 if (item.Estado.ToLower() == "reclamado")
                 {
                     convertView = contexto.LayoutInflater.Inflate(Resource.Layout.PaqueteReclamadoRow, null);
+
                 }
                 else
                 {
                     convertView = contexto.LayoutInflater.Inflate(Resource.Layout.PaqueteRow, null);
                 }
-                
+
+            }
+            else
+            {
+                if (item.Estado.ToLower() == "reclamado")
+                {
+                    convertView = contexto.LayoutInflater.Inflate(Resource.Layout.PaqueteReclamadoRow, null);
+
+                }
+                else
+                {
+                    convertView = contexto.LayoutInflater.Inflate(Resource.Layout.PaqueteRow, null);
+                }
             }
 
-
-            convertView.FindViewById<TextView>(Resource.Id.tvNumReferencia).Text = item.NumReferencia.ToString();
-            convertView.FindViewById<TextView>(Resource.Id.tvEstado).Text = item.Estado.ToString();
-            convertView.FindViewById<TextView>(Resource.Id.tvCliente).Text = item.Cliente.ToString();
+            if (item.Estado.ToLower() == "reclamado")
+            {
+                convertView.FindViewById<TextView>(Resource.Id.tvNumReferenciaR).Text = item.NumReferencia.ToString();
+                convertView.FindViewById<TextView>(Resource.Id.tvEstadoR).Text = item.Estado.ToString();
+                convertView.FindViewById<TextView>(Resource.Id.tvClienteR).Text = item.Cliente.ToString();
+            }
+            else
+            {
+                convertView.FindViewById<TextView>(Resource.Id.tvNumReferencia).Text = item.NumReferencia.ToString();
+                convertView.FindViewById<TextView>(Resource.Id.tvEstado).Text = item.Estado.ToString();
+                convertView.FindViewById<TextView>(Resource.Id.tvCliente).Text = item.Cliente.ToString();
+            }
+            
 
             return convertView;
         }

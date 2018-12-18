@@ -25,14 +25,7 @@ namespace EmpleadosApp.Droid
         private EditText etTurno;
         private Entrega entrega;
         private Button btnAsignar;
-
-        protected override void OnStart()
-        {
-            base.OnStart();
-            var intent = new Intent(this, typeof(ServicioGeolocalizacion));
-            StartService(intent);
-        }
-
+        
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.top_menus, menu);

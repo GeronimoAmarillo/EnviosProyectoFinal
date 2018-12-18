@@ -30,14 +30,7 @@ namespace EmpleadosApp.Droid
         private TextView tvCliente;
         private Button btnBajaPallet;
         private Button btnVolver;
-
-        protected override void OnStart()
-        {
-            base.OnStart();
-            var intent = new Intent(this, typeof(ServicioGeolocalizacion));
-            StartService(intent);
-        }
-
+        
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.top_menus, menu);

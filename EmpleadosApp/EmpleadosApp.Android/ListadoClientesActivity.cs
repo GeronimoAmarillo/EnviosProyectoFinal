@@ -24,13 +24,7 @@ namespace EmpleadosApp.Droid
         private Button btnAltaCliente;
         private int idRack;
         private long rutCliente;
-
-        protected override void OnStart()
-        {
-            base.OnStart();
-            var intent = new Intent(this, typeof(ServicioGeolocalizacion));
-            StartService(intent);
-        }
+        
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {

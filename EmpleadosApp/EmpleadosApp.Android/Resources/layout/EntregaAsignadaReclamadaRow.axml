@@ -23,7 +23,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvCodigoEntregaAsignada"
+        android:id="@+id/tvCodigoEntregaAsignadaR"
         android:layout_gravity="left"
         android:textColor="#000" />
   </LinearLayout>
@@ -46,7 +46,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvClienteEmisorEntregaAsignada"
+        android:id="@+id/tvClienteEmisorEntregaAsignadaR"
         android:layout_gravity="left"
         android:textColor="#000" />
   </LinearLayout>
@@ -69,7 +69,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvDestinoEntregaAsignada"
+        android:id="@+id/tvDestinoEntregaAsignadaR"
         android:layout_gravity="left" 
         android:textColor="#000" />
   </LinearLayout>

@@ -24,13 +24,7 @@ namespace EmpleadosApp.Droid
         private TextView tvClienteEmisor;
         private ListView lvPaquetes;
         private Button btnIrNombreReceptor;
-
-        protected override void OnStart()
-        {
-            base.OnStart();
-            var intent = new Intent(this, typeof(ServicioGeolocalizacion));
-            StartService(intent);
-        }
+        
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {

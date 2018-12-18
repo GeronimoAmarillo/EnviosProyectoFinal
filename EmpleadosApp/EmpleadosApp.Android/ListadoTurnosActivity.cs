@@ -22,12 +22,6 @@ namespace EmpleadosApp.Droid
         private List<Turno> turnos;
         private ListView lvTurnos;
         private Entrega entrega;
-        protected override void OnStart()
-        {
-            base.OnStart();
-            var intent = new Intent(this, typeof(ServicioGeolocalizacion));
-            StartService(intent);
-        }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
