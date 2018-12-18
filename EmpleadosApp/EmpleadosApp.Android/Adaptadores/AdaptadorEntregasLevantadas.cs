@@ -39,7 +39,17 @@ namespace EmpleadosApp.Droid.Adaptadores
 
             if (convertView == null)
             {
-                convertView = contexto.LayoutInflater.Inflate(Resource.Layout.EntregaLevantadaRow, null);
+                if (item.Paquetes != null || item.Paquetes1 != null)
+                {
+                    if (item.Paquetes.Where(x => x.Estado == "Reclamado").Any() || item.Paquetes1.Where(x => x.Estado == "Reclamado").Any())
+                    {
+                        convertView = contexto.LayoutInflater.Inflate(Resource.Layout.EntregaLevantadaReclamadaRow, null);
+                    }
+                }
+                else
+                {
+                    convertView = contexto.LayoutInflater.Inflate(Resource.Layout.EntregaLevantadaRow, null);
+                }
             }
 
 
