@@ -3139,6 +3139,12 @@ namespace EmpleadosApp.Droid
 			// aapt resource value: 0x7f0800f1
 			public const int media_actions = 2131230961;
 			
+			// aapt resource value: 0x7f080112
+			public const int menu_inicio = 2131230994;
+			
+			// aapt resource value: 0x7f080113
+			public const int menu_logout = 2131230995;
+			
 			// aapt resource value: 0x7f080022
 			public const int middle = 2131230754;
 			
@@ -3989,6 +3995,22 @@ namespace EmpleadosApp.Droid
 			}
 		}
 		
+		public partial class Menu
+		{
+			
+			// aapt resource value: 0x7f0e0000
+			public const int top_menus = 2131623936;
+			
+			static Menu()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Menu()
+			{
+			}
+		}
+		
 		public partial class String
 		{
 			
@@ -4209,8 +4231,8 @@ namespace EmpleadosApp.Droid
 			// aapt resource value: 0x7f0b0170
 			public const int Animation_Design_BottomSheetDialog = 2131427696;
 			
-			// aapt resource value: 0x7f0b018b
-			public const int AppCompatDialogStyle = 2131427723;
+			// aapt resource value: 0x7f0b018c
+			public const int AppCompatDialogStyle = 2131427724;
 			
 			// aapt resource value: 0x7f0b00b2
 			public const int Base_AlertDialog_AppCompat = 2131427506;
@@ -4686,11 +4708,14 @@ namespace EmpleadosApp.Droid
 			// aapt resource value: 0x7f0b000e
 			public const int CardView_Light = 2131427342;
 			
-			// aapt resource value: 0x7f0b0189
-			public const int MainTheme = 2131427721;
-			
 			// aapt resource value: 0x7f0b018a
-			public const int MainTheme_Base = 2131427722;
+			public const int MainTheme = 2131427722;
+			
+			// aapt resource value: 0x7f0b018b
+			public const int MainTheme_Base = 2131427723;
+			
+			// aapt resource value: 0x7f0b0189
+			public const int MyTheme = 2131427721;
 			
 			// aapt resource value: 0x7f0b002d
 			public const int Platform_AppCompat = 2131427373;

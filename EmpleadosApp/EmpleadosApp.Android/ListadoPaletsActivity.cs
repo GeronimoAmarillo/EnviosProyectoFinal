@@ -21,7 +21,41 @@ namespace EmpleadosApp.Droid
     {
         private List<Palet> palets;
         private ListView lvPalets;
+        protected override void OnStart()
+        {
+            base.OnStart();
+            var intent = new Intent(this, typeof(ServicioGeolocalizacion));
+            StartService(intent);
+        }
 
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.top_menus, menu);
+            return base.OnCreateOptionsMenu(menu);
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            Toast.MakeText(this, "Action selected: " + item.TitleFormatted,
+                ToastLength.Short).Show();
+
+            if (item.TitleFormatted.ToString().ToLower() == "inicio")
+            {
+                Intent intent = new Intent(this, typeof(InicioActivity));
+
+                StartActivity(intent);
+            }
+            else
+            {
+                Intent intent = new Intent(this, typeof(MainActivity));
+
+                StartActivity(intent);
+
+                FinishAffinity();
+            }
+
+            return base.OnOptionsItemSelected(item);
+        }
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
