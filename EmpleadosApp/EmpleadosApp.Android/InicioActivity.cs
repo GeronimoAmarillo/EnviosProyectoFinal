@@ -224,7 +224,17 @@ namespace EmpleadosApp.Droid
 
                         string horaString = fechaActual.ToShortTimeString();
 
-                        string horaStringInt = horaString.Substring(0, 2) + horaString.Substring(3, 2);
+                        string horaStringInt;
+
+
+                        if (horaString.Length == 4)
+                        {
+                            horaStringInt = horaString.Substring(0, 1) + horaString.Substring(2, 2);
+                        }
+                        else
+                        {
+                            horaStringInt = horaString.Substring(0, 2) + horaString.Substring(3, 2);
+                        }
 
                         int hora = Convert.ToInt32(horaStringInt);
 

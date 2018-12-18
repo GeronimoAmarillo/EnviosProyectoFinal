@@ -77,7 +77,7 @@ namespace PersistenciaCore
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    paquete = dbConnection.Paquetes.Include("Entregas").Include("Entregas1").Where(x => x.NumReferencia == numReferencia && x.Cliente == cliente).FirstOrDefault();
+                    paquete = dbConnection.Paquetes.Include("Entregas.Cadetes.Empleados.Usuarios").Include("Entregas1.Cadetes.Empleados.Usuarios").Where(x => x.NumReferencia == numReferencia && x.Cliente == cliente).FirstOrDefault();
                 }
 
                 Paquete paqueteResultado = new Paquete();
@@ -87,12 +87,12 @@ namespace PersistenciaCore
 
                     paqueteResultado.Cliente = paquete.Cliente;
                     paqueteResultado.Entrega = paquete.Entrega;
-                    if (paqueteResultado.Entregas != null)
+                    if (paquete.Entregas != null)
                     {
                         paqueteResultado.Entregas = TransfomarEntrega(paquete.Entregas);
                     }
 
-                    if (paqueteResultado.Entregas1 != null)
+                    if (paquete.Entregas1 != null)
                     {
                         paqueteResultado.Entregas1 = TransfomarEntrega(paquete.Entregas1);
                     }
