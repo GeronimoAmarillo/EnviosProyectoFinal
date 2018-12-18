@@ -17,8 +17,7 @@ namespace PersistenciaCore
 
         [Key]
         public int Codigo { get; set; }
-
-        [Column(TypeName = "date")]
+        
         public DateTime Fecha { get; set; }
 
         [Required]

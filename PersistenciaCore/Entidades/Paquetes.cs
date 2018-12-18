@@ -20,7 +20,6 @@ namespace PersistenciaCore
         public int NumReferencia { get; set; }
 
         [Required]
-        [Column(TypeName = "date")]
         public DateTime FechaSalida { get; set; }
 
         [Required]
