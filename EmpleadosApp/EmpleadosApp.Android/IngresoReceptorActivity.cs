@@ -23,8 +23,36 @@ namespace EmpleadosApp.Droid
         private Entrega entrega;
         private EditText etReceptor;
         private Button btnConfirmarReceptor;
+        
 
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.top_menus, menu);
+            return base.OnCreateOptionsMenu(menu);
+        }
 
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            Toast.MakeText(this, "Action selected: " + item.TitleFormatted,
+                ToastLength.Short).Show();
+
+            if (item.TitleFormatted.ToString().ToLower() == "inicio")
+            {
+                Intent intent = new Intent(this, typeof(InicioActivity));
+
+                StartActivity(intent);
+            }
+            else
+            {
+                Intent intent = new Intent(this, typeof(MainActivity));
+
+                StartActivity(intent);
+
+                FinishAffinity();
+            }
+
+            return base.OnOptionsItemSelected(item);
+        }
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -92,6 +120,8 @@ namespace EmpleadosApp.Droid
                             Intent intent = new Intent(this, typeof(ListarEntregasActivity));
 
                             StartActivity(intent);
+
+                            FinishAffinity();
                         }
                         else
                         {

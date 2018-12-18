@@ -19,6 +19,7 @@ namespace PersistenciaCore
         public int Codigo { get; set; }
 
         
+        
         public DateTime Fecha { get; set; }
 
         [Required]

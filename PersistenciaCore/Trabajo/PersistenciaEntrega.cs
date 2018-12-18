@@ -151,7 +151,7 @@ namespace PersistenciaCore
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    var entregas = dbConnection.Entregas.Include("Paquetes").Include("Paquetes1").Include("Locales").Include("Locales1").Include("Clientes.Usuarios").Include("Clientes1.Usuarios").Include("Cadetes.Empleados.Usuarios").Where(x=> x.Paquetes.FirstOrDefault().Estado == "Levantado" || x.Paquetes1.FirstOrDefault().Estado == "Levantado" && x.Cadete == cadete).ToList();
+                    var entregas = dbConnection.Entregas.Include("Paquetes").Include("Paquetes1").Include("Locales").Include("Locales1").Include("Clientes.Usuarios").Include("Clientes1.Usuarios").Include("Cadetes.Empleados.Usuarios").Where(x=> (x.Paquetes.FirstOrDefault().Estado == "Levantado" || x.Paquetes1.FirstOrDefault().Estado == "Levantado" || x.Paquetes.FirstOrDefault().Estado == "Reclamado" || x.Paquetes1.FirstOrDefault().Estado == "Reclamado") && x.Cadete == cadete).ToList();
 
                     Entrega entregaResultado = null;
 
