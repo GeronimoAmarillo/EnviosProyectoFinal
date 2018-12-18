@@ -26,8 +26,6 @@
 
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                    <div class="container">
-
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                         <input asp-for="NombreUsuario" placeholder="Ingrese su nombre de usuario" class="form-control" />
                         <span asp-validation-for="NombreUsuario" class="text-danger"></span>
@@ -41,10 +39,9 @@
                         <button type="submit" style="background-color: #4CAF50;color: white;padding: 14px 20px;margin: 8px 0;border: none; cursor: pointer;width: 100%;">Login</button>
 
                         <div>
-                            <a asp-action="RecuperarContraseña" asp-controller="Usuarios" class="btn-link" style="color:black">¿Olvidastes tu Contraseña?</a>
+                            <a asp-action="RecuperarContraseña" asp-controller="Usuarios" class="btn-link" style="color:white">¿Olvidastes tu Contraseña?</a>
                         </div>
 
-                    </div>
 
                 </form>
             </div>
