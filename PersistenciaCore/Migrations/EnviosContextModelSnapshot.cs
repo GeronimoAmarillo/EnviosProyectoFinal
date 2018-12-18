@@ -208,8 +208,7 @@ namespace PersistenciaCore.Migrations
 
                     b.Property<long?>("ClienteReceptor");
 
-                    b.Property<DateTime>("Fecha")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("Fecha");
 
                     b.Property<int?>("LocalEmisor");
 
@@ -442,8 +441,7 @@ namespace PersistenciaCore.Migrations
                         .IsRequired()
                         .HasMaxLength(15);
 
-                    b.Property<DateTime>("FechaSalida")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("FechaSalida");
 
                     b.Property<string>("Ubicacion")
                         .IsRequired()
