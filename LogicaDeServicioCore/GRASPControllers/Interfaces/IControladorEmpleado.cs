@@ -17,6 +17,8 @@ namespace LogicaDeServicioCore
 
         bool ModificarEmpleado(EntidadesCompartidasCore.Empleado pEmpleado);
 
+        EntidadesCompartidasCore.Empleado BuscarEmpleadoActuaizado(int ci);
+
         bool BajaEmpleado(int ci);
 
         bool AltaEmpleado(Empleado pEmpleado);

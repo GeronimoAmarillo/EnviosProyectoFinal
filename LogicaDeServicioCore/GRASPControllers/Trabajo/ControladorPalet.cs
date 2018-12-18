@@ -71,6 +71,18 @@ namespace LogicaDeServicioCore
             }
         }
 
+        public List<Palet> ListarPaletsTodos()
+        {
+            try
+            {
+                return LogicaPalet.ListarPaletsTodos();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los palets." + ex.Message);
+            }
+        }
+
         public bool BajaPalet(int id)
         {
             try

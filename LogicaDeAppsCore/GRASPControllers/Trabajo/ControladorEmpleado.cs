@@ -95,6 +95,20 @@ namespace LogicaDeAppsCore
             return emp;
         }
 
+        public async Task<Empleado> BuscarEmpleadoActualizado(int cedula)
+        {
+            HttpClient client = new HttpClient();
+            Empleado emp = GetEmpleado();
+
+
+            var httpClient = new HttpClient();
+            var json = await httpClient.GetStringAsync(ConexionREST.ConexionEmpleados + "/EmpleadoActualizado?" + "ci=" + cedula);
+
+            emp = JsonConvert.DeserializeObject<Empleado>(json);
+
+            return emp;
+        }
+
         public bool ModificarAdmnistrador(Administrador pEmpleado)
         {
             try

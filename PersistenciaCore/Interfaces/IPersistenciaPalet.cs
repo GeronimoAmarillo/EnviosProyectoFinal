@@ -18,5 +18,7 @@ namespace PersistenciaCore
         List<Palet> ListarPalets();
 
         bool BajaPalet(int id);
+
+        List<EntidadesCompartidasCore.Palet> ListarPaletsTodos();
     }
 }

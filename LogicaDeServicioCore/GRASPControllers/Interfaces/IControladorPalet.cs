@@ -21,5 +21,7 @@ namespace LogicaDeServicioCore
         List<Palet> ListarPalets();
 
         bool BajaPalet(int id);
+
+        List<Palet> ListarPaletsTodos();
     }
 }

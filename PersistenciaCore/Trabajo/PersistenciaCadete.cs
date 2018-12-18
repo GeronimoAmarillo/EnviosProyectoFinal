@@ -626,6 +626,54 @@ namespace PersistenciaCore
             }
 
         }
-    
+
+
+
+        public EntidadesCompartidasCore.Cadete BuscarActualizado(int ci)
+        {
+            try
+            {
+                Cadetes cadete = new Cadetes();
+
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    cadete = dbConnection.Cadetes.Include("Empleados.Usuarios").Where(c => c.CiEmpleado == ci).FirstOrDefault();
+                }
+
+                Cadete cadeteResultado = new Cadete();
+
+                if (cadete != null)
+                {
+
+                    cadeteResultado.Ci = cadete.CiEmpleado;
+                    cadeteResultado.CiEmpleado = cadete.CiEmpleado;
+                    cadeteResultado.Direccion = cadete.Empleados.Usuarios.Direccion;
+                    cadeteResultado.Email = cadete.Empleados.Usuarios.Email;
+                    cadeteResultado.Id = cadete.Empleados.Usuarios.Id;
+                    cadeteResultado.Nombre = cadete.Empleados.Usuarios.Nombre;
+                    cadeteResultado.NombreUsuario = cadete.Empleados.Usuarios.NombreUsuario;
+                    cadeteResultado.Sueldo = cadete.Empleados.Sueldo;
+                    cadeteResultado.Telefono = cadete.Empleados.Usuarios.Telefono;
+                    cadeteResultado.Latitud = cadete.Latitud;
+                    cadeteResultado.Longitud = cadete.Longitud;
+                    cadeteResultado.CodigoRecuperacionContraseña = cadete.Empleados.Usuarios.CodigoRecuperacionContraseña;
+                    cadeteResultado.CodigoModificarEmail = cadete.Empleados.Usuarios.CodigoModificarEmail;
+                    cadeteResultado.Contraseña = cadete.Empleados.Usuarios.Contraseña;
+                }
+
+                return cadeteResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el cadete." + ex.Message);
+            }
+
+        }
+
     }
 }

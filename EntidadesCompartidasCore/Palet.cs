@@ -25,7 +25,9 @@ namespace EntidadesCompartidasCore
         public int Casilla { get; set; }
 
         public long Cliente { get; set; }
-
+        public bool Eliminado { get; set; }
+        public DateTime? fechaIngreso { get; set; }
+        public DateTime? fechaSalida { get; set; }
         public Casilla Casillas { get; set; }
 
         public Cliente Clientes { get; set; }

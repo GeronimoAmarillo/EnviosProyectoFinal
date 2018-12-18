@@ -14,6 +14,7 @@ namespace LogicaDeAppsCore
         Empleado GetEmpleado();
 
         Cadete GetEmpleadoCad();
+        Task<Empleado> BuscarEmpleadoActualizado(int cedula);
 
         Administrador GetEmpleadoAdm();
 

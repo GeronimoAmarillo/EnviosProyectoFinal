@@ -18,7 +18,7 @@ namespace PersistenciaCore
         public int Id { get; set; }
 
         [Required]
-        [StringLength(25)]
+        [StringLength(100)]
         public string NombreUsuario { get; set; }
 
         [Required]

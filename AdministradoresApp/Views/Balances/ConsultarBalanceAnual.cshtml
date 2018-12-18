@@ -16,11 +16,12 @@
     {
         mensaje = TempData["Mensaje"].ToString();
     }
-    
+
     var ubt = TempData["UBT"];
     var uot = TempData["UOT"];
     var usit = TempData["USIT"];
     var udet = TempData["UDET"];
+
 
 }
 <div class="container">
@@ -291,13 +292,17 @@
                         }
                     });
                 }
+
+                
                 //[{ "fecha": "x/01/2018", "suma": -8000.0000 }, { "fecha": "x/02/2018", "suma": 231512.0000 }, { "fecha": "x/03/2018", "suma": 0.0 }]
                 /**/
-                var result = JSON.parse(@ubt);
                 /**/
-                var result2 = [{ "fecha": "x/01/2018", "suma": -8000.0000 }, { "fecha": "x/02/2018", "suma": 231512.0000 }, { "fecha": "x/03/2018", "suma": 0.0 }]
-                var result3 = [{ "fecha": "x/01/2018", "suma": -8000.0000 }, { "fecha": "x/02/2018", "suma": 230512.0000 }, { "fecha": "x/03/2018", "suma": 0.0 }]
-                var result4 = [{ "fecha": "x/01/2018", "suma": -8000.0000 }, { "fecha": "x/02/2018", "suma": 138307.2000 }, { "fecha": "x/03/2018", "suma": 0.0 }]
+                var result = @ubt;
+                /**/
+                /**/
+                var result2 = @uot;
+                var result3 = @usit;
+                var result4 = @udet;
 
                 //this is to initialise the charts
                 function drawCharts() {

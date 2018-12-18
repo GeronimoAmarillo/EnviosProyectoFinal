@@ -50,6 +50,21 @@ namespace LogicaDeServicioCore
             
         }
 
+        public EntidadesCompartidasCore.Empleado BuscarEmpleadoActuaizado(int ci)
+        {
+            try
+            {
+                EntidadesCompartidasCore.Empleado usu = (Empleado)LogicaUsuario.BuscarEmpleadoActualizado(ci);
+
+                return usu;
+            }
+            catch
+            {
+                throw new Exception("Error al buscar el empleado.");
+            }
+
+        }
+
         public bool ModificarEmpleado(EntidadesCompartidasCore.Empleado pEmpleado)
         {
             try

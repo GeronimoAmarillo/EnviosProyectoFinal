@@ -29,6 +29,13 @@ namespace EnviosService.Controllers
         }
 
         [HttpGet("{ci}")]
+        [Route("api/Empleados/EmpleadoActualizado")]
+        public JsonResult EmpleadoActualizado(int ci)
+        {
+            return Json(controladorEmpleado.BuscarEmpleadoActuaizado(ci), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
+        [HttpGet("{ci}")]
         [Route("api/Empleados/ExisteEmpleado")]
         public JsonResult ExisteEmpleado(int ci)
         {

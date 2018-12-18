@@ -75,5 +75,19 @@ namespace LogicaDeServicioCore
                 throw new Exception("Error al listar los palets." + ex.Message);
             }
         }
+
+        public static List<Palet> ListarPaletsTodos()
+        {
+            try
+            {
+
+                return FabricaPersistencia.GetPersistenciaPalet().ListarPaletsTodos();
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los palets." + ex.Message);
+            }
+        }
     }
 }

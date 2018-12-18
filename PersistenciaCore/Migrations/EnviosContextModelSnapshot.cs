@@ -404,12 +404,18 @@ namespace PersistenciaCore.Migrations
 
                     b.Property<int>("Casilla");
 
+                    b.Property<bool>("Eliminado");
+
                     b.Property<decimal>("Peso")
                         .HasColumnType("decimal(18, 0)");
 
                     b.Property<string>("Producto")
                         .IsRequired()
                         .HasMaxLength(100);
+
+                    b.Property<DateTime?>("fechaIngreso");
+
+                    b.Property<DateTime?>("fechaSalida");
 
                     b.HasKey("Id", "Cliente");
 
@@ -591,7 +597,7 @@ namespace PersistenciaCore.Migrations
 
                     b.Property<string>("NombreUsuario")
                         .IsRequired()
-                        .HasMaxLength(25);
+                        .HasMaxLength(100);
 
                     b.Property<string>("Telefono")
                         .IsRequired()

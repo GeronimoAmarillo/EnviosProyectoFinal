@@ -15,6 +15,8 @@ namespace PersistenciaCore
 
         bool VerificarCodigoEmail(string email, string codigo);
 
+        EntidadesCompartidasCore.Administrador BuscarActualizado(int ci);
+
         bool AltaAdministrador(Administrador administrador);
 
         bool ComprobarUser(string user);

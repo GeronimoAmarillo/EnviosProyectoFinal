@@ -23,6 +23,10 @@ namespace PersistenciaCore
         [Key]
         [Required]
         public long Cliente { get; set; }
+        [Required]
+        public bool Eliminado { get; set; }
+        public DateTime? fechaIngreso { get; set; }
+        public DateTime? fechaSalida { get; set; }
 
         public virtual Casillas Casillas { get; set; }
 

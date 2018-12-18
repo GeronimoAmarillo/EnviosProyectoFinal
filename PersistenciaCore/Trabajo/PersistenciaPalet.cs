@@ -41,6 +41,9 @@ namespace PersistenciaCore
                     paletResultado.Id = palet.Id;
                     paletResultado.Peso = palet.Peso;
                     paletResultado.Producto = palet.Producto;
+                    paletResultado.Eliminado = palet.Eliminado;
+                    paletResultado.fechaIngreso = palet.fechaIngreso;
+                    paletResultado.fechaSalida = palet.fechaSalida;
                 }
 
                 return paletResultado;
@@ -132,6 +135,7 @@ namespace PersistenciaCore
 
                 paletAgregar.Casilla = codigoCasilla;
                 paletAgregar.Cliente = palet.Cliente;
+                paletAgregar.Eliminado = false;
 
                 int idPaletNuevo;
 
@@ -161,8 +165,10 @@ namespace PersistenciaCore
                 paletAgregar.Id = idPaletNuevo;
                 paletAgregar.Peso = palet.Peso;
                 paletAgregar.Producto = palet.Producto;
-             
-                
+
+                paletAgregar.Eliminado = palet.Eliminado;
+                paletAgregar.fechaIngreso = DateTime.Now;
+                paletAgregar.fechaSalida = null;
 
                 using (EnviosContext dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
@@ -191,6 +197,49 @@ namespace PersistenciaCore
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
+                    palets = dbConnection.Palets.Include("Clientes.Usuarios").Include("Casillas.Racks.Sectores").Where(x => x.Eliminado == false).ToList();
+                }
+
+                List<Palet> paletsResultado = new List<Palet>();
+
+                foreach (Palets p in palets)
+                {
+                    Palet paletR = new Palet();
+
+                    paletR.Cantidad = p.Cantidad;
+                    paletR.Casilla = p.Casilla;
+                    paletR.Clientes = ConvertirCliente(p.Clientes);
+                    paletR.Cliente = p.Cliente;
+                    paletR.Id = p.Id;
+                    paletR.Peso = p.Peso;
+                    paletR.Producto = p.Producto;
+                    paletR.Eliminado = p.Eliminado;
+                    paletR.fechaIngreso = p.fechaIngreso;
+                    paletR.fechaSalida = p.fechaSalida;
+
+                    paletsResultado.Add(paletR);
+                }
+
+                return paletsResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al listar los palets." + ex.Message);
+            }
+        }
+
+        public List<EntidadesCompartidasCore.Palet> ListarPaletsTodos()
+        {
+            try
+            {
+                List<Palets> palets = new List<Palets>();
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
                     palets = dbConnection.Palets.Include("Clientes.Usuarios").Include("Casillas.Racks.Sectores").ToList();
                 }
 
@@ -207,6 +256,9 @@ namespace PersistenciaCore
                     paletR.Id = p.Id;
                     paletR.Peso = p.Peso;
                     paletR.Producto = p.Producto;
+                    paletR.Eliminado = p.Eliminado;
+                    paletR.fechaIngreso = p.fechaIngreso;
+                    paletR.fechaSalida = p.fechaSalida;
 
                     paletsResultado.Add(paletR);
                 }
@@ -218,7 +270,7 @@ namespace PersistenciaCore
                 throw new Exception("Error al listar los palets." + ex.Message);
             }
         }
-        
+
 
         public EntidadesCompartidasCore.Galpon BuscarGalpon(int id)
         {
@@ -314,10 +366,12 @@ namespace PersistenciaCore
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
                     paletBaja = dbConnection.Palets.Where(a => a.Id == id).FirstOrDefault();
+                    paletBaja.fechaSalida = DateTime.Now;
+                    paletBaja.Eliminado = true;
 
                     if (paletBaja != null)
                     {
-                        dbConnection.Palets.Remove(paletBaja);
+                        dbConnection.Palets.Update(paletBaja);
 
                         dbConnection.SaveChanges();
 

@@ -520,7 +520,7 @@ namespace AdministradoresApp.Controllers
                     {
                         controladorEmpleado.SetEmpleado(null);
 
-                        Empleado adminAgregado = await FabricaApps.GetControladorEmpleado().BuscarEmpleado(administrador.Ci);
+                        Empleado adminAgregado = await FabricaApps.GetControladorEmpleado().BuscarEmpleadoActualizado(administrador.Ci);
 
                         MailMessage mail = new MailMessage();
                         mail.From = new MailAddress("enviosservice2018@gmail.com");
@@ -736,7 +736,7 @@ namespace AdministradoresApp.Controllers
                     {
                         controladorEmpleado.SetEmpleado(null);
 
-                        Empleado cadeteAgregado = await FabricaApps.GetControladorEmpleado().BuscarEmpleado(administrador.Ci);
+                        Empleado cadeteAgregado = await FabricaApps.GetControladorEmpleado().BuscarEmpleadoActualizado(administrador.Ci);
 
                         MailMessage mail = new MailMessage();
                         mail.From = new MailAddress("enviosservice2018@gmail.com");

@@ -221,6 +221,51 @@ namespace PersistenciaCore
 
         }
 
+        public EntidadesCompartidasCore.Administrador BuscarActualizado(int ci)
+        {
+            try
+            {
+                Administradores administrador = new Administradores();
+
+
+                var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+                optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+                using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+                {
+                    administrador = dbConnection.Administradores.Include("Empleados.Usuarios").Where(a => a.CiEmpleado == ci).FirstOrDefault();
+                }
+
+                Administrador adminResultado = new Administrador();
+
+                if (administrador != null)
+                {
+
+                    adminResultado.Ci = administrador.CiEmpleado;
+                    adminResultado.CiEmpleado = administrador.CiEmpleado;
+                    adminResultado.Direccion = administrador.Empleados.Usuarios.Direccion;
+                    adminResultado.Email = administrador.Empleados.Usuarios.Email;
+                    adminResultado.Id = administrador.Empleados.Usuarios.Id;
+                    adminResultado.Nombre = administrador.Empleados.Usuarios.Nombre;
+                    adminResultado.NombreUsuario = administrador.Empleados.Usuarios.NombreUsuario;
+                    adminResultado.Sueldo = administrador.Empleados.Sueldo;
+                    adminResultado.Telefono = administrador.Empleados.Usuarios.Telefono;
+                    adminResultado.Tipo = administrador.Tipo;
+                    adminResultado.CodigoRecuperacionContraseña = administrador.Empleados.Usuarios.CodigoRecuperacionContraseña;
+                    adminResultado.CodigoModificarEmail = administrador.Empleados.Usuarios.CodigoModificarEmail;
+                    adminResultado.Contraseña = administrador.Empleados.Usuarios.Contraseña;
+                }
+
+                return adminResultado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el administrador administradores." + ex.Message);
+            }
+
+        }
+
         public List<EntidadesCompartidasCore.Administrador> ListarAdministradores()
         {
             try

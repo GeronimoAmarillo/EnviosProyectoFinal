@@ -690,6 +690,28 @@ namespace LogicaDeServicioCore
                 throw new Exception("Error al buscar el Empleado" + ex.Message);
             }
         }
+
+        public static EntidadesCompartidasCore.Empleado BuscarEmpleadoActualizado(int cedula)
+        {
+            Empleado empleado;
+
+            try
+            {
+                empleado = FabricaPersistencia.GetPersistenciaAdministrador().BuscarActualizado(cedula);
+
+                if (empleado == null || empleado.Ci == 0)
+                {
+                    empleado = FabricaPersistencia.GetPersistenciaCadete().BuscarActualizado(cedula);
+                }
+
+                return empleado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al buscar el Empleado" + ex.Message);
+            }
+        }
+
         public static EntidadesCompartidasCore.Usuario BuscarUsuario(int cedula)
         {
             Empleado empleado;

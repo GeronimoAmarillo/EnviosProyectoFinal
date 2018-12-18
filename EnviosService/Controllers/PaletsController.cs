@@ -35,6 +35,13 @@ namespace EnviosService.Controllers
             return Json(controladorPalet.ListarPalets(), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
+        [Route("api/Palets/PaletsTodos")]
+        [HttpGet]
+        public JsonResult PaletsTodos()
+        {
+            return Json(controladorPalet.ListarPaletsTodos(), new Newtonsoft.Json.JsonSerializerSettings());
+        }
+
         [Route("api/Palets/Galpon")]
         [HttpGet("{id}")]
         public JsonResult Galpon(int id)
