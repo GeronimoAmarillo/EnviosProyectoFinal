@@ -55,15 +55,15 @@
             </div>
             <div class="form-group" hidden>
                 <label asp-for="Cadete" class="control-label"></label>
-                <input asp-for="Cadete" class="form-control" value="11111111"/>
+                <input id="cadete" asp-for="Cadete" class="form-control" />
                 <span asp-validation-for="Cadete" class="text-danger"></span>
             </div>
             <div class="form-group" id="campoRut">
                 <label>Seleccione el Cadete</label>
-                @Html.DropDownList("cadete", new SelectList(listItemCadetes, "Value", "Text"))
+                @Html.DropDownList("cadete", new SelectList(listItemCadetes, "Value", "Text"), new { @id = "cadetes", @onchange = "set_cadete()" })
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input id="botonEnvio" type="submit" value="Create" class="btn btn-default" />
             </div>
         </form>
     </div>
@@ -103,7 +103,22 @@
         setTimeout(function () { x.className = x.className.replace("show", ""); }, 5000);
     }
 
+    function set_cadete() {
+        var e = document.getElementById("cadetes");
+        var strCliente = e.options[e.selectedIndex].value;
+        var e = document.getElementById("cadete");
+        e.value = strCliente;
+    }
 
+    document.getElementById("botonEnvio").onclick = function () {
+        var e = document.getElementById("cadetes");
+        var strCliente = e.options[e.selectedIndex].value;
+        if (strCliente === "N") {
+            alert('Debe seleccionar un Cadete')
+            return false;
+        }
+
+    }
     window.onload = launch_toast;
 
 </script>

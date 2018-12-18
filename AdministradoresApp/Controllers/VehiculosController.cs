@@ -1158,6 +1158,8 @@ namespace AdministradoresApp.Controllers
 
                 List<SelectListItem> cadetesItem = new List<SelectListItem>();
 
+                cadetesItem.Add(new SelectListItem() { Text = "Seleccione un cadete", Value = "N" });
+
                 foreach (Cadete c in cadetes)
                 {
                     cadetesItem.Add(new SelectListItem() { Text = c.Ci + " - " + c.Nombre, Value = c.Ci.ToString() });

@@ -53,7 +53,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input id="botonEnvio" type="submit" value="Create" class="btn btn-default" />
             </div>
         </form>
     </div>
@@ -93,6 +93,16 @@
         var strCliente = e.options[e.selectedIndex].value;
         var e = document.getElementById("dia");
         e.value = strCliente;
+    }
+
+    document.getElementById("botonEnvio").onclick = function () {
+        var e = document.getElementById("dias");
+        var strCliente = e.options[e.selectedIndex].value;
+        if (strCliente === "N") {
+            alert('Debe seleccionar un Dia')
+            return false;
+        }
+
     }
 
     window.onload = launch_toast;

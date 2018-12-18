@@ -75,6 +75,7 @@ namespace AdministradoresApp.Controllers
 
                     //A, B, C, D, E, F, G1, G2, G3 y H
 
+                    dias.Add(new SelectListItem() { Text = "Seleccione el dia", Value = "N" });
                     dias.Add(new SelectListItem() { Text = "Lunes", Value = "Lunes" });
                     dias.Add(new SelectListItem() { Text = "Martes", Value = "Martes" });
                     dias.Add(new SelectListItem() { Text = "Miercoles", Value = "Miercoles" });
