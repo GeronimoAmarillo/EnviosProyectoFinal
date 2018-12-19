@@ -13,13 +13,13 @@ namespace LogicaDeServicioCore
 
         Paquete BuscarPaquete(int numReferencia);
 
-        Paquete BuscarPaqueteIndividual(int numReferencia, int cliente);
+        Paquete BuscarPaqueteIndividual(int numReferencia, long cliente);
 
         List<Local> ListarLocales();
 
-        List<Paquete> ListarPaquetesEnviadosXCliente(int rut);
+        List<Paquete> ListarPaquetesEnviadosXCliente(long rut);
 
-        List<Paquete> ListarPaquetesRecibidosXCliente(int rut);
+        List<Paquete> ListarPaquetesRecibidosXCliente(long rut);
 
         Local BuscarLocal(string nombre);
 

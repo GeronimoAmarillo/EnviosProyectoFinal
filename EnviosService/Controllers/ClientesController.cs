@@ -22,7 +22,7 @@ namespace EnviosService.Controllers
         }
         [Route("api/Clientes/Buscar")]
         [HttpGet("{rut}")]
-        public JsonResult Cliente(int rut)
+        public JsonResult Cliente(long rut)
         {
             JsonSerializerSettings settings = new JsonSerializerSettings
             {
@@ -55,7 +55,7 @@ namespace EnviosService.Controllers
 
         [Route("api/Clientes/Existe")]
         [HttpGet("{rut}")]
-        public JsonResult ExisteCliente(int rut)
+        public JsonResult ExisteCliente(long rut)
         {
             return Json(controladorCliente.ExisteCliente(rut), new Newtonsoft.Json.JsonSerializerSettings());
         }

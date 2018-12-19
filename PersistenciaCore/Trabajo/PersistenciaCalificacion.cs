@@ -86,7 +86,7 @@ namespace PersistenciaCore
                     calificacionR.Comentario = l.Comentario;
                     calificacionR.Puntaje = l.Puntaje;
                     calificacionR.RutCliente = l.RutCliente;
-                    calificacionR.Clientes = FabricaPersistencia.GetPersistenciaCliente().BuscarCliente(Convert.ToInt32(l.RutCliente));
+                    calificacionR.Clientes = FabricaPersistencia.GetPersistenciaCliente().BuscarCliente(Convert.ToInt64(l.RutCliente));
 
                     calificacionesResultado.Add(calificacionR);
                 }

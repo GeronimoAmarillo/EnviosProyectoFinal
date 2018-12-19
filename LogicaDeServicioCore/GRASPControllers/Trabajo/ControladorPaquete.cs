@@ -34,7 +34,7 @@ namespace LogicaDeServicioCore
                 throw new Exception("Error al buscar el paquete." + ex.Message);
             }
         }
-        public Paquete BuscarPaqueteIndividual(int numReferencia, int cliente)
+        public Paquete BuscarPaqueteIndividual(int numReferencia, long cliente)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace LogicaDeServicioCore
             return new List<Local>();
         }
 
-        public List<Paquete> ListarPaquetesEnviadosXCliente(int rut)
+        public List<Paquete> ListarPaquetesEnviadosXCliente(long rut)
         {
             try
             {
@@ -68,7 +68,7 @@ namespace LogicaDeServicioCore
         }
         
 
-        public List<Paquete> ListarPaquetesRecibidosXCliente(int rut)
+        public List<Paquete> ListarPaquetesRecibidosXCliente(long rut)
         {
             try
             {

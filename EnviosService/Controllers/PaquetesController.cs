@@ -32,14 +32,14 @@ namespace EnviosService.Controllers
 
         [Route("api/Paquetes/Localizar")]
         [HttpGet("{numReferencia, rut}")]
-        public JsonResult Localizar(int numReferencia, int rut)
+        public JsonResult Localizar(int numReferencia, long rut)
         {
             return Json(controladorEmpleado.ConsultarLocalizacion(numReferencia, rut), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
         [Route("api/Paquetes/BuscarIndividual")]
         [HttpGet("{numReferencia, cliente}")]
-        public JsonResult PaqueteIndividual(int numReferencia, int cliente)
+        public JsonResult PaqueteIndividual(int numReferencia, long cliente)
         {
             return Json(controladorPaquete.BuscarPaqueteIndividual(numReferencia, cliente), new Newtonsoft.Json.JsonSerializerSettings());
         }
@@ -52,14 +52,14 @@ namespace EnviosService.Controllers
 
         [Route("api/Paquetes/ListarEnviados")]
         [HttpGet("{rut}")]
-        public JsonResult Enviados(int rut)
+        public JsonResult Enviados(long rut)
         {
             return Json(controladorPaquete.ListarPaquetesEnviadosXCliente(rut), new Newtonsoft.Json.JsonSerializerSettings());
         }
 
         [Route("api/Paquetes/ListarRecibidos")]
         [HttpGet("{rut}")]
-        public JsonResult Recibidos(int rut)
+        public JsonResult Recibidos(long rut)
         {
             return Json(controladorPaquete.ListarPaquetesRecibidosXCliente(rut), new Newtonsoft.Json.JsonSerializerSettings());
         }

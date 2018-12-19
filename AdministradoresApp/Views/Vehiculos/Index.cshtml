@@ -33,16 +33,16 @@
             <tbody>
                 <tr>
                     <td>
-                        @Html.ActionLink("Todos", "Index", new { /* id=item.PrimaryKey */ }) 
-                        @Html.ActionLink("Autos", "ListarAutos", new { /* id=item.PrimaryKey */ }) 
-                        @Html.ActionLink("Camiones", "ListarCamiones", new { /* id=item.PrimaryKey */ }) 
-                        @Html.ActionLink("Camionetas", "ListarCamionetas", new { /* id=item.PrimaryKey */ }) 
+                        @Html.ActionLink("Todos", "Index", new { /* id=item.PrimaryKey */ })
+                        @Html.ActionLink("Autos", "ListarAutos", new { /* id=item.PrimaryKey */ })
+                        @Html.ActionLink("Camiones", "ListarCamiones", new { /* id=item.PrimaryKey */ })
+                        @Html.ActionLink("Camionetas", "ListarCamionetas", new { /* id=item.PrimaryKey */ })
                         @Html.ActionLink("Motos", "ListarMotos", new { /* id=item.PrimaryKey */ })
                     </td>
                     <td>
-                        @Html.ActionLink("Autos", "AltaAuto", new { /* id=item.PrimaryKey */ }) 
-                        @Html.ActionLink("Camiones", "AltaCamion", new { /* id=item.PrimaryKey */ }) 
-                        @Html.ActionLink("Camionetas", "AltaCamioneta", new { /* id=item.PrimaryKey */ }) 
+                        @Html.ActionLink("Autos", "AltaAuto", new { /* id=item.PrimaryKey */ })
+                        @Html.ActionLink("Camiones", "AltaCamion", new { /* id=item.PrimaryKey */ })
+                        @Html.ActionLink("Camionetas", "AltaCamioneta", new { /* id=item.PrimaryKey */ })
                         @Html.ActionLink("Motos", "AltaMoto", new { /* id=item.PrimaryKey */ })
                     </td>
                 </tr>
@@ -53,6 +53,10 @@
     <br />
     <br />
     <br />
+
+    <p>
+        <input oninput="w3.filterHTML('#id01', '.item', this.value)" placeholder="Busqueda multi-columna...">
+    </p>
 
     <div class="table-responsive">
         <table class="table-responsive table table-striped table-bordered table-sm" id="id01">
@@ -127,9 +131,9 @@
                         </td>
 
                         <td>
-                            @Html.ActionLink("Modificar", "Modificar", new { matricula = item.Matricula }) 
-                            @Html.ActionLink("Eliminar", "BajaVehiculo", new { matricula = item.Matricula }) 
-                            @Html.ActionLink("Reparaciones", "IrReparaciones", new { matricula = item.Matricula }) 
+                            @Html.ActionLink("Modificar", "Modificar", new { matricula = item.Matricula })
+                            @Html.ActionLink("Eliminar", "BajaVehiculo", new { matricula = item.Matricula })
+                            @Html.ActionLink("Reparaciones", "IrReparaciones", new { matricula = item.Matricula })
                             @Html.ActionLink("Multas", "IrMultas", new { matricula = item.Matricula })
 
                         </td>

@@ -9,9 +9,9 @@ namespace LogicaDeServicioCore
 {
     public interface IControladorCliente
     {
-        bool ExisteCliente(int rut);
+        bool ExisteCliente(long rut);
 
-        Cliente BuscarCliente(int rut);
+        Cliente BuscarCliente(long rut);
 
         bool ModificarCliente(Cliente pCliente);
 

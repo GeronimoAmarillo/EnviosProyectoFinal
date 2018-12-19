@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<EntidadesCompartidasCore.Reclamo>
+<script src="https://www.w3schools.com/lib/w3.js"></script>
 <link rel="stylesheet" href="~/css/inicio.css" />
 
 @{
@@ -25,7 +26,7 @@
 
 </p>
 <div class="container">
-    <form id="form1" action="Paquetes/ListarReclamoporPaquete">
+    @*<form id="form1" action="Paquetes/ListarReclamoporPaquete">
         <div class="form-group">
             <label>Ingrese aqui el numero de referencia</label>
             <input type="text" name="numReferencia" class="form-control" />
@@ -33,7 +34,7 @@
             <input type="submit" name="Buscar" value="Buscar Reclamo" />
             <input type="submit" name="Buscar" value="Volver" />
         </div>
-    </form>
+    </form>*@
 
     <p>
         <input oninput="w3.filterHTML('#id01', '.item', this.value)" placeholder="Busqueda multi-columna...">
@@ -43,7 +44,7 @@
         <table class="table-responsive table table-striped table-bordered table-sm" id="id01">
             <thead>
                 <tr>
-                    <th>
+                    <th hidden>
                         @Html.DisplayNameFor(model => model.Id)
                     </th>
                     <th>
@@ -59,7 +60,7 @@
                 @foreach (var item in Model)
         {
             <tr class="item">
-                <td>
+                <td hidden>
                     @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>

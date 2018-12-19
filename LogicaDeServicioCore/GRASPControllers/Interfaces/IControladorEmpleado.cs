@@ -9,7 +9,7 @@ namespace LogicaDeServicioCore
 {
     public interface IControladorEmpleado
     {
-        Geolocalizacion ConsultarLocalizacion(int numReferencia, int rut);
+        Geolocalizacion ConsultarLocalizacion(int numReferencia, long rut);
 
         bool ExisteEmpleado(int ci);
 

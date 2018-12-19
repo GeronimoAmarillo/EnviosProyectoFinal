@@ -68,7 +68,7 @@ namespace EmpleadosApp.Droid
 
                 Bundle extras = Intent.Extras;
                 idRack = Convert.ToInt32(extras.Get("RackSeleccionado"));
-                rutCliente = Convert.ToInt32(extras.Get("ClienteSeleccionado"));
+                rutCliente = Convert.ToInt64(extras.Get("ClienteSeleccionado"));
 
                 SetupViews();
                 SetupEvents();

@@ -21,7 +21,7 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public Geolocalizacion ConsultarLocalizacion(int numReferencia, int rut)
+        public Geolocalizacion ConsultarLocalizacion(int numReferencia, long rut)
         {
             try
             {

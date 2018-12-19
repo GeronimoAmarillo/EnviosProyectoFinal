@@ -30,7 +30,7 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public static Paquete BuscarPaqueteIndividual(int numReferencia, int cliente)
+        public static Paquete BuscarPaqueteIndividual(int numReferencia, long cliente)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace LogicaDeServicioCore
             return paquete;
         }
 
-        public static List<Paquete> ListarPaquetesEnviadosXcliente(int rut)
+        public static List<Paquete> ListarPaquetesEnviadosXcliente(long rut)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public static List<Paquete> ListarPaquetesRecibidosXcliente(int rut)
+        public static List<Paquete> ListarPaquetesRecibidosXcliente(long rut)
         {
             try
             {

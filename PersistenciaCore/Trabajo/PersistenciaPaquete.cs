@@ -64,7 +64,7 @@ namespace PersistenciaCore
             }
         }
 
-        public EntidadesCompartidasCore.Paquete BuscarPaqueteIndividual(int numReferencia, int cliente)
+        public EntidadesCompartidasCore.Paquete BuscarPaqueteIndividual(int numReferencia, long cliente)
         {
             try
             {
@@ -113,7 +113,7 @@ namespace PersistenciaCore
             }
         }
 
-        public List<EntidadesCompartidasCore.Paquete> ListarPaquetesEnviadosXCliente(int rut)
+        public List<EntidadesCompartidasCore.Paquete> ListarPaquetesEnviadosXCliente(long rut)
         {
             try
             {
@@ -164,7 +164,7 @@ namespace PersistenciaCore
             }
         }
 
-        public List<EntidadesCompartidasCore.Paquete> ListarPaquetesRecibidosXCliente(int rut)
+        public List<EntidadesCompartidasCore.Paquete> ListarPaquetesRecibidosXCliente(long rut)
         {
             try
             {

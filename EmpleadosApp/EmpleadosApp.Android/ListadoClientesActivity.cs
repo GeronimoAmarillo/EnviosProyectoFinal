@@ -122,7 +122,7 @@ namespace EmpleadosApp.Droid
         private void lvClientes_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             var intent = new Intent(this, typeof(AltaPalletActivity));
-            var id = (int)e.Id;
+            var id = Convert.ToInt64(e.Id);
             intent.PutExtra("RackSeleccionado", idRack);
             intent.PutExtra("ClienteSeleccionado", id);
             StartActivity(intent);

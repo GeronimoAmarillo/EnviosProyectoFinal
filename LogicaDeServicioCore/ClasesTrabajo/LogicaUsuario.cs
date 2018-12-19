@@ -137,7 +137,7 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public static Geolocalizacion ConsultarLocalizacion(int numReferencia, int rut)
+        public static Geolocalizacion ConsultarLocalizacion(int numReferencia, long rut)
         {
             try
             {
@@ -440,7 +440,7 @@ namespace LogicaDeServicioCore
             }
         }
 
-        public static EntidadesCompartidasCore.Cliente BuscarCliente(int rut)
+        public static EntidadesCompartidasCore.Cliente BuscarCliente(long rut)
         {
             Cliente cliente;
 

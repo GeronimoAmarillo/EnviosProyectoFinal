@@ -13,14 +13,14 @@ namespace PersistenciaCore
 
         EntidadesCompartidasCore.Paquete BuscarPaquete(int numReferencia);
 
-        EntidadesCompartidasCore.Paquete BuscarPaqueteIndividual(int numReferencia, int cliente);
+        EntidadesCompartidasCore.Paquete BuscarPaqueteIndividual(int numReferencia, long cliente);
 
-        List<EntidadesCompartidasCore.Paquete> ListarPaquetesEnviadosXCliente(int rut);
+        List<EntidadesCompartidasCore.Paquete> ListarPaquetesEnviadosXCliente(long rut);
 
 
         bool RealizarReclamo(EntidadesCompartidasCore.Reclamo reclamo);
 
-        List<EntidadesCompartidasCore.Paquete> ListarPaquetesRecibidosXCliente(int rut);
+        List<EntidadesCompartidasCore.Paquete> ListarPaquetesRecibidosXCliente(long rut);
 
         List<EntidadesCompartidasCore.Reclamo> ListarReclamos();
     }

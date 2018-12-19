@@ -124,7 +124,7 @@ namespace EmpleadosApp.Droid
         private void lvClientes_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             var intent = new Intent(this, typeof(AsignarPaqueteActivity));
-            var id = (int)e.Id;
+            var id = Convert.ToInt64(e.Id);
 
             entrega.ClienteReceptor = id;
 

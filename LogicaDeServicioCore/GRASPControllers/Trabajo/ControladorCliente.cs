@@ -9,7 +9,7 @@ namespace LogicaDeServicioCore
 {
     class ControladorCliente:IControladorCliente
     {
-        public bool ExisteCliente(int rut)
+        public bool ExisteCliente(long rut)
         {
             return true;
         }
@@ -41,7 +41,7 @@ namespace LogicaDeServicioCore
         }
 
 
-        public EntidadesCompartidasCore.Cliente BuscarCliente(int rut)
+        public EntidadesCompartidasCore.Cliente BuscarCliente(long rut)
         {
             Cliente cliente;
 

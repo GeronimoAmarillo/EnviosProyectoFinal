@@ -195,7 +195,7 @@ namespace AdministradoresApp.Controllers
             }
         }
 
-        public async Task<IActionResult> Modificar(int rut)
+        public async Task<IActionResult> Modificar(long rut)
         {
             try
             {

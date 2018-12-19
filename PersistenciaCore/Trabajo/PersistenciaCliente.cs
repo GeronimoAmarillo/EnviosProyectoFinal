@@ -35,7 +35,7 @@ namespace PersistenciaCore
         //    });
         //}
 
-        public Cliente BuscarCliente(int rut)
+        public Cliente BuscarCliente(long rut)
         {
             try
             {
