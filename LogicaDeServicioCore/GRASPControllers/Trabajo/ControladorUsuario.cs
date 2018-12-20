@@ -168,7 +168,14 @@ namespace LogicaDeServicioCore
 
         public bool ModificarContrasenia(EntidadesCompartidasCore.Usuario unUsuario)
         {
-            return LogicaUsuario.ModificarContrasenia(unUsuario);
+            try
+            {
+                return LogicaUsuario.ModificarContrasenia(unUsuario);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
