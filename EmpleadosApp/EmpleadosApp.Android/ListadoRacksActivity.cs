@@ -17,13 +17,14 @@ using Newtonsoft.Json;
 
 namespace EmpleadosApp.Droid
 {
-    [Activity(Label = "ListadoRacksActivity")]
+    [Activity(Label = "Lista de Racks")]
     public class ListadoRacksActivity : Activity
     {
         private List<Rack> racks;
         private ListView lvRacks;
         private int idSector;
-        
+        private Galpon galpon;
+
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
@@ -63,6 +64,7 @@ namespace EmpleadosApp.Droid
 
             Bundle extras = Intent.Extras;
             idSector = Convert.ToInt32(extras.Get("SectorSeleccionado"));
+            galpon = JsonConvert.DeserializeObject<Galpon>(extras.GetString("Galpon"));
 
             racks = new List<Rack>();
             
@@ -70,14 +72,8 @@ namespace EmpleadosApp.Droid
             {
                 if (!racks.Any())
                 {
-                    try
-                    {
-                        racks = AsyncHelper.RunSync<List<Rack>>(() => ObtenerRacks());
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new Exception("Se produjo un error al intentar listar los racks.");
-                    }
+                    Sector sector = galpon.Sectores.Where(x => x.Codigo == idSector).FirstOrDefault();
+                    racks = sector.Racks;
                 }
 
                 SetupViews();

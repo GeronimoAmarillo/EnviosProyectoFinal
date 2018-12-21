@@ -18,7 +18,7 @@ using ModernHttpClient;
 
 namespace EmpleadosApp.Droid
 {
-    [Activity(Label = "Login", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "EnviosService", Icon = "@drawable/LogoNuevoColor", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : Activity
     {
 
@@ -26,6 +26,7 @@ namespace EmpleadosApp.Droid
         //{
         //    return true;
         //}
+
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);

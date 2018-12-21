@@ -16,7 +16,7 @@ using Newtonsoft.Json;
 
 namespace EmpleadosApp.Droid
 {
-    [Activity(Label = "ListadoLocalesActivity")]
+    [Activity(Label = "Lista de Locales")]
     public class ListadoLocalesActivity : Activity
     {
         private List<Local> locales;

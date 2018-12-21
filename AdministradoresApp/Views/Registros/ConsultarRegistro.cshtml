@@ -46,6 +46,10 @@
     <h4>Registro</h4>
     <hr />
 
+    <div>
+        <a asp-action="Index">Volver</a>
+    </div>
+
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Fecha)
@@ -54,29 +58,29 @@
             @Html.DisplayFor(model => model.Fecha)
         </dd>
         @*<dt>
-            @Html.DisplayNameFor(model => model.UtilidadBruta)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UtilidadBruta)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UtilidadOperacional)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UtilidadOperacional)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UtilidadSinImpuestos)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UtilidadSinImpuestos)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UtilidadEjercicio)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UtilidadEjercicio)
-        </dd>*@
+                @Html.DisplayNameFor(model => model.UtilidadBruta)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.UtilidadBruta)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.UtilidadOperacional)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.UtilidadOperacional)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.UtilidadSinImpuestos)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.UtilidadSinImpuestos)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.UtilidadEjercicio)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.UtilidadEjercicio)
+            </dd>*@
     </dl>
 
     <canvas id="popChart" style="max-height:500px; max-width:500px"></canvas>

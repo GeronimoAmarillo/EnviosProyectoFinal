@@ -17,7 +17,7 @@ using Newtonsoft.Json;
 
 namespace EmpleadosApp.Droid
 {
-    [Activity(Label = "ListarEntregasActivity")]
+    [Activity(Label = "Lista de Entregas")]
     public class ListarEntregasActivity : Activity
     {
 
@@ -27,7 +27,7 @@ namespace EmpleadosApp.Droid
         
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            MenuInflater.Inflate(Resource.Menu.top_menus, menu);
+            MenuInflater.Inflate(Resource.Menu.Menu_Entregas, menu);
             return base.OnCreateOptionsMenu(menu);
         }
 
@@ -39,6 +39,12 @@ namespace EmpleadosApp.Droid
             if (item.TitleFormatted.ToString().ToLower() == "inicio")
             {
                 Intent intent = new Intent(this, typeof(InicioActivity));
+
+                StartActivity(intent);
+            }
+            else if (item.TitleFormatted.ToString().ToLower() == "refresh")
+            {
+                Intent intent = new Intent(this, typeof(ListarEntregasActivity));
 
                 StartActivity(intent);
             }

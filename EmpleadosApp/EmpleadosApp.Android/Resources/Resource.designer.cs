@@ -2193,26 +2193,26 @@ namespace EmpleadosApp.Droid
 			// aapt resource value: 0x7f020053
 			public const int avd_hide_password = 2130837587;
 			
-			// aapt resource value: 0x7f020110
-			public const int avd_hide_password_1 = 2130837776;
-			
 			// aapt resource value: 0x7f020111
-			public const int avd_hide_password_2 = 2130837777;
+			public const int avd_hide_password_1 = 2130837777;
 			
 			// aapt resource value: 0x7f020112
-			public const int avd_hide_password_3 = 2130837778;
+			public const int avd_hide_password_2 = 2130837778;
+			
+			// aapt resource value: 0x7f020113
+			public const int avd_hide_password_3 = 2130837779;
 			
 			// aapt resource value: 0x7f020054
 			public const int avd_show_password = 2130837588;
 			
-			// aapt resource value: 0x7f020113
-			public const int avd_show_password_1 = 2130837779;
-			
 			// aapt resource value: 0x7f020114
-			public const int avd_show_password_2 = 2130837780;
+			public const int avd_show_password_1 = 2130837780;
 			
 			// aapt resource value: 0x7f020115
-			public const int avd_show_password_3 = 2130837781;
+			public const int avd_show_password_2 = 2130837781;
+			
+			// aapt resource value: 0x7f020116
+			public const int avd_show_password_3 = 2130837782;
 			
 			// aapt resource value: 0x7f020055
 			public const int design_bottom_navigation_item_background = 2130837589;
@@ -2760,11 +2760,11 @@ namespace EmpleadosApp.Droid
 			// aapt resource value: 0x7f02010a
 			public const int notification_icon_background = 2130837770;
 			
-			// aapt resource value: 0x7f02010e
-			public const int notification_template_icon_bg = 2130837774;
-			
 			// aapt resource value: 0x7f02010f
-			public const int notification_template_icon_low_bg = 2130837775;
+			public const int notification_template_icon_bg = 2130837775;
+			
+			// aapt resource value: 0x7f020110
+			public const int notification_template_icon_low_bg = 2130837776;
 			
 			// aapt resource value: 0x7f02010b
 			public const int notification_tile_bg = 2130837771;
@@ -2773,7 +2773,10 @@ namespace EmpleadosApp.Droid
 			public const int notify_panel_notification_icon_bg = 2130837772;
 			
 			// aapt resource value: 0x7f02010d
-			public const int xamarin_logo = 2130837773;
+			public const int Refresh = 2130837773;
+			
+			// aapt resource value: 0x7f02010e
+			public const int xamarin_logo = 2130837774;
 			
 			static Drawable()
 			{
@@ -3139,11 +3142,14 @@ namespace EmpleadosApp.Droid
 			// aapt resource value: 0x7f0800f7
 			public const int media_actions = 2131230967;
 			
-			// aapt resource value: 0x7f08011b
-			public const int menu_inicio = 2131231003;
-			
 			// aapt resource value: 0x7f08011c
-			public const int menu_logout = 2131231004;
+			public const int menu_inicio = 2131231004;
+			
+			// aapt resource value: 0x7f08011d
+			public const int menu_logout = 2131231005;
+			
+			// aapt resource value: 0x7f08011b
+			public const int menu_refresh = 2131231003;
 			
 			// aapt resource value: 0x7f080022
 			public const int middle = 2131230754;
@@ -4035,7 +4041,10 @@ namespace EmpleadosApp.Droid
 		{
 			
 			// aapt resource value: 0x7f0e0000
-			public const int top_menus = 2131623936;
+			public const int Menu_Entregas = 2131623936;
+			
+			// aapt resource value: 0x7f0e0001
+			public const int top_menus = 2131623937;
 			
 			static Menu()
 			{

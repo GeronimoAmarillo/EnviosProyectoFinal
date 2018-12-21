@@ -88,6 +88,7 @@ namespace EmpleadosApp.Droid
 
                     usuarioLogueado = Newtonsoft.Json.JsonConvert.DeserializeObject<Usuario>(usuarioL);
 
+
                     SetupViews();
                     SetupEvents();
 

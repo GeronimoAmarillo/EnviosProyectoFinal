@@ -17,7 +17,7 @@ using Newtonsoft.Json;
 
 namespace EmpleadosApp.Droid
 {
-    [Activity(Label = "BajaPaletActivity")]
+    [Activity(Label = "Salida de pallet")]
     public class BajaPaletActivity : Activity
     {
         private int id;

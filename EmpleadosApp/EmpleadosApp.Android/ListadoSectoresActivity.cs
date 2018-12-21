@@ -17,10 +17,10 @@ using Newtonsoft.Json;
 
 namespace EmpleadosApp.Droid
 {
-    [Activity(Label = "ListadoSectoresActivity")]
+    [Activity(Label = "Lista de Sectores")]
     public class ListadoSectoresActivity : Activity
     {
-        private List<Sector> sectores;
+        private Galpon galpon;
         private ListView lvSectores;
         
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -59,16 +59,15 @@ namespace EmpleadosApp.Droid
 
             SetContentView(Resource.Layout.ListadoSectoresActivity);
 
-            sectores = new List<Sector>();
+            galpon = new Galpon();
 
             try
             {
-                if (!sectores.Any())
+                if (galpon != null)
                 {
                     try
                     {
-
-                        sectores = AsyncHelper.RunSync<List<Sector>>(() => BuscarGalpon());
+                        galpon = AsyncHelper.RunSync<Galpon>(() => BuscarGalpon());
                     }
                     catch (Exception ex)
                     {
@@ -80,7 +79,7 @@ namespace EmpleadosApp.Droid
 
                 SetupEvents();
 
-                lvSectores.Adapter = new Adaptadores.AdaptadorSectores(this, sectores);
+                lvSectores.Adapter = new Adaptadores.AdaptadorSectores(this, galpon.Sectores);
             }
             catch (Exception ex)
             {
@@ -97,7 +96,11 @@ namespace EmpleadosApp.Droid
         {
             var intent = new Intent(this, typeof(ListadoRacksActivity));
             var id = (int)e.Id;
+
+            string galponJson = JsonConvert.SerializeObject(galpon);
+
             intent.PutExtra("SectorSeleccionado", id);
+            intent.PutExtra("Galpon", galponJson);
             StartActivity(intent);
         }
 
@@ -106,7 +109,7 @@ namespace EmpleadosApp.Droid
             lvSectores = FindViewById<ListView>(Resource.Id.lvSectores);
         }
 
-        public async System.Threading.Tasks.Task<List<Sector>> BuscarGalpon()
+        public async System.Threading.Tasks.Task<Galpon> BuscarGalpon()
         {
             try
             {
@@ -120,9 +123,7 @@ namespace EmpleadosApp.Droid
 
                     galpon = JsonConvert.DeserializeObject<Galpon>(json);
 
-                    sectores = galpon.Sectores;
-
-                    return sectores;
+                    return galpon;
                 }
                 
 

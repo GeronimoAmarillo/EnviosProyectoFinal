@@ -16,7 +16,7 @@ using Newtonsoft.Json;
 
 namespace EmpleadosApp.Droid
 {
-    [Activity(Label = "ListadoPaletsActivity")]
+    [Activity(Label = "Lista de Palets")]
     public class ListadoPaletsActivity : Activity
     {
         private List<Palet> palets;

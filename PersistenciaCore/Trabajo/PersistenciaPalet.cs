@@ -272,6 +272,87 @@ namespace PersistenciaCore
         }
 
 
+        //public EntidadesCompartidasCore.Galpon BuscarGalpon(int id)
+        //{
+        //    try
+        //    {
+        //        Galpon galponR = null;
+
+        //        Galpones galponEncontrado = null;
+
+        //        var optionsBuilder = new DbContextOptionsBuilder<EnviosContext>();
+
+        //        optionsBuilder.UseSqlServer(Conexion.ConnectionString);
+
+        //        using (var dbConnection = new EnviosContext(optionsBuilder.Options))
+        //        {
+        //            var galpon = dbConnection.Galpones.Where(g => g.Id == id).Select(c => new {
+        //                Galpon = c,
+        //                Sectores = c.Sectores
+        //            }).FirstOrDefault();
+
+
+        //            foreach (var se in galpon.Sectores)
+        //            {
+        //                var racksSector = dbConnection.Sectores.Where(s => s.Codigo == se.Codigo).Select(r => new
+        //                {
+        //                    ListaRacks = r.Racks
+
+        //                }).FirstOrDefault();
+
+        //                foreach (var r in racksSector.ListaRacks)
+        //                {
+        //                    se.Racks.Add(r);
+        //                }
+
+        //                foreach (var ra in se.Racks)
+        //                {
+        //                    var casillasRack = dbConnection.Racks.Where(r => r.Codigo == ra.Codigo).Select(t => new
+        //                    {
+        //                        Casillas = t.Casillas
+        //                    }).FirstOrDefault();
+
+        //                    foreach (var c in casillasRack.Casillas)
+        //                    {
+        //                        ra.Casillas.Add(c);
+        //                    }
+
+        //                    foreach (var ca in ra.Casillas)
+        //                    {
+        //                        var paletsCasilla = dbConnection.Casillas.Where(r => r.Codigo == ca.Codigo).Select(t => new
+        //                        {
+        //                            Palets = t.Palets
+        //                        }).FirstOrDefault();
+
+        //                        foreach (var p in paletsCasilla.Palets)
+        //                        {
+        //                            ca.Palets.Add(p);
+        //                        }
+        //                    }
+        //                }
+
+        //            }
+
+        //            if (galpon != null && galpon.Galpon is Galpones)
+        //            {
+        //                galponR = new Galpon();
+
+        //                galponR.Id = galpon.Galpon.Id;
+        //                galponR.Altura = galpon.Galpon.Altura;
+        //                galponR.Superficie = galpon.Galpon.Superficie;
+        //                galponR.Sectores = convertirSectores(galpon.Galpon.Sectores.ToList());
+
+        //            }
+        //        }
+
+        //        return galponR;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("Error al mapear el galpon." + ex.Message);
+        //    }
+        //}
+
         public EntidadesCompartidasCore.Galpon BuscarGalpon(int id)
         {
             try
@@ -286,61 +367,17 @@ namespace PersistenciaCore
 
                 using (var dbConnection = new EnviosContext(optionsBuilder.Options))
                 {
-                    var galpon = dbConnection.Galpones.Where(g => g.Id == id).Select(c => new {
-                        Galpon = c,
-                        Sectores = c.Sectores
-                    }).FirstOrDefault();
+                    var galpon = dbConnection.Galpones.Include("Sectores.Racks.Casillas.Palets").Where(g => g.Id == id).FirstOrDefault();
+                    
 
-
-                    foreach (var se in galpon.Sectores)
-                    {
-                        var racksSector = dbConnection.Sectores.Where(s => s.Codigo == se.Codigo).Select(r => new
-                        {
-                            ListaRacks = r.Racks
-
-                        }).FirstOrDefault();
-
-                        foreach (var r in racksSector.ListaRacks)
-                        {
-                            se.Racks.Add(r);
-                        }
-
-                        foreach (var ra in se.Racks)
-                        {
-                            var casillasRack = dbConnection.Racks.Where(r => r.Codigo == ra.Codigo).Select(t => new
-                            {
-                                Casillas = t.Casillas
-                            }).FirstOrDefault();
-
-                            foreach (var c in casillasRack.Casillas)
-                            {
-                                ra.Casillas.Add(c);
-                            }
-
-                            foreach (var ca in ra.Casillas)
-                            {
-                                var paletsCasilla = dbConnection.Casillas.Where(r => r.Codigo == ca.Codigo).Select(t => new
-                                {
-                                    Palets = t.Palets
-                                }).FirstOrDefault();
-
-                                foreach (var p in paletsCasilla.Palets)
-                                {
-                                    ca.Palets.Add(p);
-                                }
-                            }
-                        }
-
-                    }
-
-                    if (galpon != null && galpon.Galpon is Galpones)
+                    if (galpon != null && galpon is Galpones)
                     {
                         galponR = new Galpon();
 
-                        galponR.Id = galpon.Galpon.Id;
-                        galponR.Altura = galpon.Galpon.Altura;
-                        galponR.Superficie = galpon.Galpon.Superficie;
-                        galponR.Sectores = convertirSectores(galpon.Galpon.Sectores.ToList());
+                        galponR.Id = galpon.Id;
+                        galponR.Altura = galpon.Altura;
+                        galponR.Superficie = galpon.Superficie;
+                        galponR.Sectores = convertirSectores(galpon.Sectores.ToList());
 
                     }
                 }

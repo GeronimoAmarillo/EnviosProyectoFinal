@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
   <item
+       android:id="@+id/menu_refresh"
+       android:showAsAction="ifRoom"
+       android:icon="@drawable/Refresh"
+       android:title="Refresh" />
+  <item
        android:id="@+id/menu_inicio"
        android:showAsAction="ifRoom"
        android:title="Inicio" />

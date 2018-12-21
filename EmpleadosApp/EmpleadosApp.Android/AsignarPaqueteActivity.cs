@@ -15,7 +15,7 @@ using Newtonsoft.Json;
 
 namespace EmpleadosApp.Droid
 {
-    [Activity(Label = "AsignarPaqueteActivity")]
+    [Activity(Label = "Asignar Paquete")]
     public class AsignarPaqueteActivity : Activity
     {
         private EditText etNumReferencia;

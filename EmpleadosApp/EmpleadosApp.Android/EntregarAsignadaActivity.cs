@@ -15,7 +15,7 @@ using Newtonsoft.Json;
 
 namespace EmpleadosApp.Droid
 {
-    [Activity(Label = "EntregarAsignadaActivity")]
+    [Activity(Label = "Entregar")]
     public class EntregarAsignadaActivity : Activity
     {
 
